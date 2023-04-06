@@ -2,9 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import models as auth
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 
-from apps.core.models import *
-
-from .models import *
+from .models import User, Group
 
 # Unregister default Group model from auth page
 admin.site.unregister(auth.Group)

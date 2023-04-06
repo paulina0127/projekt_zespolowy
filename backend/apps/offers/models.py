@@ -1,63 +1,46 @@
-from django.contrib.postgres.fields import ArrayField as PostgresArrayField
 from django.db import models
-from django.forms import CheckboxSelectMultiple, MultipleChoiceField
 from django_better_admin_arrayfield.models.fields import ArrayField
 
-from apps.core.models import *
-from apps.profiles.models import *
-from apps.users.models import *
+from apps.core.models import Location, Skill, Category
+from apps.profiles.models import Company, Candidate, File
 
+from .choices import SkillType, PositionLevel, ContractType, WorkingMode, WorkingTime, ApplicationStatus, ApplicationType
+from .fields import ChoiceArrayField
 from .consts import *
 from .validators import *
 
-# Setup for multiple choice field stored as Array
-
-
-class MultipleChoiceField(MultipleChoiceField):
-    def __init__(self, *args, **kwargs):
-        kwargs.pop("base_field", None)
-        kwargs.pop("max_length", None)
-        super().__init__(*args, **kwargs)
-
-
-class ChoiceArrayField(PostgresArrayField):
-    def formfield(self, **kwargs):
-        return super().formfield(**{"form_class": MultipleChoiceField,
-                                    "choices": self.base_field.choices, 'widget': CheckboxSelectMultiple,
-                                    **kwargs})
-
 
 class Offer(models.Model):
-    position = models.CharField(verbose_name="Stanowisko", max_length=255)
+    position = models.CharField(verbose_name=POSITION, max_length=255)
     position_level = models.CharField(
-        verbose_name="Poziom stanowiska", max_length=50, choices=PositionLevel.choices)
-    location = models.OneToOneField(verbose_name="Lokalizacja",
+        verbose_name=POSITION_LEVEL, max_length=50, choices=PositionLevel.choices)
+    location = models.OneToOneField(verbose_name=LOCATION,
                                     to=Location, related_name='offers', on_delete=models.CASCADE)
-    category = models.ForeignKey(verbose_name="Kategoria",
+    category = models.ForeignKey(verbose_name=CATEGORY,
                                  to=Category, related_name='offers', on_delete=models.CASCADE)
     salary = models.CharField(
-        verbose_name="Wynagrodzenie", max_length=50, blank=True, null=True)
-    contract_type = ChoiceArrayField(verbose_name="Rodzaj umowy", base_field=models.CharField(
+        verbose_name=SALARY, max_length=50, blank=True, null=True)
+    contract_type = ChoiceArrayField(verbose_name=CONTRACT_TYPE, base_field=models.CharField(
         max_length=50, choices=ContractType.choices))
     working_mode = ChoiceArrayField(
-        verbose_name="Tryb pracy", base_field=models.CharField(choices=WorkingMode.choices, max_length=255))
+        verbose_name=WORKING_MODE, base_field=models.CharField(choices=WorkingMode.choices, max_length=255))
     working_time = ChoiceArrayField(
-        verbose_name="Wymiar pracy", base_field=models.CharField(choices=WorkingTime.choices, max_length=255))
-    duties = ArrayField(models.TextField(), verbose_name="Obowiązki")
+        verbose_name=WORKING_TIME, base_field=models.CharField(choices=WorkingTime.choices, max_length=255))
+    duties = ArrayField(models.TextField(), verbose_name=DUTIES)
     advantages = ArrayField(
-        models.TextField(), verbose_name="Zalety", blank=True, null=True)
+        models.TextField(), verbose_name=ADVANTAGES, blank=True, null=True)
     created_date = models.DateTimeField(
-        verbose_name="Data utworzenia", auto_now_add=True)
-    expiration_date = models.DateTimeField(verbose_name="Data wygaśnięcia")
+        verbose_name=CREATED_DATE, auto_now_add=True)
+    expiration_date = models.DateTimeField(verbose_name=EXPIRATION_DATE)
 
-    company = models.ForeignKey(verbose_name="Pracodawca",
+    company = models.ForeignKey(verbose_name=COMPANY,
                                 to=Company, related_name='offers', on_delete=models.CASCADE)
-    is_active = models.BooleanField(verbose_name="Aktualna")
-    is_verified = models.BooleanField(verbose_name="Zweryfikowana")
+    is_active = models.BooleanField(verbose_name=IS_ACTIVE)
+    is_verified = models.BooleanField(verbose_name=IS_VERIFIED)
 
     class Meta:
-        verbose_name = 'Oferta'
-        verbose_name_plural = 'Oferty'
+        verbose_name = OFFER
+        verbose_name_plural = OFFERS
 
     def __str__(self) -> str:
         return self.company.name + " " + self.position
@@ -70,19 +53,19 @@ class Offer(models.Model):
 
 
 class Requirement(models.Model):
-    type = models.CharField(verbose_name="Rodzaj",
+    type = models.CharField(verbose_name=TYPE,
                             max_length=50, choices=SkillType.choices, blank=True)
-    name = models.CharField(verbose_name="Nazwa", max_length=100, blank=True)
-    level = models.CharField(verbose_name="Poziom",
+    name = models.CharField(verbose_name=NAME, max_length=100, blank=True)
+    level = models.CharField(verbose_name=LEVEL,
                              max_length=50, blank=True, null=True)
-    offer = models.ForeignKey(verbose_name="Oferta",
+    offer = models.ForeignKey(verbose_name=OFFER,
                               to=Offer, on_delete=models.CASCADE, related_name='requirements')
-    skill = models.ForeignKey(verbose_name="Umiejętność",
+    skill = models.ForeignKey(verbose_name=SKILL,
                               to=Skill, related_name='requirements', on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
-        verbose_name = 'Wymaganie'
-        verbose_name_plural = 'Wymagania'
+        verbose_name = REQUIREMENT
+        verbose_name_plural = REQUIREMENTS
 
     def __str__(self) -> str:
         if self.level:
@@ -100,22 +83,22 @@ class Requirement(models.Model):
 
 class Application(models.Model):
     date = models.DateTimeField(
-        auto_now_add=True, verbose_name="Data złożenia", blank=True)
-    status = models.CharField(verbose_name="Status",
+        auto_now_add=True, verbose_name=DATE, blank=True)
+    status = models.CharField(verbose_name=APPLICATION_STATUS,
                               max_length=50, choices=ApplicationStatus.choices, blank=True)
     type = models.CharField(
-        verbose_name="Typ", max_length=50, choices=ApplicationType.choices)
+        verbose_name=APPLICATION_TYPE, max_length=50, choices=ApplicationType.choices)
     mark = models.IntegerField(
-        verbose_name="Ocena kompetencji", blank=True, null=True)
-    notes = models.TextField(verbose_name="Notatki", blank=True, null=True)
-    candidate = models.ForeignKey(verbose_name="Kandydat",
+        verbose_name=MARK, blank=True, null=True)
+    notes = models.TextField(verbose_name=NOTES, blank=True, null=True)
+    candidate = models.ForeignKey(verbose_name=CANDIATE,
                                   to=Candidate, related_name='applications', on_delete=models.CASCADE)
-    offer = models.ForeignKey(verbose_name="Oferta",
+    offer = models.ForeignKey(verbose_name=OFFER,
                               to=Offer, related_name='applications', on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'Aplikacja'
-        verbose_name_plural = 'Aplikacje'
+        verbose_name = APPLICATION
+        verbose_name_plural = APPLICATIONS
 
     # Set status to submitted at create
     def save(self, *args, **kwargs):
@@ -128,14 +111,14 @@ class Application(models.Model):
 
 
 class Attachment(models.Model):
-    application = models.ForeignKey(verbose_name="Aplikacja",
+    application = models.ForeignKey(verbose_name=APPLICATION,
                                     to=Application, related_name='attachments', on_delete=models.CASCADE)
-    file = models.ForeignKey(verbose_name="Plik",
+    file = models.ForeignKey(verbose_name=FILE,
                              to=File, related_name='attachments', on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'Załącznik'
-        verbose_name_plural = 'Załączniki'
+        verbose_name = ATTACHMENT
+        verbose_name_plural = ATTACHMENTS
 
     def __str__(self) -> str:
         return "Id: " + str(self.id)

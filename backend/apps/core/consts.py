@@ -1,9 +1,19 @@
-from django.db import models
+# Location
+LOCATION = "Lokalizacja"
+LOCATIONS = "Lokalizacje"
+STREET_ADDRESS = "Ulica"
+POSTAL_CODE = "Kod pocztowy"
+CITY = "Miejscowość"
 
 
-class SkillType(models.TextChoices):
-    LANGUAGE = "Język", "Język"
-    SOFT_SKILL = "Umiejętność miękka", "Umiejętność miękka"
-    HARD_SKILL = "Umiejętność twarda", "Umiejętność twarda"
-    OTHER = "Inny", "Inny"
+# Skill
+SKILL = "Umiejętność"
+SKILLS = "Umiejętności"
+CATEGORY_TYPE = "Rodzaj"
+SKILL_NAME = "Nazwa"
 
+# Category
+CATEGORY = "Kategoria"
+CATEGORIES = "Kategorie"
+CATEGORY_NAME = "Nazwa"
+CATEGORY_PARENT = "Kategoria główna"
