@@ -1,38 +1,29 @@
 from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
-from .managers import UserManager
-from .consts import *
+from .utils.managers import UserManager
+from .utils.choices import UserType
 
 
 class User(AbstractUser):
     username = None
-    email = models.EmailField(max_length=255, unique=True)
-    name = models.CharField(max_length=255, default='Nowy użytkownik')
-    is_active = models.BooleanField(default=True)
-    
+    email = models.EmailField(unique=True)
+    type = models.CharField(verbose_name=_("Rodzaj"), max_length=50, choices=UserType.choices)
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name']
-
-    def get_full_name(self):
-        return self.name
-    
-    def get_short_name(self):
-        return self.name
-    
-    def __str__(self):
-        return self.email
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["type"]
 
     class Meta:
-        db_table = 'auth_user'
-        verbose_name = USER
-        verbose_name_plural = USERS
+        db_table = "auth_user"
+        verbose_name = _("Użytkownik")
+        verbose_name_plural = _("Użytkownicy")
 
 
 class Group(Group):  # Proxy model to display the default Group model in users page
+
     class Meta:
         proxy = True
-        verbose_name = GROUP
-        verbose_name_plural = GROUPS
+        verbose_name = _("Grupa")
+        verbose_name_plural = _("Grupy")

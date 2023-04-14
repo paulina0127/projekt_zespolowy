@@ -1,0 +1,98 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-11 21:06+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\apps\core\apps.py:8
+msgid "Katalog"
+msgstr "Catalog"
+
+# MODEL FIELDS
+#: .\apps\core\models.py:7
+msgid "Ulica"
+msgstr "Street address"
+
+#: .\apps\core\models.py:8
+msgid "Kod pocztowy"
+msgstr "Postal code"
+
+#: .\apps\core\models.py:9
+msgid "Miejscowość"
+msgstr "City"
+
+#: .\apps\core\models.py:12
+msgid "Lokalizacja"
+msgstr "Location"
+
+#: .\apps\core\models.py:13
+msgid "Lokalizacje"
+msgstr "Locations"
+
+#: .\apps\core\models.py:20
+msgid "Rodzaj"
+msgstr "Type"
+
+#: .\apps\core\models.py:21 .\apps\core\models.py:32
+msgid "Nazwa"
+msgstr "Name"
+
+#: .\apps\core\models.py:24
+msgid "Umiejętność"
+msgstr "Skill"
+
+#: .\apps\core\models.py:25
+msgid "Umiejętności"
+msgstr "Skills"
+
+#: .\apps\core\models.py:34
+msgid "Kategoria główna"
+msgstr "Main category"
+
+#: .\apps\core\models.py:43
+msgid "Kategoria"
+msgstr "Category"
+
+#: .\apps\core\models.py:44
+msgid "Kategorie"
+msgstr "Categories"
+
+# TEXT CHOICES
+#: .\apps\core\utils\choices.py:6
+msgid "Język"
+msgstr "Language"
+
+#: .\apps\core\utils\choices.py:7
+msgid "Umiejętność miękka"
+msgstr "Soft skill"
+
+#: .\apps\core\utils\choices.py:8
+msgid "Umiejętność twarda"
+msgstr "Hard skill"
+
+#: .\apps\core\utils\choices.py:9
+msgid "Inny"
+msgstr "Other"
+
+#  VALIDATION ERRORS
+#: .\apps\core\utils\validators.py:15
+msgid "Miejscowość powinna składać się tylko z liter."
+msgstr "City can only contain letters and spaces."
+
+#: .\apps\core\utils\validators.py:24
+msgid "Kategoria nie może być swoją kategorią główną."
+msgstr "Category cannot be its own main category."

@@ -1,46 +1,63 @@
-from django.db import models
-from django_better_admin_arrayfield.models.fields import ArrayField
+from django.utils.translation import gettext_lazy as _
 
-from apps.core.models import Location, Skill, Category
-from apps.profiles.models import Company, Candidate, File
-
-from .choices import SkillType, PositionLevel, ContractType, WorkingMode, WorkingTime, ApplicationStatus, ApplicationType
-from .fields import ChoiceArrayField
-from .consts import *
-from .validators import *
+from .imports import *
 
 
 class Offer(models.Model):
-    position = models.CharField(verbose_name=POSITION, max_length=255)
+    position = models.CharField(verbose_name=_("Stanowisko"), max_length=255)
     position_level = models.CharField(
-        verbose_name=POSITION_LEVEL, max_length=50, choices=PositionLevel.choices)
-    location = models.OneToOneField(verbose_name=LOCATION,
-                                    to=Location, related_name='offers', on_delete=models.CASCADE)
-    category = models.ForeignKey(verbose_name=CATEGORY,
-                                 to=Category, related_name='offers', on_delete=models.CASCADE)
+        verbose_name=_("Poziom stanowiska"),
+        max_length=50,
+        choices=PositionLevel.choices,
+    )
+    location = models.OneToOneField(
+        verbose_name=_("Lokalizacja"),
+        to=Location,
+        related_name="offer",
+        on_delete=models.CASCADE,
+    )
+    category = models.ForeignKey(
+        verbose_name=_("Kategoria"),
+        to=Category,
+        related_name="offers",
+        on_delete=models.CASCADE,
+    )
     salary = models.CharField(
-        verbose_name=SALARY, max_length=50, blank=True, null=True)
-    contract_type = ChoiceArrayField(verbose_name=CONTRACT_TYPE, base_field=models.CharField(
-        max_length=50, choices=ContractType.choices))
+        verbose_name=_("Wynagrodzenie"),
+        max_length=50,
+        blank=True,
+        null=True,
+        validators=[validate_salary],
+    )
+    contract_type = ChoiceArrayField(
+        verbose_name=_("Rodzaj umowy"),
+        base_field=models.CharField(max_length=50, choices=ContractType.choices),
+    )
     working_mode = ChoiceArrayField(
-        verbose_name=WORKING_MODE, base_field=models.CharField(choices=WorkingMode.choices, max_length=255))
+        verbose_name=_("Tryb pracy"),
+        base_field=models.CharField(choices=WorkingMode.choices, max_length=255),
+    )
     working_time = ChoiceArrayField(
-        verbose_name=WORKING_TIME, base_field=models.CharField(choices=WorkingTime.choices, max_length=255))
-    duties = ArrayField(models.TextField(), verbose_name=DUTIES)
-    advantages = ArrayField(
-        models.TextField(), verbose_name=ADVANTAGES, blank=True, null=True)
-    created_date = models.DateTimeField(
-        verbose_name=CREATED_DATE, auto_now_add=True)
-    expiration_date = models.DateTimeField(verbose_name=EXPIRATION_DATE)
+        verbose_name=_("Wymiar pracy"),
+        base_field=models.CharField(choices=WorkingTime.choices, max_length=255),
+    )
+    duties = ArrayField(models.TextField(), verbose_name=_("Obowiązki"))
+    advantages = ArrayField(models.TextField(), verbose_name=_("Zalety"), blank=True, null=True)
+    created_date = models.DateTimeField(verbose_name=_("Data utworzenia"), auto_now_add=True)
+    expiration_date = models.DateTimeField(verbose_name=_("Data wygaśnięcia"), validators=[validate_expiration_date])
 
-    company = models.ForeignKey(verbose_name=COMPANY,
-                                to=Company, related_name='offers', on_delete=models.CASCADE)
-    is_active = models.BooleanField(verbose_name=IS_ACTIVE)
-    is_verified = models.BooleanField(verbose_name=IS_VERIFIED)
+    company = models.ForeignKey(
+        verbose_name=_("Pracodawca"),
+        to=Company,
+        related_name="offers",
+        on_delete=models.CASCADE,
+    )
+    is_active = models.BooleanField(verbose_name=_("Aktualna"))
+    is_verified = models.BooleanField(verbose_name=_("Zweryfikowana"))
 
     class Meta:
-        verbose_name = OFFER
-        verbose_name_plural = OFFERS
+        verbose_name = _("Oferta")
+        verbose_name_plural = _("Oferty")
 
     def __str__(self) -> str:
         return self.company.name + " " + self.position
@@ -53,19 +70,27 @@ class Offer(models.Model):
 
 
 class Requirement(models.Model):
-    type = models.CharField(verbose_name=TYPE,
-                            max_length=50, choices=SkillType.choices, blank=True)
-    name = models.CharField(verbose_name=NAME, max_length=100, blank=True)
-    level = models.CharField(verbose_name=LEVEL,
-                             max_length=50, blank=True, null=True)
-    offer = models.ForeignKey(verbose_name=OFFER,
-                              to=Offer, on_delete=models.CASCADE, related_name='requirements')
-    skill = models.ForeignKey(verbose_name=SKILL,
-                              to=Skill, related_name='requirements', on_delete=models.CASCADE, blank=True, null=True)
+    type = models.CharField(verbose_name=_("Rodzaj"), max_length=50, choices=SkillType.choices)
+    name = models.CharField(verbose_name=_("Nazwa"), max_length=100, blank=True)
+    level = models.CharField(verbose_name=_("Poziom"), max_length=50, blank=True, null=True)
+    offer = models.ForeignKey(
+        verbose_name=_("Oferta"),
+        to=Offer,
+        on_delete=models.CASCADE,
+        related_name="requirements",
+    )
+    skill = models.ForeignKey(
+        verbose_name=_("Umiejętność"),
+        to=Skill,
+        related_name="requirements",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
 
     class Meta:
-        verbose_name = REQUIREMENT
-        verbose_name_plural = REQUIREMENTS
+        verbose_name = _("Wymaganie")
+        verbose_name_plural = _("Wymagania")
 
     def __str__(self) -> str:
         if self.level:
@@ -73,52 +98,83 @@ class Requirement(models.Model):
         else:
             return self.type + " " + self.name
 
-    # If skill is selected from catalog, fill in type and name
+    def clean(self):
+        validate_unique_requirement(self, Requirement)
+        validate_requirement_name(self)
+
     def save(self, *args, **kwargs):
+        # If skill is selected from catalog, fill in name
         if self.skill:
-            self.type = self.skill.type
             self.name = self.skill.name
         super(Requirement, self).save(*args, **kwargs)
 
 
 class Application(models.Model):
-    date = models.DateTimeField(
-        auto_now_add=True, verbose_name=DATE, blank=True)
-    status = models.CharField(verbose_name=APPLICATION_STATUS,
-                              max_length=50, choices=ApplicationStatus.choices, blank=True)
-    type = models.CharField(
-        verbose_name=APPLICATION_TYPE, max_length=50, choices=ApplicationType.choices)
+    date = models.DateTimeField(auto_now_add=True, verbose_name=_("Data utworzenia"), blank=True)
+    status = models.CharField(
+        verbose_name=_("Status"),
+        max_length=50,
+        choices=ApplicationStatus.choices,
+        blank=True,
+    )
+    type = models.CharField(verbose_name=_("Rodzaj"), max_length=50, choices=ApplicationType.choices)
     mark = models.IntegerField(
-        verbose_name=MARK, blank=True, null=True)
-    notes = models.TextField(verbose_name=NOTES, blank=True, null=True)
-    candidate = models.ForeignKey(verbose_name=CANDIATE,
-                                  to=Candidate, related_name='applications', on_delete=models.CASCADE)
-    offer = models.ForeignKey(verbose_name=OFFER,
-                              to=Offer, related_name='applications', on_delete=models.CASCADE)
+        verbose_name=_("Ocena kompetencji"),
+        blank=True,
+        null=True,
+        validators=[validate_mark_range],
+    )
+    notes = models.TextField(verbose_name=_("Notatki"), blank=True, null=True)
+    candidate = models.ForeignKey(
+        verbose_name=_("Kandydat"),
+        to=Candidate,
+        related_name="applications",
+        on_delete=models.CASCADE,
+    )
+    offer = models.ForeignKey(
+        verbose_name=_("Oferta"),
+        to=Offer,
+        related_name="applications",
+        on_delete=models.CASCADE,
+    )
 
     class Meta:
-        verbose_name = APPLICATION
-        verbose_name_plural = APPLICATIONS
+        verbose_name = _("Aplikacja")
+        verbose_name_plural = _("Aplikacje")
 
-    # Set status to submitted at create
+    def __str__(self) -> str:
+        return "Id: " + str(self.id)
+
+    def clean(self):
+        validate_unique_application(self, Application)
+
     def save(self, *args, **kwargs):
+        # Set status to submitted at create
         if not self.status:
             self.status = ApplicationStatus.SUBMTTED
         super(Application, self).save(*args, **kwargs)
 
-    def __str__(self) -> str:
-        return "Id: " + str(self.id)
-
 
 class Attachment(models.Model):
-    application = models.ForeignKey(verbose_name=APPLICATION,
-                                    to=Application, related_name='attachments', on_delete=models.CASCADE)
-    file = models.ForeignKey(verbose_name=FILE,
-                             to=File, related_name='attachments', on_delete=models.CASCADE)
+    application = models.ForeignKey(
+        verbose_name=_("Aplikacja"),
+        to=Application,
+        related_name="attachments",
+        on_delete=models.CASCADE,
+    )
+    file = models.ForeignKey(
+        verbose_name=_("Plik"),
+        to=File,
+        related_name="attachments",
+        on_delete=models.CASCADE,
+    )
 
     class Meta:
-        verbose_name = ATTACHMENT
-        verbose_name_plural = ATTACHMENTS
+        verbose_name = _("Załącznik")
+        verbose_name_plural = _("Załączniki")
 
     def __str__(self) -> str:
         return "Id: " + str(self.id)
+
+    def clean(self):
+        validate_unique_attachment(self, Attachment)

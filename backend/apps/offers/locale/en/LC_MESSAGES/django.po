@@ -1,0 +1,320 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-11 21:06+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: .\apps\offers\apps.py:8
+msgid "Oferty i aplikacje"
+msgstr "Offers and applications"
+
+# MODEL FIELDS
+#: .\apps\offers\models.py:7
+msgid "Stanowisko"
+msgstr "Position"
+
+#: .\apps\offers\models.py:9
+msgid "Poziom stanowiska"
+msgstr "Position level"
+
+#: .\apps\offers\models.py:14
+msgid "Lokalizacja"
+msgstr "Location"
+
+#: .\apps\offers\models.py:20
+msgid "Kategoria"
+msgstr "Category"
+
+#: .\apps\offers\models.py:26
+msgid "Wynagrodzenie"
+msgstr "Salary"
+
+#: .\apps\offers\models.py:33
+msgid "Rodzaj umowy"
+msgstr "Contract type"
+
+#: .\apps\offers\models.py:37
+msgid "Tryb pracy"
+msgstr "Working mode"
+
+#: .\apps\offers\models.py:41
+msgid "Wymiar pracy"
+msgstr "Working time"
+
+#: .\apps\offers\models.py:44
+msgid "Obowiązki"
+msgstr "Duties"
+
+#: .\apps\offers\models.py:45
+msgid "Zalety"
+msgstr "Advantages"
+
+#: .\apps\offers\models.py:46 .\apps\offers\models.py:113
+msgid "Data utworzenia"
+msgstr "Creation date"
+
+#: .\apps\offers\models.py:47
+msgid "Data wygaśnięcia"
+msgstr "Expiration date"
+
+#: .\apps\offers\models.py:50
+msgid "Pracodawca"
+msgstr "Company"
+
+#: .\apps\offers\models.py:55
+msgid "Aktualna"
+msgstr "Active"
+
+#: .\apps\offers\models.py:56
+msgid "Zweryfikowana"
+msgstr "Verified"
+
+#: .\apps\offers\models.py:59 .\apps\offers\models.py:77
+#: .\apps\offers\models.py:135
+msgid "Oferta"
+msgstr "Offer"
+
+#: .\apps\offers\models.py:60
+msgid "Oferty"
+msgstr "Offers"
+
+#: .\apps\offers\models.py:73 .\apps\offers\models.py:120
+msgid "Rodzaj"
+msgstr "Type"
+
+#: .\apps\offers\models.py:74
+msgid "Nazwa"
+msgstr "Name"
+
+#: .\apps\offers\models.py:75
+msgid "Poziom"
+msgstr "Level"
+
+#: .\apps\offers\models.py:83
+msgid "Umiejętność"
+msgstr "Skill"
+
+#: .\apps\offers\models.py:92
+msgid "Wymaganie"
+msgstr "Requirement"
+
+#: .\apps\offers\models.py:93
+msgid "Wymagania"
+msgstr "Requirements"
+
+#: .\apps\offers\models.py:115
+msgid "Status"
+msgstr "Status"
+
+#: .\apps\offers\models.py:122
+msgid "Ocena kompetencji"
+msgstr "Mark"
+
+#: .\apps\offers\models.py:127
+msgid "Notatki"
+msgstr "Notes"
+
+#: .\apps\offers\models.py:129
+msgid "Kandydat"
+msgstr "Candidate"
+
+#: .\apps\offers\models.py:142 .\apps\offers\models.py:160
+msgid "Aplikacja"
+msgstr "Application"
+
+#: .\apps\offers\models.py:143
+msgid "Aplikacje"
+msgstr "Applications"
+
+#: .\apps\offers\models.py:166
+msgid "Plik"
+msgstr "File"
+
+#: .\apps\offers\models.py:173
+msgid "Załącznik"
+msgstr "Attachment"
+
+#: .\apps\offers\models.py:174
+msgid "Załączniki"
+msgstr "Attachments"
+
+# TEXT CHOICES
+#: .\apps\offers\utils\choices.py:6
+msgid "Język"
+msgstr "Language"
+
+#: .\apps\offers\utils\choices.py:7
+msgid "Umiejętność miękka"
+msgstr "Soft skill"
+
+#: .\apps\offers\utils\choices.py:8
+msgid "Umiejętność twarda"
+msgstr "Hard skill"
+
+#: .\apps\offers\utils\choices.py:9
+msgid "Inny"
+msgstr "Other"
+
+#: .\apps\offers\utils\choices.py:13
+msgid "Praktykant / Stażysta"
+msgstr "Intern"
+
+#: .\apps\offers\utils\choices.py:14
+msgid "Asystent"
+msgstr "Assistant"
+
+#: .\apps\offers\utils\choices.py:15
+msgid "Młodszy specjalista (Junior)"
+msgstr "Junior"
+
+#: .\apps\offers\utils\choices.py:16
+msgid "Specjalista (Mid / Regular)"
+msgstr "Mid / Regular"
+
+#: .\apps\offers\utils\choices.py:17
+msgid "Starszy specjalista (Senior)"
+msgstr "Senior"
+
+#: .\apps\offers\utils\choices.py:18
+msgid "Ekspert / Lider"
+msgstr "Expert / Leader"
+
+#: .\apps\offers\utils\choices.py:19
+msgid "Kierownik"
+msgstr "Supervisor"
+
+#: .\apps\offers\utils\choices.py:20
+msgid "Menedżer"
+msgstr "Manager"
+
+#: .\apps\offers\utils\choices.py:21
+msgid "Dyrektor / Prezes"
+msgstr "Director"
+
+#: .\apps\offers\utils\choices.py:22
+msgid "Pracownik fizyczny"
+msgstr "Manual worker"
+
+#: .\apps\offers\utils\choices.py:26
+msgid "Umowa o pracę"
+msgstr "Employment contract"
+
+#: .\apps\offers\utils\choices.py:27
+msgid "Umowa zlecenie"
+msgstr "Civil contract"
+
+#: .\apps\offers\utils\choices.py:28
+msgid "Umowa o dzieło"
+msgstr "Commission contract"
+
+#: .\apps\offers\utils\choices.py:29
+msgid "Umowa o pracę tymczasową"
+msgstr "Temporary employment contract"
+
+#: .\apps\offers\utils\choices.py:30
+msgid "Umowa na zastępstwo"
+msgstr "Replacement contract"
+
+#: .\apps\offers\utils\choices.py:31
+msgid "Umowa agencyjna"
+msgstr "Agency contract"
+
+#: .\apps\offers\utils\choices.py:32
+msgid "Kontrakt B2B"
+msgstr "B2B contract"
+
+#: .\apps\offers\utils\choices.py:33
+msgid "Staż / Praktyka"
+msgstr "Internship"
+
+#: .\apps\offers\utils\choices.py:37
+msgid "Praca zdalna"
+msgstr "Remote work"
+
+#: .\apps\offers\utils\choices.py:38
+msgid "Praca hybrydowa"
+msgstr "Hybrid work"
+
+#: .\apps\offers\utils\choices.py:39
+msgid "Praca stacjonarna"
+msgstr "Stationary work"
+
+#: .\apps\offers\utils\choices.py:40
+msgid "Praca mobilna"
+msgstr "Mobile work"
+
+#: .\apps\offers\utils\choices.py:44
+msgid "Pełny etat"
+msgstr "Full time"
+
+#: .\apps\offers\utils\choices.py:45
+msgid "Część etatu"
+msgstr "Part time"
+
+#: .\apps\offers\utils\choices.py:46
+msgid "Praca dodatkowa / tymczasowa"
+msgstr "Temporary work"
+
+#: .\apps\offers\utils\choices.py:50
+msgid "Profil kandydata"
+msgstr "Profile"
+
+#: .\apps\offers\utils\choices.py:51
+msgid "CV"
+msgstr "CV"
+
+#: .\apps\offers\utils\choices.py:55
+msgid "Złożona"
+msgstr "Submitted"
+
+#: .\apps\offers\utils\choices.py:56
+msgid "Zaakceptowana"
+msgstr "Accepted"
+
+#: .\apps\offers\utils\choices.py:57
+msgid "Odrzucona"
+msgstr "Rejected"
+
+#  VALIDATION ERRORS
+#: .\apps\offers\utils\validators.py:10
+msgid "Wynagrodzenie powinno być w formie pojedynczej kwoty bądź widełek płacowych."
+msgstr "Salary should be in the form of a single amount or pay range."
+
+#: .\apps\offers\utils\validators.py:15
+msgid "Data wygaśnięcia nie może być w przeszłości."
+msgstr "Expiration data cant't be in the future."
+
+#: .\apps\offers\utils\validators.py:25
+msgid "Wybrana umiejętność już istnieje dla tej oferty."
+msgstr "Skill already exists for this offer."
+
+#: .\apps\offers\utils\validators.py:30
+msgid "Wybierz umiejętność z listy lub wpisz nazwę umiejętności."
+msgstr "Choose skill from the list or enter skill name."
+
+#: .\apps\offers\utils\validators.py:36
+msgid "Ocena kompetencji powinna być w przedziale pomiędzy 1 a 5."
+msgstr "Mark should be between 1 and 5."
+
+#: .\apps\offers\utils\validators.py:45
+msgid "Aplikacja została już złożona dla tej oferty."
+msgstr "Application has already been created for this offer."
+
+#: .\apps\offers\utils\validators.py:55
+msgid "Wybrany plik już jest dołączony do tej aplikacji."
+msgstr "File is already attached to this application."
+

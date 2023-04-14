@@ -1,47 +1,50 @@
-from django.db import models
+from django.utils.translation import gettext_lazy as _
 
-from .choices import SkillType
-from .consts import *
-from .validators import *
+from .imports import *
 
 
 class Location(models.Model):
-    street_address = models.CharField(
-        verbose_name=STREET_ADDRESS, max_length=100)
-    postal_code = models.CharField(verbose_name=POSTAL_CODE, max_length=6)
-    city = models.CharField(verbose_name=CITY, max_length=100)
+    street_address = models.CharField(verbose_name=_("Ulica"), max_length=100)
+    postal_code = models.CharField(verbose_name=_("Kod pocztowy"), max_length=6, validators=[validate_postal_code])
+    city = models.CharField(verbose_name=_("Miejscowość"), max_length=100, validators=[validate_city])
 
     class Meta:
-        verbose_name = LOCATION
-        verbose_name_plural = LOCATIONS
+        verbose_name = _("Lokalizacja")
+        verbose_name_plural = _("Lokalizacje")
 
     def __str__(self) -> str:
-        return str(self.id) + ": " + self.street_address + ", " + self.postal_code + " " + self.city
+        return (str(self.id) + ": " + self.street_address + ", " + self.postal_code + " " + self.city)
 
 
 class Skill(models.Model):
-    type = models.CharField(verbose_name=CATEGORY_TYPE,
-                            max_length=50, choices=SkillType.choices)
-    name = models.CharField(verbose_name=SKILL_NAME,
-                            max_length=50, unique=True)
+    type = models.CharField(verbose_name=_("Rodzaj"), max_length=50, choices=SkillType.choices)
+    name = models.CharField(verbose_name=_("Nazwa"), max_length=50, unique=True)
 
     class Meta:
-        verbose_name = SKILL
-        verbose_name_plural = SKILLS
+        verbose_name = _("Umiejętność")
+        verbose_name_plural = _("Umiejętności")
 
     def __str__(self) -> str:
         return self.type + " " + self.name
 
 
 class Category(models.Model):
-    name = models.CharField(verbose_name=CATEGORY_NAME,
-                            max_length=100, unique=True)
-    parent = models.ForeignKey(verbose_name=CATEGORY_PARENT,
-                               to='self', on_delete=models.CASCADE, blank=True, null=True, related_name='subcategories')
+    name = models.CharField(verbose_name=_("Nazwa"), max_length=100, unique=True)
+    parent = models.ForeignKey(
+        verbose_name=_("Kategoria główna"),
+        to="self",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="subcategories",
+    )
 
     class Meta:
-        verbose_name = CATEGORY
-        verbose_name_plural = CATEGORIES
+        verbose_name = _("Kategoria")
+        verbose_name_plural = _("Kategorie")
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        validate_category_parent(self)

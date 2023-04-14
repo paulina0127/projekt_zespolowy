@@ -1,51 +1,68 @@
 from django.contrib import admin
 from django_better_admin_arrayfield.admin.mixins import DynamicArrayMixin
 
-from .models import Company, Candidate, File, Experience, Education, CSkill, Course, Link
+from .models import (
+    Candidate,
+    Company,
+    Course,
+    CSkill,
+    Education,
+    Experience,
+    File,
+    Link,
+)
 
-admin.site.register(Company)
+
+@admin.register(Company)
+class CompanyAdmin(admin.ModelAdmin):
+    search_fields = [
+        "name",
+    ]
 
 
-@admin.register(File)  # Register File without displaying in Admin Panel
+@admin.register(File)
 class FileAdmin(admin.ModelAdmin):
+
     def get_model_perms(self, request):
-        return {}
+        return {}  # Register File without displaying in Admin Panel
 
 
-# Register Education without displaying in Admin Panel
 @admin.register(Education)
 class EducationAdmin(admin.ModelAdmin):
+
     def get_model_perms(self, request):
-        return {}
+        return {}  # Register Education without displaying in Admin Panel
 
 
-# Register Experience without displaying in Admin Panel
 @admin.register(Experience)
 class ExperienceAdmin(admin.ModelAdmin):
+
     def get_model_perms(self, request):
-        return {}
+        return {}  # Register Experience without displaying in Admin Panel
 
 
-@admin.register(CSkill)  # Register CSkill without displaying in Admin Panel
+@admin.register(CSkill)
 class CSkillAdmin(admin.ModelAdmin):
+
     def get_model_perms(self, request):
-        return {}
+        return {}  # Register CSkill without displaying in Admin Panel
 
 
-@admin.register(Course)  # Register Course without displaying in Admin Panel
+@admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
+
     def get_model_perms(self, request):
-        return {}
+        return {}  # Register Course without displaying in Admin Panel
 
 
-@admin.register(Link)  # Register Link without displaying in Admin Panel
+@admin.register(Link)
 class LinkAdmin(admin.ModelAdmin):
+
     def get_model_perms(self, request):
-        return {}
+        return {}  # Register Link without displaying in Admin Panel
+
 
 # Using StackedInline to display models on Candiate form
-
-
 class ExperienceInline(admin.StackedInline):
     model = Experience
     extra = 0
@@ -73,5 +90,11 @@ class LinkInline(admin.StackedInline):
 
 @admin.register(Candidate)
 class CandidateAdmin(admin.ModelAdmin, DynamicArrayMixin):
-    inlines = [ExperienceInline, EducationInline,
-               CSkillInline, CourseInline, LinkInline]  # Display Experience, Education, CSkill, Course and Link on Candidate form
+    inlines = [
+        ExperienceInline,
+        EducationInline,
+        CSkillInline,
+        CourseInline,
+        LinkInline,
+    ]  # Display Experience, Education, CSkill, Course and Link on Candidate form
+    search_fields = ["first_name", "last_name"]

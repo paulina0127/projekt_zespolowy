@@ -1,146 +1,207 @@
-from django.db import models
-from django_better_admin_arrayfield.models.fields import ArrayField
-from phonenumber_field.modelfields import PhoneNumberField
+from django.utils.translation import gettext_lazy as _
 
-from apps.core.models import Location, Skill
-from apps.users.models import User
-
-from .choices import SkillType, FileType, EducationLevel, LinkType
-from .consts import *
-from .validators import *
+from .imports import *
 
 
 class Company(models.Model):
-    nip = models.CharField(verbose_name=NIP, max_length=10, unique=True)
-    name = models.CharField(verbose_name=COMPANY_NAME, max_length=255)
+    nip = models.CharField(verbose_name=_("NIP"), max_length=10, unique=True, validators=[validate_nip])
+    name = models.CharField(verbose_name=_("Nazwa firmy"), max_length=255)
     email = models.EmailField()
-    phone_number = PhoneNumberField(verbose_name=PHONE_NUMBER)
-    location = models.OneToOneField(verbose_name=LOCATION,
-                                    to=Location, related_name='companies', on_delete=models.CASCADE)
-    website = models.URLField(verbose_name=WEBSITE, blank=True, null=True)
-    description = models.TextField(verbose_name=DESCRIPTION)
-    image = models.ImageField(verbose_name=IMAGE,
-                              upload_to="companies/images", blank=True, null=True)
+    phone_number = PhoneNumberField(verbose_name=_("Numer telefonu"))
+    location = models.OneToOneField(
+        verbose_name=_("Lokalizacja"),
+        to=Location,
+        related_name="company",
+        on_delete=models.CASCADE,
+    )
+    website = models.URLField(verbose_name=_("Strona internetowa"), blank=True, null=True)
+    description = models.TextField(verbose_name=_("Opis"))
+    image = models.ImageField(verbose_name=_("Zdjęcie"), upload_to="companies/images", blank=True, null=True)
 
-    user = models.OneToOneField(verbose_name=USER,
-                                to=User, related_name='company_profile', on_delete=models.CASCADE)
-    auto_verify = models.BooleanField(verbose_name=AUTO_VERIFY)
+    user = models.OneToOneField(
+        verbose_name=_("Użytkownik"),
+        to=User,
+        related_name="company_profile",
+        on_delete=models.CASCADE,
+    )
+    auto_verify = models.BooleanField(verbose_name=_("Automatyczna weryfikacja"))
 
     class Meta:
-        verbose_name = COMPANY
-        verbose_name_plural = COMPANIES
+        verbose_name = _("Pracodawca")
+        verbose_name_plural = _("Pracodawcy")
 
     def __str__(self) -> str:
         return self.name
 
 
 class Candidate(models.Model):
-    pesel = models.CharField(verbose_name=PESEL, max_length=11, unique=True)
-    first_name = models.CharField(verbose_name=FIRST_NAME, max_length=100)
-    last_name = models.CharField(verbose_name=LAST_NAME, max_length=100)
-    phone_number = PhoneNumberField(verbose_name=PHONE_NUMBER)
-    location = models.OneToOneField(verbose_name=LOCATION,
-                                    to=Location, related_name='candidates', on_delete=models.CASCADE)
+    pesel = models.CharField(verbose_name=_("PESEL"), max_length=11, unique=True, validators=[validate_pesel])
+    first_name = models.CharField(verbose_name=_("Imię"), max_length=100)
+    last_name = models.CharField(verbose_name=_("Nazwisko"), max_length=100)
+    phone_number = PhoneNumberField(verbose_name=_("Numer telefonu"))
+    location = models.OneToOneField(
+        verbose_name=_("Lokalizacja"),
+        to=Location,
+        related_name="candidate",
+        on_delete=models.CASCADE,
+    )
 
-    image = models.ImageField(
-        verbose_name=IMAGE, upload_to="candidates/images", blank=True, null=True)
+    image = models.ImageField(verbose_name=_("Zdjęcie"), upload_to="candidates/images", blank=True, null=True)
 
-    user = models.OneToOneField(verbose_name=User,
-                                to=User, related_name='candidate_profile', on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        verbose_name=_("Użytkownik"),
+        to=User,
+        related_name="candidate_profile",
+        on_delete=models.CASCADE,
+    )
 
     class Meta:
-        verbose_name = CANDIDTE
-        verbose_name_plural = CANDIDATES
+        verbose_name = _("Kandydat")
+        verbose_name_plural = _("Kandydaci")
 
     def __str__(self) -> str:
         return self.first_name + " " + self.last_name
 
 
 class File(models.Model):
-    name = models.CharField(verbose_name=FILE_NAME, max_length=255)
-    added_at = models.DateTimeField(
-        verbose_name=ADDED_AT, auto_now_add=True)
-    type = models.CharField(verbose_name=FILE_TYPE,
-                            max_length=50, choices=FileType.choices)
-    file = models.FileField(verbose_name=FILE,
-                            upload_to="candidates/attachments")
-    candidate = models.ForeignKey(verbose_name=CANDIDTE,
-                                  to=Candidate, related_name='files', on_delete=models.CASCADE)
+    name = models.CharField(verbose_name=_("Nazwa"), max_length=255)
+    added_at = models.DateTimeField(verbose_name=_("Dodano"), auto_now_add=True)
+    type = models.CharField(verbose_name=_("Rodzaj"), max_length=50, choices=FileType.choices)
+    file = models.FileField(
+        verbose_name=_("Plik"),
+        upload_to="candidates/files",
+        validators=[validate_file_extension],
+    )
+    candidate = models.ForeignKey(
+        verbose_name=_("Kandydat"),
+        to=Candidate,
+        related_name="files",
+        on_delete=models.CASCADE,
+    )
 
     class Meta:
-        verbose_name = FILE
-        verbose_name_plural = FILES
+        verbose_name = _("Plik")
+        verbose_name_plural = _("Pliki")
 
     def __str__(self) -> str:
         return self.name
 
 
 class Experience(models.Model):
-    position = models.CharField(verbose_name=POSITION, max_length=255)
-    company = models.CharField(verbose_name=COMPANY_NAME, max_length=255)
-    location = models.OneToOneField(verbose_name=LOCATION,
-                                    to=Location, related_name='experience', on_delete=models.CASCADE, blank=True, null=True)
-    start_date = models.DateField(verbose_name=START_DATE)
-    end_date = models.DateField(
-        verbose_name=END_DATE, blank=True, null=True)
-    duties = ArrayField(
-        models.TextField(), verbose_name=DUTIES, blank=True, null=True)
-    candidate = models.ForeignKey(verbose_name=CANDIDATE,
-                                  to=Candidate, related_name='experience', on_delete=models.CASCADE)
-    references = models.OneToOneField(verbose_name=REFERENCES,
-                                      to=File, related_name='references', on_delete=models.CASCADE, blank=True, null=True)
-    is_current = models.BooleanField(
-        verbose_name=IS_CURRENT)
+    position = models.CharField(verbose_name=_("Stanowisko"), max_length=255)
+    company = models.CharField(verbose_name=_("Nazwa firmy"), max_length=255)
+    location = models.OneToOneField(
+        verbose_name=_("Lokalizacja"),
+        to=Location,
+        related_name="experience",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
+    start_date = models.DateField(verbose_name=_("Data rozpoczęcia"))
+    end_date = models.DateField(verbose_name=_("Data zakończenia"), blank=True, null=True)
+    duties = ArrayField(models.TextField(), verbose_name=_("Obowiązki"), blank=True, null=True)
+    candidate = models.ForeignKey(
+        verbose_name=_("Kandydat"),
+        to=Candidate,
+        related_name="experience",
+        on_delete=models.CASCADE,
+    )
+    references = models.OneToOneField(
+        verbose_name=_("Referencje"),
+        to=File,
+        related_name="experience",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
+    is_current = models.BooleanField(verbose_name=_("Aktualne"))
 
     class Meta:
-        verbose_name = EXPERIENCE
-        verbose_name_plural = EXPERIENCES
+        verbose_name = _("Doświadczenie")
+        verbose_name_plural = _("Doświadczenie")
 
     def __str__(self) -> str:
         return self.company + ", " + self.position
 
+    def clean(self):
+        validate_start_date(self)
+        validate_end_date(self)
+
 
 class Education(models.Model):
-    institute = models.CharField(verbose_name=INSTITUTE, max_length=255)
-    education_level = models.CharField(verbose_name=EDUCATION_LEVEL,
-                                       max_length=50, choices=EducationLevel.choices)
-    major = models.CharField(
-        MAJOR, max_length=255)
-    start_date = models.DateField(verbose_name=START_DATE)
-    end_date = models.DateField(
-        verbose_name=END_DATE, blank=True, null=True)
-    candidate = models.ForeignKey(verbose_name=CANDIDATE,
-                                  to=Candidate, related_name='education', on_delete=models.CASCADE)
-    diploma = models.OneToOneField(verbose_name=DIPLOMA,
-                                   to=File, related_name='diplomas', on_delete=models.CASCADE, blank=True, null=True)
-    is_current = models.BooleanField(
-        verbose_name=IS_CURRENT)
+    institute = models.CharField(verbose_name=_("Uczelnia"), max_length=255)
+    education_level = models.CharField(
+        verbose_name=_("Poziom wykształcenia"),
+        max_length=50,
+        choices=EducationLevel.choices,
+    )
+    major = models.CharField(_("Kierunek"), max_length=255)
+    start_date = models.DateField(verbose_name=_("Data rozpoczęcia"))
+    end_date = models.DateField(verbose_name=_("Data zakończenia"), blank=True, null=True)
+    candidate = models.ForeignKey(
+        verbose_name=_("Kandydat"),
+        to=Candidate,
+        related_name="education",
+        on_delete=models.CASCADE,
+    )
+    diploma = models.OneToOneField(
+        verbose_name=_("Dyplom"),
+        to=File,
+        related_name="education",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
+    is_current = models.BooleanField(verbose_name=_("Aktualne"))
 
     class Meta:
-        verbose_name = EDUCATION
-        verbose_name_plural = EDUCATIONS
+        verbose_name = _("Wykształcenie")
+        verbose_name_plural = _("Wykształcenie")
 
     def __str__(self) -> str:
         return self.institute + " " + self.major + ", " + self.education_level
 
+    def clean(self):
+        validate_start_date(self)
+        validate_end_date(self)
+
 
 class CSkill(models.Model):
-    type = models.CharField(verbose_name=SKILL_TYPE, max_length=50,
-                            choices=SkillType.choices, blank=True)
-    name = models.CharField(verbose_name=SKILL_NAME,
-                            max_length=255, blank=True)
-    level = models.CharField(
-        verbose_name=LEVEL, max_length=50, blank=True, null=True)
-    candidate = models.ForeignKey(verbose_name=CANDIDATE,
-                                  to=Candidate, on_delete=models.CASCADE, related_name='skills')
-    skill = models.ForeignKey(verbose_name=SKILL,
-                              to=Skill, related_name='skills', on_delete=models.CASCADE, blank=True, null=True)
-    certificate = models.OneToOneField(verbose_name=CERTIFICATE,
-                                       to=File, related_name='skill_certificates', on_delete=models.CASCADE, blank=True, null=True)
+    type = models.CharField(
+        verbose_name=_("Rodzaj"),
+        max_length=50,
+        choices=SkillType.choices,
+        blank=True,
+    )
+    name = models.CharField(verbose_name=_("Nazwa"), max_length=255, blank=True)
+    level = models.CharField(verbose_name=_("Poziom"), max_length=50, blank=True, null=True)
+    candidate = models.ForeignKey(
+        verbose_name=_("Kandydat"),
+        to=Candidate,
+        on_delete=models.CASCADE,
+        related_name="skills",
+    )
+    skill = models.ForeignKey(
+        verbose_name=_("Umiejętność"),
+        to=Skill,
+        related_name="cskills",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
+    certificate = models.OneToOneField(
+        verbose_name=_("Certyfikat"),
+        to=File,
+        related_name="cskill",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
 
     class Meta:
-        verbose_name = SKILL
-        verbose_name_plural = SKILLS
+        verbose_name = _("Umiejętność")
+        verbose_name_plural = _("Umiejętności")
 
     def __str__(self) -> str:
         if self.level:
@@ -148,43 +209,62 @@ class CSkill(models.Model):
         else:
             return self.type + " " + self.name
 
-     # If skill is selected from catalog, fill in type and name
+    def clean(self):
+        validate_unique_cskill(self, CSkill)
+        validate_cskill_name(self)
+
     def save(self, *args, **kwargs):
+        # If skill is selected from catalog, fill in name
         if self.skill:
-            self.type = self.skill.type
             self.name = self.skill.name
         super(CSkill, self).save(*args, **kwargs)
 
 
 class Course(models.Model):
-    name = models.CharField(verbose_name=COURSE_NAME, max_length=255)
-    description = models.TextField(
-        verbose_name=DESCRIPTION, blank=True, null=True)
-    start_date = models.DateField(verbose_name=START_DATE)
-    end_date = models.DateField(verbose_name=END_DATE)
-    candidate = models.ForeignKey(verbose_name=CANDIDATE,
-                                  to=Candidate, related_name='courses', on_delete=models.CASCADE)
-    certificate = models.OneToOneField(verbose_name=CERTIFICATE,
-                                       to=File, related_name='certificates', on_delete=models.CASCADE, blank=True, null=True)
+    name = models.CharField(verbose_name=_("Nazwa"), max_length=255)
+    description = models.TextField(verbose_name=_("Opis"), blank=True, null=True)
+    start_date = models.DateField(verbose_name=_("Data rozpoczęcia"))
+    end_date = models.DateField(verbose_name=_("Data zakończenia"))
+    candidate = models.ForeignKey(
+        verbose_name=_("Kandydat"),
+        to=Candidate,
+        related_name="courses",
+        on_delete=models.CASCADE,
+    )
+    certificate = models.OneToOneField(
+        verbose_name=_("Certyfikat"),
+        to=File,
+        related_name="course",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
 
     class Meta:
-        verbose_name = COURSE
-        verbose_name_plural = COURSES
+        verbose_name = _("Kurs")
+        verbose_name_plural = _("Kursy")
 
     def __str__(self) -> str:
         return self.name
 
+    def clean(self):
+        validate_start_date(self)
+        validate_end_date(self)
+
 
 class Link(models.Model):
-    type = models.CharField(verbose_name=LINK_TYPE,
-                            max_length=50, choices=LinkType.choices)
-    url = models.URLField(verbose_name=URL)
-    candidate = models.ForeignKey(verbose_name=CANDIDATE,
-                                  to=Candidate, related_name='links', on_delete=models.CASCADE)
+    type = models.CharField(verbose_name=_("Rodzaj"), max_length=50, choices=LinkType.choices)
+    url = models.URLField(verbose_name=_("Adres URL"))
+    candidate = models.ForeignKey(
+        verbose_name=_("Kandydat"),
+        to=Candidate,
+        related_name="links",
+        on_delete=models.CASCADE,
+    )
 
     class Meta:
-        verbose_name = LINK
-        verbose_name_plural = LINKS
+        verbose_name = _("Link")
+        verbose_name_plural = _("Linki")
 
     def __str__(self) -> str:
         return self.url
