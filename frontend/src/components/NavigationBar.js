@@ -1,7 +1,27 @@
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import { logout } from '../actions/authActions';
 
-const NavigationBar = () => {
+const NavigationBar = ( { logout, isAuthenticated } ) => {
+
+  const guestLinks = () => (
+    <>
+      <Nav.Link as={Link} to="/logowanie">
+        <Button variant="warning">Zaloguj się</Button>
+      </Nav.Link>
+      <Nav.Link as={Link} to="/rejestracja">
+        <Button variant="outline-warning">Zarejestruj się</Button>
+      </Nav.Link>
+    </>
+  );
+
+  const authLinks = () => (
+    <Nav.Link as={Link} to="/">
+      <Button variant="warning" onClick={logout}>Wyloguj się</Button>
+    </Nav.Link>
+  );
+
   return (
     <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
       <Container>
@@ -22,12 +42,7 @@ const NavigationBar = () => {
             <Nav.Link as={Link} to="/pracodawcy">Pracodawcy</Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link as={Link} to="/login">
-              <Button variant="warning">Zaloguj się</Button>
-            </Nav.Link>
-            <Nav.Link as={Link} to="/rejestracja">
-              <Button variant="outline-warning">Zarejestruj się</Button>
-            </Nav.Link>
+            {isAuthenticated ? authLinks() : guestLinks() }
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -35,4 +50,8 @@ const NavigationBar = () => {
   );
 };
 
-export default NavigationBar;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { logout })(NavigationBar);
