@@ -1,33 +1,42 @@
 import { useState } from 'react';
-import { Navigate, Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Link, Navigate } from 'react-router-dom';
+import { connect, useSelector } from 'react-redux';
 import { signup } from '../../actions/authActions'
 
+import Message from '../../components/Message';
+import Loader from '../../components/Loader';
+import {Modal, Button } from 'react-bootstrap';
 import LayoutAuth from '../../hocs/LayoutAuth';
 import Background from '../../images/register.jpg';
 import { FiCheckCircle } from "react-icons/fi";
+import { BsSendCheck } from "react-icons/bs";
 
 
-const SignUpScreen = ( {  signup, isAuthenticated }) => {
+const SignUpScreen = ({ signup, isAuthenticated }) => {
   const [accountCreated, setAccountCreated] = useState(false);
+  const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
     email: '',
     password: '',
     re_password: '',
-    account_type: 'kandydat',
+    type: 'Kandydat',
   });
 
-  const { first_name, last_name, email, password, re_password, account_type } = formData;
+  const { email, password, re_password, type } = formData;
+
+  const auth = useSelector(state => state.auth);
+  const { error, loading } = auth;
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
 
   const onSubmit = e => {
     e.preventDefault();
 
-    if (password === re_password) {
-      signup(first_name, last_name, email, password, re_password, account_type);
+    if (password !== re_password) {
+      setMessage('Wprowadzone hasła różnią się od siebie');
+    } else {
+      signup(type, email, password, re_password);
       setAccountCreated(true);
     }
   };
@@ -36,13 +45,35 @@ const SignUpScreen = ( {  signup, isAuthenticated }) => {
     return <Navigate replace to="/" />;
   }
 
-  if (accountCreated) {
-    return <Navigate replace to="/logowanie" />;
-  }
-
   return (
     <LayoutAuth bgImage={Background}> 
+      <Modal
+        show={accountCreated}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header className='bg-success text-light'>
+          <Modal.Title id="contained-modal-title-vcenter">
+          Konto zostało utworzone <BsSendCheck />
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h5>Sprawdź pocztę i aktywuj konto</h5>
+          <p>
+            Link aktywacyjny wysłaliśmy na adres: <h6 className='text-success'>{email}</h6>
+          </p>
+        </Modal.Body>
+        <Modal.Footer className='justify-content-center'>
+          <Link className='w-100' to='/logowanie'>
+              <Button variant='success w-100'>Rozumiem</Button>
+          </Link>   
+        </Modal.Footer>
+      </Modal>
       <h3 className="display-4">Rejestracja</h3>
+      {message && <Message variant='danger'>{message}</Message>}
+      {error && <Message variant='danger'>{error}</Message>}
+      {loading && <Loader />}
       <p className="text-muted mb-4">
       Załóż nowe konto.
       </p>
@@ -52,10 +83,10 @@ const SignUpScreen = ( {  signup, isAuthenticated }) => {
           <input 
             type="radio" 
             className="btn-check" 
-            name="account_type"
-            value="kandydat" 
+            name="type"
+            value="Kandydat" 
             id="btnradio1" 
-            checked={formData.account_type === "kandydat"}
+            checked={formData.type === "Kandydat"}
             onChange={e => onChange(e)}
             />
             
@@ -63,48 +94,26 @@ const SignUpScreen = ( {  signup, isAuthenticated }) => {
             className="btn btn-outline-warning" 
             htmlFor="btnradio1">
             Kandydat &nbsp;&nbsp;
-            {formData.account_type  === "kandydat" ? <FiCheckCircle /> : ''} 
+            {formData.type  === "Kandydat" ? <FiCheckCircle /> : ''} 
           </label>
 
           <input 
             type="radio" 
             className="btn-check" 
-            name="account_type" 
-            value="pracodawca" 
-            id="btnradio2" 
-            checked={formData.account_type === "pracodawca"}
+            name="type" 
+            value="Pracodawca" 
+            id="btnradio2" CheckCircle
+            checked={formData.type === "Pracodawca"}
             onChange={e => onChange(e)}
             />
           <label
             className="btn btn-outline-warning" 
             htmlFor="btnradio2">
             Pracodawca &nbsp;&nbsp;
-            {formData.account_type  === "pracodawca" ? <FiCheckCircle /> : ''}   
+            {formData.type  === "Pracodawca" ? <FiCheckCircle /> : ''}   
           </label>
         </div>
 
-        <div className="form-row form-group mb-3">
-          <input
-            className="form-control rounded-pill border-2 shadow-sm px-4"
-            type='text'
-            placeholder='Imię'
-            name='first_name'
-            value={first_name}
-            onChange={e => onChange(e)}
-            required
-          />
-        </div>
-        <div className="form-group mb-3">
-          <input
-            className="form-control rounded-pill border-2 shadow-sm px-4"
-            type='text'
-            placeholder='Nazwisko'
-            name='last_name'
-            value={last_name}
-            onChange={e => onChange(e)}
-            required
-          />
-        </div>
         <div className="form-group mb-3">
           <input
             className="form-control rounded-pill border-2 shadow-sm px-4"
@@ -146,11 +155,12 @@ const SignUpScreen = ( {  signup, isAuthenticated }) => {
         >
           Zarejestruj
         </button>
+    
       </form>
       <p className='mt-3'>
         Masz już konto? <Link className='text-decoration-none' to='/logowanie'>Zaloguj się</Link>
       </p>
-    </LayoutAuth>             
+    </LayoutAuth>         
   );
 
   

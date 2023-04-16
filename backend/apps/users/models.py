@@ -15,6 +15,9 @@ class User(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["type"]
 
+    def __str__(self):
+      return self.email
+
     class Meta:
         db_table = "auth_user"
         verbose_name = _("Użytkownik")

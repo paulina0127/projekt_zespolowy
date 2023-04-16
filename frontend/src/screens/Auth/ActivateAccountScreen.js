@@ -8,7 +8,7 @@ import Background from '../../images/activate.jpg';
 import { FcApproval } from "react-icons/fc";
 
 
-const ActivateScreen = ({ verify }) => {
+const ActivateAccountScreen = ({ verify }) => {
 
   const [verified, setVerified] = useState(false);
 
@@ -18,7 +18,7 @@ const ActivateScreen = ({ verify }) => {
   const verify_account = e => {
     verify(uid, token);
     setVerified(true);
-  };
+};
 
   if (verified) {
     return <Navigate replace to="/logowanie" />;
@@ -41,4 +41,4 @@ const ActivateScreen = ({ verify }) => {
   )
 }
 
-export default connect(null, { verify })(ActivateScreen);
+export default connect(null, { verify })(ActivateAccountScreen);

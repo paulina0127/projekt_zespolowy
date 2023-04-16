@@ -3,6 +3,7 @@ import {
   ACTIVATION_FAIL,
   AUTHENTICATED_SUCCESS,
   AUTHENTICATED_FAIL,
+  LOGIN_REQUEST, 
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
@@ -10,6 +11,7 @@ import {
   PASSWORD_RESET_SUCCESS,
   PASSWORD_RESET_CONFIRM_FAIL,
   PASSWORD_RESET_CONFIRM_SUCCESS,
+  SIGNUP_REQUEST,
   SIGNUP_SUCCESS,
   SIGNUP_FAIL,
   USER_LOADED_SUCCESS,
@@ -19,21 +21,23 @@ import {
 import axios from "axios";
 
 export const load_user = () => async dispatch => {
-  if (localStorage.getItem('access')) {
+  if (localStorage.getItem('userTokens')) {
+    const userTokens = JSON.parse(localStorage.getItem('userTokens'));
+    const token = userTokens.access
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `JWT ${localStorage.getItem('access')}`,
+        'Authorization': `JWT ${token}`,
         'Accept': 'application/json'
       }
     };
 
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/users/me/`, config);
+      const { data } = await axios.get('/auth/users/me/', config);
 
       dispatch({
         type: USER_LOADED_SUCCESS,
-        payload: response.data
+        payload: data
       });
     } catch (error) {
       dispatch({
@@ -52,7 +56,11 @@ export const load_user = () => async dispatch => {
 // AttributeError: type object 'BlacklistedToken' has no attribute 'objects'
 // https://djoser.readthedocs.io/en/latest/jwt_endpoints.html
 export const checkAuthenticated = () => async dispatch => {
-  if (localStorage.getItem('access')) {
+
+  if (localStorage.getItem('userTokens')) {
+    const userTokens = JSON.parse(localStorage.getItem('userTokens'));
+    const token = userTokens.access
+
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -60,11 +68,11 @@ export const checkAuthenticated = () => async dispatch => {
       }
     }; 
 
-    const body = JSON.stringify({ token: localStorage.getItem('access') });
+    const body = JSON.stringify({ token: token });
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/jwt/verify/`, body, config)
-      if(response.data.code !== "token_not_valid") {
+      const { data } = await axios.post('/auth/jwt/verify/', body, config)
+      if(data.code !== "token_not_valid") {
         dispatch({
           type: AUTHENTICATED_SUCCESS
         });
@@ -73,9 +81,12 @@ export const checkAuthenticated = () => async dispatch => {
           type: AUTHENTICATED_FAIL
         });
       }
-    } catch (err) {
+    } catch (error) {
       dispatch({
-        type: AUTHENTICATED_FAIL
+        type: AUTHENTICATED_FAIL,
+        payload: error.response && error.response.data.detail
+        ? error.response.data.detail
+        : error.message,
       });
     }
 
@@ -87,50 +98,66 @@ export const checkAuthenticated = () => async dispatch => {
 };
 
 export const login = (email, password) => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-
-  const body = JSON.stringify({ email, password });
-
   try {
-    const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/jwt/create/`, body, config);
+    dispatch({
+      type: LOGIN_REQUEST
+    })
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    const body = JSON.stringify({ email, password });
+
+    const { data } = await axios.post('/auth/jwt/create/', body, config);
 
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: response.data
+      payload: data
     });
+
+    localStorage.setItem('userTokens', JSON.stringify(data))
 
     dispatch(load_user());
 
   } catch (error) {
     dispatch({
-      type: LOGIN_FAIL
+      type: LOGIN_FAIL,
+      payload: error.response && error.response.data.detail
+              ? error.response.data.detail
+              : error.message,
     });
   }
 };
 
-export const signup = (first_name, last_name, email, password, re_password, account_type) => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-
-  const body = JSON.stringify({ first_name, last_name, email, password, re_password, account_type });
-
+export const signup = (type, email, password, re_password) => async dispatch => {
   try {
-    const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/`, body, config);
+    dispatch({
+      type: SIGNUP_REQUEST
+    })
+
+    const body = JSON.stringify({ type, email, password, re_password });
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    const { data } = await axios.post('/auth/users/', body, config);
 
     dispatch({
       type: SIGNUP_SUCCESS,
-      payload: response.data
+      payload: data
     });
-  } catch (err) {
+  } catch (error) {
     dispatch({
-      type: SIGNUP_FAIL
+      type: SIGNUP_FAIL,
+      payload: error.response && error.response.data.detail
+      ? error.response.data.detail
+      : error.message,
     })
   }
 };
@@ -145,7 +172,7 @@ export const verify = (uid, token) => async dispatch => {
   const body = JSON.stringify({ uid, token });
 
   try {
-    await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/activation/`, body, config);
+    await axios.post('/auth/users/activation/', body, config);
 
     dispatch({
       type: ACTIVATION_SUCCESS,
@@ -167,7 +194,7 @@ export const reset_password = (email) => async dispatch => {
   const body = JSON.stringify({ email });
 
   try {
-    await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/reset_password/`, body, config);
+    await axios.post('/auth/users/reset_password/', body, config);
     
     dispatch({
       type: PASSWORD_RESET_SUCCESS
@@ -190,7 +217,7 @@ export const reset_password_confirm = (uid, token, new_password, re_new_password
   const body = JSON.stringify({ uid, token, new_password, re_new_password });
 
   try {
-    await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/reset_password_confirm/`, body, config);
+    await axios.post('/auth/users/reset_password_confirm/', body, config);
     
     dispatch({
       type: PASSWORD_RESET_CONFIRM_SUCCESS
@@ -205,6 +232,7 @@ export const reset_password_confirm = (uid, token, new_password, re_new_password
 
 
 export const logout = () => dispatch => {
+  localStorage.removeItem('userTokens')
   dispatch({
     type: LOGOUT
   });

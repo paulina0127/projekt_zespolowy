@@ -1,7 +1,11 @@
-import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Container, Button, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { logout } from '../actions/authActions';
+
+import { IoIosArrowDropdown} from 'react-icons/io';
+import ProfilePic from '../images/profile_pic.jpg';
+import styles from './NavigationBar.module.css'
 
 const NavigationBar = ( { logout, isAuthenticated } ) => {
 
@@ -17,9 +21,28 @@ const NavigationBar = ( { logout, isAuthenticated } ) => {
   );
 
   const authLinks = () => (
-    <Nav.Link as={Link} to="/">
-      <Button variant="warning" onClick={logout}>Wyloguj się</Button>
-    </Nav.Link>
+    <>
+    <NavDropdown 
+      className = {styles['dropdown-toggle']}
+      title={
+          <div className="pull-right">
+              <Image
+                style={{ width: '40px', marginRight: '10px' }}
+                src={ProfilePic} 
+                alt="user pic"
+                roundedCircle
+              />
+              Jan Kowalski <IoIosArrowDropdown />
+          </div>
+      } 
+      id="basic-nav-dropdown">
+        <NavDropdown.Item as={Link} to="/profil">Profil</NavDropdown.Item>
+        <NavDropdown.Divider />
+        <NavDropdown.Item onClick={logout}>
+          Wyloguj się
+        </NavDropdown.Item>
+    </NavDropdown>
+    </>
   );
 
   return (

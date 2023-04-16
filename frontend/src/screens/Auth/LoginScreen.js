@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { login } from "../../actions/authActions"
 
+import Message from '../../components/Message';
+import Loader from '../../components/Loader';
 import LayoutAuth from '../../hocs/LayoutAuth';
 import Background from '../../images/background_image_login.jpg';
 
@@ -13,6 +15,8 @@ const LoginScreen = ( { login, isAuthenticated } ) => {
   });
 
   const { email, password } = formData;
+  const auth = useSelector(state => state.auth);
+  const { error, loading } = auth;
 
   const onChange = e => setFormData({...formData, [e.target.name]: e.target.value });
 
@@ -32,6 +36,8 @@ const LoginScreen = ( { login, isAuthenticated } ) => {
   return (
     <LayoutAuth bgImage={Background}> 
       <h3 className="display-4">Logowanie</h3>
+      {error && <Message variant='danger'>{error}</Message>}
+      {loading && <Loader />}
       <p className="text-muted mb-4">
       Zaloguj się na swoje konto.
       </p>
