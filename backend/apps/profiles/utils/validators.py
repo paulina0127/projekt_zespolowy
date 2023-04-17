@@ -1,8 +1,9 @@
-from django.core.exceptions import ValidationError
-from django.utils.translation import gettext as _
-import re
 import os
+import re
+
+from django.core.exceptions import ValidationError
 from django.utils import timezone
+from django.utils.translation import gettext as _
 
 
 # Start date and end date for Experience, Education and Course

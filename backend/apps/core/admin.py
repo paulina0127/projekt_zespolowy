@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Location, Skill, Category
+from .models import Category, Location, Skill
+from .utils.admin_filters import IsMainCategoryFilter, MainCategoryFilter
 
 
 @admin.register(Location)
@@ -12,13 +13,11 @@ class LocationAdmin(admin.ModelAdmin):
 
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):
-    list_filter = [
-        "type",
-    ]
+    list_filter = ["type", ]
+    search_fields = ["name", ]
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    search_fields = [
-        "name",
-    ]
+    list_filter = [MainCategoryFilter, IsMainCategoryFilter, ]
+    search_fields = ["name", ]

@@ -2,8 +2,8 @@ from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from .utils.managers import UserManager
 from .utils.choices import UserType
+from .utils.managers import UserManager
 
 
 class User(AbstractUser):

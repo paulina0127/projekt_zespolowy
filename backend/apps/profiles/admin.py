@@ -1,16 +1,8 @@
 from django.contrib import admin
 from django_better_admin_arrayfield.admin.mixins import DynamicArrayMixin
 
-from .models import (
-    Candidate,
-    Company,
-    Course,
-    CSkill,
-    Education,
-    Experience,
-    File,
-    Link,
-)
+from .models import (Candidate, Company, Course, CSkill, Education, Experience,
+                     File, Link)
 
 
 @admin.register(Company)

@@ -1,6 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 
-from .imports import *
+from .imports.models_imports import *
 
 
 class Company(models.Model):
@@ -24,7 +24,7 @@ class Company(models.Model):
         related_name="company_profile",
         on_delete=models.CASCADE,
     )
-    auto_verify = models.BooleanField(verbose_name=_("Automatyczna weryfikacja"))
+    auto_verify = models.BooleanField(verbose_name=_("Automatyczna weryfikacja"), default=False)
 
     class Meta:
         verbose_name = _("Pracodawca")

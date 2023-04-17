@@ -53,4 +53,4 @@ class UserAdmin(DjangoUserAdmin):
 
 @admin.register(Group)  # Register default Group model in users page
 class GroupAdmin(admin.ModelAdmin):
-    pass
+    filter_horizontal = ["permissions", ]

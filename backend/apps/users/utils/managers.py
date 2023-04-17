@@ -1,4 +1,5 @@
 from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.models import Group
 from .choices import UserType
 
 
@@ -12,6 +13,8 @@ class UserManager(BaseUserManager):
         user = self.model(email=email, type=type, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+        group = Group.objects.get(name=type)
+        user.groups.add(group)
         return user
 
     def create_user(self, email, type, password=None, **extra_fields):
@@ -26,6 +29,8 @@ class UserManager(BaseUserManager):
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+        group = Group.objects.get(name=UserType.ADMIN)
+        user.groups.add(group)
         return user
 
     def create_superuser(self, email, password, **extra_fields):

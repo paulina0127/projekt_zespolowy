@@ -21,7 +21,11 @@ def validate_category_parent(object):
 
     # Check that the parent is not the same as the category
     if parent == object:
-        raise ValidationError(_("Kategoria nie może być swoją kategorią główną."))
+        raise ValidationError({"parent": _("Kategoria nie może być swoją kategorią główną.")})
+
+    # Check that the parent is not a subcategory
+    if object.parent and parent.parent is not None:
+        raise ValidationError({"parent": _("Podkategoria nie może być kategorią główną.")})
 
     # If no validation errors were raised, return True
     return True

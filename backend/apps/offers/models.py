@@ -1,6 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 
-from .imports import *
+from .imports.models_imports import *
 
 
 class Offer(models.Model):
@@ -52,8 +52,7 @@ class Offer(models.Model):
         related_name="offers",
         on_delete=models.CASCADE,
     )
-    is_active = models.BooleanField(verbose_name=_("Aktualna"))
-    is_verified = models.BooleanField(verbose_name=_("Zweryfikowana"))
+    is_verified = models.BooleanField(verbose_name=_("Zweryfikowana"), default=False)
 
     class Meta:
         verbose_name = _("Oferta")
@@ -94,9 +93,9 @@ class Requirement(models.Model):
 
     def __str__(self) -> str:
         if self.level:
-            return self.type + " " + self.name + ", " + self.level
+            return self.name + ", " + self.level
         else:
-            return self.type + " " + self.name
+            return self.name
 
     def clean(self):
         validate_unique_requirement(self, Requirement)
