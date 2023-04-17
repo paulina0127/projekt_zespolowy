@@ -1,16 +1,18 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-// import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from "redux-thunk";
-import { loginReducer } from "./reducers/loginReducer";
-// import rootReducer from './reducers';
-// import { applyMiddleware } from "redux";
+import { authReducer } from "./reducers/authReducer";
 
 const reducer = combineReducers({
-  login: loginReducer
-  // root: rootReducer,
+  auth: authReducer
 });
 
-const initialState = {};
+const userTokensFromStorage = localStorage.getItem("userTokens")
+  ? JSON.parse(localStorage.getItem("userTokens"))
+  : null;
+
+export const initialState = {
+  auth: { userTokens: userTokensFromStorage }
+};
 
 const middleware = [thunk];
 
