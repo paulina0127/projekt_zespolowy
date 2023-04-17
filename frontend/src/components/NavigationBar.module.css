@@ -1,3 +1,16 @@
+.nav {
+  background-color: rgba(0, 0, 0, 0.918);
+
+}
+
+.link {
+  color: #e7b922;
+}
+
+.link:hover {
+  color: #ffffff;
+}
+
 .dropdown-toggle ::after {
   display: none; 
 }

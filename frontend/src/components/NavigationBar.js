@@ -12,10 +12,10 @@ const NavigationBar = ( { logout, isAuthenticated } ) => {
   const guestLinks = () => (
     <>
       <Nav.Link as={Link} to="/logowanie">
-        <Button variant="warning">Zaloguj się</Button>
+        <Button className="rounded-pill" variant="warning">Zaloguj się</Button>
       </Nav.Link>
       <Nav.Link as={Link} to="/rejestracja">
-        <Button variant="outline-warning">Zarejestruj się</Button>
+        <Button className="rounded-pill" variant="outline-warning">Zarejestruj się</Button>
       </Nav.Link>
     </>
   );
@@ -46,9 +46,9 @@ const NavigationBar = ( { logout, isAuthenticated } ) => {
   );
 
   return (
-    <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="md" className={styles.nav} variant="dark">
       <Container>
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand className={styles.link} as={Link} to="/">
           {/* <img
               alt=""
               src=""
@@ -61,8 +61,8 @@ const NavigationBar = ( { logout, isAuthenticated } ) => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/oferty">Oferty Pracy</Nav.Link>
-            <Nav.Link as={Link} to="/pracodawcy">Pracodawcy</Nav.Link>
+            <Nav.Link className={styles.link} as={Link} to="/oferty">Oferty Pracy</Nav.Link>
+            <Nav.Link className={styles.link} as={Link} to="/pracodawcy">Pracodawcy</Nav.Link>
           </Nav>
           <Nav>
             {isAuthenticated ? authLinks() : guestLinks() }

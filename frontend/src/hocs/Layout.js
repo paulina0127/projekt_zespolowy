@@ -10,7 +10,7 @@ const Layout = ({ checkAuthenticated, load_user, children }) => {
   }, []);
 
   return (
-    <div>
+    <div style={{backgroundColor: '#F0EEE6'}}>
       <NavigationBar />
       {children}
     </div>

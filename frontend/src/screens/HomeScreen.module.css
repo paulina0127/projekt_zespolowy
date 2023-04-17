@@ -1,0 +1,260 @@
+/* HERO */
+.hero-image {
+  height: 50vh;
+}
+
+.hero-image-container {
+  height: 100%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)), url('https://wallpapers.com/images/hd/black-and-gold-spark-lines-lhsasssgwhd7h9ig.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.hero-text {
+  height: 90%;
+  width: 100%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-title {
+  font-weight: 400;
+  font-size: 3em;
+  background: linear-gradient(0.25turn, rgba(0, 0, 0, 0), rgba(202, 135, 12, 0.76), rgba(0, 0, 0, 0));
+  padding: 10px 10px 15px 10px;
+  letter-spacing: .3em;
+}
+
+.hero-p {
+  font-size: 1.5em;
+  letter-spacing: .3em;
+  padding: 10px;
+  max-width: 550px;
+}
+
+.hero-butt {
+  font-weight: 400;
+  margin-top: 20px;
+  text-decoration: none;
+  color: white;
+  font-size: 1em;
+  background: linear-gradient(0.25turn, rgba(0, 0, 0, 0), rgba(202, 136, 12, 0.9), rgba(0, 0, 0, 0));
+  padding: 10px 20px;
+  letter-spacing: .3em;
+  transition: padding .1s;
+}
+
+.hero-butt:hover {
+  padding: 20px 30px;
+  color: #e7b922;
+}
+
+@media (max-width: 600px) {
+  .hero-title {
+      font-size: 2em;
+  }
+
+  .hero-p {
+      font-size: .8em;
+  }
+
+}
+
+@media (max-width: 400px) {
+  .hero-title {
+      font-size: 1.5em;
+  }
+
+  .hero-p {
+      padding: 10px 20px 10px 20px;
+      font-size: .7em;
+  }
+
+}
+
+/* SEARCH BOX */
+
+.search-sec{
+    padding: 0.8rem;
+    width: 70%;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 15%;
+}
+
+@media (min-width: 992px){
+    .search-sec{
+        position: relative;
+        top: -80px;
+        background:  rgba(202, 135, 12, 0.795);
+        border-radius: 1rem;
+    }
+}
+
+@media (max-width: 992px){
+    .search-sec{
+        background:  rgba(202, 136, 12, 0.9);
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+/* OFFERS LIST */
+
+.job-card {
+  display: flex;
+  padding: 30px;
+  background-color: white;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 2rem;
+  margin-bottom: 20px;
+}
+@media (max-width: 767px) {
+  .job-card {
+    display: block;
+    padding: 20px;
+    margin-bottom: 50px;
+  }
+}
+.job-card:hover {
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+}
+.job-card p {
+  font-size: 17px;
+  color: rgba(202, 136, 12, 0.9);
+  font-weight: 500;
+  line-height: 1.4;
+}
+@media (max-width: 767px) {
+  .job-card__info {
+    padding-bottom: 20px;
+  }
+}
+
+.job-card__info .img-c {
+  height: 88px;
+  width: 88px;
+  margin-right: 15px;
+}
+@media (max-width: 767px) {
+  .job-card__info .img-c {
+    height: 60px;
+    width: 60px;
+    margin: -50px 0 10px 0;
+  }
+}
+.job-card__info .img-c img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+.job-card__info p {
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+.job-card__info .tag-new {
+  padding: 7px 10px;
+  background-color: #58a9a7;
+  color: white;
+  border-radius: 20px;
+  margin-left: 10px;
+  text-transform: uppercase;
+  font-size: 11px;
+  display: none;
+}
+.job-card__info .tag-featured {
+  padding: 7px 10px;
+  background-color: black;
+  color: white;
+  border-radius: 20px;
+  margin-left: 10px;
+  text-transform: uppercase;
+  font-size: 11px;
+  display: none;
+}
+.job-card__info h6 {
+  color: #323838;
+  font-size: 20px;
+  font-weight: 700;
+}
+.job-card__info ul {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.job-card__info ul li {
+  font-size: 15px;
+  color: #939c9b;
+  padding: 0 10px;
+  position: relative;
+}
+.job-card__info ul li:before {
+  content: "";
+  height: 4px;
+  width: 4px;
+  position: absolute;
+  top: 50%;
+  background-color: #939c9b;
+  border-radius: 50%;
+  left: -2px;
+  transform: translateY(-50%);
+}
+.job-card__info ul li:first-child {
+  padding-left: 0;
+}
+.job-card__info ul li:first-child:before {
+  display: none;
+}
+.job-card__info ul li:last-child {
+  padding-right: 0;
+}
+.job-card.new .tag-new {
+  display: block;
+}
+.job-card.featured {
+  border-left: 5px solid #58a9a7;
+}
+.job-card.featured .tag-featured {
+  display: block;
+}
+
+.offer-btn {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 20px;
+}
+
+@media (max-width: 767px) {
+  .offer-btn {
+    padding-top: 20px;
+    padding-left: 0;
+    border-top: 1px solid #939c9b;
+  }
+}
+.offer-btn button {
+  border: 1px solid #E7B822;
+  width: 150px;
+  margin-bottom: 0;
+  padding: 0.7rem;
+  border-radius: 1.5rem;
+  color: black;
+  font-weight: 500;
+  background-color: #f1f7f5;
+  margin: 5px 10px 5px 0;
+  transition: all ease 0.2s;
+}
+.offer-btn button:hover {
+  background-color: #bebebea9;
+  color: white;
+}
+.offer-btn button:last-child {
+  margin-right: 0;
+}
