@@ -5,6 +5,7 @@ import { logout } from '../actions/authActions';
 
 import { IoIosArrowDropdown} from 'react-icons/io';
 import ProfilePic from '../images/profile_pic.jpg';
+import Brand from '../images/brand.png';
 import styles from './NavigationBar.module.css'
 
 const NavigationBar = ( { logout, isAuthenticated } ) => {
@@ -46,21 +47,20 @@ const NavigationBar = ( { logout, isAuthenticated } ) => {
   );
 
   return (
-    <Navbar collapseOnSelect expand="md" className={styles.nav} variant="dark">
+    <Navbar collapseOnSelect expand="lg" className={styles.nav} variant="dark">
       <Container>
-        <Navbar.Brand className={styles.link} as={Link} to="/">
-          {/* <img
-              alt=""
-              src=""
-              width="10"
+        <Navbar.Brand as={Link} to="/">
+          <img
+              alt="brand pic"
+              src={Brand}
+              width="150"
               height="30"
-              className="d-inline-block align-top"
-            /> */}
-          HireMeNow
+            />
+          
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="mx-auto">
             <Nav.Link className={styles.link} as={Link} to="/oferty">Oferty Pracy</Nav.Link>
             <Nav.Link className={styles.link} as={Link} to="/pracodawcy">Pracodawcy</Nav.Link>
           </Nav>

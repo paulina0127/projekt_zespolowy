@@ -6,6 +6,7 @@ import SignUpScreen from "./screens/Auth/SignUpScreen";
 import ActivateAccountScreen from "./screens/Auth/ActivateAccountScreen";
 import ResetPassword from "./screens/Auth/ResetPassword";
 import ResetPasswordConfirm from "./screens/Auth/ResetPasswordConfirm";
+import OfferScreen from "./screens/OfferScreen";
 
 import Layout from './hocs/Layout';
 
@@ -15,11 +16,12 @@ const App = () => {
     <Layout>
       <Routes>
         <Route path="/" element={<HomeScreen />} exact />
-        <Route path="/logowanie" element={<LoginScreen/>} exact />
-        <Route path="/rejestracja" element={<SignUpScreen/>} exact />
-        <Route path="/reset-password" element={<ResetPassword />} exact />
-        <Route path="/password/reset/confirm/:iud/:token" element={<ResetPasswordConfirm />} exact />
-        <Route path="/activate/:uid/:token" element={<ActivateAccountScreen/>} exact />
+        <Route path="/logowanie" element={<LoginScreen/>} />
+        <Route path="/rejestracja" element={<SignUpScreen/>} />
+        <Route path="/reset-password" element={<ResetPassword />}  />
+        <Route path="/password/reset/confirm/:iud/:token" element={<ResetPasswordConfirm />} />
+        <Route path="/activate/:uid/:token" element={<ActivateAccountScreen/>} />
+        <Route path="/oferta/:id" element={<OfferScreen />}/>
       </Routes>
     </Layout>
   </BrowserRouter>

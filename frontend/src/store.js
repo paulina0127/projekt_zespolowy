@@ -1,9 +1,12 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import { authReducer } from "./reducers/authReducer";
+import { offerListReducer, offerDetailsReducer } from "./reducers/offerReducer";
 
 const reducer = combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  offerList: offerListReducer,
+  offerDetails: offerDetailsReducer,
 });
 
 const userTokensFromStorage = localStorage.getItem("userTokens")

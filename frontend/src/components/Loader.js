@@ -4,7 +4,7 @@ const Loader = () => {
   return (
     <Spinner 
     animation="border" 
-    variant="primary" 
+    variant="warning" 
     role="status" 
     style={{
       height: '100px',

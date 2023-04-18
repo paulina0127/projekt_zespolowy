@@ -5,6 +5,8 @@
 
 .link {
   color: #e7b922;
+  text-transform: uppercase;
+  letter-spacing: .2em;
 }
 
 .link:hover {

@@ -17,7 +17,7 @@ class OfferSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Offer
-        exclude = ['is_verified', "company"]
+        exclude = ['is_verified']
 
     def create(self, validated_data):
         # Add location while adding offer
