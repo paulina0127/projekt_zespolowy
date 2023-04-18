@@ -1,3 +1,20 @@
+/* FONT IMPORT */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+
+/* FLEXBOX */
+.section {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.flex-search{
+  padding: 100px 10 px;
+  width: 50%;
+}
+
+
 /* HERO */
 .hero-image {
   height: 50vh;
@@ -5,10 +22,22 @@
 
 .hero-image-container {
   height: 100%;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)), url('https://wallpapers.com/images/hd/black-and-gold-spark-lines-lhsasssgwhd7h9ig.jpg');
+  background-image: url('https://i.imgur.com/3O3qeY9.png');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
+  background-color: rgb(10, 0, 0);
+}
+
+.hero-image-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 100%;
+  color: white;
+  padding: 70px 10px 15px 10px;
+  text-align: left;
+  margin-left: 40vh;
+  letter-spacing: .005em;
 }
 
 .hero-text {
@@ -19,15 +48,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
 
 .hero-title {
-  font-weight: 400;
-  font-size: 3em;
-  background: linear-gradient(0.25turn, rgba(0, 0, 0, 0), rgba(202, 135, 12, 0.76), rgba(0, 0, 0, 0));
-  padding: 10px 10px 15px 10px;
-  letter-spacing: .3em;
+  font-weight: 700;
+  color: black;
+  font-size: 2.5em;
+  padding: 40px 10px 70px 10px;
+  text-align: center;
 }
 
 .hero-p {
@@ -38,7 +66,7 @@
 }
 
 .hero-butt {
-  font-weight: 400;
+  font-weight: 700;
   margin-top: 20px;
   text-decoration: none;
   color: white;
@@ -51,7 +79,7 @@
 
 .hero-butt:hover {
   padding: 20px 30px;
-  color: #e7b922;
+  color: var(--yellow);
 }
 
 @media (max-width: 600px) {
@@ -79,20 +107,30 @@
 
 /* SEARCH BOX */
 
+
 .search-sec{
-    padding: 0.8rem;
+    position: relative;
+    top: -30px;
+    padding: 0.9rem;
     width: 70%;
     margin-top: 0;
     margin-bottom: 0;
     margin-left: 15%;
+    border: 4px solid var(--background-color);
+
+}
+
+::placeholder {
+  font-size: 16px;
+  padding-left: 2.5%;
+  font-weight: 700;
+  font-family: 'Inter', ;
 }
 
 @media (min-width: 992px){
     .search-sec{
-        position: relative;
-        top: -80px;
-        background:  rgba(202, 135, 12, 0.795);
-        border-radius: 1rem;
+        background:  rgba(0, 0, 0);
+        border-radius: 15rem;
     }
 }
 
@@ -104,3 +142,29 @@
     }
 }
 
+.btn {
+  font-weight: 700;
+}
+
+/* BOTTOM IMAGE */
+
+.hero-image-cta-container{
+  height: 125%;
+  background-image: url('https://i.imgur.com/9SXTRPS.png');
+  padding-top: 100px;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: rgb(42, 42, 42);
+  
+}
+
+.hero-image-cta-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 300%;
+  color: white;
+  margin-left: 40%;
+  line-height: 1.7em;
+  letter-spacing: .005em;
+}
