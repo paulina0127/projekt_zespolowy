@@ -75,7 +75,7 @@ const LoginScreen = ( { login, isAuthenticated } ) => {
         </button>
       </form>
       <p className='mt-3'>
-        Nie pamiętasz hasła? <Link className='text-decoration-none' to='/reset-password'>Przypomnij hasło</Link>
+        Nie pamiętasz hasła? <Link className='text-decoration-none' to='/przypominanie-hasła'>Przypomnij hasło</Link>
       </p>
       <p className='mt-3'>
        Nie masz konta? <Link className='text-decoration-none' to='/rejestracja'>Zarejestruj się</Link>

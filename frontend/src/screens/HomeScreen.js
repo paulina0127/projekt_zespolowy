@@ -29,7 +29,7 @@ const HomeScreen = () => {
     </section>
     <section className={styles["search-sec"]}>
       <div className="container">
-          <form action="#" method="post" novalidate="novalidate">
+          <form action="#" method="post" noValidate="novalidate">
               <div className="row">
                   <div className="col-lg-12">
                       <div className="d-flex flex-row justify-content-center">

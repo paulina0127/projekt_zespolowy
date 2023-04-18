@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reset_password } from "../../actions/authActions"
 
+import Message from '../../components/Message';
 import LayoutAuth from '../../hocs/LayoutAuth';
 import Background from '../../images/resetpass.jpg';
 
@@ -21,15 +21,15 @@ const ResetPassword = ({ reset_password }) => {
 
     reset_password(email);
     setRequestSent(true);
+    setFormData({
+      email: ''
+    });
   };
-
-  if (requestSent) {
-    return <Navigate replace to="/" />;
-  }
 
   return (
     <LayoutAuth bgImage={Background}>
       <h3 className="display-4">Przypomnij hasło</h3>
+      {requestSent && <Message variant='success'>Email z linkiem do zmiany hasła został wysłany.</Message>}
       <p className="text-muted mb-4">
         Podaj nam swój e-mail.
         Wyślemy Ci link do zmiany hasła.
