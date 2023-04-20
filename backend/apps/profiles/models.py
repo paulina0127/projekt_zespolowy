@@ -4,7 +4,9 @@ from .imports.models_imports import *
 
 
 class Company(models.Model):
-    nip = models.CharField(verbose_name=_("NIP"), max_length=10, unique=True, validators=[validate_nip])
+    nip = models.CharField(
+        verbose_name=_("NIP"), max_length=10, unique=True, validators=[validate_nip]
+    )
     name = models.CharField(verbose_name=_("Nazwa firmy"), max_length=255)
     email = models.EmailField()
     phone_number = PhoneNumberField(verbose_name=_("Numer telefonu"))
@@ -14,9 +16,13 @@ class Company(models.Model):
         related_name="company",
         on_delete=models.CASCADE,
     )
-    website = models.URLField(verbose_name=_("Strona internetowa"), blank=True, null=True)
+    website = models.URLField(
+        verbose_name=_("Strona internetowa"), blank=True, null=True
+    )
     description = models.TextField(verbose_name=_("Opis"))
-    image = models.ImageField(verbose_name=_("Zdjęcie"), upload_to="companies/images", blank=True, null=True)
+    image = models.ImageField(
+        verbose_name=_("Zdjęcie"), upload_to="companies/images", blank=True, null=True
+    )
 
     user = models.OneToOneField(
         verbose_name=_("Użytkownik"),
@@ -24,18 +30,29 @@ class Company(models.Model):
         related_name="company_profile",
         on_delete=models.CASCADE,
     )
-    auto_verify = models.BooleanField(verbose_name=_("Automatyczna weryfikacja"), default=False)
+    auto_verify = models.BooleanField(
+        verbose_name=_("Automatyczna weryfikacja"), default=False
+    )
 
     class Meta:
         verbose_name = _("Pracodawca")
         verbose_name_plural = _("Pracodawcy")
+        ordering = ["id"]
 
     def __str__(self) -> str:
         return self.name
 
+    def delete(self, *args, **kwargs):
+        # Delete related location when company is deleted
+        if self.location:
+            self.location.delete()
+        super().delete(*args, **kwargs)
+
 
 class Candidate(models.Model):
-    pesel = models.CharField(verbose_name=_("PESEL"), max_length=11, unique=True, validators=[validate_pesel])
+    pesel = models.CharField(
+        verbose_name=_("PESEL"), max_length=11, unique=True, validators=[validate_pesel]
+    )
     first_name = models.CharField(verbose_name=_("Imię"), max_length=100)
     last_name = models.CharField(verbose_name=_("Nazwisko"), max_length=100)
     phone_number = PhoneNumberField(verbose_name=_("Numer telefonu"))
@@ -46,7 +63,9 @@ class Candidate(models.Model):
         on_delete=models.CASCADE,
     )
 
-    image = models.ImageField(verbose_name=_("Zdjęcie"), upload_to="candidates/images", blank=True, null=True)
+    image = models.ImageField(
+        verbose_name=_("Zdjęcie"), upload_to="candidates/images", blank=True, null=True
+    )
 
     user = models.OneToOneField(
         verbose_name=_("Użytkownik"),
@@ -58,15 +77,24 @@ class Candidate(models.Model):
     class Meta:
         verbose_name = _("Kandydat")
         verbose_name_plural = _("Kandydaci")
+        ordering = ["id"]
 
     def __str__(self) -> str:
         return self.first_name + " " + self.last_name
+
+    def delete(self, *args, **kwargs):
+        # Delete related location when candidate is deleted
+        if self.location:
+            self.location.delete()
+        super().delete(*args, **kwargs)
 
 
 class File(models.Model):
     name = models.CharField(verbose_name=_("Nazwa"), max_length=255)
     added_at = models.DateTimeField(verbose_name=_("Dodano"), auto_now_add=True)
-    type = models.CharField(verbose_name=_("Rodzaj"), max_length=50, choices=FileType.choices)
+    type = models.CharField(
+        verbose_name=_("Rodzaj"), max_length=50, choices=FileType.choices
+    )
     file = models.FileField(
         verbose_name=_("Plik"),
         upload_to="candidates/files",
@@ -82,6 +110,7 @@ class File(models.Model):
     class Meta:
         verbose_name = _("Plik")
         verbose_name_plural = _("Pliki")
+        ordering = ["id"]
 
     def __str__(self) -> str:
         return self.name
@@ -99,8 +128,12 @@ class Experience(models.Model):
         null=True,
     )
     start_date = models.DateField(verbose_name=_("Data rozpoczęcia"))
-    end_date = models.DateField(verbose_name=_("Data zakończenia"), blank=True, null=True)
-    duties = ArrayField(models.TextField(), verbose_name=_("Obowiązki"), blank=True, null=True)
+    end_date = models.DateField(
+        verbose_name=_("Data zakończenia"), blank=True, null=True
+    )
+    duties = ArrayField(
+        models.TextField(), verbose_name=_("Obowiązki"), blank=True, null=True
+    )
     candidate = models.ForeignKey(
         verbose_name=_("Kandydat"),
         to=Candidate,
@@ -120,6 +153,7 @@ class Experience(models.Model):
     class Meta:
         verbose_name = _("Doświadczenie")
         verbose_name_plural = _("Doświadczenie")
+        ordering = ["id"]
 
     def __str__(self) -> str:
         return self.company + ", " + self.position
@@ -138,7 +172,9 @@ class Education(models.Model):
     )
     major = models.CharField(_("Kierunek"), max_length=255)
     start_date = models.DateField(verbose_name=_("Data rozpoczęcia"))
-    end_date = models.DateField(verbose_name=_("Data zakończenia"), blank=True, null=True)
+    end_date = models.DateField(
+        verbose_name=_("Data zakończenia"), blank=True, null=True
+    )
     candidate = models.ForeignKey(
         verbose_name=_("Kandydat"),
         to=Candidate,
@@ -158,6 +194,7 @@ class Education(models.Model):
     class Meta:
         verbose_name = _("Wykształcenie")
         verbose_name_plural = _("Wykształcenie")
+        ordering = ["id"]
 
     def __str__(self) -> str:
         return self.institute + " " + self.major + ", " + self.education_level
@@ -175,7 +212,9 @@ class CSkill(models.Model):
         blank=True,
     )
     name = models.CharField(verbose_name=_("Nazwa"), max_length=255, blank=True)
-    level = models.CharField(verbose_name=_("Poziom"), max_length=50, blank=True, null=True)
+    level = models.CharField(
+        verbose_name=_("Poziom"), max_length=50, blank=True, null=True
+    )
     candidate = models.ForeignKey(
         verbose_name=_("Kandydat"),
         to=Candidate,
@@ -202,6 +241,7 @@ class CSkill(models.Model):
     class Meta:
         verbose_name = _("Umiejętność")
         verbose_name_plural = _("Umiejętności")
+        ordering = ["id"]
 
     def __str__(self) -> str:
         if self.level:
@@ -243,6 +283,7 @@ class Course(models.Model):
     class Meta:
         verbose_name = _("Kurs")
         verbose_name_plural = _("Kursy")
+        ordering = ["id"]
 
     def __str__(self) -> str:
         return self.name
@@ -253,7 +294,9 @@ class Course(models.Model):
 
 
 class Link(models.Model):
-    type = models.CharField(verbose_name=_("Rodzaj"), max_length=50, choices=LinkType.choices)
+    type = models.CharField(
+        verbose_name=_("Rodzaj"), max_length=50, choices=LinkType.choices
+    )
     url = models.URLField(verbose_name=_("Adres URL"))
     candidate = models.ForeignKey(
         verbose_name=_("Kandydat"),
@@ -265,6 +308,7 @@ class Link(models.Model):
     class Meta:
         verbose_name = _("Link")
         verbose_name_plural = _("Linki")
+        ordering = ["id"]
 
     def __str__(self) -> str:
         return self.url

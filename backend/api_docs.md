@@ -4,6 +4,10 @@
 
 Returns list of all categories
 
+### GET: /categories/{id}
+
+Returns a single category
+
 ### Parameters
 
 #### is_main: true, false
@@ -13,19 +17,9 @@ Returns list of all categories
 
 #### main_category: {id}
 
-Returns subcategories of main category
-
 #### search: {name}
 
-Searches by category name
-
-#### ordering: id, -id, name, -name
-
-Orders list by id or name
-
-### GET: /categories/{id}
-
-Returns single category
+#### ordering: id, name
 
 # Skills
 
@@ -33,87 +27,74 @@ Returns single category
 
 Returns list of all skills
 
+### GET: /skills/{id}
+
+Returns a single skill
+
 ### Parameters
 
 #### type: {name}
 
-Returns skills for type
-
 #### search: {name}
 
-Searches by skill name
-
-#### ordering: id, -id, name, -name
-
-Orders list by id or name
-
-### GET: /skills/{id}
-
-Returns single skill
+#### ordering: id, name
 
 # Offers
 
-### GET: /offers
+### GET, POST: /offers
 
-Returns list of active and verified offers
+Returns list of active and verified offers, creates offer
+
+### GET, POST: /offers?all=true&company={id}
+
+Returns list of all offers for logged in company
+
+### GET, PUT, DELETE: /offers/{id}
+
+Returns, updates, deletes a single offer
+
+### GET, POST: /offers/{id}/requirements
+
+Returns list of requirements for offer and creates requirement
+
+### GET, PUT, DELETE: /offers/{id}/requirements/{id}
+
+Returns, updates, deletes a single requirement
 
 ### Parameters
 
+#### all: true, false
+
+- true: with company filter returns all offers
+- false: default
+
 #### location: {city}
 
-Returns offers for city
+#### company: {id}
+
+#### category: {id}
+
+#### position_level: {name}
+
+#### contract_type: {name}
+
+#### working_mode: {name}
+
+#### working_time: {name}
 
 #### search: {position, company name}
 
-Searches by postion and company name
-
-#### ordering: id, -id
-
-Orders list by id
-
-### GET: /offers/category/{category_name}
-
-Returns list of offers in category
-
-### GET: /offers/{id}
-
-Returns single offer
-
-# Users
-
-### GET: /auth/users/{id}
-
-Returns single user
-
-### POST: /auth/users/{id}/company_profile/create
-
-Creates company profile for user
-
-### POST: auth//users/{id}/candidate_profile/create
-
-Creates candidate profile for user
-
-### GET, PUT, DELETE: /auth/users/{id}/company_profile
-
-Returns, updates and deletes company profile for user
-
-### GET, PUT, DELETE: /users/{id}/candidate_profile
-
-Returns, updates, and deletes candidate profile for user
-
-### GET, POST: /auth/users/{id}/offers
-
-Returns offer list for user and creates offer
-
-### GET, PUT, DELETE: /users/{id}/offers/{id}
-
-Returns, updates, and deletes single offer for user
+#### ordering: id, created_date, expiration_date
 
 # Companies
 
-### GET: /companies
+### GET, POST: /companies
 
-Returns list of companies
+Returns list of companies and creates company
+
+### GET, PUT, DELETE: /companies/{id}
+
+Returns, updates, deletes a single company
 
 ### Parameters
 
@@ -125,10 +106,106 @@ Returns companies for city
 
 Searches by name
 
-#### ordering: id, -id, name, -name
+#### ordering: id, name
 
 Orders list by id and name
 
-### GET: /companies/{id}
+# Candidates
 
-Returns single company
+### GET, POST: /candidates
+
+Returns candidate for current user and creates candidate
+
+### GET, PUT, DELETE: /candidates/{id}
+
+Returns, updates, and deletes candidate
+
+### GET, POST: /candiates/{id}/files
+
+Returns list of files for current user and creates document
+
+### GET, PUT, DELETE: /candidates/{id}/files/{id}
+
+Returns, updates, and deletes files for current user
+
+### GET, POST: /candiates/{id}/experience
+
+Returns list of experiences for current user and creates experience
+
+### GET, PUT, DELETE: /candiates/{id}/experience/{id}
+
+Returns, updates, and deletes experience for current user
+
+### GET, POST: /candiates/{id}/education
+
+Returns list of educations for current user and creates education
+
+### GET, PUT, DELETE: /candiates/{id}/education/{id}
+
+Returns, updates, and deletes education for current user
+
+### GET, POST: /candiates/{id}//skills
+
+Returns list of skills for current user and creates skill
+
+### GET, PUT, DELETE: /candiates/{id}/skills/{id}
+
+Returns, updates, and deletes skill for current user
+
+### GET, POST: /candiates/{id}/courses
+
+Returns list of courses for current user and creates course
+
+### GET, PUT, DELETE: /candiates/{id}/courses/{id}
+
+Returns, updates, and deletes course for current user
+
+### GET, POST: /candiates/{id}/links
+
+Returns list of links for current user and creates link
+
+### GET, PUT, DELETE: /candiates/{id}/links/{id}
+
+Returns, updates, and deletes link for current user
+
+# Applications
+
+### GET, POST: /applications
+
+Returns list of all applications, creates application
+
+### GET, POST: /applications?candidate={id}
+
+Returns list of all applications for candidate
+
+### GET, POST: /applications?offer={id}
+
+Returns list of all applications for offer
+
+### GET, POST: /applications?company={id}
+
+Returns list of all applications for company
+
+### GET, PUT: /applications/{id}
+
+Returns, updates, deletes a single application
+
+### GET, POST: /applications/{id}/attachments
+
+Returns list all attachments for application
+
+### GET: /applications/{id}/attachments/{id}
+
+Returns, updates, deletes a single attachment
+
+### Parameters
+
+#### candidate: {id}
+
+#### offer: {id}
+
+#### company: {id}
+
+#### ~~search: {candidate, offer, company}~~
+
+#### ordering: id, created_date

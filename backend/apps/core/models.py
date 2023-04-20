@@ -15,9 +15,10 @@ class Location(models.Model):
     class Meta:
         verbose_name = _("Lokalizacja")
         verbose_name_plural = _("Lokalizacje")
+        ordering = ["id"]
 
     def __str__(self) -> str:
-        return (str(self.id) + ": " + self.street_address + ", " + self.postal_code + " " + self.city)
+        return self.street_address + ", " + self.postal_code + " " + self.city
 
 
 class Skill(models.Model):
@@ -29,6 +30,7 @@ class Skill(models.Model):
     class Meta:
         verbose_name = _("Umiejętność")
         verbose_name_plural = _("Umiejętności")
+        ordering = ["id"]
 
     def __str__(self) -> str:
         return self.name
@@ -48,6 +50,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = _("Kategoria")
         verbose_name_plural = _("Kategorie")
+        ordering = ["id"]
 
     def __str__(self):
         return self.name

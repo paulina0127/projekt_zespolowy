@@ -11,12 +11,8 @@ admin.site.unregister(auth.Group)
 @admin.register(User)
 class UserAdmin(DjangoUserAdmin):
     fieldsets = (
-        (None, {
-            "fields": ("email", "password", "type")
-        }),
-        (("Personal info"), {
-            "fields": ("first_name", "last_name")
-        }),
+        (None, {"fields": ("email", "password", "type")}),
+        (("Personal info"), {"fields": ("first_name", "last_name")}),
         (
             ("Permissions"),
             {
@@ -29,18 +25,18 @@ class UserAdmin(DjangoUserAdmin):
                 )
             },
         ),
-        (("Important dates"), {
-            "fields": ("last_login", "date_joined")
-        }),
+        (("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-    add_fieldsets = ((
-        None,
-        {
-            "classes": ("wide", ),
-            "fields": ("email", "password1", "password2", "type"),
-        },
-    ), )
-    list_display = ("email", "first_name", "last_name", "type", "is_staff")
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": ("email", "password1", "password2", "type"),
+            },
+        ),
+    )
+    list_display = ("email", "type", "is_active", "is_staff", "is_superuser")
     search_fields = ("email", "first_name", "last_name", "type")
     list_filter = (
         "type",
@@ -48,9 +44,11 @@ class UserAdmin(DjangoUserAdmin):
         "is_superuser",
         "is_active",
     )
-    ordering = ("email", )
+    ordering = ("type",)
 
 
 @admin.register(Group)  # Register default Group model in users page
 class GroupAdmin(admin.ModelAdmin):
-    filter_horizontal = ["permissions", ]
+    filter_horizontal = [
+        "permissions",
+    ]

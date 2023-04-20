@@ -1,6 +1,36 @@
-from rest_framework import generics, permissions
-from ..models import (Candidate, Company, Course, CSkill, Education, Experience,
-                      File, Link)
-from ..utils.serializers import CompanyProfileSerializer, CompanySerializer, CandidateProfileSerializer, CandidateSerializer, FileSerializer, ExperienceSerializer, EducationSerializer, CSkillSerializer, CourseSerializer, LinkSerializer
+from django.core.exceptions import ValidationError
+from rest_framework import generics, serializers
+from rest_framework.permissions import (
+    DjangoModelPermissions,
+    DjangoModelPermissionsOrAnonReadOnly,
+)
+
+from apps.core.utils.permissions import (
+    IsCandidateObjectOwnerOrCompanyReadOnly,
+    IsCompanyObjectOwnerOrAnonReadOnly,
+    IsCandidateViewOwnerOrCompanyReadOnly,
+)
+
+from ..models import (
+    Candidate,
+    Company,
+    Course,
+    CSkill,
+    Education,
+    Experience,
+    File,
+    Link,
+)
 from ..utils.filters import CompanyFilter
-from apps.core.utils.permissions import IsCompany, IsCompanyOwner, IsCandidate
+from ..utils.serializers import (
+    CandidateSerializer,
+    CompanySerializer,
+    CourseSerializer,
+    CreateCandidateSerializer,
+    CreateCompanySerializer,
+    CSkillSerializer,
+    EducationSerializer,
+    ExperienceSerializer,
+    FileSerializer,
+    LinkSerializer,
+)

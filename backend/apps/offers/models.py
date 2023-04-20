@@ -42,9 +42,15 @@ class Offer(models.Model):
         base_field=models.CharField(choices=WorkingTime.choices, max_length=255),
     )
     duties = ArrayField(models.TextField(), verbose_name=_("Obowiązki"))
-    advantages = ArrayField(models.TextField(), verbose_name=_("Zalety"), blank=True, null=True)
-    created_date = models.DateTimeField(verbose_name=_("Data utworzenia"), auto_now_add=True)
-    expiration_date = models.DateTimeField(verbose_name=_("Data wygaśnięcia"), validators=[validate_expiration_date])
+    advantages = ArrayField(
+        models.TextField(), verbose_name=_("Zalety"), blank=True, null=True
+    )
+    created_date = models.DateTimeField(
+        verbose_name=_("Data utworzenia"), auto_now_add=True
+    )
+    expiration_date = models.DateTimeField(
+        verbose_name=_("Data wygaśnięcia"), validators=[validate_expiration_date]
+    )
 
     company = models.ForeignKey(
         verbose_name=_("Pracodawca"),
@@ -53,10 +59,12 @@ class Offer(models.Model):
         on_delete=models.CASCADE,
     )
     is_verified = models.BooleanField(verbose_name=_("Zweryfikowana"), default=False)
+    objects = OfferManager()
 
     class Meta:
         verbose_name = _("Oferta")
         verbose_name_plural = _("Oferty")
+        ordering = ["id"]
 
     def __str__(self) -> str:
         return self.company.name + " " + self.position
@@ -67,11 +75,21 @@ class Offer(models.Model):
             self.is_verified = True
         super(Offer, self).save(*args, **kwargs)
 
+    def delete(self, *args, **kwargs):
+        # Delete related location when offer is deleted
+        if self.location:
+            self.location.delete()
+        super().delete(*args, **kwargs)
+
 
 class Requirement(models.Model):
-    type = models.CharField(verbose_name=_("Rodzaj"), max_length=50, choices=SkillType.choices)
+    type = models.CharField(
+        verbose_name=_("Rodzaj"), max_length=50, choices=SkillType.choices
+    )
     name = models.CharField(verbose_name=_("Nazwa"), max_length=100, blank=True)
-    level = models.CharField(verbose_name=_("Poziom"), max_length=50, blank=True, null=True)
+    level = models.CharField(
+        verbose_name=_("Poziom"), max_length=50, blank=True, null=True
+    )
     offer = models.ForeignKey(
         verbose_name=_("Oferta"),
         to=Offer,
@@ -90,6 +108,7 @@ class Requirement(models.Model):
     class Meta:
         verbose_name = _("Wymaganie")
         verbose_name_plural = _("Wymagania")
+        ordering = ["id"]
 
     def __str__(self) -> str:
         if self.level:
@@ -109,14 +128,18 @@ class Requirement(models.Model):
 
 
 class Application(models.Model):
-    date = models.DateTimeField(auto_now_add=True, verbose_name=_("Data utworzenia"), blank=True)
+    created_date = models.DateTimeField(
+        auto_now_add=True, verbose_name=_("Data utworzenia"), blank=True
+    )
     status = models.CharField(
         verbose_name=_("Status"),
         max_length=50,
         choices=ApplicationStatus.choices,
         blank=True,
     )
-    type = models.CharField(verbose_name=_("Rodzaj"), max_length=50, choices=ApplicationType.choices)
+    type = models.CharField(
+        verbose_name=_("Rodzaj"), max_length=50, choices=ApplicationType.choices
+    )
     mark = models.IntegerField(
         verbose_name=_("Ocena kompetencji"),
         blank=True,
@@ -140,6 +163,7 @@ class Application(models.Model):
     class Meta:
         verbose_name = _("Aplikacja")
         verbose_name_plural = _("Aplikacje")
+        ordering = ["id"]
 
     def __str__(self) -> str:
         return "Id: " + str(self.id)
@@ -171,6 +195,7 @@ class Attachment(models.Model):
     class Meta:
         verbose_name = _("Załącznik")
         verbose_name_plural = _("Załączniki")
+        ordering = ["id"]
 
     def __str__(self) -> str:
         return "Id: " + str(self.id)

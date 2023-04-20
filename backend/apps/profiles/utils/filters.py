@@ -1,5 +1,5 @@
 from django.utils.translation import gettext_lazy as _
-from django_filters import FilterSet, CharFilter
+from django_filters import CharFilter, FilterSet
 
 from ..models import Company
 

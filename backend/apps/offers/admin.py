@@ -6,14 +6,12 @@ from .models import Application, Attachment, Offer, Requirement
 
 @admin.register(Requirement)
 class RequirementAdmin(admin.ModelAdmin):
-
     def get_model_perms(self, request):
         return {}  # Register Requirement without displaying in Admin Panel
 
 
 @admin.register(Attachment)
 class AttachmentAdmin(admin.ModelAdmin):
-
     def get_model_perms(self, request):
         return {}  # Register Attachment without displaying in Admin Panel
 
@@ -27,10 +25,15 @@ class RequirementInline(admin.StackedInline):
 @admin.register(Offer)
 class OfferAdmin(admin.ModelAdmin, DynamicArrayMixin):
     inlines = [RequirementInline]  # Display Requirement on Offer form
-    list_filter = [
+    list_display = [
+        "id",
         "company",
+        "position",
         "category",
+        "created_date",
+        "is_verified",
     ]
+    list_filter = ["company", "category", "is_verified"]
 
 
 # Using StackedInline to display model on Application form
@@ -42,4 +45,5 @@ class AttachmentInline(admin.StackedInline):
 @admin.register(Application)
 class ApplicationAdmin(admin.ModelAdmin):
     inlines = [AttachmentInline]  # Display Attachment on Application form
+    list_display = ["id", "offer", "candidate", "created_date", "status"]
     list_filter = ["offer", "candidate", "status"]

@@ -1,16 +1,10 @@
 from .imports.views_imports import *
 
 
-class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Location.objects.all()
-    serializer_class = LocationSerializer
-    name = "location-detail"
-
-
 class CategoryList(generics.ListAPIView):
     queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-    name = "category-list"
+    serializer_class = MainCategorySerializer
+    name = "categories"
     filterset_class = CategoryFilter
     search_fields = ["name"]
     ordering_fields = ["id", "name"]
@@ -18,14 +12,14 @@ class CategoryList(generics.ListAPIView):
 
 class CategoryDetail(generics.RetrieveAPIView):
     queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-    name = "category-detail"
+    serializer_class = MainCategorySerializer
+    name = "category"
 
 
 class SkillList(generics.ListAPIView):
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
-    name = "skill-list"
+    name = "skills"
     filterset_fields = ["type"]
     search_fields = ["name"]
     ordering_fields = ["id", "name"]
@@ -34,7 +28,7 @@ class SkillList(generics.ListAPIView):
 class SkillDetail(generics.RetrieveAPIView):
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
-    name = "skill-detail"
+    name = "skill"
 
 
 class ApiRoot(generics.GenericAPIView):
@@ -45,7 +39,9 @@ class ApiRoot(generics.GenericAPIView):
             {
                 "categories": reverse(CategoryList.name, request=request),
                 "skills": reverse(SkillList.name, request=request),
-                "offers": reverse(OfferList.name, request=request),
                 "companies": reverse(CompanyList.name, request=request),
+                "candidates": reverse(CandidateList.name, request=request),
+                "offers": reverse(OfferList.name, request=request),
+                "applications": reverse(ApplicationList.name, request=request),
             }
         )

@@ -8,20 +8,22 @@ from django.utils.translation import gettext as _
 
 # Start date and end date for Experience, Education and Course
 def validate_start_date(object):
-    if object.start_date > timezone.now():
+    if object.start_date > timezone.now().date():
         raise ValidationError(_("Data rozpoczęcia nie może być w przyszłości."))
     if object.end_date < object.start_date:
         raise ValidationError(_("Data rozpoczęcia nie może być po dacie zakończenia."))
 
 
 def validate_end_date(object):
-    if object.end_date > timezone.now():
+    if object.end_date > timezone.now().date():
         raise ValidationError(_("Data zakończenia nie może być w przyszłości."))
     if object.end_date < object.start_date:
-        raise ValidationError(_("Data zakończenia nie może być przed datą rozpoczęcia."))
+        raise ValidationError(
+            _("Data zakończenia nie może być przed datą rozpoczęcia.")
+        )
 
 
-# Company
+# Company FIX add api request
 def validate_nip(value):
     if not re.match(r"^[0-9]{10}$", value):
         raise ValidationError(_("NIP powinien składać się z 10 cyfr."))
@@ -43,11 +45,15 @@ def validate_file_extension(value):
 
 # CSkill
 def validate_unique_cskill(object, model):
-    existing = model.objects.filter(skill=object.skill, ).exclude(id=object.id)
+    existing = model.objects.filter(
+        skill=object.skill,
+    ).exclude(id=object.id)
     if existing.exists():
         raise ValidationError(_("Wybrana umiejętność już istnieje."))
 
 
 def validate_cskill_name(object):
     if not object.skill and not object.name:
-        raise ValidationError(_("Wybierz umiejętność z listy lub wpisz nazwę umiejętności."))
+        raise ValidationError(
+            _("Wybierz umiejętność z listy lub wpisz nazwę umiejętności.")
+        )

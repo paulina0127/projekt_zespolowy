@@ -15,15 +15,15 @@ class SkillSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class SubCategorySerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ["id", "name"]
 
 
-class CategorySerializer(serializers.ModelSerializer):
-    subcategories = SubCategorySerializer(many=True, read_only=True)
+class MainCategorySerializer(serializers.ModelSerializer):
+    subcategories = CategorySerializer(many=True, read_only=True)
 
     class Meta:
         model = Category
-        fields = "__all__"
+        exclude = ["parent"]

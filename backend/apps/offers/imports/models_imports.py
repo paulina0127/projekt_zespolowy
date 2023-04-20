@@ -5,11 +5,12 @@ from apps.core.models import Category, Location, Skill
 from apps.profiles.models import Candidate, Company, File
 
 from ..utils.choices import (ApplicationStatus, ApplicationType, ContractType,
-                            PositionLevel, SkillType, WorkingMode, WorkingTime)
+                             PositionLevel, SkillType, WorkingMode,
+                             WorkingTime)
 from ..utils.fields import ChoiceArrayField
+from ..utils.managers import OfferManager
 from ..utils.validators import (validate_expiration_date, validate_mark_range,
-                               validate_requirement_name, validate_salary,
-                               validate_unique_application,
-                               validate_unique_attachment,
-                               validate_unique_requirement)
-
+                                validate_requirement_name, validate_salary,
+                                validate_unique_application,
+                                validate_unique_attachment,
+                                validate_unique_requirement)
