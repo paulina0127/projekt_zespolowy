@@ -32,14 +32,14 @@ const HomeScreen = () => {
           <form action="#" method="post" noValidate="noValidate">
               <div className="row">
                   <div className="col-lg-12">
-                      <div className="d-flex flex-row justify-content-between">
-                          <div className="col-lg-6 col-md-3 col-sm-12 p-0 mx-2">
+                      <div className="d-flex flex-row justify-content-around">
+                          <div className="col-lg-4 col-md-3 col-sm-12 p-0 mx-2">
                               <div className="input-group">
                                 {/* <i className="fa fa-search"></i> */}
                                 <input type="search" className="form-control rounded-pill" i="fa fa-search" placeholder="Zawód, firma"/>
                               </div>
                           </div>
-                          <div className="col-lg-5 col-md-3 col-sm-12 p-0 mx-2 flex-fill">
+                          <div className="col-lg-4 col-md-3 col-sm-12 p-0 mx-2">
                             <div className="input-group">
                                 {/* <i className="fa fa-search"></i> */}
                                 <input type="search" className="form-control rounded-pill" placeholder="Lokalizacja"/>
@@ -56,7 +56,7 @@ const HomeScreen = () => {
                                   <option>Example one</option>
                               </select>
                           </div>
-                          <div className="col-lg-1 col-md-3 col-sm-12 p-0 mx-3 flex-fill">
+                          <div className="col-lg-2 col-md-3 col-sm-12 p-0 mx-2 flex-fill">
                               <button type="button" className="btn btn-warning rounded-pill fw-bold">Wyszukaj</button>
                           </div>
                       </div>

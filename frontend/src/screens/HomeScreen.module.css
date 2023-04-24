@@ -103,11 +103,11 @@
     position: relative;
     top: -30px;
     padding: 0.9rem;
-    width: 60%;
+    width: 50%;
     margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 20%;
     border: 4px solid var(--background-color);
+    margin-left: auto;
+    margin-right: auto;
 
 }
 
