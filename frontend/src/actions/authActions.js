@@ -206,7 +206,7 @@ export const reset_password = (email) => async dispatch => {
   }
 };
 
-// nie działa poprawnie - https://djoser.readthedocs.io/en/latest/base_endpoints.html#reset-password
+
 export const reset_password_confirm = (uid, token, new_password, re_new_password) => async dispatch => {
   const config = {
     headers: {

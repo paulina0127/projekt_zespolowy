@@ -1,0 +1,6 @@
+.iconbg {
+  padding: 1rem;
+  background-color: var(--yellow);
+  border-radius: 10px;
+  margin-right: 0.5rem;
+}

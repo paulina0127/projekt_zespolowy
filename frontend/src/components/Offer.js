@@ -9,14 +9,14 @@ const Offer = ({offer}) => {
           <div className={styles["img-c"]}><img src="http://projects.lollypop.design/job-listing/photosnap.svg" alt="company pic"/></div>
           <div>
             <div className="d-flex align-items-center">
-              <p>Firma</p>
+              <p>{offer.company.name}</p>
             </div>
               <Link to={`/oferta/${offer.id}`} style={{textDecoration: 'none'}}>
                 <h6>{offer.position}</h6>
               </Link>
             <ul>
               <li>{offer.position_level}</li>
-              <li>{offer.working_time}</li>
+              <li>Wygasa: {offer.expiration_date.slice(0, 10)}</li>
               <li>{offer.location.city}</li>
             </ul>
           </div>

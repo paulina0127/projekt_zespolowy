@@ -15,7 +15,7 @@ export const listOffers = () => async dispatch => {
 
     dispatch({
       type: OFFER_LIST_SUCCESS,
-      payload: data
+      payload: data.results
     });
 
   } catch (error) {

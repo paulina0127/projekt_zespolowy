@@ -43,10 +43,10 @@ const LoginScreen = ( { login, isAuthenticated } ) => {
       </p>
       <form onSubmit={e => onSubmit(e)}>
         <div className="form-group mb-3">
+          <label htmlFor='email' className='mx-2 my-2 text-muted'>Email</label>
           <input
             id="inputEmail"
             type="email"
-            placeholder="Email"
             name='email'
             value={email}
             onChange={e => onChange(e)}
@@ -55,11 +55,11 @@ const LoginScreen = ( { login, isAuthenticated } ) => {
           />
         </div>
         <div className="form-group mb-3">
+          <label htmlFor='email' className='mx-2 my-2 text-muted'>Hasło</label>
           <input
-            className="form-control rounded-pill border-2 shadow-sm px-4 text-primary"
+            className="form-control rounded-pill border-2 shadow-sm px-4"
             id="inputPassword"
             type="password"
-            placeholder="Hasło"
             name='password'
             value={password}
             onChange={e => onChange(e)}

@@ -63,7 +63,7 @@ class OfferList(generics.ListCreateAPIView):
 class OfferDetail(generics.RetrieveUpdateDestroyAPIView):
     name = "offer"
     permission_classes = [
-        DjangoModelPermissions,
+        DjangoModelPermissionsOrAnonReadOnly,
         IsCompanyObjectOwnerOrAnonReadOnly,
     ]
 
