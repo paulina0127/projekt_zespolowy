@@ -10,6 +10,7 @@ class CompanyList(generics.ListCreateAPIView):
     filterset_class = CompanyFilter
     search_fields = ["name"]
     ordering_fields = ["id", "name"]
+    pagination_class = SmallResultsPage
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
 
     def get_serializer_class(self):
@@ -147,9 +148,7 @@ class FileDetail(generics.RetrieveUpdateDestroyAPIView):
 class ExperienceList(generics.ListCreateAPIView):
     serializer_class = ExperienceSerializer
     name = "experiences"
-    filterset_fields = []
-    search_fields = []
-    ordering_fields = ["id"]
+    ordering_fields = ["end_date"]
     permission_classes = [
         DjangoModelPermissions,
         IsCandidateViewOwnerOrCompanyReadOnly,
@@ -192,9 +191,7 @@ class ExperienceDetail(generics.RetrieveUpdateDestroyAPIView):
 class EducationList(generics.ListCreateAPIView):
     serializer_class = EducationSerializer
     name = "educations"
-    filterset_fields = []
-    search_fields = []
-    ordering_fields = ["id"]
+    ordering_fields = ["end_date"]
     permission_classes = [
         DjangoModelPermissions,
         IsCandidateViewOwnerOrCompanyReadOnly,
@@ -237,9 +234,6 @@ class EducationDetail(generics.RetrieveUpdateDestroyAPIView):
 class CSkillList(generics.ListCreateAPIView):
     serializer_class = CSkillSerializer
     name = "skills"
-    filterset_fields = []
-    search_fields = []
-    ordering_fields = ["id"]
     permission_classes = [
         DjangoModelPermissions,
         IsCandidateViewOwnerOrCompanyReadOnly,
@@ -282,9 +276,7 @@ class CSkillDetail(generics.RetrieveUpdateDestroyAPIView):
 class CourseList(generics.ListCreateAPIView):
     serializer_class = CourseSerializer
     name = "courses"
-    filterset_fields = []
-    search_fields = []
-    ordering_fields = ["id"]
+    ordering_fields = ["end_date"]
     permission_classes = [
         DjangoModelPermissions,
         IsCandidateViewOwnerOrCompanyReadOnly,
@@ -327,9 +319,6 @@ class CourseDetail(generics.RetrieveUpdateDestroyAPIView):
 class LinkList(generics.ListCreateAPIView):
     serializer_class = LinkSerializer
     name = "links"
-    filterset_fields = []
-    search_fields = []
-    ordering_fields = ["id"]
     permission_classes = [
         DjangoModelPermissions,
         IsCandidateViewOwnerOrCompanyReadOnly,

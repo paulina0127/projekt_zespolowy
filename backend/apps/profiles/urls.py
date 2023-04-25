@@ -1,23 +1,9 @@
 from django.urls import path
 
-from .views import (
-    CandidateDetail,
-    CandidateList,
-    CompanyDetail,
-    CompanyList,
-    FileDetail,
-    FileList,
-    ExperienceList,
-    ExperienceDetail,
-    EducationList,
-    EducationDetail,
-    CSkillList,
-    CSkillDetail,
-    CourseList,
-    CourseDetail,
-    LinkList,
-    LinkDetail,
-)
+from .views import (CandidateDetail, CandidateList, CompanyDetail, CompanyList,
+                    CourseDetail, CourseList, CSkillDetail, CSkillList,
+                    EducationDetail, EducationList, ExperienceDetail,
+                    ExperienceList, FileDetail, FileList, LinkDetail, LinkList)
 
 urlpatterns = [
     # Companies

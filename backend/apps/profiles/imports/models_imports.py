@@ -6,12 +6,7 @@ from apps.core.models import Location, Skill
 from apps.users.models import User
 
 from ..utils.choices import EducationLevel, FileType, LinkType, SkillType
-from ..utils.validators import (
-    validate_cskill_name,
-    validate_end_date,
-    validate_file_extension,
-    validate_nip,
-    validate_pesel,
-    validate_start_date,
-    validate_unique_cskill,
-)
+from ..utils.validators import (validate_cskill_name, validate_end_date,
+                                validate_file_extension, validate_nip,
+                                validate_pesel, validate_start_date,
+                                validate_unique_cskill)

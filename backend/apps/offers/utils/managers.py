@@ -17,7 +17,7 @@ class OfferQuerySet(models.QuerySet):
             company = user.company_profile
             return self.filter(company=company)
         except Company.DoesNotExist:
-            return HttpResponseNotFound(_("Ten użytkownik nie ma profilu pracodawcy."))
+            return HttpResponseNotFound(_("Użytkownik nie ma profilu pracodawcy."))
 
 
 class OfferManager(models.Manager):
