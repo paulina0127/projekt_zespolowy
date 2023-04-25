@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listOffers } from "../actions/offerActions";
 import { Link } from "react-router-dom";
+import { FaSearch } from "react-icons/fa";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 import Offer from "../components/Offer";
 import Loader from "../components/Loader";
@@ -35,18 +37,16 @@ const HomeScreen = () => {
                       <div className="d-flex flex-row justify-content-around">
                           <div className="col-lg-4 col-md-3 col-sm-12 p-0 mx-2">
                               <div className="input-group">
-                                {/* <i className="fa fa-search"></i> */}
-                                <input type="search" className="form-control rounded-pill" i="fa fa-search" placeholder="Zawód, firma"/>
+                                <input type="search" className="form-control rounded-pill" placeholder="Zawód, firma"/>
                               </div>
                           </div>
                           <div className="col-lg-4 col-md-3 col-sm-12 p-0 mx-2">
                             <div className="input-group">
-                                {/* <i className="fa fa-search"></i> */}
                                 <input type="search" className="form-control rounded-pill" placeholder="Lokalizacja"/>
                             </div>
                           </div>
                           <div className="col-lg-2 col-md-3 col-sm-12 p-0 mx-2">
-                              <select className="form-control rounded-pill fw-bold ">
+                              <select className="form-control rounded-pill fw-bold">
                                   <option selected disabled>Kategoria</option>
                                   <option>Example one</option>
                                   <option>Example one</option>
@@ -83,9 +83,9 @@ const HomeScreen = () => {
         <div className={styles["hero-image-cta-title"]}>
           <h1 style={{color: "var(--yellow)"}}>Stwórz darmowe konto</h1>
           <h1>I zacznij szukać swojej wymarzonej <br/> pracy już teraz!</h1>
-          <a href="/rejestracja" target="_blank" rel="noreferrer">
-          <button type="button" className="btn btn-warning rounded-pill fw-bold btn-lg">Zarejestruj się</button>
-          </a>
+          <Link to="/rejestracja">
+            <button type="button" className="btn btn-warning rounded-pill fw-bold btn-lg">Zarejestruj się</button>
+          </Link>
         </div>
       </div>
     </section>
