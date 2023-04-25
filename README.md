@@ -1,17 +1,26 @@
 # Serwis rekrutacyjny “HireMeNow”
 ## Opis projektu:
 
-Aplikacja “HireMeNow” to platforma webowa, której główną funkcją będzie możliwość publikacji ofert pracy, a następnie rekrutacji pracowników online (przez pracodawców), a z drugiej strony przeglądanie ofert pracy przez potencjalnych pracowników w dogodnym dla nich czasie.
+Aplikacja “HireMeNow” to platforma webowa, której główną funkcją będzie możliwość publikacji ofert pracy, a następnie rekrutacji pracowników online (przez pracodawców), a z drugiej strony przeglądanie ofert pracy przez kandydatów w dogodnym dla nich czasie.
 
 ## Możliwości aplikacji:
-* Użytkownicy mogą zalogować się na stworzone przez siebie konto z podziałem na pracodawców i kandydatów.
-* Pracodawcy mają możliwość publikowania ofert pracy.
-* Kandydaci mają możliwość aplikowania na wybrane przez siebie stanowisko.
-* Filtrowanie wyszukiwania.
+### Kandydat
+* Profil kandydata umożliwiający dodanie informacji o doświadczeniu zawodowyn, wykształceniu, posiadanych umiejętnościach, ukończonych kursach oraz umieszczeniu linków, np. do strony internetowej z portfolio
+* Wyszukiwanie ofert pracy z możliwośćią filtracji wyników
+* Aplikowanie na wybrane przez siebie stanowisko przy użyciu profilu kandydata lub pliku CV
+* Przeglądanie profili pracodawców
+* Załączenie plików oraz możliwość wskazania pliku potwierdzającego kwalifikacje, np. certyfikatu ukończenia kursu
+
+### Pracodawca
+* Profil pracodawcy umożliwiający dodanie informacji o firmie jak opis, lokalizacja, sposób kontaktu
+* Publikowanie ofert pracy
+* Ocena kompetencji i notatki dotyczące kandydata aplikującego na stanowisko
+* Zaakceptowanie bądź odrzucenie aplikacji kandydata
 
 ## Wykorzystane technologie: 
-* Django
-* React JS
+* Backend: Django
+* Frontend: React JS
+* Baza danych: PostgreSQL
 
 ## Zespół projektowy:
 1. Paulina Hryciuk – kierownik projektu, programista back-end 
