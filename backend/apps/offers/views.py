@@ -24,7 +24,7 @@ class OfferList(generics.ListCreateAPIView):
             try:
                 Company.objects.get(user=user)
             except Company.DoesNotExist:
-                raise ValidationError(_("Użytkownik nie ma profilu pracodawcy."))
+                raise BadRequest(_("Użytkownik nie ma profilu pracodawcy."))
             else:
                 if company == str(user.company_profile.id):
                     queryset = Offer.objects.for_user(user)
@@ -54,7 +54,7 @@ class OfferList(generics.ListCreateAPIView):
             Company.objects.get(user=user)
         except Company.DoesNotExist:
             # Throw error if user doesn't have company profile
-            raise ValidationError(_("Użytkownik nie ma profilu pracodawcy."))
+            raise BadRequest(_("Użytkownik nie ma profilu pracodawcy."))
         else:
             company = user.company_profile
             serializer.save(company=company).clean()
@@ -192,7 +192,7 @@ class ApplicationList(generics.ListCreateAPIView):
             Candidate.objects.get(user=user)
         except Candidate.DoesNotExist:
             # Throw error if user doesn't have company profile
-            raise ValidationError(_("Użytkownik nie ma profilu kandydata."))
+            raise BadRequest(_("Użytkownik nie ma profilu kandydata."))
         else:
             candidate = user.candidate_profile
             serializer.save(candidate=candidate).clean()

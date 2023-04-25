@@ -32,8 +32,7 @@ class CompanyList(generics.ListCreateAPIView):
             serializer.save(user=user).clean()
         else:
             # Throw error if user already has a profile
-            raise ValidationError(_("Profil pracodawcy już istnieje."))
-        # FIX switch to 409
+            raise BadRequest(_("Profil pracodawcy już istnieje."))
 
 
 # Display single company
@@ -80,8 +79,7 @@ class CandidateList(generics.ListCreateAPIView):
             serializer.save(user=user).clean()
         else:
             # Throw error if user already has a profile
-            raise ValidationError(_("Profil kandydata już istnieje."))
-        # FIX switch to 409
+            raise BadRequest(_("Profil kandydata już istnieje."))
 
 
 # Display single candidate
@@ -123,7 +121,7 @@ class FileList(generics.ListCreateAPIView):
             Candidate.objects.get(user=user)
         except Candidate.DoesNotExist:
             # Throw error if user doesn't have candidate profile
-            raise serializers.ValidationError(
+            raise BadRequest(
                 _("Do wykonania tej akcji potrzebny jest profil kandydata.")
             )
         else:
@@ -165,7 +163,7 @@ class ExperienceList(generics.ListCreateAPIView):
             Candidate.objects.get(user=user)
         except Candidate.DoesNotExist:
             # Throw error if user doesn't have candidate profile
-            raise serializers.ValidationError(
+            raise BadRequest(
                 _("Do wykonania tej akcji potrzebny jest profil kandydata.")
             )
         else:
@@ -208,7 +206,7 @@ class EducationList(generics.ListCreateAPIView):
             Candidate.objects.get(user=user)
         except Candidate.DoesNotExist:
             # Throw error if user doesn't have candidate profile
-            raise serializers.ValidationError(
+            raise BadRequest(
                 _("Do wykonania tej akcji potrzebny jest profil kandydata.")
             )
         else:
@@ -250,7 +248,7 @@ class CSkillList(generics.ListCreateAPIView):
             Candidate.objects.get(user=user)
         except Candidate.DoesNotExist:
             # Throw error if user doesn't have candidate profile
-            raise serializers.ValidationError(
+            raise BadRequest(
                 _("Do wykonania tej akcji potrzebny jest profil kandydata.")
             )
         else:
@@ -293,7 +291,7 @@ class CourseList(generics.ListCreateAPIView):
             Candidate.objects.get(user=user)
         except Candidate.DoesNotExist:
             # Throw error if user doesn't have candidate profile
-            raise serializers.ValidationError(
+            raise BadRequest(
                 _("Do wykonania tej akcji potrzebny jest profil kandydata.")
             )
         else:
@@ -335,7 +333,7 @@ class LinkList(generics.ListCreateAPIView):
             Candidate.objects.get(user=user)
         except Candidate.DoesNotExist:
             # Throw error if user doesn't have candidate profile
-            raise serializers.ValidationError(
+            raise BadRequest(
                 _("Do wykonania tej akcji potrzebny jest profil kandydata.")
             )
         else:
