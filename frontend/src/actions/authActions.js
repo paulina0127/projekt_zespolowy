@@ -7,18 +7,27 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  PASSWORD_RESET_REQUEST,
   PASSWORD_RESET_FAIL,
   PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_CONFIRM_REQUEST,
   PASSWORD_RESET_CONFIRM_FAIL,
   PASSWORD_RESET_CONFIRM_SUCCESS,
   SIGNUP_REQUEST,
   SIGNUP_SUCCESS,
   SIGNUP_FAIL,
   USER_LOADED_SUCCESS,
-  USER_LOADED_FAIL
+  USER_LOADED_FAIL,
+  ACTIVATION_REQUEST
 } from "../constants/authConst";
 
 import axios from "axios";
+
+const defaultConfig = {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+};
 
 export const load_user = () => async dispatch => {
   if (localStorage.getItem('userTokens')) {
@@ -51,10 +60,6 @@ export const load_user = () => async dispatch => {
   }
 };
 
-// nie działa poprawnie po odświeżeniu, tokeny są, autoryzacja nie przechodzi, na backendzie:
-//     if BlacklistedToken.objects.filter(token__jti=jti).exists():
-// AttributeError: type object 'BlacklistedToken' has no attribute 'objects'
-// https://djoser.readthedocs.io/en/latest/jwt_endpoints.html
 export const checkAuthenticated = () => async dispatch => {
 
   if (localStorage.getItem('userTokens')) {
@@ -103,15 +108,9 @@ export const login = (email, password) => async dispatch => {
       type: LOGIN_REQUEST
     })
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    };
-
     const body = JSON.stringify({ email, password });
 
-    const { data } = await axios.post('/auth/jwt/create/', body, config);
+    const { data } = await axios.post('/auth/jwt/create/', body, defaultConfig);
 
     dispatch({
       type: LOGIN_SUCCESS,
@@ -140,13 +139,7 @@ export const signup = (type, email, password, re_password) => async dispatch => 
 
     const body = JSON.stringify({ type, email, password, re_password });
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    };
-
-    const { data } = await axios.post('/auth/users/', body, config);
+    const { data } = await axios.post('/auth/users/', body, defaultConfig);
 
     dispatch({
       type: SIGNUP_SUCCESS,
@@ -163,73 +156,75 @@ export const signup = (type, email, password, re_password) => async dispatch => 
 };
 
 export const verify = (uid, token) => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-
-  const body = JSON.stringify({ uid, token });
-
   try {
-    await axios.post('/auth/users/activation/', body, config);
+    dispatch({
+      type: ACTIVATION_REQUEST,
+    });
+
+    const body = JSON.stringify({ uid, token });
+
+    await axios.post('/auth/users/activation/', body, defaultConfig);
 
     dispatch({
       type: ACTIVATION_SUCCESS,
     });
-  } catch (err) {
+  } catch (error) {
     dispatch({
-      type: ACTIVATION_FAIL
+      type: ACTIVATION_FAIL,
+      payload: error.response && error.response.data.detail
+      ? error.response.data.detail
+      : error.message,
     })
   }
 };
 
-export const reset_password = (email) => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-
-  const body = JSON.stringify({ email });
-
+export const reset_password = email => async dispatch => {
   try {
-    await axios.post('/auth/users/reset_password/', body, config);
+    dispatch({
+      type: PASSWORD_RESET_REQUEST
+    })
+  
+    const body = JSON.stringify({ email });
+
+    await axios.post('/auth/users/reset_password/', body, defaultConfig);
     
     dispatch({
       type: PASSWORD_RESET_SUCCESS
     });
-  } catch(err) {
+
+  } catch(error) {
     dispatch({
-      type: PASSWORD_RESET_FAIL
+      type: PASSWORD_RESET_FAIL,
+      payload: error.response && error.response.data.detail
+      ? error.response.data.detail
+      : error.message,
     });
   }
 };
 
-
 export const reset_password_confirm = (uid, token, new_password, re_new_password) => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-
-  const body = JSON.stringify({ uid, token, new_password, re_new_password });
-
   try {
-    await axios.post('/auth/users/reset_password_confirm/', body, config);
+    dispatch({
+      type: PASSWORD_RESET_CONFIRM_REQUEST
+    })
+    
+    const body = JSON.stringify({ uid, token, new_password, re_new_password });
+
+    await axios.post('/auth/users/reset_password_confirm/', body, defaultConfig);
     
     dispatch({
       type: PASSWORD_RESET_CONFIRM_SUCCESS
     });
-  } catch(err) {
+
+  } catch(error) {
     dispatch({
-      type: PASSWORD_RESET_CONFIRM_FAIL
+      type: PASSWORD_RESET_CONFIRM_FAIL,
+      payload: error.response && error.response.data.detail
+      ? error.response.data.detail
+      : error.message,
     });
   }
 };
-
-
 
 export const logout = () => dispatch => {
   localStorage.removeItem('userTokens')

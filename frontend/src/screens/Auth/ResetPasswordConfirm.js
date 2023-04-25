@@ -1,85 +1,71 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useParams, Link } from 'react-router-dom';
+import { connect, useSelector } from 'react-redux';
+import { Formik, Form } from 'formik';
+import { string, object, ref } from 'yup';
 import { reset_password_confirm } from "../../actions/authActions"
 
+import Loader from '../../components/Loader';
 import Message from '../../components/Message';
+import { TextField } from '../../components/TextField';
+import { VscCheckAll } from "react-icons/vsc";
 import LayoutAuth from '../../hocs/LayoutAuth';
 import Background from '../../images/resetpass.jpg';
-import { VscCheckAll} from "react-icons/vsc";
+
 
 const ResetPasswordConfirm = ({ reset_password_confirm }) => {
-  const [error, setError] = useState('');
   const uid = useParams().uid; 
   const token = useParams().token;
-  
-  const [requestSent, setRequestSent] = useState(false);
-  const [formData, setFormData] = useState({
-      new_password: '',
-      re_new_password: ''
+
+  const validate = object({
+    new_password: string()
+      .min(8, 'Hasło musi zawierać co najmniej 8 znaków')
+      .matches(/[0-9]/, 'Hasło musi zawierać co najmniej 1. cyfrę')
+      .matches(/[A-Z]/, 'Hasło musi zawierać co najmniej 1. wielką literę ')
+      .required('Hasło jest obowiązkowe'),
+    re_new_password: string()
+      .oneOf([ref('new_password'), null], 'Wprowadzone hasła różnią się od siebie.')
+      .required('Powtórz wprowadzone hasło'),
   });
 
-  const { new_password, re_new_password } = formData;
-
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const onSubmit = e => {
-    e.preventDefault();
-
-    if (new_password !== re_new_password) {
-      setError('Wprowadzone hasła różnią się od siebie');
-      setFormData({
-        new_password: '',
-        re_new_password: ''
-      });
-    } else {
-    reset_password_confirm(uid, token, new_password, re_new_password);
-    setRequestSent(true);
-    setFormData({
-      new_password: '',
-      re_new_password: ''
-    })};
-  };
-
+  const auth = useSelector(state => state.auth);
+  const { error, loading, success } = auth;
+  
   return (
     <LayoutAuth bgImage={Background}>
       <h3 className="display-4">Podaj nowe hasło</h3>
-      {requestSent && <Message variant='success'>Pomyślnie zmieniono hasło <VscCheckAll/></Message>}
-      {error !== '' && <Message variant='danger'>{error}</Message>}
+      {error && <Message variant='danger'>{error}</Message>}
+      {loading && <Loader />}
+      {success && <Message variant='success'>Pomyślnie zmieniono hasło <VscCheckAll/></Message>}
       <p className="text-muted mb-4">
         Po zatwierdzeniu nowego hasła, użyj go do zalogowania się do swojego konta.
       </p>
-      <form onSubmit={e => onSubmit(e)}>
-        <div className="form-group mb-3">
-          <input
-            className="form-control rounded-pill border-2 shadow-sm px-4"
-            type='password'
-            placeholder='Nowe hasło'
-            name='new_password'
-            value={new_password}
-            onChange={e => onChange(e)}
-            minLength='6'
-            required
-          />
-        </div>
-        <div className="form-group mb-3">
-          <input
-            className="form-control rounded-pill border-2 shadow-sm px-4"
-            type='password'
-            placeholder='Potwierdź nowe hasło'
-            name='re_new_password'
-            value={re_new_password}
-            onChange={e => onChange(e)}
-            minLength='6'
-            required
-          />
-        </div>
-        <button 
-          className="btn btn-warning btn-block text-uppercase mb-2 rounded-pill shadow-sm w-100"
-          type='submit'>
+      <Formik
+        initialValues={{
+          new_password: '',
+          re_new_password: '',
+        }}
+        validationSchema={validate}
+        onSubmit={(values, {resetForm}) => {
+          const { new_password, re_new_password } = values;
+          reset_password_confirm(uid, token, new_password, re_new_password);
+          resetForm({ values: ''});
+        }}
+      >
+      {({ values }) => (
+        <Form>
+          <TextField label="Hasło" name="new_password" type="password" />
+          <TextField label="Potwierdź hasło" name="re_new_password" type="password" />
+          <button 
+            className="btn btn-warning btn-block text-uppercase mb-2 rounded-pill shadow-sm w-100" 
+            type='submit'>
             Zmień hasło
-        </button>
-      </form>
+          </button>
+        </Form>
+      )}  
+      </Formik>
+      <p className='mt-3'>
+        Hasło zostało zmienione? <Link className='text-decoration-none' to='/logowanie'>Zaloguj się</Link>
+      </p>
     </LayoutAuth>
   );
 };

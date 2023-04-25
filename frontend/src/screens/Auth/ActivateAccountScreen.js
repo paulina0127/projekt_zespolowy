@@ -1,31 +1,30 @@
-import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { verify } from '../../actions/authActions'
 
+import Message from '../../components/Message';
+import Loader from '../../components/Loader';
 import LayoutAuth from '../../hocs/LayoutAuth';
 import Background from '../../images/activate.jpg';
-import {Modal, Button } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import { BsPersonCheck } from "react-icons/bs";
 import { FcApproval } from "react-icons/fc";
 
-
-
 const ActivateAccountScreen = ({ verify }) => {
-  const [verified, setVerified] = useState(false);
-
   const uid = useParams().uid; 
   const token = useParams().token;
 
-  const verify_account = e => {
+  const auth = useSelector(state => state.auth);
+  let { error, loading, success } = auth;
+
+  const verify_account = () => {
     verify(uid, token);
-    setVerified(true);
 };
 
   return (
     <LayoutAuth bgImage={Background}> 
       <Modal
-        show={verified}
+        show={success}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -49,6 +48,8 @@ const ActivateAccountScreen = ({ verify }) => {
         </Modal.Footer>
       </Modal>
       <h3 className="display-4">Aktywacja konta</h3>
+      {error && <Message variant='danger'>{error}</Message>}
+      {loading && <Loader />}
       <p className="text-muted mb-4">
       Potwierdź, aby aktywować założone konto
       </p>

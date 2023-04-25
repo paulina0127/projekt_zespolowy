@@ -5,7 +5,7 @@ import {
   OFFER_LIST_FAIL,
   OFFER_DETAILS_REQUEST,
   OFFER_DETAILS_SUCCESS,
-  OFFER_DETAILS_FAIL
+  OFFER_DETAILS_FAIL,
 } from "../constants/offerConst";
 
 export const listOffers = () => async dispatch => {
@@ -48,4 +48,5 @@ export const listOfferDetails = id => async dispatch => {
     });
   }
 }
+
 

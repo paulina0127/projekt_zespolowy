@@ -4,7 +4,8 @@ import {
   OFFER_LIST_FAIL,
   OFFER_DETAILS_REQUEST,
   OFFER_DETAILS_SUCCESS,
-  OFFER_DETAILS_FAIL
+  OFFER_DETAILS_FAIL,
+  OFFER_DETAILS_CLEAR
 } from "../constants/offerConst";
 
 export const offerListReducer = (state = {offers:[]}, action) => {
@@ -28,6 +29,8 @@ export const offerDetailsReducer = (state = {offer:{}}, action) => {
       return {loading:false, offer: action.payload}
     case OFFER_DETAILS_FAIL:
       return {loading:false, error: action.payload} 
+    case OFFER_DETAILS_CLEAR:
+      return { offer: {} };
     default:
       return state     
   }

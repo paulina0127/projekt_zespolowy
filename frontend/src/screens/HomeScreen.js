@@ -1,23 +1,48 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listOffers } from "../actions/offerActions";
-import { Link } from "react-router-dom";
+import { listCategories } from "../actions/categoryActions";
+import { Link, useNavigate } from "react-router-dom";
+import { DropdownButton } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
-import Offer from "../components/Offer";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
+import CategoryCheckbox from "../components/CategoryCheckbox";
 import styles from './HomeScreen.module.css'
 
 const HomeScreen = () => {
+  const [searchInput, setSearchInput] = useState('');
+  const [locationInput, setLocationInput] = useState('');
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const categoryList = useSelector(state => state.categoryList);
+  const { categories } = categoryList;
+
   const dispatch = useDispatch();
-  const offerList = useSelector(state => state.offerList);
-  const { error, loading, offers } = offerList;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(listOffers());
+    dispatch(listCategories());
   }, [dispatch]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    sendSearchData(searchInput, locationInput, selectedCategories);
+  };
+
+  const sendSearchData = (searchInput, locationInput, categories) => {
+    // axios.get('http://localhost:8000/api/search/', {
+    //   params: {
+    //     searchInput: searchInput,
+    //     locationInput: locationInput,
+    //     categories: categories
+    //   }
+    // })
+    //   .then(res => {
+    //     dispatch({ type: 'SET_SEARCH_RESULTS', payload: res.data });
+    //     // Przejście do ekranu z wynikami wyszukiwania
+    //     navigate('/search-results');
+    //   })
+    //   .catch(err => console.log(err));
+  };
 
   return (
   <>
@@ -31,53 +56,55 @@ const HomeScreen = () => {
     </section>
       <section className={styles["search-sec"]}>
         <div className="container">
-          <form action="#" method="post" noValidate="noValidate">
-              <div className="row">
-                  <div className="col-lg-12">
-                      <div className="d-flex flex-row justify-content-around">
-                          <div className="col-lg-4 col-md-3 col-sm-12 p-0 mx-2">
-                              <div className="input-group">
-                                <input type="search" className="form-control rounded-pill" placeholder="Zawód, firma"/>
-                              </div>
-                          </div>
-                          <div className="col-lg-4 col-md-3 col-sm-12 p-0 mx-2">
-                            <div className="input-group">
-                                <input type="search" className="form-control rounded-pill" placeholder="Lokalizacja"/>
-                            </div>
-                          </div>
-                          <div className="col-lg-2 col-md-3 col-sm-12 p-0 mx-2">
-                              <select className="form-control rounded-pill fw-bold">
-                                  <option selected disabled>Kategoria</option>
-                                  <option>Example one</option>
-                                  <option>Example one</option>
-                                  <option>Example one</option>
-                                  <option>Example one</option>
-                                  <option>Example one</option>
-                                  <option>Example one</option>
-                              </select>
-                          </div>
-                          <div className="col-lg-2 col-md-3 col-sm-12 p-0 mx-2 flex-fill">
-                              <button type="button" className="btn btn-warning rounded-pill fw-bold">Wyszukaj</button>
-                          </div>
-                      </div>
+          <form onSubmit={handleSearch}>
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="d-flex flex-row justify-content-around">
+                  <div className="col-lg-4 col-md-3 col-sm-12 p-0 mx-2">
+                    <div className="input-group">
+                      <input 
+                        type="text" 
+                        className="form-control rounded-pill" 
+                        placeholder="Zawód, firma"
+                        value={searchInput} 
+                        onChange={e => setSearchInput(e.target.value)} 
+                      />
+                    </div>
                   </div>
-              </div>
+                  <div className="col-lg-4 col-md-3 col-sm-12 p-0 mx-2">
+                    <div className="input-group">
+                      <input 
+                        type="text" 
+                        className="form-control rounded-pill" 
+                        placeholder="Lokalizacja"
+                        value={locationInput} 
+                        onChange={e => setLocationInput(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-lg-2 col-md-3 col-sm-12 p-0 mx-2">
+                    {Object.keys(categories).length === 0 ? null : (
+                      <DropdownButton variant="light" title="Wybierz kategorię">
+                        {categories.map(category => (
+                          <CategoryCheckbox 
+                            key={category.id} 
+                            category={category} 
+                            selectedCategories={selectedCategories}
+                            setSelectedCategories={setSelectedCategories}
+                            />
+                        ))}
+                      </DropdownButton>
+                    )}
+                  </div>
+                  <div className="col-lg-2 col-md-3 col-sm-12 p-0 mx-2 flex-fill">
+                    <button type="button" className="btn btn-warning rounded-pill fw-bold">Wyszukaj</button>
+                  </div>
+                  </div>
+                </div>
+            </div>
           </form>
         </div>
     </section>
-  <div className="container mt-5">
-      <div className="row justify-content-center">
-      <h1 className={styles["hero-title"]}>Znalezione oferty pracy</h1>
-      {loading ? <Loader />
-        : error ? <Message variant='danger'>{error}</Message>
-        :
-        <ul className="col-12">
-          {offers.map(offer => <Offer key={offer.id} offer={offer}/>
-          )}
-        </ul>
-      }
-      </div>
-    </div>
     <section className={styles["hero-image"]}>
       <div className={styles["hero-image-cta-container"]}>
         <div className={styles["hero-image-cta-title"]}>

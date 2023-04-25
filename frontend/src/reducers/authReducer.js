@@ -1,4 +1,5 @@
 import { 
+  ACTIVATION_REQUEST,
   ACTIVATION_SUCCESS,
   ACTIVATION_FAIL,
   AUTHENTICATED_SUCCESS,
@@ -6,8 +7,10 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  PASSWORD_RESET_REQUEST,
   PASSWORD_RESET_FAIL,
   PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_CONFIRM_REQUEST,
   PASSWORD_RESET_CONFIRM_FAIL,
   PASSWORD_RESET_CONFIRM_SUCCESS,
   SIGNUP_REQUEST,
@@ -28,8 +31,11 @@ export const authReducer = (state = {}, action) => {
           isAuthenticated: true
     }
 
+    case ACTIVATION_REQUEST:
     case LOGIN_REQUEST:
     case SIGNUP_REQUEST:
+    case PASSWORD_RESET_REQUEST:
+    case PASSWORD_RESET_CONFIRM_REQUEST:
       return {loading:true }
 
     case LOGIN_SUCCESS:
@@ -58,14 +64,24 @@ export const authReducer = (state = {}, action) => {
       return {}
 
     case ACTIVATION_SUCCESS:
-    case ACTIVATION_FAIL:
     case PASSWORD_RESET_SUCCESS:
-    case PASSWORD_RESET_FAIL:
     case PASSWORD_RESET_CONFIRM_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true
+      }
+
+    case ACTIVATION_FAIL:
+    case PASSWORD_RESET_FAIL:
     case PASSWORD_RESET_CONFIRM_FAIL:
       return {
-        ...state
+        ...state,
+        loading:false,
+        success: false,
+        error: action.payload
       }
+
     default:
       return state
   }

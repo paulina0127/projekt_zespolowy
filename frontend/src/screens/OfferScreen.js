@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { listOfferDetails } from "../actions/offerActions";
 
-import Button from 'react-bootstrap/Button';
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import OfferPoint from "../components/OfferPoint";
@@ -12,6 +11,7 @@ import { GiReceiveMoney } from 'react-icons/gi'
 import { SiPolywork } from 'react-icons/si'
 import { MdWorkHistory } from 'react-icons/md'
 import { FiCheckCircle } from 'react-icons/fi'
+import { OFFER_DETAILS_CLEAR} from "../constants/offerConst";
 
 import styles from './OfferScreen.module.css'
 
@@ -25,8 +25,11 @@ const OfferScreen = () => {
   
   useEffect(() => {
     dispatch(listOfferDetails(offer_id));
-  }, [dispatch, offer_id]);
 
+    return () => {
+      dispatch({ type: OFFER_DETAILS_CLEAR });
+    }
+  }, [dispatch, offer_id]);
 
 
   return (
@@ -47,10 +50,9 @@ const OfferScreen = () => {
                 <h2>
                   {offer.position}  
                 </h2>
-                <p>{offer.company.name}</p>
-                <button className={styles.smallBtn}>
-                  Profil firmy
-                </button>
+                <Link to={`/companies/${offer.company.id}`}>
+                  <p className="text-primary"><strong>{offer.company.name}</strong></p>
+                </Link> 
               </div>
               <div className={styles.salary}>
                 <GiReceiveMoney />
