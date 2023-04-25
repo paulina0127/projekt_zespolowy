@@ -1,6 +1,15 @@
 .iconbg {
   padding: 1rem;
-  background-color: var(--yellow);
+  background-color: #ffc10746;
   border-radius: 10px;
   margin-right: 0.5rem;
+}
+
+.iconbg:hover {
+  background-color: #ffc1076b;;
+}
+
+.iconbg svg {
+  color: #ff8800;
+  font-size: 1.3rem;
 }

@@ -1,0 +1,37 @@
+.brandImg {
+  height: 88px;
+  width: 88px;
+  margin-right: 15px;
+  border-radius: 8px;
+}
+
+.salary {
+  display: flex;
+  align-items: center;
+  white-space: initial;
+  color: #ff8800;
+  margin-left: auto;
+  padding: 1.5rem;
+  background-color: #ffc10746;
+  border-radius: 10px;
+  margin-right: 0.5rem;
+}
+
+.salary svg {
+  font-size: 40px;
+  margin-right: 1rem;
+  margin-top: 0;
+}
+
+.smallBtn {
+  background-color: var(--yellow);
+  border: none;
+  font-weight: 700;
+  color: black;
+  padding: 8px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 1rem;
+}
