@@ -174,18 +174,6 @@ Returns, updates, and deletes link for current user
 
 Returns list of all applications, creates application
 
-### GET, POST: /applications?candidate={id}
-
-Returns list of all applications for candidate
-
-### GET, POST: /applications?offer={id}
-
-Returns list of all applications for offer
-
-### GET, POST: /applications?company={id}
-
-Returns list of all applications for company
-
 ### GET, PUT: /applications/{id}
 
 Returns, updates, deletes a single application
@@ -206,6 +194,6 @@ Returns, updates, deletes a single attachment
 
 #### company: {id}
 
-#### ~~search: {candidate, offer, company}~~
+#### search: {candidate name, offer position, company name}
 
 #### ordering: id, created_date

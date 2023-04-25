@@ -12,7 +12,7 @@ class SkillType(models.TextChoices):
 class PositionLevel(models.TextChoices):
     INTERN = "Praktykant / Stażysta", _("Praktykant / Stażysta")
     ASSISTANT = "Asystent", _("Asystent")
-    JUNIOR = "Młodszy specjalista (Junior)", _("Młodszy specjalista(Junior)")
+    JUNIOR = "Młodszy specjalista (Junior)", _("Młodszy specjalista (Junior)")
     MID = "Specjalista (Mid / Regular)", _("Specjalista (Mid / Regular)")
     SENIOR = "Starszy specjalista (Senior)", _("Starszy specjalista (Senior)")
     EXPERT = "Ekspert / Lider", _("Ekspert / Lider")

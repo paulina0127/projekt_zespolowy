@@ -1,15 +1,8 @@
 from django.urls import path
 
-from .views import (
-    OfferDetail,
-    OfferList,
-    RequirementDetail,
-    RequirementList,
-    ApplicationList,
-    ApplicationDetail,
-    AttachmentList,
-    AttachmentDetail,
-)
+from .views import (ApplicationDetail, ApplicationList, AttachmentDetail,
+                    AttachmentList, OfferDetail, OfferList, RequirementDetail,
+                    RequirementList)
 
 urlpatterns = [
     # Offers

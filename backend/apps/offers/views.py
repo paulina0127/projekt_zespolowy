@@ -9,6 +9,7 @@ class OfferList(generics.ListCreateAPIView):
     filterset_class = OfferFilter
     search_fields = ["position", "company__name"]
     ordering_fields = ["id", "created_date", "expiration_date"]
+    pagination_class = SmallResultsPage
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
 
     def get_queryset(self):
@@ -125,17 +126,49 @@ class RequirementDetail(generics.RetrieveUpdateDestroyAPIView):
 
 # Display list to everyone and create a new offer
 class ApplicationList(generics.ListCreateAPIView):
-    queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
     name = "applications"
-    # FIX create custom class search
     filterset_class = ApplicationFilter
-    search_fields = []
-    ordering_fields = ["id", "created_date"]
-    permission_classes = [
-        DjangoModelPermissions,
-        IsCandidateViewOwnerOrCompanyReadOnly,
+    search_fields = [
+        "candidate__first_name",
+        "candidate__last_name",
+        "offer__position",
+        "offer__company__name",
     ]
+    ordering_fields = ["id", "created_date"]
+    pagination_class = SmallResultsPage
+    permission_classes = [DjangoModelPermissions]
+
+    def get_queryset(self):
+        user = self.request.user
+
+        # Return all applications for candidate
+        if user.is_authenticated:
+            if user.type == UserType.CANDIDATE:
+                try:
+                    Candidate.objects.get(user=user)
+                except Candidate.DoesNotExist:
+                    queryset = Application.objects.none()
+                else:
+                    queryset = Application.objects.filter(
+                        candidate=user.candidate_profile
+                    )
+            # Return all applications for company
+            elif user.type == UserType.COMPANY:
+                try:
+                    Company.objects.get(user=user)
+                except Company.DoesNotExist:
+                    queryset = Application.objects.none()
+                else:
+                    queryset = Application.objects.filter(
+                        offer__company=user.company_profile
+                    )
+
+        else:
+            # Default queryset
+            queryset = Application.objects.none()
+
+        return queryset
 
     def get_serializer_class(self):
         user = self.request.user

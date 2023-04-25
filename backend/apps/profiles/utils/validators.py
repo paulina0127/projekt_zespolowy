@@ -1,6 +1,7 @@
 import os
 import re
 
+import requests
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -23,10 +24,20 @@ def validate_end_date(object):
         )
 
 
-# Company FIX add api request
+# Company
 def validate_nip(value):
     if not re.match(r"^[0-9]{10}$", value):
         raise ValidationError(_("NIP powinien składać się z 10 cyfr."))
+    else:
+        url = "https://dane.biznes.gov.pl/api/ceidg/v2/firmy"
+        headers = {
+            "Authorization": "Bearer eyJraWQiOiJjZWlkZyIsImFsZyI6IkhTNTEyIn0.eyJnaXZlbl9uYW1lIjoiUGF1bGluYSIsInBlc2VsIjoiMDAyNjEzMDA1MjEiLCJpYXQiOjE2Nzk0MTE5NDMsImZhbWlseV9uYW1lIjoiSHJ5Y2l1ayIsImNsaWVudF9pZCI6IlVTRVItMDAyNjEzMDA1MjEtUEFVTElOQS1IUllDSVVLIn0.RACoPkJB8-VW74d6Kl-dXZciwwcIBDavUJ-QBdt-r49zKIT73J8ApoLTSIfbT_6kbaFddP_etkKOIx36OeO1vA"
+        }
+        params = {"nip": value}
+
+        response = requests.get(url, headers=headers, params=params)
+        if response.status_code == 400:
+            raise ValidationError(response.json()["message"])
 
 
 # Candidate

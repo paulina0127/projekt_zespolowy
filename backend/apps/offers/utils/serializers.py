@@ -4,8 +4,8 @@ from apps.core.models import Location
 from apps.core.utils.serializers import CategorySerializer, LocationSerializer
 from apps.profiles.utils.serializers import (
     CandidateSerializer,
-    MinCompanySerializer,
     FileSerializer,
+    MinCompanySerializer,
 )
 
 from ..models import Application, Attachment, Offer, Requirement
@@ -44,20 +44,23 @@ class CreateOfferSerializer(serializers.ModelSerializer):
         # Add location while adding offer
         location_data = validated_data.pop("location")
         location = Location.objects.create(**location_data)
+
         # Add requirements while adding offer
         requirements_data = validated_data.pop("requirements", [])
         offer = Offer.objects.create(location=location, **validated_data)
+
         for requiremnt_data in requirements_data:
             Requirement.objects.create(offer=offer, **requiremnt_data)
         return offer
 
     def update(self, offer, validated_data):
         # Update location while updating offer
-        location_data = validated_data.pop("location")
-        location = offer.location
-        for attr, value in location_data.items():
-            setattr(location, attr, value)
-        location.save()
+        if "location" in validated_data:
+            location_data = validated_data.pop("location")
+            location = offer.location
+            for attr, value in location_data.items():
+                setattr(location, attr, value)
+            location.save()
 
         for attr, value in validated_data.items():
             setattr(offer, attr, value)
@@ -98,7 +101,6 @@ class CreateApplicationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # Add attachments while adding application
         attachments_data = validated_data.pop("attachments", [])
-        print(attachments_data)
         application = Application.objects.create(**validated_data)
         for attachment_data in attachments_data:
             Attachment.objects.create(application=application, **attachment_data)

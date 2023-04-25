@@ -3,16 +3,8 @@ from rest_framework import serializers
 from apps.core.models import Location
 from apps.core.utils.serializers import LocationSerializer
 
-from ..models import (
-    Candidate,
-    Company,
-    Course,
-    CSkill,
-    Education,
-    Experience,
-    File,
-    Link,
-)
+from ..models import (Candidate, Company, Course, CSkill, Education,
+                      Experience, File, Link)
 
 
 # Serializer for user's company profile
@@ -32,11 +24,12 @@ class CreateCompanySerializer(serializers.ModelSerializer):
 
     def update(self, company, validated_data):
         # Update location while updating company profile
-        location_data = validated_data.pop("location")
-        location = company.location
-        for attr, value in location_data.items():
-            setattr(location, attr, value)
-        location.save()
+        if "location" in validated_data:
+            location_data = validated_data.pop("location")
+            location = company.location
+            for attr, value in location_data.items():
+                setattr(location, attr, value)
+            location.save()
 
         for attr, value in validated_data.items():
             setattr(company, attr, value)
@@ -83,11 +76,12 @@ class ExperienceSerializer(serializers.ModelSerializer):
 
     def update(self, experience, validated_data):
         # Update location while updating company profile
-        location_data = validated_data.pop("location")
-        location = experience.location
-        for attr, value in location_data.items():
-            setattr(location, attr, value)
-        location.save()
+        if "location" in validated_data:
+            location_data = validated_data.pop("location")
+            location = experience.location
+            for attr, value in location_data.items():
+                setattr(location, attr, value)
+            location.save()
 
         for attr, value in validated_data.items():
             setattr(experience, attr, value)
@@ -137,11 +131,12 @@ class CreateCandidateSerializer(serializers.ModelSerializer):
 
     def update(self, candidate, validated_data):
         # Update location while updating candidate profile
-        location_data = validated_data.pop("location")
-        location = candidate.location
-        for attr, value in location_data.items():
-            setattr(location, attr, value)
-        location.save()
+        if "location" in validated_data:
+            location_data = validated_data.pop("location")
+            location = candidate.location
+            for attr, value in location_data.items():
+                setattr(location, attr, value)
+            location.save()
 
         for attr, value in validated_data.items():
             setattr(candidate, attr, value)

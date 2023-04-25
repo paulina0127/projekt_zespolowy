@@ -57,7 +57,7 @@ REST_FRAMEWORK = {
         "rest_framework.filters.SearchFilter",
     ),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 20,
+    "PAGE_SIZE": 15,
 }
 
 SIMPLE_JWT = {
@@ -67,8 +67,8 @@ SIMPLE_JWT = {
     "BLACKLIST_AFTER_ROTATION": False,
 }
 
-DOMAIN = 'localhost:3000'
-SITE_NAME = 'HireMeNow'
+DOMAIN = "localhost:3000"
+SITE_NAME = "HireMeNow"
 
 DJOSER = {
     "LOGIN_FIELD": "email",

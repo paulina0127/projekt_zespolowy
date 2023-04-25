@@ -1,19 +1,15 @@
 from django.forms import CheckboxSelectMultiple
 from django.utils.translation import gettext_lazy as _
-from django_filters import (
-    BooleanFilter,
-    CharFilter,
-    FilterSet,
-    ModelMultipleChoiceFilter,
-    MultipleChoiceFilter,
-    ModelChoiceFilter,
-)
+from django_filters import (BooleanFilter, CharFilter, FilterSet,
+                            ModelChoiceFilter, ModelMultipleChoiceFilter,
+                            MultipleChoiceFilter)
 
 from apps.core.models import Category
-
-from ..models import Offer, Application
-from ..utils.choices import ContractType, PositionLevel, WorkingMode, WorkingTime
 from apps.profiles.models import Company
+
+from ..models import Application, Offer
+from ..utils.choices import (ContractType, PositionLevel, WorkingMode,
+                             WorkingTime)
 
 
 class OfferFilter(FilterSet):

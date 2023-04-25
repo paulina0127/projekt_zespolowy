@@ -28,7 +28,6 @@ class IsCompanyObjectOwnerOrAnonReadOnly(permissions.BasePermission):
                     return obj.offer.company == user.company_profile
 
 
-# Check if user can access candidate profile
 class IsCandidateObjectOwnerOrCompanyReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         user = request.user
@@ -42,7 +41,7 @@ class IsCandidateObjectOwnerOrCompanyReadOnly(permissions.BasePermission):
                     # Candidate profile
                     if hasattr(obj, "user"):
                         return obj.user == user
-                    # File, experience, education, cskill, course, link
+                    # Application, file, experience, education, cskill, course, link
                     elif hasattr(obj, "candidate"):
                         return obj.candidate == user.candidate_profile
                     # Attachment
@@ -106,11 +105,6 @@ class IsCandidateViewOwnerOrCompanyReadOnly(permissions.BasePermission):
                     # File, experience, education, cskill, course, link
                     elif "candidate" in view.kwargs:
                         return view.kwargs["candidate"] == user.candidate_profile.id
-                    # Application
-                    elif request.query_params.get("candidate") == str(
-                        user.candidate_profile.id
-                    ):
-                        return True
                     # Attachment
                     elif "application" in view.kwargs:
                         application = view.kwargs["application"]
@@ -136,17 +130,6 @@ class IsCandidateViewOwnerOrCompanyReadOnly(permissions.BasePermission):
                             candidate=candidate,
                             offer__company__user=user,
                             type=ApplicationType.PROFILE,
-                        ).exists()
-                    # Application
-                    elif request.query_params.get("company") == str(
-                        user.company_profile.id
-                    ):
-                        return True
-                    elif request.query_params.get("offer"):
-                        offer = request.query_params.get("offer")
-                        return Application.objects.filter(
-                            offer__id=offer,
-                            offer__company__user=user,
                         ).exists()
                     # Attachment
                     elif "application" in view.kwargs:

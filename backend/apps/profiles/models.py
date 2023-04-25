@@ -95,7 +95,7 @@ class File(models.Model):
     type = models.CharField(
         verbose_name=_("Rodzaj"), max_length=50, choices=FileType.choices
     )
-    file = models.FileField(
+    path = models.FileField(
         verbose_name=_("Plik"),
         upload_to="candidates/files",
         validators=[validate_file_extension],

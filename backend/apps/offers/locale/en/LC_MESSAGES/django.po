@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-11 21:06+0200\n"
+"POT-Creation-Date: 2023-04-25 12:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,7 +31,7 @@ msgstr "Position"
 msgid "Poziom stanowiska"
 msgstr "Position level"
 
-#: .\apps\offers\models.py:14
+#: .\apps\offers\models.py:14 .\apps\offers\utils\filters.py:17
 msgid "Lokalizacja"
 msgstr "Location"
 
@@ -59,96 +59,92 @@ msgstr "Working time"
 msgid "Obowiązki"
 msgstr "Duties"
 
-#: .\apps\offers\models.py:45
+#: .\apps\offers\models.py:46
 msgid "Zalety"
 msgstr "Advantages"
 
-#: .\apps\offers\models.py:46 .\apps\offers\models.py:113
+#: .\apps\offers\models.py:49 .\apps\offers\models.py:132
 msgid "Data utworzenia"
 msgstr "Creation date"
 
-#: .\apps\offers\models.py:47
+#: .\apps\offers\models.py:52
 msgid "Data wygaśnięcia"
 msgstr "Expiration date"
 
-#: .\apps\offers\models.py:50
+#: .\apps\offers\models.py:56 .\apps\offers\utils\filters.py:59
 msgid "Pracodawca"
 msgstr "Company"
 
-#: .\apps\offers\models.py:55
-msgid "Aktualna"
-msgstr "Active"
-
-#: .\apps\offers\models.py:56
+#: .\apps\offers\models.py:61
 msgid "Zweryfikowana"
 msgstr "Verified"
 
-#: .\apps\offers\models.py:59 .\apps\offers\models.py:77
-#: .\apps\offers\models.py:135
+#: .\apps\offers\models.py:65 .\apps\offers\models.py:94
+#: .\apps\offers\models.py:157
 msgid "Oferta"
 msgstr "Offer"
 
-#: .\apps\offers\models.py:60
+#: .\apps\offers\models.py:66
 msgid "Oferty"
 msgstr "Offers"
 
-#: .\apps\offers\models.py:73 .\apps\offers\models.py:120
+#: .\apps\offers\models.py:87 .\apps\offers\models.py:141
 msgid "Rodzaj"
 msgstr "Type"
 
-#: .\apps\offers\models.py:74
+#: .\apps\offers\models.py:89
 msgid "Nazwa"
 msgstr "Name"
 
-#: .\apps\offers\models.py:75
+#: .\apps\offers\models.py:91
 msgid "Poziom"
 msgstr "Level"
 
-#: .\apps\offers\models.py:83
+#: .\apps\offers\models.py:100
 msgid "Umiejętność"
 msgstr "Skill"
 
-#: .\apps\offers\models.py:92
+#: .\apps\offers\models.py:109
 msgid "Wymaganie"
 msgstr "Requirement"
 
-#: .\apps\offers\models.py:93
+#: .\apps\offers\models.py:110
 msgid "Wymagania"
 msgstr "Requirements"
 
-#: .\apps\offers\models.py:115
+#: .\apps\offers\models.py:135
 msgid "Status"
 msgstr "Status"
 
-#: .\apps\offers\models.py:122
+#: .\apps\offers\models.py:144
 msgid "Ocena kompetencji"
 msgstr "Mark"
 
-#: .\apps\offers\models.py:127
+#: .\apps\offers\models.py:149
 msgid "Notatki"
 msgstr "Notes"
 
-#: .\apps\offers\models.py:129
+#: .\apps\offers\models.py:151
 msgid "Kandydat"
 msgstr "Candidate"
 
-#: .\apps\offers\models.py:142 .\apps\offers\models.py:160
+#: .\apps\offers\models.py:164 .\apps\offers\models.py:183
 msgid "Aplikacja"
 msgstr "Application"
 
-#: .\apps\offers\models.py:143
+#: .\apps\offers\models.py:165
 msgid "Aplikacje"
 msgstr "Applications"
 
-#: .\apps\offers\models.py:166
+#: .\apps\offers\models.py:189
 msgid "Plik"
 msgstr "File"
 
-#: .\apps\offers\models.py:173
+#: .\apps\offers\models.py:196
 msgid "Załącznik"
 msgstr "Attachment"
 
-#: .\apps\offers\models.py:174
+#: .\apps\offers\models.py:197
 msgid "Załączniki"
 msgstr "Attachments"
 
@@ -289,32 +285,44 @@ msgstr "Accepted"
 msgid "Odrzucona"
 msgstr "Rejected"
 
+#: .\apps\offers\utils\filters.py:16
+msgid "Wszystkie"
+msgstr "All"
+
 #  VALIDATION ERRORS
-#: .\apps\offers\utils\validators.py:10
-msgid "Wynagrodzenie powinno być w formie pojedynczej kwoty bądź widełek płacowych."
+#: .\apps\offers\utils\validators.py:11
+msgid ""
+"Wynagrodzenie powinno być w formie pojedynczej kwoty bądź widełek płacowych."
 msgstr "Salary should be in the form of a single amount or pay range."
 
-#: .\apps\offers\utils\validators.py:15
+#: .\apps\offers\utils\validators.py:16
 msgid "Data wygaśnięcia nie może być w przeszłości."
 msgstr "Expiration data cant't be in the future."
 
-#: .\apps\offers\utils\validators.py:25
+#: .\apps\offers\utils\validators.py:26
 msgid "Wybrana umiejętność już istnieje dla tej oferty."
 msgstr "Skill already exists for this offer."
 
-#: .\apps\offers\utils\validators.py:30
+#: .\apps\offers\utils\validators.py:31
 msgid "Wybierz umiejętność z listy lub wpisz nazwę umiejętności."
 msgstr "Choose skill from the list or enter skill name."
 
-#: .\apps\offers\utils\validators.py:36
+#: .\apps\offers\utils\validators.py:37
 msgid "Ocena kompetencji powinna być w przedziale pomiędzy 1 a 5."
 msgstr "Mark should be between 1 and 5."
 
-#: .\apps\offers\utils\validators.py:45
+#: .\apps\offers\utils\validators.py:46
 msgid "Aplikacja została już złożona dla tej oferty."
 msgstr "Application has already been created for this offer."
 
-#: .\apps\offers\utils\validators.py:55
+#: .\apps\offers\utils\validators.py:56
 msgid "Wybrany plik już jest dołączony do tej aplikacji."
 msgstr "File is already attached to this application."
 
+#: .\apps\offers\views.py:27 .\apps\offers\views.py:57
+msgid "Użytkownik nie ma profilu pracodawcy."
+msgstr "User doesn't have company profile."
+
+#: .\apps\offers\views.py:195
+msgid "Użytkownik nie ma profilu kandydata."
+msgstr "User doesn't have candidate profile."
