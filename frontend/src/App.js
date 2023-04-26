@@ -6,7 +6,8 @@ import SignUpScreen from "./screens/Auth/SignUpScreen";
 import ActivateAccountScreen from "./screens/Auth/ActivateAccountScreen";
 import ResetPassword from "./screens/Auth/ResetPassword";
 import ResetPasswordConfirm from "./screens/Auth/ResetPasswordConfirm";
-import OfferScreen from "./screens/OfferScreen";
+import OffersScreen from "./screens/OffersScreen";
+import OfferDetailsScreen from "./screens/OfferDetailsScreen";
 
 import Layout from './hocs/Layout';
 
@@ -21,7 +22,8 @@ const App = () => {
         <Route path="/przypominanie-hasła" element={<ResetPassword />}  />
         <Route path="/resetowanie-hasła/:uid/:token" element={<ResetPasswordConfirm />} />
         <Route path="/aktywacja-konta/:uid/:token" element={<ActivateAccountScreen/>} />
-        <Route path="/oferta/:id" element={<OfferScreen />}/>
+        <Route path="/oferty" element={<OffersScreen />}/>
+        <Route path="/oferty/:id" element={<OfferDetailsScreen />}/>
       </Routes>
     </Layout>
   </BrowserRouter>

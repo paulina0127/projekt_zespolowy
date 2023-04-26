@@ -9,7 +9,7 @@ export const listCategories = () => async dispatch => {
   try {
     dispatch({type: CATEGORY_LIST_REQUEST});
 
-    const { data } = await axios.get('/categories');
+    const { data } = await axios.get('/categories?is_main=true');
 
     dispatch({
       type: CATEGORY_LIST_SUCCESS,

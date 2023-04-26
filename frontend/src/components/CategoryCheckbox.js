@@ -1,17 +1,5 @@
-import { useState } from "react";
 
 const CategoryCheckbox = ({ category, selectedCategories, setSelectedCategories }) => {
-  const [checked, setChecked] = useState(false);
-
-  const handleCheckboxChange = () => {
-    setChecked(!checked);
-    const categoryId = category.id;
-    if (!selectedCategories.includes(categoryId)) {
-      setSelectedCategories([...selectedCategories, categoryId]);
-    } else {
-      setSelectedCategories(selectedCategories.filter((id) => id !== categoryId));
-    }
-  }
 
   if (category.subcategories && category.subcategories.length > 0) {
     return (
@@ -21,8 +9,10 @@ const CategoryCheckbox = ({ category, selectedCategories, setSelectedCategories 
             type="checkbox"
             className="form-check-input"
             id={`category-${category.id}`}
-            checked={checked}
-            onChange={handleCheckboxChange}
+            name="category"
+            value={Number(category.id)}
+            checked={selectedCategories.includes(category.id)}
+            onChange={e => setSelectedCategories(e)}
           />
           <label className="form-check-label" htmlFor={`category-${category.id}`}>
             {category.name}
@@ -47,9 +37,11 @@ const CategoryCheckbox = ({ category, selectedCategories, setSelectedCategories 
           <input
             type="checkbox"
             className="form-check-input"
+            name="category"
             id={`category-${category.id}`}
-            checked={checked}
-            onChange={handleCheckboxChange}
+            value={Number(category.id)}
+            checked={selectedCategories.includes(category.id)}
+            onChange={e => setSelectedCategories(e)}
           />
           <label className="form-check-label" htmlFor={`category-${category.id}`}>
             {category.name}

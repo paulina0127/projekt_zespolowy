@@ -19,16 +19,25 @@ class OfferFilter(FilterSet):
         queryset=Category.objects.all(), widget=CheckboxSelectMultiple
     )
     position_level = MultipleChoiceFilter(
-        choices=PositionLevel.choices, widget=CheckboxSelectMultiple
+        choices=PositionLevel.choices, 
+        widget=CheckboxSelectMultiple,
+        method="filter_position_level",
     )
     contract_type = MultipleChoiceFilter(
-        choices=ContractType.choices, widget=CheckboxSelectMultiple
+        choices=ContractType.choices, 
+        widget=CheckboxSelectMultiple,
+        method="filter_contract_type",
     )
     working_mode = MultipleChoiceFilter(
-        choices=WorkingMode.choices, widget=CheckboxSelectMultiple
+        choices=WorkingMode.choices, 
+        widget=CheckboxSelectMultiple,
+        method="filter_working_mode",
+
     )
     working_time = MultipleChoiceFilter(
-        choices=WorkingTime.choices, widget=CheckboxSelectMultiple
+        choices=WorkingTime.choices, 
+        widget=CheckboxSelectMultiple,
+        method="filter_working_time",
     )
 
     class Meta:
@@ -42,6 +51,22 @@ class OfferFilter(FilterSet):
             "working_mode",
             "working_time",
         ]
+
+    def filter_position_level(self, queryset, name, value):
+      return queryset.filter(position_level__exact=value)
+    
+    def filter_contract_type(self, queryset, name, value):
+      value = "{" + ",".join(f'"{v}"' for v in value) + "}"
+      return queryset.filter(contract_type__contains=value)
+    
+    def filter_working_mode(self, queryset, name, value):
+      value = "{" + ",".join(f'"{v}"' for v in value) + "}"
+      return queryset.filter(working_mode__contains=value)
+    
+    def filter_working_time(self, queryset, name, value):
+      value = "{" + ",".join(f'"{v}"' for v in value) + "}"
+      return queryset.filter(working_time__contains=value)
+
 
     def filter_location(self, queryset, name, value):
         return queryset.filter(location__city=value)

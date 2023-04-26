@@ -13,9 +13,9 @@ import { MdWorkHistory } from 'react-icons/md'
 import { FiCheckCircle } from 'react-icons/fi'
 import { OFFER_DETAILS_CLEAR} from "../constants/offerConst";
 
-import styles from './OfferScreen.module.css'
+import styles from './OfferDetailsScreen.module.css'
 
-const OfferScreen = () => {
+const OfferDetailsScreen = () => {
   const offer_id = useParams().id;
   const dispatch = useDispatch();
   
@@ -131,4 +131,4 @@ const OfferScreen = () => {
   );
 };
 
-export default OfferScreen;
+export default OfferDetailsScreen;
