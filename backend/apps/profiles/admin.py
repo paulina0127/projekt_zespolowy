@@ -1,8 +1,16 @@
 from django.contrib import admin
 from django_better_admin_arrayfield.admin.mixins import DynamicArrayMixin
 
-from .models import (Candidate, Company, Course, CSkill, Education, Experience,
-                     File, Link)
+from .models import (
+    Candidate,
+    Company,
+    Course,
+    CSkill,
+    Education,
+    Experience,
+    File,
+    Link,
+)
 
 
 @admin.register(Company)
@@ -27,7 +35,7 @@ class EducationAdmin(admin.ModelAdmin):
 
 
 @admin.register(Experience)
-class ExperienceAdmin(admin.ModelAdmin):
+class ExperienceAdmin(admin.ModelAdmin, DynamicArrayMixin):
     def get_model_perms(self, request):
         return {}  # Register Experience without displaying in Admin Panel
 

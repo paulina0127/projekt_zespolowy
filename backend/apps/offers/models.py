@@ -73,6 +73,12 @@ class Offer(models.Model):
         # If the company has auto_verify set to True then the offer is automatically verified
         if self.company.auto_verify:
             self.is_verified = True
+        else:
+            # Check if the company has 5 verified offers and set auto_verify to True if it does
+            count = Offer.objects.filter(company=self.company, is_verified=True).count()
+            if count == 5:
+                self.company.auto_verify = True
+                self.company.save()
         super(Offer, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -117,7 +123,6 @@ class Requirement(models.Model):
             return self.name
 
     def clean(self):
-        validate_unique_requirement(self, Requirement)
         validate_requirement_name(self)
 
     def save(self, *args, **kwargs):

@@ -170,7 +170,7 @@ class Education(models.Model):
         max_length=50,
         choices=EducationLevel.choices,
     )
-    major = models.CharField(_("Kierunek"), max_length=255)
+    major = models.CharField(_("Kierunek"), max_length=255, blank=True, null=True)
     start_date = models.DateField(verbose_name=_("Data rozpoczęcia"))
     end_date = models.DateField(
         verbose_name=_("Data zakończenia"), blank=True, null=True
@@ -197,7 +197,10 @@ class Education(models.Model):
         ordering = ["id"]
 
     def __str__(self) -> str:
-        return self.institute + " " + self.major + ", " + self.education_level
+        if self.major:
+            return self.institute + " " + self.major + ", " + self.education_level
+        else:
+            return self.institute + ", " + self.education_level
 
     def clean(self):
         validate_start_date(self)
@@ -250,7 +253,6 @@ class CSkill(models.Model):
             return self.type + " " + self.name
 
     def clean(self):
-        validate_unique_cskill(self, CSkill)
         validate_cskill_name(self)
 
     def save(self, *args, **kwargs):
