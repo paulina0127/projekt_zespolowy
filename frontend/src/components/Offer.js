@@ -23,7 +23,7 @@ const Offer = ({offer}) => {
         </div>
       </div>
       <ul className={styles["offer-btn"]}>
-        <Link to={`/oferta/${offer.id}`}>
+        <Link to={`/oferty/${offer.id}`}>
         <button className='btn mx-2'>Szczegóły</button>
         </Link>
         <button className='btn' style={{backgroundColor: '#E7B822'}}>Aplikuj</button>

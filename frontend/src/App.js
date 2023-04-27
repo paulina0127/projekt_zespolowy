@@ -22,7 +22,7 @@ const App = () => {
         <Route path="/przypominanie-hasła" element={<ResetPassword />}  />
         <Route path="/resetowanie-hasła/:uid/:token" element={<ResetPasswordConfirm />} />
         <Route path="/aktywacja-konta/:uid/:token" element={<ActivateAccountScreen/>} />
-        <Route path="/oferty" element={<OffersScreen />}/>
+        <Route path="/oferty/:filters?" element={<OffersScreen />}/>
         <Route path="/oferty/:id" element={<OfferDetailsScreen />}/>
       </Routes>
     </Layout>

@@ -28,8 +28,6 @@ const HomeScreen = () => {
     sendSearchData(searchInput, locationInput, selectedCategories);
   };
 
-  console.log(selectedCategories);
-
   const sendSearchData = (searchInput, locationInput, categories) => {
     // axios.get('http://localhost:8000/api/search/', {
     //   params: {

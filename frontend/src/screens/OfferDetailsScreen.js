@@ -57,7 +57,7 @@ const OfferDetailsScreen = () => {
               <div className={styles.salary}>
                 <GiReceiveMoney />
                 <div className="mt-0 font-weight-bold">
-                  <strong>3100 - 3600 zł </strong>
+                  <strong>{offer.salary} zł</strong>
                   <p className="mt-2">brutto / mies.</p>
                 </div>
 
