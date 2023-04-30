@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import { listCategories } from "../actions/categoryActions";
+import { listFilteredOffers } from "../actions/offerActions";
+import { CATEGORY_LIST_CLEAR } from "../constants/categoryConst";
+import { OFFER_FILTERED_LIST_CLEAR } from "../constants/offerConst";
 import { DropdownButton } from "react-bootstrap";
-import styles from "./JobSearchForm.module.css"
 
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import SearchInput from './SearchInput';
@@ -10,15 +13,20 @@ import Loader from './Loader';
 import CategoryCheckbox from './CategoryCheckbox';
 import AdvancedFilters from './AdvancedFilters';
 
-const JobSearchForm = ({ onSearch, isReady }) => {
+const JobSearchForm = () => {
+  const [filters, setFilters] = useState({});
   const categoryList = useSelector(state => state.categoryList);
-  const { categories, loading } = categoryList;
+  const { categories } = categoryList;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(listCategories());
-  }, [dispatch]);
+    return () => {
+      dispatch({ type: CATEGORY_LIST_CLEAR });
+    }
+  }, []);
 
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
@@ -77,9 +85,31 @@ const JobSearchForm = ({ onSearch, isReady }) => {
     }));
   };
 
+  useEffect(() => {
+    if (filters) {
+      const filtered = Object.fromEntries(
+        Object.entries(filters).filter(([key, value]) => {
+          if (Array.isArray(value)) {
+            return value.length > 0;
+          } else {
+            return value !== "";
+          }
+        })
+      );
+      dispatch(listFilteredOffers(filtered));
+      const filteredQueryString = new URLSearchParams(filtered).toString();
+      navigate(`/oferty/${filteredQueryString}`);
+    }
+
+    return () => {
+      dispatch({ type: OFFER_FILTERED_LIST_CLEAR });
+    }
+  }, [dispatch, filters, navigate]);
+
+
   const handleSubmit = e => {
     e.preventDefault();
-    onSearch(searchParams);
+    setFilters(searchParams);
   };
 
   return (

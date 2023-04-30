@@ -8,6 +8,7 @@ import ResetPassword from "./screens/Auth/ResetPassword";
 import ResetPasswordConfirm from "./screens/Auth/ResetPasswordConfirm";
 import OffersScreen from "./screens/OffersScreen";
 import OfferDetailsScreen from "./screens/OfferDetailsScreen";
+import MainPanelScreen from "./screens/MainPanelScreen";
 
 import Layout from './hocs/Layout';
 
@@ -23,7 +24,16 @@ const App = () => {
         <Route path="/resetowanie-hasła/:uid/:token" element={<ResetPasswordConfirm />} />
         <Route path="/aktywacja-konta/:uid/:token" element={<ActivateAccountScreen/>} />
         <Route path="/oferty/:filters?" element={<OffersScreen />}/>
-        <Route path="/oferty/:id" element={<OfferDetailsScreen />}/>
+        <Route path="/oferta/:id" element={<OfferDetailsScreen />}/>
+        <Route path="/user-panel" element={<MainPanelScreen />}>
+          <Route path="konto" element={<MainPanelScreen />} />
+          <Route path="profil" element={<MainPanelScreen />} />
+          <Route path="moje-aplikacje" element={<MainPanelScreen />} />
+          <Route path="moje-oferty" element={<MainPanelScreen />} />
+          <Route path="dokumenty" element={<MainPanelScreen />} />
+          <Route path="aplikacje" element={<MainPanelScreen />} />
+          <Route path="konwersacje" element={<MainPanelScreen />} />
+          </Route>
       </Routes>
     </Layout>
   </BrowserRouter>

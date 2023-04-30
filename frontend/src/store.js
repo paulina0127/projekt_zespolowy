@@ -1,14 +1,14 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import { authReducer } from "./reducers/authReducer";
-import { offerListReducer, offerFilteredListReducer, offerDetailsReducer } from "./reducers/offerReducer";
+import { offerListReducer, offerDetailsReducer, offerCreateReducer } from "./reducers/offerReducer";
 import { categoryListReducer } from "./reducers/categoryReducer";
 
 const reducer = combineReducers({
   auth: authReducer,
   offerList: offerListReducer,
-  filteredOfferList: offerFilteredListReducer,
   offerDetails: offerDetailsReducer,
+  offerCreate: offerCreateReducer,
   categoryList: categoryListReducer,
 });
 

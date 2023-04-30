@@ -1,48 +1,13 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { listCategories } from "../actions/categoryActions";
-import { Link, useNavigate } from "react-router-dom";
-import { DropdownButton } from "react-bootstrap";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
-import CategoryCheckbox from "../components/CategoryCheckbox";
 import styles from './HomeScreen.module.css'
 
 const HomeScreen = () => {
   const [searchInput, setSearchInput] = useState('');
   const [locationInput, setLocationInput] = useState('');
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const categoryList = useSelector(state => state.categoryList);
-  const { categories } = categoryList;
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    dispatch(listCategories());
-  }, [dispatch]);
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    sendSearchData(searchInput, locationInput, selectedCategories);
-  };
-
-  const sendSearchData = (searchInput, locationInput, categories) => {
-    // axios.get('http://localhost:8000/api/search/', {
-    //   params: {
-    //     searchInput: searchInput,
-    //     locationInput: locationInput,
-    //     categories: categories
-    //   }
-    // })
-    //   .then(res => {
-    //     dispatch({ type: 'SET_SEARCH_RESULTS', payload: res.data });
-    //     // Przejście do ekranu z wynikami wyszukiwania
-    //     navigate('/search-results');
-    //   })
-    //   .catch(err => console.log(err));
-  };
 
   return (
   <>
@@ -56,7 +21,7 @@ const HomeScreen = () => {
     </section>
       <section className={styles["search-sec"]}>
         <div className="container">
-          <form onSubmit={handleSearch}>
+          <form>
             <div className="row">
               <div className="col-lg-12">
                 <div className="d-flex flex-row justify-content-around">
@@ -82,21 +47,7 @@ const HomeScreen = () => {
                       />
                     </div>
                   </div>
-                  <div className="col-lg-2 col-md-3 col-sm-12 p-0 mx-2">
-                    {Object.keys(categories).length === 0 ? null : (
-                      <DropdownButton variant="light" title="Wybierz kategorię">
-                        {categories.map(category => (
-                          <CategoryCheckbox 
-                            key={category.id} 
-                            category={category} 
-                            selectedCategories={selectedCategories}
-                            setSelectedCategories={setSelectedCategories}
-                            />
-                        ))}
-                      </DropdownButton>
-                    )}
-                  </div>
-                  <div className="col-lg-2 col-md-3 col-sm-12 p-0 mx-2 flex-fill">
+                  <div className="col-lg-3 col-md-3 col-sm-12 p-0 mx-2 flex-fill">
                     <button type="button" className="btn btn-warning rounded-pill fw-bold">Wyszukaj</button>
                   </div>
                   </div>

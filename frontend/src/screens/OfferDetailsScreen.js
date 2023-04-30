@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { listOfferDetails } from "../actions/offerActions";
 
@@ -11,7 +11,7 @@ import { GiReceiveMoney } from 'react-icons/gi'
 import { SiPolywork } from 'react-icons/si'
 import { MdWorkHistory } from 'react-icons/md'
 import { FiCheckCircle } from 'react-icons/fi'
-import { OFFER_DETAILS_CLEAR} from "../constants/offerConst";
+import { OFFER_DETAILS_CLEAR } from "../constants/offerConst";
 
 import styles from './OfferDetailsScreen.module.css'
 

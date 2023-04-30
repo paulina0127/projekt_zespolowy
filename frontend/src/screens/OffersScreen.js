@@ -1,106 +1,57 @@
-import { useState, useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from 'react-router-dom';
 import { listFilteredOffers } from "../actions/offerActions";
+
 import Offer from '../components/Offer';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import JobSearchForm from '../components/JobSearchForm';
-import ReactPaginate from "react-paginate";
+import Pagination from 'react-bootstrap/Pagination';
 
 const OffersScreen = () => {
-  const [filters, setFilters] = useState({});
-  const [pageNumber, setPageNumber] = useState(1);
-  const [offerLength, setOfferLength] = useState(0);
-  const [pageCount, setPageCount] = useState(0);
+  const { page = 1 } = useParams(); 
+  const offerList = useSelector(state => state.offerList);
+  const { offers, loading, length, error } = offerList;
 
-  const filteredOfferList = useSelector(state => state.filteredOfferList);
-  const { offers, loading, length, error } = filteredOfferList;
+  const perPage = 5; // number of offers to display per page
+  const start = (page - 1) * perPage; // calculate the start index of the current page
+  const end = start + perPage; // calculate 
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSearch = (filters) => {
-    setPageNumber(1);
-    setFilters(filters);
-  };
-
-  const offersPerPage = 5;
-  const pagesVisited = (pageNumber - 1) * offersPerPage;
-
-  const filtered = useMemo(() => {
-    return Object.fromEntries(
-      Object.entries(filters).filter(([key, value]) => {
-        if (Array.isArray(value)) {
-          return value.length > 0;
-        } else {
-          return value !== "";
-        }
-      })
-    );
-  }, [filters]);
-
-  const dispatchAction = useMemo(() => {
-    return async () => {
-      const pageParam = pageNumber > 1 ? `&page=${pageNumber}` : "";
-      const filteredQueryString = new URLSearchParams(filtered).toString();
-      dispatch(listFilteredOffers({ ...filtered, page: pageNumber }));
-      navigate(`/oferty/${filteredQueryString}${pageParam}`);
-    };
-  }, [dispatch, filtered, pageNumber, navigate]);
-
   useEffect(() => {
-    dispatchAction();
-  }, [dispatchAction]);
-
-  useEffect(() => {
-    if (length) {
-      setOfferLength(length);
-    }
-  }, [length]);
-
-  useEffect(() => {
-    if (offerLength) {
-      setPageCount(Math.ceil(offerLength / offersPerPage));
-    }
-  }, [offerLength, offersPerPage]);
+    const filters = new URLSearchParams(window.location.search);
+    dispatch(listFilteredOffers(Object.fromEntries(filters.entries())));
+  }, []);
 
   return (
     <>
-      <JobSearchForm onSearch={handleSearch}/>
+      <JobSearchForm page={page} />
       <div className="container justify-content-center px-4 py-5 bg-white border shadow rounded my-3">
         <h1 className='mt-2 mb-5'>Znalezione oferty pracy: {length}</h1>
-        {loading ? <Loader />
+        { loading ? <Loader />
           : error ? <Message variant='danger'>{error}</Message>
           : length === 0 ? <Message variant='danger'>Brak wyników dla podanych filtrów</Message>
           :
-          <> 
-            <ul className="col-12">
-              {offers
-                .slice(pagesVisited, pagesVisited + offersPerPage)
-                .map(offer => <Offer key={offer.id} offer={offer}/>
-              )}
-            </ul>
-            <div className="d-flex justify-content-center">
-              <ReactPaginate
-                previousLabel={"<"}
-                nextLabel={">"}
-                pageCount={pageCount}
-                onPageChange={({ selected }) => setPageNumber(selected + 1)}
-                containerClassName="pagination"
-                breakLinkClassName="page-link"
-                breakClassName="page-item"
-                nextLinkClassName="page-link"
-                nextClassName="page-item"
-                previousLinkClassName="page-link"
-                previousClassName="page-item"
-                pageLinkClassName="page-link"
-                pageClassName="page-item"
-                activeClassName="active"
-              />
-            </div>
-          </>
+          <ul className="col-12">
+            {offers
+              .slice(start, end)
+              .map(offer => <Offer key={offer.id} offer={offer}/>
+            )}
+          </ul>
         }
+        <div className="d-flex justify-content-center">
+          <Pagination className="mt-4">
+            <Pagination.Prev disabled={page <= 1} />
+            {Array.from({ length: Math.ceil(length / perPage) }, (_, i) => (
+              <Pagination.Item key={i + 1} active={i + 1 === Number(page)} >
+                {i + 1}
+              </Pagination.Item>
+            ))}
+            <Pagination.Next disabled={page >= Math.ceil(length / perPage)} />
+          </Pagination>
+        </div>
       </div>
     </>
   );

@@ -33,11 +33,11 @@ const NavigationBar = ( { logout, isAuthenticated } ) => {
                 alt="user pic"
                 roundedCircle
               />
-              Jan Kowalski <IoIosArrowDropdown />
+              Moje Konto <IoIosArrowDropdown />
           </div>
       } 
       id="basic-nav-dropdown">
-        <NavDropdown.Item as={Link} to="/profil">Profil</NavDropdown.Item>
+        <NavDropdown.Item as={Link} to="/user-panel">Profil</NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item onClick={logout}>
           Wyloguj się
