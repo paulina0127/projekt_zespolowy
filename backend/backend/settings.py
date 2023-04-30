@@ -84,7 +84,8 @@ DJOSER = {
     "SEND_ACTIVATION_EMAIL": True,
     "SERIALIZERS": {
         "user_create": "apps.users.utils.serializers.UserCreateSerializer",
-        "user": "apps.users.utils.serializers.UserCreateSerializer",
+        "user": "apps.users.utils.serializers.UserSerializer",
+        "current_user": "apps.users.utils.serializers.UserSerializer",
         "user_delete": "djoser.serializers.UserDeleteSerializer",
     },
 }
@@ -146,9 +147,6 @@ EMAIL_USE_TLS = True
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
