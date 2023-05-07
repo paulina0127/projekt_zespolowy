@@ -1,15 +1,21 @@
-import { ErrorMessage, useField, Field } from 'formik'
+import { ErrorMessage, useField } from 'formik'
 
-export const TextField = ({ label, ...props }) => {
+export const SelectField = ({ label, ...props }) => {
   const [field, meta] = useField(props)
   return (
     <div className='form-group mb-3'>
       <label htmlFor={field.name} className='mx-2 my-2 text-muted'>{label}</label>
-      <Field
+      <select
         className={`form-control rounded-pill border-2 shadow-sm px-4 ${meta.touched && meta.error && 'is-invalid'}`}
         {...field} {...props}
-        autoComplete='off'
-      />
+      >
+        <option value='' disabled>{props.defaultOption}</option>
+        {props.options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+        </select>
       <ErrorMessage component='div' name={field.name} className='error mt-2 text-danger' />
     </div>
   )

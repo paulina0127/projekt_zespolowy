@@ -125,6 +125,15 @@ const OfferDetailsScreen = () => {
             )}
             </ul>
           </div>
+          <div className="container px-4 py-5 bg-white border shadow rounded my-3">
+            <h2 className="pb-2 border-bottom">
+              Zalety
+            </h2>
+            <ul className="list-group list-group-flush">
+            {offer.advantages.map(adv => <li className="list-group-item"><FiCheckCircle/> {adv}</li>
+            )}
+            </ul>
+          </div>
         </>
     }
     </> 

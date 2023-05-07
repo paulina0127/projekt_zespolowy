@@ -4,6 +4,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import { Container, Row, Col } from 'react-bootstrap';
 import Sidebar from '../components/Sidebar';
 import CompanyOffers from '../components/CompanyOffers';
+import CompanyProfile from "../components/CompanyProfile";
 
 const MainPanelScreen = () => {
   const { pathname } = useLocation();
@@ -19,10 +20,7 @@ const MainPanelScreen = () => {
       <Row>
         <Sidebar />
         <Col md={10} className="content">
-          {pathname === '/user-panel/profil' && (
-            <h2>Ekran profilu użytkownika</h2>
-            // Tutaj umieść kod dla zawartości ekranu profilu użytkownika
-          )}
+          {pathname === '/user-panel/profil' && isUser.type === 'Pracodawca' && <CompanyProfile />}
           {pathname === '/user-panel/moje-aplikacje' && (
             <h2>Ekran moich aplikacji</h2>
             // Tutaj umieść kod dla zawartości ekranu moich aplikacji

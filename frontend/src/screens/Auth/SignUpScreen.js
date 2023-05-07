@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
-import { string, ref, object } from 'yup';
+import { validateNewUser } from '../../validators/validators';
 
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
@@ -17,20 +17,6 @@ import { BsSendCheck } from "react-icons/bs";
 
 const SignUpScreen = ({ signup, isAuthenticated }) => {
   const [modal, setModal] = useState(false);
-
-  const validate = object({
-    email: string()
-      .email('To nie jest prawidłowy adres email')
-      .required('Pole adres email jest obowiązkowe'),
-    password: string()
-      .min(8, 'Hasło musi zawierać co najmniej 8 znaków')
-      .matches(/[0-9]/, 'Hasło musi zawierać co najmniej 1. cyfrę')
-      .matches(/[A-Z]/, 'Hasło musi zawierać co najmniej 1. wielką literę ')
-      .required('Hasło jest obowiązkowe'),
-    re_password: string()
-      .oneOf([ref('password'), null], 'Wprowadzone hasła różnią się od siebie.')
-      .required('Powtórz wprowadzone hasło'),
-  })
 
   const auth = useSelector(state => state.auth);
   let { error, loading, success } = auth;
@@ -58,7 +44,7 @@ const SignUpScreen = ({ signup, isAuthenticated }) => {
           re_password: '',
           type: 'Kandydat',
         }}
-        validationSchema={validate}
+        validationSchema={validateNewUser}
         onSubmit={values => {
           const { email, password, re_password, type } = values;
           signup(type, email, password, re_password);

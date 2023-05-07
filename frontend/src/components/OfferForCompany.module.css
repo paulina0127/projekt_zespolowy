@@ -1,0 +1,53 @@
+.offer-btn {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 20px;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .offer-btn {
+    padding-top: 20px;
+    padding-left: 0;
+    border-top: 1px solid #939c9b;
+  }
+}
+.applyBtn {
+  background-color: var(--yellow);
+  width: 150px;
+  margin-bottom: 0;
+  padding: 0.7rem;
+  border-radius: 1.5rem;
+  color: black;
+  font-weight: 700;
+  margin: 5px 10px 5px 0;
+}
+
+.applyBtn:hover {
+  background-color: rgba(255, 217, 0, 0.747);
+  color: black;
+}
+
+.circleBtn {
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  line-height: 0;
+}
+
+.addOfferBtn {
+  width: 70px;
+  height: 70px;
+  padding: 0;
+  line-height: 0;
+  margin-left: auto;
+}
+
+.addOfferBtn svg {
+  width: 40px;
+  height: 40px;
+}
+
+.offer-btn button:last-child {
+  margin-right: 0;
+} 
