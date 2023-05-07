@@ -1,7 +1,5 @@
 import { useSelector } from 'react-redux'
 import { Navigate, useLocation } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { Navigate, useLocation } from 'react-router-dom'
 
 import { Container, Row, Col } from 'react-bootstrap'
 import Sidebar from '../components/Sidebar'
