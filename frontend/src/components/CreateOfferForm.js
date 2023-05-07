@@ -15,8 +15,7 @@ import { CheckboxGroup } from './CheckboxGroup'
 import MyDatePicker from './MyDatePicker'
 import Message from './Message'
 import Loader from './Loader'
-import styles2 from './CreateOfferForm.module.css'
-import styles from '../screens/MainPanelScreen.module.css'
+import styles from './CreateOfferForm.module.css'
 
 const CreateOfferForm = () => {
   const categoryList = useSelector(state => state.categoryList)
@@ -54,7 +53,6 @@ const CreateOfferForm = () => {
 
   return (
     <>
-      <h1 className='mt-2 mb-5'>Nowa oferta pracy: </h1>
       { loading && <Loader /> }
       { success && <Message variant='success'>Nowa oferta została dodana i oczekuje na weryfikację. Możesz dodać kolejną ofertę pracy.</Message>}
       { error && <Message variant='danger'>{error}</Message>}

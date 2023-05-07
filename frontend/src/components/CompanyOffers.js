@@ -5,12 +5,12 @@ import { OFFER_FILTERED_LIST_CLEAR } from '../constants/offerConst'
 import { OFFER_DELETE_RESET } from '../constants/offerConst'
 import OfferForCompany from './OfferForCompany'
 import CreateOfferForm from './CreateOfferForm'
-import styles from './OfferForCompany.module.css'
 import { AiOutlineFileAdd } from 'react-icons/ai'
 import Loader from './Loader'
 import Message from './Message'
 
 import styles from '../screens/MainPanelScreen.module.css'
+import styles2 from './OfferForCompany.module.css'
 
 const CompanyOffers = () => {
   const [showOfferForm, setShowOfferForm] = useState(false)
@@ -48,13 +48,11 @@ const CompanyOffers = () => {
     <div className='container justify-content-center px-4 py-5 my-3'>
       {!showOfferForm ?
        <>
+        <h2 className='mt-2 mb-5'>Moje oferty pracy: {length}</h2>
         <div className={styles['white-bg']}>
-          <button
-            className='btn btn-success'
-            onClick={() => setShowOfferForm((prev) => !prev)}
-          >
-            Dodaj ofertę +
-          </button>
+          <div className='d-flex align-items-center my-3'>
+            <button className={`btn btn-success rounded-circle ${styles2.addOfferBtn}`} onClick={() => setShowOfferForm(prev => !prev)}><AiOutlineFileAdd /></button>  
+          </div>
         {loadingDeleteOffer && <Loader />} 
         {errorDeleteOffer && <Message variant='danger'>{errorDeleteOffer}</Message>}
         {successDeleteOffer && <Message variant='success'>Oferta pracy została usunięta</Message>} 
