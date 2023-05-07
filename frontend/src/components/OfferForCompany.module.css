@@ -50,4 +50,14 @@
 
 .offer-btn button:last-child {
   margin-right: 0;
-} 
+}
+
+.offer-h2 {
+  font-weight: 700;
+  color: black;
+  font-size: 2em;
+  text-align: left;
+  margin-left: 6rem;
+  margin-top: 4%;
+  margin-bottom: 2%;
+}

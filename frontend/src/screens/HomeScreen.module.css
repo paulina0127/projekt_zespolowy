@@ -1,6 +1,6 @@
 /* FONT IMPORT */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
 /* BUTTON */
 
@@ -16,11 +16,10 @@
   margin: 0 auto;
 }
 
-.flex-search{
+.flex-search {
   padding: 100px 10 px;
   width: 50%;
 }
-
 
 /* HERO */
 .hero-image {
@@ -44,7 +43,7 @@
   padding: 70px 10px 15px 10px;
   text-align: left;
   margin-left: 40vh;
-  letter-spacing: .005em;
+  letter-spacing: 0.005em;
 }
 
 .hero-text {
@@ -67,48 +66,43 @@
 
 .hero-p {
   font-size: 1.5em;
-  letter-spacing: .3em;
+  letter-spacing: 0.3em;
   padding: 10px;
   max-width: 550px;
 }
 
-
 @media (max-width: 600px) {
   .hero-title {
-      font-size: 2em;
+    font-size: 2em;
   }
 
   .hero-p {
-      font-size: .8em;
+    font-size: 0.8em;
   }
-
 }
 
 @media (max-width: 400px) {
   .hero-title {
-      font-size: 1.5em;
+    font-size: 1.5em;
   }
 
   .hero-p {
-      padding: 10px 20px 10px 20px;
-      font-size: .7em;
+    padding: 10px 20px 10px 20px;
+    font-size: 0.7em;
   }
-
 }
 
 /* SEARCH BOX */
 
-
-.search-sec{
-    position: relative;
-    top: -30px;
-    padding: 0.9rem;
-    width: 50%;
-    margin-top: 0;
-    border: 4px solid var(--background-color);
-    margin-left: auto;
-    margin-right: auto;
-
+.search-sec {
+  position: relative;
+  top: -30px;
+  padding: 0.9rem;
+  width: 40%;
+  margin-top: 0;
+  border: 4px solid var(--background-color);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 ::placeholder {
@@ -118,24 +112,24 @@
   font-family: 'Inter';
 }
 
-@media (min-width: 992px){
-    .search-sec{
-        background:  rgba(0, 0, 0);
-        border-radius: 15rem;
-    }
+@media (min-width: 992px) {
+  .search-sec {
+    background: rgba(0, 0, 0);
+    border-radius: 15rem;
+  }
 }
 
-@media (max-width: 992px){
-    .search-sec{
-        background:  rgba(202, 136, 12, 0.9);
-        width: 100%;
-        margin-left: 0;
-    }
+@media (max-width: 992px) {
+  .search-sec {
+    background: rgba(202, 136, 12, 0.9);
+    width: 100%;
+    margin-left: 0;
+  }
 }
 
 /* BOTTOM IMAGE */
 
-.hero-image-cta-container{
+.hero-image-cta-container {
   height: 125%;
   background-image: url('https://i.imgur.com/9SXTRPS.png');
   padding-top: 120px;
@@ -143,7 +137,6 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-color: rgb(42, 42, 42);
-  
 }
 
 .hero-image-cta-title {
@@ -153,5 +146,5 @@
   color: white;
   margin-left: 40%;
   line-height: 2em;
-  letter-spacing: .005em;
+  letter-spacing: 0.005em;
 }
