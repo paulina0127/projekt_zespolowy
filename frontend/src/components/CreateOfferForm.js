@@ -15,7 +15,8 @@ import { CheckboxGroup } from './CheckboxGroup'
 import MyDatePicker from './MyDatePicker'
 import Message from './Message'
 import Loader from './Loader'
-import styles from './CreateOfferForm.module.css'
+import styles2 from './CreateOfferForm.module.css'
+import styles from '../screens/MainPanelScreen.module.css'
 
 const CreateOfferForm = () => {
   const categoryList = useSelector(state => state.categoryList)
