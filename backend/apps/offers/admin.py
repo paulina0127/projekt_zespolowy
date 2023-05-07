@@ -30,7 +30,7 @@ class OfferAdmin(admin.ModelAdmin, DynamicArrayMixin):
         "company",
         "position",
         "category",
-        "created_date",
+        "expiration_date",
         "is_verified",
     ]
     list_filter = ["company", "category", "is_verified"]

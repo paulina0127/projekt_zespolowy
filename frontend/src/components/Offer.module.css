@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: space-between;
   border-radius: 2rem;
-  box-shadow:  0 0 15px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.2);
   margin: 1.5rem auto;
 }
 @media (max-width: 767px) {
@@ -35,6 +35,7 @@
   height: 88px;
   width: 88px;
   margin-right: 15px;
+  border-radius: 8px;
 }
 @media (max-width: 767px) {
   .job-card__info .img-c {
@@ -43,10 +44,8 @@
     margin: -50px 0 10px 0;
   }
 }
-.job-card__info .img-c img {
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
+.job-card__info .img-c {
+  object-fit: cover;
 }
 .job-card__info p {
   font-weight: 700;
@@ -71,7 +70,7 @@
   position: relative;
 }
 .job-card__info ul li:before {
-  content: "";
+  content: '';
   height: 4px;
   width: 4px;
   position: absolute;

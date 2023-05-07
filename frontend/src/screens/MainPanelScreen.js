@@ -1,4 +1,4 @@
-import { useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { Container, Row, Col } from 'react-bootstrap';
@@ -6,16 +6,16 @@ import Sidebar from '../components/Sidebar';
 import CompanyOffers from '../components/CompanyOffers';
 import CompanyProfile from '../components/CompanyProfile';
 
-import styles from './MainPanelScreen.module.css'
-import { FaFile, FaPlus } from 'react-icons/fa'
+import styles from './MainPanelScreen.module.css';
+import { FaFile, FaPlus } from 'react-icons/fa';
 
 const MainPanelScreen = () => {
-  const { pathname } = useLocation()
-  const type = useSelector((state) => state.auth.user.type)
-  const isUser = useSelector((state) => state.auth.user)
+  const { pathname } = useLocation();
+  const type = useSelector((state) => state.auth.user.type);
+  const isUser = useSelector((state) => state.auth.user);
 
   if (isUser === undefined) {
-    return <Navigate replace to='/' />
+    return <Navigate replace to='/' />;
   }
 
   return (
@@ -25,7 +25,7 @@ const MainPanelScreen = () => {
         <Col md={10} className='content'>
           {pathname === '/user-panel/konto' && (
             <div>
-              <h2>Zmień email</h2>
+              <h2 className={styles.h2}>Zmień email</h2>
               <div className={styles['white-bg']}>
                 <form>
                   <div className='container p-5'>
@@ -37,7 +37,7 @@ const MainPanelScreen = () => {
                         </button>
                       </div>
                       <div className='col col-6'>
-                        <h4>Email</h4>
+                        <h4 className={styles.h4}>Email</h4>
                         <input
                           type='text'
                           className='form-control rounded-pill'
@@ -55,7 +55,7 @@ const MainPanelScreen = () => {
                   </div>
                 </form>
               </div>
-              <h2>Zmień hasło</h2>
+              <h2 className={styles.h2}>Zmień hasło</h2>
               <div className={styles['white-bg']}>
                 <form>
                   <div className='container p-5'>
@@ -67,14 +67,14 @@ const MainPanelScreen = () => {
                         </button>
                       </div>
                       <div className='col col-4'>
-                        <h4>Aktualne hasło</h4>
+                        <h4 className={styles.h4}>Aktualne hasło</h4>
                         <input
                           type='text'
                           className='form-control rounded-pill'
                         />
                       </div>
                       <div className='col col-4'>
-                        <h4>Nowe hasło</h4>
+                        <h4 className={styles.h4}>Nowe hasło</h4>
                         <input
                           type='text'
                           className='form-control rounded-pill'
@@ -93,10 +93,10 @@ const MainPanelScreen = () => {
                 </form>
               </div>
 
-              <h2>Usuń profil</h2>
+              <h2 className={styles.h2}>Usuń profil</h2>
               <div className='d-flex flex-row justify-content-around'>
                 <div className={styles['white-bg']}>
-                  <p>
+                  <p className={styles.p}>
                     Usunięcie profilu jest nieodwracalne. Prosimy o rozważenie
                     swojej decyzji.
                   </p>
@@ -117,7 +117,7 @@ const MainPanelScreen = () => {
             <div>
               {type === 'Kandydat' && (
                 <section>
-                  <h2>Dane osobowe</h2>
+                  <h2 className={styles.h2}>Dane osobowe</h2>
                   <div className={styles['white-bg']}>
                     <form>
                       <div className='container p-5'>
@@ -133,27 +133,27 @@ const MainPanelScreen = () => {
                             </div>
                           </div>
                           <div className='col col-4'>
-                            <h4>Imię</h4>
+                            <h4 className={styles.h4}>Imię</h4>
                             <input
                               type='text'
                               className='form-control rounded-pill'
                             />
-                            <h4>Nazwisko</h4>
+                            <h4 className={styles.h4}>Nazwisko</h4>
                             <input
                               type='text'
                               className='form-control rounded-pill'
                             />
-                            <h4>Email</h4>
+                            <h4 className={styles.h4}>Email</h4>
                             <input
                               type='text'
                               className='form-control rounded-pill'
                             />
-                            <h4>Telefon</h4>
+                            <h4 className={styles.h4}>Telefon</h4>
                             <input
                               type='text'
                               className='form-control rounded-pill'
                             />
-                            <h4>Pesel</h4>
+                            <h4 className={styles.h4}>Pesel</h4>
                             <input
                               type='text'
                               className='form-control input-lg rounded-pill'
@@ -171,10 +171,10 @@ const MainPanelScreen = () => {
                       </div>
                     </form>
                   </div>
-                  <h2>Usuń profil</h2>
+                  <h2 className={styles.h2}>Usuń profil</h2>
                   <div className='d-flex flex-row justify-content-around'>
                     <div className={styles['white-bg']}>
-                      <p>
+                      <p className={styles.p}>
                         Usunięcie profilu jest nieodwracalne. Prosimy o
                         rozważenie swojej decyzji.
                       </p>
@@ -193,12 +193,12 @@ const MainPanelScreen = () => {
             </div>
           )}
           {pathname === '/user-panel/moje-aplikacje' && (
-            <h2>Ekran moich aplikacji</h2>
+            <h2 className={styles.h2}>Ekran moich aplikacji</h2>
             // Tutaj umieść kod dla zawartości ekranu moich aplikacji
           )}
           {pathname === '/user-panel/dokumenty' && (
             <div>
-              <h2>Dokumenty</h2>
+              <h2 className={styles.h2}>Dokumenty</h2>
               <div className='d-flex flex-row'>
                 <button className={styles['doc-btn']}>
                   <FaFile size='5em' color='#242424' />
@@ -209,15 +209,23 @@ const MainPanelScreen = () => {
               </div>
             </div>
           )}
-          {pathname === '/user-panel/profil' && type === 'Pracodawca' && <CompanyProfile />}
+          {pathname === '/user-panel/profil' && type === 'Pracodawca' && (
+            <CompanyProfile />
+          )}
           {pathname === '/user-panel/moje-oferty' && <CompanyOffers />}
-          {pathname === '/user-panel/konwersacje' && <h2>Konwersacje</h2>}
-          {pathname === '/user-panel/aplikacje' && <h2>Ekran aplikacji</h2>}
-          {pathname === '/user-panel/' && <h2>Ekran aplikacji</h2>}
+          {pathname === '/user-panel/konwersacje' && (
+            <h2 className={styles.h2}>Konwersacje</h2>
+          )}
+          {pathname === '/user-panel/aplikacje' && (
+            <h2 className={styles.h2}>Ekran aplikacji</h2>
+          )}
+          {pathname === '/user-panel/' && (
+            <h2 className={styles.h2}>Ekran aplikacji</h2>
+          )}
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default MainPanelScreen
+export default MainPanelScreen;

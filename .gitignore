@@ -8,6 +8,7 @@ local_settings.py
 *.DS_Store
 **/__pycache__
 **/.DS_Store
+.flake8
 
 ### react ###
 .DS_*
