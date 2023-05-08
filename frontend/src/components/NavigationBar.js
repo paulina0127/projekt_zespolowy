@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { logout } from '../actions/authActions';
 
 import { IoIosArrowDropdown } from 'react-icons/io';
-import ProfilePic from '../images/avatar.png';
+import placeholder from '../images/avatar.png';
 import Brand from '../images/brand.png';
 import styles from './NavigationBar.module.css';
 
@@ -39,7 +39,7 @@ const NavigationBar = ({ logout, isAuthenticated }) => {
           <div className='pull-right'>
             <Image
               style={{ width: '40px', marginRight: '10px' }}
-              src={ProfilePic}
+              src={placeholder}
               alt='User pic'
               roundedCircle
             />

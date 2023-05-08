@@ -10,8 +10,10 @@ import {
 } from '../constants/userConst'
 import Message from './Message'
 import Loader from './Loader'
+import Image from 'react-bootstrap/Image'
 
 import styles from './ComapnyProfileForm.module.css'
+import placeholder from '../images/avatar.png'
 
 import { FaPlus } from 'react-icons/fa'
 
@@ -66,72 +68,98 @@ const ComapnyProfileForm = ({
         {({ values }) => (
           <Form>
             <div className={styles['white-bg']}>
-              <div className='row mt-4'>
-                <div className='col-md-4'>
-                  <TextField label='Nazwa firmy' name='name' type='text' />
-                </div>
-                <div className='col-md-4'>
-                  <TextField label='NIP firmy' name='nip' type='text' />
-                </div>
-                <div className='col align-self-start offset-md-2 '>
-                  <div className={styles['logo-title']}>Logo firmy</div>
-                  <button className={styles['logo-btn']}>
-                    <FaPlus size='2.5em' color='#242424' />
-                  </button>
-                </div>
-              </div>
+              <div className='container'>
+                <div className='d-flex row justify-content-around'>
+                  <div className='col col-9'>
+                    <div className='row mt-4'>
+                      <div className='col-md-4'>
+                        <TextField
+                          label='Nazwa firmy'
+                          name='name'
+                          type='text'
+                        />
+                      </div>
+                      <div className='col-md-4'>
+                        <TextField label='NIP firmy' name='nip' type='text' />
+                      </div>
+                    </div>
 
-              <div className='row mt-4'>
-                <div className='col-md-3'>
-                  <TextField
-                    label='Ulica (nazwa i numer)'
-                    name='location.street_address'
-                    type='text'
-                  />
-                </div>
-                <div className='col-md-2'>
-                  <TextField
-                    label='Kod pocztowy'
-                    name='location.postal_code'
-                    type='text'
-                  />
-                </div>
-                <div className='col-md-3'>
-                  <TextField label='Miasto' name='location.city' type='text' />
-                </div>
-              </div>
+                    <div className='row mt-4'>
+                      <div className='col-md-3'>
+                        <TextField
+                          label='Ulica (nazwa i numer)'
+                          name='location.street_address'
+                          type='text'
+                        />
+                      </div>
+                      <div className='col-md-2'>
+                        <TextField
+                          label='Kod pocztowy'
+                          name='location.postal_code'
+                          type='text'
+                        />
+                      </div>
+                      <div className='col-md-3'>
+                        <TextField
+                          label='Miasto'
+                          name='location.city'
+                          type='text'
+                        />
+                      </div>
+                    </div>
 
-              <div className='row mt-4'>
-                <div className='col-md-3'>
-                  <TextField
-                    label='Numer kontaktowy'
-                    name='phone_number'
-                    type='text'
-                  />
-                </div>
-                <div className='col-md-3'>
-                  <TextField
-                    label='Strona internetowa'
-                    name='website'
-                    type='text'
-                  />
-                </div>
-                <div className='col-md-3'>
-                  <TextField
-                    label='Kontaktowy adres e-mail'
-                    name='email'
-                    type='text'
-                  />
-                </div>
-              </div>
+                    <div className='row mt-4'>
+                      <div className='col-md-3'>
+                        <TextField
+                          label='Numer kontaktowy'
+                          name='phone_number'
+                          type='text'
+                        />
+                      </div>
+                      <div className='col-md-3'>
+                        <TextField
+                          label='Strona internetowa'
+                          name='website'
+                          type='text'
+                        />
+                      </div>
+                      <div className='col-md-3'>
+                        <TextField
+                          label='Kontaktowy adres e-mail'
+                          name='email'
+                          type='text'
+                        />
+                      </div>
+                    </div>
 
-              <div className='row mt-4'>
-                <div className='col-md-7'>
-                  <TextArea
-                    label='Opis firmy'
-                    name='description'
-                    as='textarea'
-                  />
+                    <div className='row mt-4'>
+                      <div className='col-md-7'>
+                        <TextArea
+                          label='Opis firmy'
+                          name='description'
+                          as='textarea'
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className='col align-self-center text-center'>
+                    <div className='row'>
+                      <div className={styles['avatar-title']}>Avatar</div>
+                    </div>
+                    <div className='row top-50'>
+                      <button className={styles['logo-btn']}>
+                        <FaPlus size='2.5em' color='#242424' />
+                      </button>
+                    </div>
+                    <div className='row'>
+                      <Image
+                        style={{ width: '300px', margin: '20px auto' }}
+                        src={placeholder}
+                        alt='User pic'
+                        roundedCircle
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className='d-grid col-3 mx-auto mt-4'>

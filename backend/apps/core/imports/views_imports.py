@@ -8,5 +8,13 @@ from apps.profiles.views import CandidateList, CompanyList
 
 from ..models import Category, Location, Skill
 from ..utils.filters import CategoryFilter
-from ..utils.serializers import (LocationSerializer, MainCategorySerializer,
-                                 SkillSerializer)
+from ..utils.serializers import (
+    LocationSerializer,
+    MainCategorySerializer,
+    SkillSerializer,
+)
+
+# Imports for displaying files
+import os
+from django.conf import settings
+from django.http import HttpResponse, Http404

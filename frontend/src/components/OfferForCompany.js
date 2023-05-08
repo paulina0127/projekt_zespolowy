@@ -7,6 +7,7 @@ import { HiOutlineTrash, HiSearch } from 'react-icons/hi';
 import { BiEditAlt } from 'react-icons/bi';
 import styles from './Offer.module.css';
 import styles2 from './OfferForCompany.module.css';
+import placeholder from '../images/placeholder.jpg';
 
 const OfferForCompany = ({ offer }) => {
   const [delOffer, setDelOffer] = useState(false);
@@ -45,10 +46,11 @@ const OfferForCompany = ({ offer }) => {
       <li className={styles['job-card']}>
         <div className={styles['job-card__info']}>
           <div className='d-md-flex align-items-center'>
-            <div className={styles['img-c']}>
+            <div>
               <img
-                src={require('../images/placeholder.jpg')}
+                src={offer.company.image ? offer.company.image : placeholder}
                 alt='Company pic'
+                className={styles['img-c']}
               />
             </div>
             <div>

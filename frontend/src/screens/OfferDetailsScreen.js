@@ -21,6 +21,7 @@ import { FiCheckCircle } from 'react-icons/fi';
 import { OFFER_DETAILS_CLEAR } from '../constants/offerConst';
 
 import styles from './OfferDetailsScreen.module.css';
+import placeholder from '../images/placeholder.jpg';
 
 const OfferDetailsScreen = () => {
   const offer_id = useParams().id;
@@ -55,11 +56,13 @@ const OfferDetailsScreen = () => {
         <>
           <div className='container px-4 py-5 bg-white border shadow rounded my-3'>
             <div className='d-md-flex align-items-center pb-2 border-bottom'>
-              <img
-                src={require('../images/placeholder.jpg')}
-                alt='Company pic'
-                className={styles.brandImg}
-              />
+              <Link to={`/companies/${offer.company.id}`}>
+                <img
+                  src={offer.company.image ? offer.company.image : placeholder}
+                  alt='Company pic'
+                  className={styles.brandImg}
+                />
+              </Link>
               <div>
                 <h2>{offer.position}</h2>
                 <Link to={`/companies/${offer.company.id}`}>

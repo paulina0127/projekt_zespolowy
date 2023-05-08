@@ -34,10 +34,8 @@
 
 .white-bg {
   padding: 10px;
-  background-color: white;
   width: 100%;
   border-radius: 2rem;
-  box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.2);
   margin-bottom: 30px;
   margin-top: 30px;
   left: 50%;

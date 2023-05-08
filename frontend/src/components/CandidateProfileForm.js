@@ -9,26 +9,18 @@ import {
 import { TextField } from './TextField'
 import Message from './Message'
 import Loader from './Loader'
-
 import styles from './ComapnyProfileForm.module.css'
 import { FaPlus } from 'react-icons/fa'
+import placeholder from '../images/avatar.png'
 
-const CandidateProfileForm = ({
-  initialValues,
-  validate,
-  label,
-  profileExist,
-  userProfile,
-}) => {
+const CandidateProfileForm = ({ initialValues, validate, label, profileExist, userProfile }) => {
   const dispatch = useDispatch();
 
   const updateProfile = useSelector((state) => state.userUpdateProfile)
   const { error, success, loading } = updateProfile
 
   const createProfile = useSelector((state) => state.userCreateProfile)
-  const { errorCreate, successCreate, loadingCreate } = createProfile
-
-
+  const { errorCreate, successCreate, loadingCreate } = createProfile  
   return (
     <div>
       <h2 className={styles['profile-h2']}>Dane osobowe</h2>
@@ -65,13 +57,23 @@ const CandidateProfileForm = ({
           {({ values }) => (
           <Form>
             <div className='container p-5'>
-              <div className='d-flex row justify-content-evenly '>
-                <div className='col col-4 align-self-center'>
-                  <div className={styles['logo-title']}>Avatar</div>
-                  <div>
+              <div className='d-flex row justify-content-around '>
+                <div className='col col-4 align-self-center text-center'>
+                  <div className='row'>
+                    <div className={styles['avatar-title']}>Avatar</div>
+                  </div>
+                  <div className='row top-50'>
                     <button className={styles['avatar-btn']}>
-                      <FaPlus size='5em' color='#242424' />
+                      <FaPlus size='2.5em' color='#242424' />
                     </button>
+                  </div>
+                  <div className='row'>
+                    <Image
+                      style={{ width: '300px', margin: '20px auto' }}
+                      src={placeholder}
+                      alt='User pic'
+                      roundedCircle
+                    />
                   </div>
                 </div>
                 <div className='col col-4'>
