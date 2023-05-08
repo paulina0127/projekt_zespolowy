@@ -3,7 +3,7 @@
   width: 88px;
   margin-right: 15px;
   border-radius: 8px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .salary {

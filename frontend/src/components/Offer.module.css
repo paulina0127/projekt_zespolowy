@@ -45,7 +45,7 @@
   }
 }
 .job-card__info .img-c {
-  object-fit: cover;
+  object-fit: contain;
 }
 .job-card__info p {
   font-weight: 700;

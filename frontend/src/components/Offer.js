@@ -1,16 +1,19 @@
 import { Link } from 'react-router-dom';
 import styles from './Offer.module.css';
+import placeholder from '../images/placeholder.jpg';
 
 const Offer = ({ offer }) => {
   return (
     <li className={styles['job-card']}>
       <div className={styles['job-card__info']}>
         <div className='d-md-flex align-items-center'>
-          <img
-            src={require('../images/placeholder.jpg')}
-            alt='Company pic'
-            className={styles['img-c']}
-          />
+          <Link to={`/companies/${offer.company.id}`}>
+            <img
+              src={offer.company.image ? offer.company.image : placeholder}
+              alt='Company pic'
+              className={styles['img-c']}
+            />
+          </Link>
           <div>
             <div className='d-flex align-items-center'>
               <p>{offer.company.name}</p>

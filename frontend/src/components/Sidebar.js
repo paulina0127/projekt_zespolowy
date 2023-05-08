@@ -12,16 +12,18 @@ import {
 import { MdWork } from 'react-icons/md';
 import styles from './Sidebar.module.css';
 import { Image } from 'react-bootstrap';
+import placeholder from '../images/avatar.png';
 
 const Sidebar = ({ logout, type }) => {
-
   const { pathname } = useLocation();
 
   const candidateLinks = () => (
     <>
       <Link
         to={`/user-panel/profil-kandydata`}
-        className={pathname === '/user-panel/profil-kandydata' ? styles.active : ''}
+        className={
+          pathname === '/user-panel/profil-kandydata' ? styles.active : ''
+        }
       >
         <li className='nav-item text-white fs-5 my-2'>
           <FaRegAddressCard className='ms-3' />
@@ -55,7 +57,9 @@ const Sidebar = ({ logout, type }) => {
     <>
       <Link
         to={`/user-panel/profil-pracodawcy`}
-        className={pathname === '/user-panel/profil-pracodawcy' ? styles.active : ''}
+        className={
+          pathname === '/user-panel/profil-pracodawcy' ? styles.active : ''
+        }
       >
         <li className='nav-item text-white fs-5 my-2'>
           <FaRegAddressCard className='ms-3' />
@@ -87,7 +91,7 @@ const Sidebar = ({ logout, type }) => {
     <div className='bg-dark col-auto col-md-3 col-lg-2 min-vh-100 gx-0 d-flex flex-column'>
       <Image
         style={{ width: '100px', margin: '20px auto' }}
-        src={require('../images/avatar.png')}
+        src={placeholder}
         alt='User pic'
         roundedCircle
       />
@@ -107,7 +111,7 @@ const Sidebar = ({ logout, type }) => {
           : type === 'Pracodawca'
           ? companyLinks()
           : null}
-        <Link
+        {/* <Link
           to={`/user-panel/konwersacje`}
           className={
             pathname === '/user-panel/konwersacje' ? styles.active : ''
@@ -117,7 +121,7 @@ const Sidebar = ({ logout, type }) => {
             <FaRegCommentDots className='ms-3' />
             <span className='ms-2'>Konwersacje</span>
           </li>
-        </Link>
+        </Link> */}
         <li className='nav-item text-white fs-5 my-2 align-self-center'>
           <button className='btn btn-warning' onClick={logout}>
             Wyloguj <FaPowerOff />
