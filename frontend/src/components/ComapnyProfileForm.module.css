@@ -20,20 +20,27 @@
 }
 
 .avatar-btn {
-  margin-top: 2rem;
-  height: 10rem;
-  width: 10rem;
+  height: 5rem;
+  width: 5rem;
   background-color: var(--yellow);
   align-items: center;
   border-radius: 2rem;
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2);
   border: none;
-  align-self: center;
+  margin-left: 4%;
+  position: absolute;
 }
 
 .logo-title {
   color: grey;
   margin-bottom: 2%;
+}
+
+.avatar-title {
+  color: black;
+  font-weight: 700;
+  margin-bottom: 8%;
+  font-size: 2em;
 }
 
 .profile-h2 {

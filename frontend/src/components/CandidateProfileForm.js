@@ -1,8 +1,10 @@
 import { Formik, Form } from 'formik'
 import { TextField } from './TextField'
+import Image from 'react-bootstrap/Image'
 
 import styles from './ComapnyProfileForm.module.css'
 import { FaPlus } from 'react-icons/fa'
+import placeholder from '../images/avatar.png'
 
 const CandidateProfileForm = ({}) => {
   return (
@@ -12,13 +14,23 @@ const CandidateProfileForm = ({}) => {
         <Formik>
           <Form>
             <div className='container p-5'>
-              <div className='d-flex row justify-content-evenly '>
-                <div className='col col-4 align-self-center'>
-                  <div className={styles['logo-title']}>Avatar</div>
-                  <div>
+              <div className='d-flex row justify-content-around '>
+                <div className='col col-4 align-self-center text-center'>
+                  <div className='row'>
+                    <div className={styles['avatar-title']}>Avatar</div>
+                  </div>
+                  <div className='row top-50'>
                     <button className={styles['avatar-btn']}>
-                      <FaPlus size='5em' color='#242424' />
+                      <FaPlus size='2.5em' color='#242424' />
                     </button>
+                  </div>
+                  <div className='row'>
+                    <Image
+                      style={{ width: '300px', margin: '20px auto' }}
+                      src={placeholder}
+                      alt='User pic'
+                      roundedCircle
+                    />
                   </div>
                 </div>
                 <div className='col col-4'>
