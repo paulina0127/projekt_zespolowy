@@ -13,19 +13,15 @@ import { MdWork } from 'react-icons/md';
 import styles from './Sidebar.module.css';
 import { Image } from 'react-bootstrap';
 
-const Sidebar = ({ logout, isAuthenticated }) => {
-  const type = useSelector((state) => state.auth.user.type);
-  const { pathname } = useLocation();
+const Sidebar = ({ logout, type }) => {
 
-  if (!isAuthenticated) {
-    return <Navigate replace to='/' />;
-  }
+  const { pathname } = useLocation();
 
   const candidateLinks = () => (
     <>
       <Link
-        to={`/user-panel/profil`}
-        className={pathname === '/user-panel/profil' ? styles.active : ''}
+        to={`/user-panel/profil-kandydata`}
+        className={pathname === '/user-panel/profil-kandydata' ? styles.active : ''}
       >
         <li className='nav-item text-white fs-5 my-2'>
           <FaRegAddressCard className='ms-3' />
@@ -58,8 +54,8 @@ const Sidebar = ({ logout, isAuthenticated }) => {
   const companyLinks = () => (
     <>
       <Link
-        to={`/user-panel/profil`}
-        className={pathname === '/user-panel/profil' ? styles.active : ''}
+        to={`/user-panel/profil-pracodawcy`}
+        className={pathname === '/user-panel/profil-pracodawcy' ? styles.active : ''}
       >
         <li className='nav-item text-white fs-5 my-2'>
           <FaRegAddressCard className='ms-3' />
@@ -133,6 +129,6 @@ const Sidebar = ({ logout, isAuthenticated }) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  type: state.auth.user.type,
 });
 export default connect(mapStateToProps, { logout })(Sidebar);

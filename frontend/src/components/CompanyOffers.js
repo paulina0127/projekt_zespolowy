@@ -6,6 +6,7 @@ import { OFFER_DELETE_RESET } from '../constants/offerConst'
 import OfferForCompany from './OfferForCompany'
 import CreateOfferForm from './CreateOfferForm'
 import { AiOutlineFileAdd } from 'react-icons/ai'
+import UserPanelLayout from '../hocs/UserPanelLayout'
 import Loader from './Loader'
 import Message from './Message'
 
@@ -45,52 +46,54 @@ const CompanyOffers = () => {
   }, [dispatch, successDeleteOffer])
 
   return (
-    <div className='container justify-content-center px-4 py-5 my-3'>
-      {!showOfferForm ? (
-        <>
-          <h2 className={styles['panel-h2']}>Moje oferty pracy: {length}</h2>
-          <div className={styles['white-bg']}>
-            <div className='d-flex align-items-center my-3'>
-              <button
-                className={`btn btn-success rounded-circle ${styles2.addOfferBtn}`}
-                onClick={() => setShowOfferForm((prev) => !prev)}
-              >
-                <AiOutlineFileAdd />
-              </button>
+    <UserPanelLayout>
+      <div className='container justify-content-center px-4 py-5 my-3'>
+        {!showOfferForm ? (
+          <>
+            <h2 className={styles['panel-h2']}>Moje oferty pracy: {length}</h2>
+            <div className={styles['white-bg']}>
+              <div className='d-flex align-items-center my-3'>
+                <button
+                  className={`btn btn-success rounded-circle ${styles2.addOfferBtn}`}
+                  onClick={() => setShowOfferForm((prev) => !prev)}
+                >
+                  <AiOutlineFileAdd />
+                </button>
+              </div>
+              {loadingDeleteOffer && <Loader />}
+              {errorDeleteOffer && (
+                <Message variant='danger'>{errorDeleteOffer}</Message>
+              )}
+              {successDeleteOffer && (
+                <Message variant='success'>Oferta pracy została usunięta</Message>
+              )}
+              {loading ? (
+                <Loader />
+              ) : error ? (
+                <Message variant='danger'>{error}</Message>
+              ) : length === 0 ? (
+                <Message variant='info'>
+                  Nie dodano jeszcze żadnych ofert pracy
+                </Message>
+              ) : (
+                <ul className='col-12'>
+                  {offers.map((offer) => (
+                    <OfferForCompany key={offer.id} offer={offer} />
+                  ))}
+                </ul>
+              )}
             </div>
-            {loadingDeleteOffer && <Loader />}
-            {errorDeleteOffer && (
-              <Message variant='danger'>{errorDeleteOffer}</Message>
-            )}
-            {successDeleteOffer && (
-              <Message variant='success'>Oferta pracy została usunięta</Message>
-            )}
-            {loading ? (
-              <Loader />
-            ) : error ? (
-              <Message variant='danger'>{error}</Message>
-            ) : length === 0 ? (
-              <Message variant='info'>
-                Nie dodano jeszcze żadnych ofert pracy
-              </Message>
-            ) : (
-              <ul className='col-12'>
-                {offers.map((offer) => (
-                  <OfferForCompany key={offer.id} offer={offer} />
-                ))}
-              </ul>
-            )}
-          </div>
-        </>
-      ) : (
-        <>
-          <h2 className={styles['panel-h2']}> Nowa oferta pracy:</h2>
-          <div className={styles['white-bg']}>
-            <CreateOfferForm />
-          </div>
-        </>
-      )}
-    </div>
+          </>
+        ) : (
+          <>
+            <h2 className={styles['panel-h2']}> Nowa oferta pracy:</h2>
+            <div className={styles['white-bg']}>
+              <CreateOfferForm />
+            </div>
+          </>
+        )}
+      </div>
+    </UserPanelLayout>
   )
 }
 

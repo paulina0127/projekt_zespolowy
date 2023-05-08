@@ -27,7 +27,7 @@ const defaultConfig = {
   headers: {
     'Content-Type': 'application/json'
   }
-};
+}; 
 
 export const load_user = () => async dispatch => {
   if (localStorage.getItem('userTokens')) {
@@ -48,6 +48,9 @@ export const load_user = () => async dispatch => {
         type: USER_LOADED_SUCCESS,
         payload: data
       });
+
+      localStorage.setItem('user', JSON.stringify(data))
+
     } catch (error) {
       dispatch({
         type: USER_LOADED_FAIL

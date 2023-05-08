@@ -29,8 +29,15 @@ const userTokensFromStorage = localStorage.getItem('userTokens')
   ? JSON.parse(localStorage.getItem('userTokens'))
   : null
 
+const userFromStorage = localStorage.getItem('user')
+  ? JSON.parse(localStorage.getItem('user'))
+  : null
+
 export const initialState = {
-  auth: { userTokens: userTokensFromStorage }
+  auth: { 
+    userTokens: userTokensFromStorage,
+    user: userFromStorage
+  }
 }
 
 const middleware = [thunk]
