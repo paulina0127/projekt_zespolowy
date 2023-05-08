@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaSearch } from 'react-icons/fa'
 import { FaMapMarkerAlt } from 'react-icons/fa'
+import NewApplicationForm from '../components/NewApplicationForm'
 
 import styles from './HomeScreen.module.css'
 
@@ -11,6 +12,7 @@ const HomeScreen = () => {
 
   return (
     <>
+      <NewApplicationForm />
       <section className={styles['hero-image']}>
         <div className={styles['hero-image-container']}>
           <div className={styles['hero-image-title']}>

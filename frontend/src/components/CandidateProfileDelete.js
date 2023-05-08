@@ -10,7 +10,7 @@ const CandidateProfileDelete = ({}) => {
             Usunięcie profilu jest nieodwracalne. Prosimy o rozważenie swojej
             decyzji.
           </p>
-          <div class='d-grid col-3 mx-auto'>
+          <div className='d-grid col-3 mx-auto'>
             <button
               type='submit'
               className='btn btn-danger rounded-pill fw-bold shadow-sm'

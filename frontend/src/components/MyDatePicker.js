@@ -2,7 +2,7 @@ import DatePicker from 'react-datepicker'
 import { ErrorMessage, useField } from 'formik'
 import 'react-datepicker/dist/react-datepicker.css'
 
-const MyDatePicker = ({ label, name = '', minDate }) => {
+const MyDatePicker = ({ label, name = '', minDate, maxDate }) => {
   const [field, meta, helpers] = useField(name)
 
   const { value } = meta
@@ -15,6 +15,7 @@ const MyDatePicker = ({ label, name = '', minDate }) => {
         className={`form-control rounded-pill border-2 shadow-sm px-4 ${meta.touched && meta.error && 'is-invalid'}`}
         {...field}
         minDate={minDate}
+        maxDate={maxDate}
         dateFormat='dd/MM/yyyy'
         selected={value}
         onChange={(date) => setValue(date)}

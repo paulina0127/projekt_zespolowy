@@ -6,7 +6,11 @@ const CandidateProfileCreate = () => {
     first_name: '',
     last_name: '',
     phone_number: '',
-    email: '',
+    location: {
+      street_address: '',
+      postal_code: '',
+      city: ''
+    },
     pesel: '',
     image: '',
   }
