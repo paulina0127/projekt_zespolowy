@@ -16,12 +16,13 @@ class Company(models.Model):
         related_name="company",
         on_delete=models.CASCADE,
     )
-    website = models.URLField(
-        verbose_name=_("Strona internetowa"), blank=True, null=True
-    )
+    website = models.URLField(verbose_name=_("Strona internetowa"), blank=True)
     description = models.TextField(verbose_name=_("Opis"))
     image = models.ImageField(
-        verbose_name=_("Zdjęcie"), upload_to="companies/images", blank=True, null=True
+        verbose_name=_("Zdjęcie"),
+        upload_to="companies/images",
+        blank=True,
+        default="companies/images/placeholder.png",
     )
 
     user = models.OneToOneField(
@@ -64,7 +65,10 @@ class Candidate(models.Model):
     )
 
     image = models.ImageField(
-        verbose_name=_("Zdjęcie"), upload_to="candidates/images", blank=True, null=True
+        verbose_name=_("Zdjęcie"),
+        upload_to="candidates/images",
+        blank=True,
+        default="candidates/images/placeholder.png",
     )
 
     user = models.OneToOneField(
@@ -131,9 +135,7 @@ class Experience(models.Model):
     end_date = models.DateField(
         verbose_name=_("Data zakończenia"), blank=True, null=True
     )
-    duties = ArrayField(
-        models.TextField(), verbose_name=_("Obowiązki"), blank=True, null=True
-    )
+    duties = ArrayField(models.TextField(), verbose_name=_("Obowiązki"), blank=True)
     candidate = models.ForeignKey(
         verbose_name=_("Kandydat"),
         to=Candidate,
@@ -170,7 +172,7 @@ class Education(models.Model):
         max_length=50,
         choices=EducationLevel.choices,
     )
-    major = models.CharField(_("Kierunek"), max_length=255, blank=True, null=True)
+    major = models.CharField(_("Kierunek"), max_length=255, blank=True)
     start_date = models.DateField(verbose_name=_("Data rozpoczęcia"))
     end_date = models.DateField(
         verbose_name=_("Data zakończenia"), blank=True, null=True
@@ -215,9 +217,7 @@ class CSkill(models.Model):
         blank=True,
     )
     name = models.CharField(verbose_name=_("Nazwa"), max_length=255, blank=True)
-    level = models.CharField(
-        verbose_name=_("Poziom"), max_length=50, blank=True, null=True
-    )
+    level = models.CharField(verbose_name=_("Poziom"), max_length=50, blank=True)
     candidate = models.ForeignKey(
         verbose_name=_("Kandydat"),
         to=Candidate,
@@ -264,7 +264,7 @@ class CSkill(models.Model):
 
 class Course(models.Model):
     name = models.CharField(verbose_name=_("Nazwa"), max_length=255)
-    description = models.TextField(verbose_name=_("Opis"), blank=True, null=True)
+    description = models.TextField(verbose_name=_("Opis"), blank=True)
     start_date = models.DateField(verbose_name=_("Data rozpoczęcia"))
     end_date = models.DateField(verbose_name=_("Data zakończenia"))
     candidate = models.ForeignKey(

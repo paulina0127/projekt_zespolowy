@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import styles from './Offer.module.css';
-import placeholder from '../images/placeholder.jpg';
 
 const Offer = ({ offer }) => {
   return (
@@ -9,7 +8,7 @@ const Offer = ({ offer }) => {
         <div className='d-md-flex align-items-center'>
           <Link to={`/companies/${offer.company.id}`}>
             <img
-              src={offer.company.image ? offer.company.image : placeholder}
+              src={offer.company.image}
               alt='Company pic'
               className={styles['img-c']}
             />

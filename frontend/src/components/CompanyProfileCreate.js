@@ -1,8 +1,7 @@
-import ComapnyProfileForm from './ComapnyProfileForm'
-import { validateCompanyProfile } from '../validators/validators'
+import { validateCompanyProfile } from '../validators/validators';
+import ComapnyProfileForm from './CompanyProfileForm';
 
 const CompanyProfileCreate = () => {
-
   const initialValues = {
     nip: '',
     name: '',
@@ -11,20 +10,20 @@ const CompanyProfileCreate = () => {
     location: {
       street_address: '',
       postal_code: '',
-      city: ''
+      city: '',
     },
     website: '',
     description: '',
     image: '',
-  }
+  };
 
   return (
-    <ComapnyProfileForm 
-      initialValues={initialValues} 
+    <ComapnyProfileForm
+      initialValues={initialValues}
       validate={validateCompanyProfile}
       label='Załóż profil'
-      />
-  )
-}
+    />
+  );
+};
 
-export default CompanyProfileCreate
+export default CompanyProfileCreate;

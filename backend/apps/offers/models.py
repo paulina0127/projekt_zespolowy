@@ -26,7 +26,6 @@ class Offer(models.Model):
         verbose_name=_("Wynagrodzenie"),
         max_length=50,
         blank=True,
-        null=True,
         validators=[validate_salary],
     )
     contract_type = ChoiceArrayField(
@@ -43,7 +42,9 @@ class Offer(models.Model):
     )
     duties = ArrayField(models.TextField(), verbose_name=_("Obowiązki"))
     advantages = ArrayField(
-        models.TextField(), verbose_name=_("Zalety"), blank=True, null=True
+        models.TextField(),
+        verbose_name=_("Zalety"),
+        blank=True,
     )
     created_date = models.DateTimeField(
         verbose_name=_("Data utworzenia"), auto_now_add=True
@@ -93,9 +94,7 @@ class Requirement(models.Model):
         verbose_name=_("Rodzaj"), max_length=50, choices=SkillType.choices
     )
     name = models.CharField(verbose_name=_("Nazwa"), max_length=100, blank=True)
-    level = models.CharField(
-        verbose_name=_("Poziom"), max_length=50, blank=True, null=True
-    )
+    level = models.CharField(verbose_name=_("Poziom"), max_length=50, blank=True)
     offer = models.ForeignKey(
         verbose_name=_("Oferta"),
         to=Offer,
@@ -151,7 +150,7 @@ class Application(models.Model):
         null=True,
         validators=[validate_mark_range],
     )
-    notes = models.TextField(verbose_name=_("Notatki"), blank=True, null=True)
+    notes = models.TextField(verbose_name=_("Notatki"), blank=True)
     candidate = models.ForeignKey(
         verbose_name=_("Kandydat"),
         to=Candidate,

@@ -1,4 +1,4 @@
-import styles from './ComapnyProfileForm.module.css'
+import styles from './CompanyProfileForm.module.css';
 
 const CompanyProfileDelete = ({}) => {
   return (
@@ -21,7 +21,7 @@ const CompanyProfileDelete = ({}) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CompanyProfileDelete
+export default CompanyProfileDelete;

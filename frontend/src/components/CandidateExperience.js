@@ -1,10 +1,11 @@
-import { useSelector } from 'react-redux'
-import ExperienceForm from './ExperienceForm'
-import styles from './ComapnyProfileForm.module.css'
+import { useSelector } from 'react-redux';
+import ExperienceForm from './ExperienceForm';
+import styles from './CompanyProfileForm.module.css';
 
 const CandidateExperience = () => {
-
-  const experienceList = useSelector((state) => state.userProfileDetails.experienceList)
+  const experienceList = useSelector(
+    (state) => state.userProfileDetails.experienceList
+  );
 
   return (
     <div>
@@ -16,7 +17,9 @@ const CandidateExperience = () => {
               <li key={experience.id}>
                 <h4>{experience.position}</h4>
                 <strong>{experience.company}</strong>
-                <p>{experience.start_date} - {experience.end_date}</p>
+                <p>
+                  {experience.start_date} - {experience.end_date}
+                </p>
               </li>
             ))}
           </ul>
@@ -24,9 +27,8 @@ const CandidateExperience = () => {
       </div>
       <h2>Nowe doświadczenie:</h2>
       <ExperienceForm type='create' label='Dodaj nowe doświadczenie' />
-
     </div>
-  )
-}
+  );
+};
 
-export default CandidateExperience
+export default CandidateExperience;

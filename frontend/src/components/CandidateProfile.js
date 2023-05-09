@@ -1,12 +1,12 @@
-import { useSelector } from 'react-redux'
-import CandidateProfileCreate from './CandidateProfileCreate'
-import CandidateProfileUpdate from './CandidateProfileUpdate'
-import CandidateProfileDelete from './CandidateProfileDelete'
-import UserPanelLayout from '../hocs/UserPanelLayout'
+import { useSelector } from 'react-redux';
+import CandidateProfileCreate from './CandidateProfileCreate';
+import CandidateProfileUpdate from './CandidateProfileUpdate';
+import CandidateProfileDelete from './CandidateProfileDelete';
+import UserPanelLayout from '../hocs/UserPanelLayout';
 
 const CandidateProfile = () => {
-  const auth = useSelector((state) => state.auth)
-  const { user } = auth
+  const auth = useSelector((state) => state.auth);
+  const { user } = auth;
   return (
     <UserPanelLayout>
       {user.profile === null ? (
@@ -18,7 +18,7 @@ const CandidateProfile = () => {
         </>
       )}
     </UserPanelLayout>
-  )
-}
+  );
+};
 
-export default CandidateProfile
+export default CandidateProfile;

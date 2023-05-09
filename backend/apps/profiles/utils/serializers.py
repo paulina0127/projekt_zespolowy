@@ -1,10 +1,17 @@
-from rest_framework import serializers
-
 from apps.core.models import Location
 from apps.core.utils.serializers import LocationSerializer
+from rest_framework import serializers
 
-from ..models import (Candidate, Company, Course, CSkill, Education,
-                      Experience, File, Link)
+from ..models import (
+    Candidate,
+    Company,
+    Course,
+    CSkill,
+    Education,
+    Experience,
+    File,
+    Link,
+)
 
 
 # Serializer for user's company profile

@@ -1,27 +1,26 @@
 import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 import { listOfferDetails } from '../actions/offerActions';
 
+import { FiCheckCircle } from 'react-icons/fi';
+import { GiReceiveMoney } from 'react-icons/gi';
+import {
+  IoBarChart,
+  IoCalendarOutline,
+  IoConstruct,
+  IoDocumentsOutline,
+  IoInvertMode,
+  IoLocationOutline,
+} from 'react-icons/io5';
+import { MdWorkHistory } from 'react-icons/md';
+import { SiPolywork } from 'react-icons/si';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import OfferPoint from '../components/OfferPoint';
-import {
-  IoConstruct,
-  IoLocationOutline,
-  IoInvertMode,
-  IoBarChart,
-  IoCalendarOutline,
-  IoDocumentsOutline,
-} from 'react-icons/io5';
-import { GiReceiveMoney } from 'react-icons/gi';
-import { SiPolywork } from 'react-icons/si';
-import { MdWorkHistory } from 'react-icons/md';
-import { FiCheckCircle } from 'react-icons/fi';
 import { OFFER_DETAILS_CLEAR } from '../constants/offerConst';
 
 import styles from './OfferDetailsScreen.module.css';
-import placeholder from '../images/placeholder.jpg';
 
 const OfferDetailsScreen = () => {
   const offer_id = useParams().id;
@@ -58,7 +57,7 @@ const OfferDetailsScreen = () => {
             <div className='d-md-flex align-items-center pb-2 border-bottom'>
               <Link to={`/companies/${offer.company.id}`}>
                 <img
-                  src={offer.company.image ? offer.company.image : placeholder}
+                  src={offer.company.image}
                   alt='Company pic'
                   className={styles.brandImg}
                 />

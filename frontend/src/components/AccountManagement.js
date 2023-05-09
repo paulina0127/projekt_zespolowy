@@ -1,8 +1,8 @@
-import { Formik, Form } from 'formik'
-import { TextField } from './TextField'
-import UserPanelLayout from '../hocs/UserPanelLayout'
+import { Formik, Form } from 'formik';
+import { TextField } from './TextField';
+import UserPanelLayout from '../hocs/UserPanelLayout';
 
-import styles from './ComapnyProfileForm.module.css'
+import styles from './CompanyProfileForm.module.css';
 
 const AccountManagement = ({}) => {
   return (
@@ -79,7 +79,7 @@ const AccountManagement = ({}) => {
         </div>
       </div>
     </UserPanelLayout>
-  )
-}
+  );
+};
 
-export default AccountManagement
+export default AccountManagement;

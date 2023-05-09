@@ -7,7 +7,6 @@ import { HiOutlineTrash, HiSearch } from 'react-icons/hi';
 import { BiEditAlt } from 'react-icons/bi';
 import styles from './Offer.module.css';
 import styles2 from './OfferForCompany.module.css';
-import placeholder from '../images/placeholder.jpg';
 
 const OfferForCompany = ({ offer }) => {
   const [delOffer, setDelOffer] = useState(false);
@@ -48,7 +47,7 @@ const OfferForCompany = ({ offer }) => {
           <div className='d-md-flex align-items-center'>
             <div>
               <img
-                src={offer.company.image ? offer.company.image : placeholder}
+                src={offer.company.image}
                 alt='Company pic'
                 className={styles['img-c']}
               />

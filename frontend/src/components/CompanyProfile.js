@@ -1,12 +1,12 @@
-import { useSelector } from 'react-redux'
-import CompanyProfileCreate from './CompanyProfileCreate'
-import CompanyProfileUpdate from './CompanyProfileUpdate'
-import CompanyProfileDelete from './CompanyProfileDelete'
-import UserPanelLayout from '../hocs/UserPanelLayout'
+import { useSelector } from 'react-redux';
+import CompanyProfileCreate from './CompanyProfileCreate';
+import CompanyProfileUpdate from './CompanyProfileUpdate';
+import CompanyProfileDelete from './CompanyProfileDelete';
+import UserPanelLayout from '../hocs/UserPanelLayout';
 
 const CompanyProfile = () => {
-  const auth = useSelector((state) => state.auth)
-  const { user } = auth
+  const auth = useSelector((state) => state.auth);
+  const { user } = auth;
   return (
     <UserPanelLayout>
       {user.profile === null ? (
@@ -18,7 +18,7 @@ const CompanyProfile = () => {
         </>
       )}
     </UserPanelLayout>
-  )
-}
+  );
+};
 
-export default CompanyProfile
+export default CompanyProfile;
