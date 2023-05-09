@@ -1,5 +1,4 @@
-import CandidateProfileForm from './CandidateProfileForm'
-import { validateCompanyProfile } from '../validators/validators'
+import CandidateProfileForm from './CandidateProfileForm';
 
 const CandidateProfileCreate = () => {
   const initialValues = {
@@ -9,15 +8,15 @@ const CandidateProfileCreate = () => {
     location: {
       street_address: '',
       postal_code: '',
-      city: ''
+      city: '',
     },
     pesel: '',
-    image: '',
-  }
+    image: null,
+  };
 
   return (
     <CandidateProfileForm initialValues={initialValues} label='Załóż profil' />
-  )
-}
+  );
+};
 
-export default CandidateProfileCreate
+export default CandidateProfileCreate;

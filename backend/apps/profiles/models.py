@@ -22,6 +22,7 @@ class Company(models.Model):
         verbose_name=_("Zdjęcie"),
         upload_to="companies/images",
         blank=True,
+        null=True,
         default="companies/images/placeholder.png",
     )
 
@@ -68,6 +69,7 @@ class Candidate(models.Model):
         verbose_name=_("Zdjęcie"),
         upload_to="candidates/images",
         blank=True,
+        null=True,
         default="candidates/images/placeholder.png",
     )
 

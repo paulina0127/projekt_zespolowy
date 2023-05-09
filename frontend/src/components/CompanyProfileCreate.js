@@ -14,7 +14,7 @@ const CompanyProfileCreate = () => {
     },
     website: '',
     description: '',
-    image: '',
+    image: null,
   };
 
   return (
