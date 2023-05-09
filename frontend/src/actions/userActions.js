@@ -154,8 +154,6 @@ export const createUserProfile = (type, values) => async (dispatch) => {
         type: USER_CREATE_PROFILE_REQUEST,
       });
 
-      console.log('Request:', body);
-      console.log('Response:', config);
       const { data } =
         type === 'Pracodawca'
           ? await axios.post(`/companies`, body, config)
@@ -218,8 +216,6 @@ export const updateUserProfile = (id, type, values) => async (dispatch) => {
       dispatch({
         type: USER_UPDATE_PROFILE_REQUEST,
       });
-
-      console.log(body);
 
       const { data } =
         type === 'Pracodawca'

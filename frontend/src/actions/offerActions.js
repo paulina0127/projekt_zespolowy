@@ -1,88 +1,88 @@
-import axios from 'axios'
-import { 
-  OFFER_FILTERED_LIST_REQUEST,
-  OFFER_FILTERED_LIST_SUCCESS,
-  OFFER_FILTERED_LIST_FAIL,
-  OFFER_DETAILS_REQUEST,
-  OFFER_DETAILS_SUCCESS,
-  OFFER_DETAILS_FAIL,
+import axios from 'axios';
+import {
+  OFFER_CREATE_FAIL,
   OFFER_CREATE_REQUEST,
   OFFER_CREATE_SUCCESS,
-  OFFER_CREATE_FAIL,
+  OFFER_DELETE_FAIL,
   OFFER_DELETE_REQUEST,
   OFFER_DELETE_SUCCESS,
-  OFFER_DELETE_FAIL,
-} from '../constants/offerConst'
+  OFFER_DETAILS_FAIL,
+  OFFER_DETAILS_REQUEST,
+  OFFER_DETAILS_SUCCESS,
+  OFFER_FILTERED_LIST_FAIL,
+  OFFER_FILTERED_LIST_REQUEST,
+  OFFER_FILTERED_LIST_SUCCESS,
+} from '../constants/offerConst';
 
-export const listFilteredOffers = filters => async dispatch => {
+export const listFilteredOffers = (filters) => async (dispatch) => {
   try {
-    dispatch({ type: OFFER_FILTERED_LIST_REQUEST })
+    dispatch({ type: OFFER_FILTERED_LIST_REQUEST });
 
     // convert filters object to query string
-    let query = ''
+    let query = '';
     Object.entries(filters).forEach(([key, value]) => {
       if (Array.isArray(value)) {
-        value.forEach(val => {
+        value.forEach((val) => {
           if (val !== '') {
-            query += `&${key}=${val}`
+            query += `&${key}=${val}`;
           }
-        })
+        });
       } else if (value !== '') {
-        query += `&${key}=${value}`
+        query += `&${key}=${value}`;
       }
-    })
-    query = query.substring(1)
-    const { data } = await axios.get(`/offers?${query}`)
+    });
+    query = query.substring(1);
+    const { data } = await axios.get(`/offers?${query}`);
 
-    dispatch({ 
-      type: OFFER_FILTERED_LIST_SUCCESS, 
-      payload: data 
-    })
-
+    dispatch({
+      type: OFFER_FILTERED_LIST_SUCCESS,
+      payload: data,
+    });
   } catch (error) {
-    dispatch({ 
-      type: OFFER_FILTERED_LIST_FAIL, 
-      payload:error.response && error.response.data.detail
-      ? error.response.data.detail
-      : error.message
-    })
+    dispatch({
+      type: OFFER_FILTERED_LIST_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
   }
-}
+};
 
-export const listOfferDetails = id => async dispatch => {
+export const listOfferDetails = (id) => async (dispatch) => {
   try {
-    dispatch({type: OFFER_DETAILS_REQUEST})
+    dispatch({ type: OFFER_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`/offers/${id}`)
+    const { data } = await axios.get(`/offers/${id}`);
 
     dispatch({
       type: OFFER_DETAILS_SUCCESS,
-      payload: data
-    })
-
+      payload: data,
+    });
   } catch (error) {
     dispatch({
-      type:OFFER_DETAILS_FAIL,
-      payload:error.response && error.response.data.detail
-      ? error.response.data.detail
-      : error.message,
-    })
+      type: OFFER_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
   }
-}
+};
 
-export const createOffer = (values) => async dispatch => {
+export const createOffer = (values) => async (dispatch) => {
   if (localStorage.getItem('userTokens')) {
-    const userTokens = JSON.parse(localStorage.getItem('userTokens'))
-    const token = userTokens.access
+    const userTokens = JSON.parse(localStorage.getItem('userTokens'));
+    const token = userTokens.access;
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `JWT ${token}`,
-        'Accept': 'application/json'
-      }
-    }
+        Authorization: `JWT ${token}`,
+        Accept: 'application/json',
+      },
+    };
     try {
-      dispatch({type: OFFER_CREATE_REQUEST})
+      dispatch({ type: OFFER_CREATE_REQUEST });
 
       const body = JSON.stringify({
         position: values.position,
@@ -96,59 +96,56 @@ export const createOffer = (values) => async dispatch => {
         duties: values.duties.filter((duty) => duty !== ''), // usuwanie pustych wartości z tablicy obowiązków
         advantages: values.advantages.filter((advantage) => advantage !== ''), // usuwanie pustych wartości z tablicy zalet
         expiration_date: values.expiration_date,
-      })
+      });
+      const { data } = await axios.post(`/offers`, body, config);
 
-      const { data } = await axios.post(`/offers`, body, config)
       dispatch({
-          type: OFFER_CREATE_SUCCESS,
-          payload: data,
-      })
-
+        type: OFFER_CREATE_SUCCESS,
+        payload: data,
+      });
     } catch (error) {
       dispatch({
         type: OFFER_CREATE_FAIL,
-        payload: error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-      })
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      });
     }
   } else {
     dispatch({
-      type: OFFER_CREATE_FAIL
-    })
+      type: OFFER_CREATE_FAIL,
+    });
   }
-}
+};
 
 export const deleteOffer = (id) => async (dispatch) => {
   if (localStorage.getItem('userTokens')) {
-    const userTokens = JSON.parse(localStorage.getItem('userTokens'))
-    const token = userTokens.access
+    const userTokens = JSON.parse(localStorage.getItem('userTokens'));
+    const token = userTokens.access;
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `JWT ${token}`,
-        'Accept': 'application/json'
-      }
-    }
+        Authorization: `JWT ${token}`,
+        Accept: 'application/json',
+      },
+    };
     try {
-      dispatch({type: OFFER_DELETE_REQUEST})
+      dispatch({ type: OFFER_DELETE_REQUEST });
 
-      const { data } = await axios.delete(`/offers/${id}`, config)
+      const { data } = await axios.delete(`/offers/${id}`, config);
 
       dispatch({
-          type: OFFER_DELETE_SUCCESS,
-      })
+        type: OFFER_DELETE_SUCCESS,
+      });
     } catch (error) {
-        dispatch({
-          type: OFFER_DELETE_FAIL,
-          payload: error.response && error.response.data.detail
+      dispatch({
+        type: OFFER_DELETE_FAIL,
+        payload:
+          error.response && error.response.data.detail
             ? error.response.data.detail
             : error.message,
-      })
+      });
     }
   }
-}
-
-
-
-
+};
