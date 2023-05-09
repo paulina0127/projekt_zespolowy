@@ -36,7 +36,7 @@ class UserAdmin(DjangoUserAdmin):
             },
         ),
     )
-    list_display = ("email", "type", "is_active", "is_staff", "is_superuser")
+    list_display = ("id", "email", "type", "is_active", "is_staff", "is_superuser")
     search_fields = ("email", "first_name", "last_name", "type")
     list_filter = (
         "type",

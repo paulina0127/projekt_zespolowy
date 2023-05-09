@@ -1,3 +1,4 @@
+from apps.profiles.models import Candidate, Company
 from django.contrib.auth import get_user_model
 from djoser.serializers import UserCreateSerializer, UserSerializer
 from rest_framework import serializers
@@ -19,10 +20,20 @@ class DefaultUserSerializer(UserSerializer):
         fields = ["id", "email", "type"]
 
 
+class CandidateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model: Candidate
+        fields = ["id", "first_name", "last_name", "image"]
+
+
+class CompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model: Company
+        fields = ["id", "name", "image"]
+
+
 class CandidateUserSerializer(UserSerializer):
-    profile = serializers.PrimaryKeyRelatedField(
-        source="candidate_profile", read_only=True
-    )
+    profile = CandidateSerializer(read_only=True)
 
     class Meta(UserSerializer.Meta):
         model = User
@@ -30,9 +41,7 @@ class CandidateUserSerializer(UserSerializer):
 
 
 class CompanyUserSerializer(UserSerializer):
-    profile = serializers.PrimaryKeyRelatedField(
-        source="company_profile", read_only=True
-    )
+    profile = CompanySerializer(read_only=True)
 
     class Meta(UserSerializer.Meta):
         model = User

@@ -53,7 +53,7 @@ const ComapnyProfileForm = ({
         </Message>
       )}
       {error && <Message variant='danger'>{error}</Message>}
-      {errorCreate && <Message variant='danger'>{error}</Message>}
+      {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
       <Formik
         initialValues={initialValues}
         validationSchema={validate}
