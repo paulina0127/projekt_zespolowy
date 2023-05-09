@@ -1,7 +1,19 @@
-import { Link } from 'react-router-dom';
-import styles from './Offer.module.css';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import styles from './Offer.module.css'
+import NewApplication from './NewApplication'
 
 const Offer = ({ offer }) => {
+  const [showModal, setShowModal] = useState(false)
+
+  const handleApplyClick = () => {
+    setShowModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <li className={styles['job-card']}>
       <div className={styles['job-card__info']}>
@@ -32,12 +44,11 @@ const Offer = ({ offer }) => {
         <Link to={`/oferta/${offer.id}`}>
           <button className='btn mx-2'>Szczegóły</button>
         </Link>
-        <Link to={`/oferta/${offer.id}`}>
-          <button className='btn' style={{ backgroundColor: '#E7B822' }}>
-            Aplikuj
-          </button>
-        </Link>
+        <button className='btn' onClick={handleApplyClick} style={{ backgroundColor: '#E7B822' }}>
+          Aplikuj
+        </button>
       </ul>
+      {showModal && <NewApplication offer={offer} showModal={showModal} handleCloseModal={handleCloseModal} />}
     </li>
   );
 };

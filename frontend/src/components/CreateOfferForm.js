@@ -5,7 +5,7 @@ import { listCategories } from '../actions/categoryActions'
 import { createOffer } from '../actions/offerActions'
 import { validateOffer } from '../validators/validators'
 import { CATEGORY_LIST_CLEAR } from '../constants/categoryConst'
-
+import { addDays } from 'date-fns';
 import { HiOutlineTrash } from 'react-icons/hi'
 import { MdOutlineAdd } from 'react-icons/md'
 import { TextField } from './TextField'
@@ -31,6 +31,8 @@ const CreateOfferForm = () => {
       dispatch({ type: CATEGORY_LIST_CLEAR })
     }
   }, [])
+
+  const minDate = addDays(new Date(), 1);
 
   const initialValues = {
     position: '',
@@ -140,7 +142,7 @@ const CreateOfferForm = () => {
               <MyDatePicker
                 label='Data wygaśnięcia' 
                 name='expiration_date' 
-                minDate={new Date()}
+                minDate={minDate}
               />
             </div>
             <div className='col-md-3'>

@@ -18,7 +18,7 @@ export const CategorySelect = ({ categoryLabel, ...props }) => {
           <Fragment key={category.name}>
             <option value={category.id}>{category.name}</option>
             {category.subcategories && category.subcategories.map(subcategory => (
-              <option value={subcategory.id}>&nbsp&nbsp&nbsp -- {subcategory.name}</option>
+              <option value={subcategory.id}>&nbsp;&nbsp;&nbsp; -- {subcategory.name}</option>
             ))}
           </Fragment>
         ))}

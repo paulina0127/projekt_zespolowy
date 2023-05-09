@@ -43,9 +43,7 @@ export const userProfileDetailsReducer = (state = {}, action) => {
     case USER_FILES_FAIL:
       return { ...state, loading: false, error: action.payload };
     case USER_DETAILS_PROFILE_RESET:
-      return { ...state, user: {} };
-    case USER_EXPERIENCE_RESET:
-      return { ...state, experienceList: {} };
+      return { ...state, user: {}, experienceList: {} };
     default:
       return state;
   }

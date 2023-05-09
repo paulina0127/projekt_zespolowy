@@ -20,7 +20,7 @@ const AccountManagement = ({}) => {
                   </div>
                 </div>
               </div>
-              <div class='d-grid col-2 mx-auto'>
+              <div className='d-grid col-2 mx-auto'>
                 <button
                   type='submit'
                   className='btn btn-warning rounded-pill fw-bold shadow-sm '
@@ -35,28 +35,26 @@ const AccountManagement = ({}) => {
           <Form>
             <h2 className={styles['profile-h2']}>Zmień hasło</h2>
             <div className={styles['white-bg']}>
-              <form>
-                <div className='container p-5'>
-                  <div className='row align-items-center justify-content-evenly me-auto'>
-                    <div className='col col-4'>
-                      <h4 className={styles['profile-h4']}>Aktualne hasło</h4>
-                      <TextField name='old-password' type='text' />
-                    </div>
-                    <div className='col col-4'>
-                      <h4 className={styles['profile-h4']}>Nowe hasło</h4>
-                      <TextField name='new-password' type='text' />
-                    </div>
+              <div className='container p-5'>
+                <div className='row align-items-center justify-content-evenly me-auto'>
+                  <div className='col col-4'>
+                    <h4 className={styles['profile-h4']}>Aktualne hasło</h4>
+                    <TextField name='old-password' type='text' />
+                  </div>
+                  <div className='col col-4'>
+                    <h4 className={styles['profile-h4']}>Nowe hasło</h4>
+                    <TextField name='new-password' type='text' />
                   </div>
                 </div>
-                <div class='d-grid col-2 mx-auto'>
-                  <button
-                    type='submit'
-                    className='btn btn-warning rounded-pill fw-bold  shadow-sm '
-                  >
-                    Zapisz
-                  </button>
-                </div>
-              </form>
+              </div>
+              <div className='d-grid col-2 mx-auto'>
+                <button
+                  type='submit'
+                  className='btn btn-warning rounded-pill fw-bold  shadow-sm '
+                >
+                  Zapisz
+                </button>
+              </div>
             </div>
           </Form>
         </Formik>
@@ -67,7 +65,7 @@ const AccountManagement = ({}) => {
               Usunięcie konta jest nieodwracalne. Prosimy o rozważenie swojej
               decyzji.
             </p>
-            <div class='d-grid col-2 mx-auto'>
+            <div className='d-grid col-2 mx-auto'>
               <button
                 type='submit'
                 className='btn btn-danger rounded-pill fw-bold shadow-sm '
