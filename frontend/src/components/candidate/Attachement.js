@@ -1,5 +1,5 @@
 import { FaFile, FaPlus } from 'react-icons/fa'
-import UserPanelLayout from '../hocs/UserPanelLayout'
+import UserPanelLayout from '../../hocs/UserPanelLayout'
 import styles from './Attachement.module.css'
 
 

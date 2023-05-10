@@ -1,4 +1,4 @@
-import UserPanelLayout from '../hocs/UserPanelLayout'
+import UserPanelLayout from '../../hocs/UserPanelLayout'
 import styles from './ReceivedApplication.module.css'
 
 const ReceivedApplication = ({}) => {

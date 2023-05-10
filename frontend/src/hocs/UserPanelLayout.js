@@ -1,5 +1,5 @@
 import { Container, Row, Col } from 'react-bootstrap'
-import Sidebar from '../components/Sidebar'
+import { Sidebar } from '../components/basics'
 
 const UserPanelLayout = ({ children }) => {
 

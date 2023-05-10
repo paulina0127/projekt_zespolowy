@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Offer.module.css'
-import NewApplication from './NewApplication'
+import { NewApplication } from '../candidate'
 
 const Offer = ({ offer }) => {
   const [showModal, setShowModal] = useState(false)

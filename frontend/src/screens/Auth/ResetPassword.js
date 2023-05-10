@@ -1,13 +1,12 @@
-import { connect, useSelector } from 'react-redux';
-import { Formik, Form } from 'formik';
-import { string, object } from 'yup';
+import { connect, useSelector } from 'react-redux'
+import { Formik, Form } from 'formik'
+import { string, object } from 'yup'
 import { reset_password } from "../../actions/authActions"
 
-import { TextField } from '../../components/TextField';
-import Loader from '../../components/Loader';
-import Message from '../../components/Message';
-import LayoutAuth from '../../hocs/LayoutAuth';
-import Background from '../../images/resetpass.jpg';
+import { TextField } from '../../components/formHelpers'
+import { Loader, Message } from '../../components/basics'
+import LayoutAuth from '../../hocs/LayoutAuth'
+import Background from '../../images/resetpass.jpg'
 
 const ResetPassword = ({ reset_password }) => {
 
@@ -15,10 +14,10 @@ const ResetPassword = ({ reset_password }) => {
     email: string()
       .email('To nie jest prawidłowy adres email')
       .required('Pole adres email jest obowiązkowe'),
-  });
+  })
 
-  const auth = useSelector(state => state.auth);
-  const { error, loading, success } = auth;
+  const auth = useSelector(state => state.auth)
+  const { error, loading, success } = auth
 
   return (
     <LayoutAuth bgImage={Background}>
@@ -36,9 +35,9 @@ const ResetPassword = ({ reset_password }) => {
         }}
         validationSchema={validate}
         onSubmit={(values, {resetForm}) => {
-          const { email } = values;
-          reset_password(email);
-          resetForm({ values: ''});
+          const { email } = values
+          reset_password(email)
+          resetForm({ values: ''})
         }}
       >
       {({ values }) => (
@@ -52,11 +51,8 @@ const ResetPassword = ({ reset_password }) => {
         </Form>
       )}  
       </Formik>
-      {/* <p className='mt-3'>
-        Masz już konto? <Link className='text-decoration-none' to='/logowanie'>Zaloguj się</Link>
-      </p> */}
     </LayoutAuth>
-  );
-};
+  )
+}
 
-export default connect(null, { reset_password })(ResetPassword);
+export default connect(null, { reset_password })(ResetPassword)

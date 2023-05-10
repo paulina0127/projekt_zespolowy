@@ -1,14 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, connect, useSelector } from 'react-redux'
-import { getUserDetails } from '../actions/userActions'
-import { USER_DETAILS_PROFILE_RESET } from '../constants/userConst'
-import Message from './Message'
-import Loader from './Loader'
 import { Modal, Button, Row, Col } from 'react-bootstrap'
-
-import styles from './NewApplication.module.css'
-import { useState } from 'react'
+import { getUserDetails } from '../../actions/userActions'
+import { USER_DETAILS_PROFILE_RESET } from '../../constants/userConst'
+import { Loader, Message } from '../basics'
 import ApplicationForm from './ApplicationForm'
+import styles from './NewApplication.module.css'
 
 const NewApplication = ({ offer, isAuthenticated, getCandidateFiles, showModal, handleCloseModal }) => {
   const [applyMethod, setApplyMethod] = useState('Profil kandydata')

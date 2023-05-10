@@ -1,25 +1,24 @@
-import { connect, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
-import { verify } from '../../actions/authActions';
+import { connect, useSelector } from 'react-redux'
+import { Link, useParams } from 'react-router-dom'
+import { verify } from '../../actions/authActions'
 
-import { Button, Modal } from 'react-bootstrap';
-import { BsPersonCheck } from 'react-icons/bs';
-import { FcApproval } from 'react-icons/fc';
-import Loader from '../../components/Loader';
-import Message from '../../components/Message';
-import LayoutAuth from '../../hocs/LayoutAuth';
-import Background from '../../images/activate.jpg';
+import { Button, Modal } from 'react-bootstrap'
+import { BsPersonCheck } from 'react-icons/bs'
+import { FcApproval } from 'react-icons/fc'
+import { Loader, Message } from '../../components/basics'
+import LayoutAuth from '../../hocs/LayoutAuth'
+import Background from '../../images/activate.jpg'
 
 const ActivateAccountScreen = ({ verify }) => {
-  const uid = useParams().uid;
-  const token = useParams().token;
+  const uid = useParams().uid
+  const token = useParams().token
 
-  const auth = useSelector((state) => state.auth);
-  let { error, loading, success } = auth;
+  const auth = useSelector((state) => state.auth)
+  let { error, loading, success } = auth
 
   const verify_account = () => {
-    verify(uid, token);
-  };
+    verify(uid, token)
+  }
 
   return (
     <LayoutAuth bgImage={Background}>
@@ -58,7 +57,7 @@ const ActivateAccountScreen = ({ verify }) => {
         Aktywuję konto <FcApproval />
       </button>
     </LayoutAuth>
-  );
-};
+  )
+}
 
-export default connect(null, { verify })(ActivateAccountScreen);
+export default connect(null, { verify })(ActivateAccountScreen)

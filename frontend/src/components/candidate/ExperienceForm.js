@@ -1,11 +1,10 @@
 import { Formik, Form, Field, FieldArray } from 'formik'
 import { useSelector } from 'react-redux'
-import { validateExperience } from '../validators/validators'
-import { TextField } from './TextField'
-import MyDatePicker from './MyDatePicker'
+import { validateExperience } from '../../validators/validators'
+import { TextField, MyDatePicker } from '../formHelpers'
 import { HiOutlineTrash } from 'react-icons/hi'
 import { MdOutlineAdd } from 'react-icons/md'
-import styles from './CreateOfferForm.module.css'
+import styles from '../company/CreateOfferForm.module.css'
 
 const ExperienceForm = ({ type, experience, label }) => {
 

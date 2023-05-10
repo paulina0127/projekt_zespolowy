@@ -1,6 +1,6 @@
-import styles from './CompanyProfileForm.module.css';
+import styles from '../company/CompanyProfileForm.module.css'
 
-const CompanyProfileDelete = ({}) => {
+const CandidateProfileDelete = ({}) => {
   return (
     <div>
       <h2 className={styles['profile-h2']}>Usuń profil</h2>
@@ -21,7 +21,7 @@ const CompanyProfileDelete = ({}) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CompanyProfileDelete;
+export default CandidateProfileDelete

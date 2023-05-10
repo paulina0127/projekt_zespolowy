@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import ExperienceForm from './ExperienceForm';
-import styles from './CompanyProfileForm.module.css';
+import styles from '../company/CompanyProfileForm.module.css';
 
 const CandidateExperience = () => {
   const experienceList = useSelector(

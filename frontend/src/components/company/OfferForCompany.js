@@ -1,22 +1,22 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { Modal, Button } from 'react-bootstrap';
-import { deleteOffer } from '../actions/offerActions';
-import { HiOutlineTrash, HiSearch } from 'react-icons/hi';
-import { BiEditAlt } from 'react-icons/bi';
-import styles from './Offer.module.css';
-import styles2 from './OfferForCompany.module.css';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Modal, Button } from 'react-bootstrap'
+import { deleteOffer } from '../../actions/offerActions'
+import { HiOutlineTrash, HiSearch } from 'react-icons/hi'
+import { BiEditAlt } from 'react-icons/bi'
+import styles from '../offers/Offer.module.css'
+import styles2 from '../company/OfferForCompany.module.css'
 
 const OfferForCompany = ({ offer }) => {
-  const [delOffer, setDelOffer] = useState(false);
+  const [delOffer, setDelOffer] = useState(false)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const handleDeleteOffer = () => {
-    dispatch(deleteOffer(offer.id));
-    setDelOffer(false);
-  };
+    dispatch(deleteOffer(offer.id))
+    setDelOffer(false)
+  }
   return (
     <>
       <Modal
@@ -99,7 +99,7 @@ const OfferForCompany = ({ offer }) => {
         </ul>
       </li>
     </>
-  );
-};
+  )
+}
 
-export default OfferForCompany;
+export default OfferForCompany

@@ -8,11 +8,11 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from '../actions/authActions';
+import { logout } from '../../actions/authActions';
 
 import { IoIosArrowDropdown } from 'react-icons/io';
-import placeholder from '../images/avatar.png';
-import Brand from '../images/brand.png';
+import placeholder from '../../images/avatar.png';
+import Brand from '../../images/brand.png';
 import styles from './NavigationBar.module.css';
 
 const NavigationBar = ({ logout, isAuthenticated }) => {

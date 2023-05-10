@@ -1,13 +1,11 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom';
+import Pagination from 'react-bootstrap/Pagination';
 import { listFilteredOffers } from "../actions/offerActions";
 
-import Offer from '../components/Offer';
-import Message from '../components/Message';
-import Loader from '../components/Loader';
-import JobSearchForm from '../components/JobSearchForm';
-import Pagination from 'react-bootstrap/Pagination';
+import { Offer, JobSearchForm} from '../components/offers';
+import { Loader, Message } from '../components/basics'
 
 const OffersScreen = () => {
   const { page = 1 } = useParams(); 

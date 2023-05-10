@@ -1,21 +1,19 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import HomeScreen from './screens/HomeScreen';
-import LoginScreen from './screens/Auth/LoginScreen';
-import SignUpScreen from './screens/Auth/SignUpScreen';
-import ActivateAccountScreen from './screens/Auth/ActivateAccountScreen';
-import ResetPassword from './screens/Auth/ResetPassword';
-import ResetPasswordConfirm from './screens/Auth/ResetPasswordConfirm';
-import OffersScreen from './screens/OffersScreen';
-import OfferDetailsScreen from './screens/OfferDetailsScreen';
+import {
+  ActivateAccountScreen,
+  HomeScreen,
+  LoginScreen,
+  OfferDetailsScreen,
+  OffersScreen,
+  ResetPassword,
+  ResetPasswordConfirm,
+  SignUpScreen,
+} from './screens'
 import AccountManagement from './components/AccountManagement'
-import Attachement from './components/Attachement'
-import CompanyOffers from './components/CompanyOffers'
-import CompanyProfile from './components/CompanyProfile'
-import CandidateProfile from './components/CandidateProfile'
-import ReceivedApplication from './components/ReceivedApplication'
-
-import Layout from './hocs/Layout';
+import { Attachement, CandidateProfile } from './components/candidate'
+import { CompanyOffers, CompanyProfile, ReceivedApplication } from './components/company'
+import Layout from './hocs/Layout'
 
 const App = () => {
   return (
@@ -37,11 +35,10 @@ const App = () => {
         <Route path='/user-panel/moje-oferty' element={<CompanyOffers />} />
         <Route path='/user-panel/dokumenty' element={<Attachement />} />
         <Route path='/user-panel/aplikacje' element={<ReceivedApplication />} />
-        {/* <Route path='konwersacje' element={<Conversations />} /> */}
       </Routes>
     </Layout>
   </BrowserRouter>
-  );
-};
+  )
+}
 
-export default App;
+export default App

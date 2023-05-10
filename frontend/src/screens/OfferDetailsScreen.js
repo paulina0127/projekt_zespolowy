@@ -15,9 +15,8 @@ import {
 } from 'react-icons/io5';
 import { MdWorkHistory } from 'react-icons/md';
 import { SiPolywork } from 'react-icons/si';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
-import OfferPoint from '../components/OfferPoint';
+import { Loader, Message } from '../components/basics'
+import { OfferPoint } from '../components/offers';
 import { OFFER_DETAILS_CLEAR } from '../constants/offerConst';
 
 import styles from './OfferDetailsScreen.module.css';

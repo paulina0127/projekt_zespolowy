@@ -1,23 +1,22 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails } from '../actions/userActions';
-import { USER_DETAILS_PROFILE_RESET } from '../constants/userConst';
-import { validateCompanyProfile } from '../validators/validators';
-import ComapnyProfileForm from './CompanyProfileForm';
-import Loader from './Loader';
-import Message from './Message';
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserDetails } from '../../actions/userActions'
+import { USER_DETAILS_PROFILE_RESET } from '../../constants/userConst'
+import { validateCompanyProfile } from '../../validators/validators'
+import { Loader, Message } from '../basics'
+import ComapnyProfileForm from './CompanyProfileForm'
 
 const CompanyProfileUpdate = ({ userProfile }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(getUserDetails(userProfile, 'Pracodawca'));
+    dispatch(getUserDetails(userProfile, 'Pracodawca'))
     return () => {
-      dispatch({ type: USER_DETAILS_PROFILE_RESET });
-    };
-  }, []);
+      dispatch({ type: USER_DETAILS_PROFILE_RESET })
+    }
+  }, [])
 
-  const profile = useSelector((state) => state.userProfileDetails);
-  const { error, loading, user } = profile;
+  const profile = useSelector((state) => state.userProfileDetails)
+  const { error, loading, user } = profile
 
   const initialValues =
     user && user.location
@@ -35,7 +34,7 @@ const CompanyProfileUpdate = ({ userProfile }) => {
           description: user.description,
           image: user.image,
         }
-      : {};
+      : {}
 
   return (
     <>
@@ -53,7 +52,7 @@ const CompanyProfileUpdate = ({ userProfile }) => {
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export default CompanyProfileUpdate;
+export default CompanyProfileUpdate

@@ -1,5 +1,3 @@
-import React from 'react'
-
 const SearchInput = ({ placeholder, value, onChange, name }) => {
   return (
     <div className="col-md-3">

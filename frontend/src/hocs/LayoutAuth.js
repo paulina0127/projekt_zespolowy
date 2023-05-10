@@ -4,7 +4,7 @@ const LayoutAuth = ({ children, bgImage }) => {
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
     backgroundImage: `url(${bgImage})`
-  };
+  }
 
   return (
     <div className="container-fluid">
@@ -27,7 +27,7 @@ const LayoutAuth = ({ children, bgImage }) => {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default LayoutAuth

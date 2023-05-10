@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { listCategories } from "../actions/categoryActions";
-import { listFilteredOffers } from "../actions/offerActions";
-import { CATEGORY_LIST_CLEAR } from "../constants/categoryConst";
-import { OFFER_FILTERED_LIST_CLEAR } from "../constants/offerConst";
+import { listCategories } from "../../actions/categoryActions";
+import { listFilteredOffers } from "../../actions/offerActions";
+import { CATEGORY_LIST_CLEAR } from "../../constants/categoryConst";
+import { OFFER_FILTERED_LIST_CLEAR } from "../../constants/offerConst";
 import { DropdownButton } from "react-bootstrap";
 
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
-import SearchInput from './SearchInput';
-import Loader from './Loader';
-import CategoryCheckbox from './CategoryCheckbox';
+import { SearchInput, CategoryCheckbox } from '../formHelpers';
+import { Loader } from '../basics';
 import AdvancedFilters from './AdvancedFilters';
 
 const JobSearchForm = () => {

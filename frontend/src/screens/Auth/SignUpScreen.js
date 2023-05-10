@@ -4,9 +4,8 @@ import { connect, useSelector } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
 import { validateNewUser } from '../../validators/validators';
 
-import Message from '../../components/Message';
-import Loader from '../../components/Loader';
-import { TextField } from '../../components/TextField';
+import { Loader, Message } from '../../components/basics'
+import { TextField } from '../../components/formHelpers';
 import { Modal, Button } from 'react-bootstrap';
 import { signup } from '../../actions/authActions'
 import LayoutAuth from '../../hocs/LayoutAuth';

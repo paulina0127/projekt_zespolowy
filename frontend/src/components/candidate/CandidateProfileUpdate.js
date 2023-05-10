@@ -1,12 +1,11 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserDetails } from '../actions/userActions'
-import { USER_DETAILS_PROFILE_RESET } from '../constants/userConst'
-import { validateCandidatePersonalInfo } from '../validators/validators'
+import { getUserDetails } from '../../actions/userActions'
+import { USER_DETAILS_PROFILE_RESET } from '../../constants/userConst'
+import { validateCandidatePersonalInfo } from '../../validators/validators'
+import { Loader, Message } from '../basics'
 import CandidateProfileForm from './CandidateProfileForm'
 import CandidateExperience from './CandidateExperience'
-import Loader from './Loader'
-import Message from './Message'
 
 const CandidateProfileUpdate = ({ userProfile }) => {
   const dispatch = useDispatch()

@@ -1,5 +1,5 @@
-import { validateCompanyProfile } from '../validators/validators';
-import ComapnyProfileForm from './CompanyProfileForm';
+import { validateCompanyProfile } from '../../validators/validators'
+import ComapnyProfileForm from './CompanyProfileForm'
 
 const CompanyProfileCreate = () => {
   const initialValues = {
@@ -15,7 +15,7 @@ const CompanyProfileCreate = () => {
     website: '',
     description: '',
     image: null,
-  };
+  }
 
   return (
     <ComapnyProfileForm
@@ -23,7 +23,7 @@ const CompanyProfileCreate = () => {
       validate={validateCompanyProfile}
       label='Załóż profil'
     />
-  );
-};
+  )
+}
 
-export default CompanyProfileCreate;
+export default CompanyProfileCreate

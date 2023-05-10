@@ -1,21 +1,17 @@
-import { Form, Formik } from 'formik';
-import { useEffect } from 'react';
-import Image from 'react-bootstrap/Image';
-import { useDispatch, useSelector } from 'react-redux';
-import { createUserProfile, updateUserProfile } from '../actions/userActions';
+import { Form, Formik } from 'formik'
+import { useEffect } from 'react'
+import Image from 'react-bootstrap/Image'
+import { useDispatch, useSelector } from 'react-redux'
+import { createUserProfile, updateUserProfile } from '../../actions/userActions'
 import {
   USER_CREATE_PROFILE_RESET,
   USER_UPDATE_PROFILE_RESET,
-} from '../constants/userConst';
-import Loader from './Loader';
-import Message from './Message';
-import { TextArea } from './TextArea';
-import { TextField } from './TextField';
-
-import styles from './CompanyProfileForm.module.css';
-
-import { FaPlus } from 'react-icons/fa';
-import avatar from '../images/avatar.png';
+} from '../../constants/userConst'
+import { Loader, Message } from '../basics'
+import { TextArea, TextField } from '../formHelpers'
+import { FaPlus } from 'react-icons/fa'
+import avatar from '../../images/avatar.png'
+import styles from './CompanyProfileForm.module.css'
 
 const ComapnyProfileForm = ({
   initialValues,
@@ -24,20 +20,20 @@ const ComapnyProfileForm = ({
   profileExist,
   userProfile,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const updateProfile = useSelector((state) => state.userUpdateProfile);
-  const { error, success, loading } = updateProfile;
+  const updateProfile = useSelector((state) => state.userUpdateProfile)
+  const { error, success, loading } = updateProfile
 
-  const createProfile = useSelector((state) => state.userCreateProfile);
-  const { errorCreate, successCreate, loadingCreate } = createProfile;
+  const createProfile = useSelector((state) => state.userCreateProfile)
+  const { errorCreate, successCreate, loadingCreate } = createProfile
 
   useEffect(() => {
     return () => {
-      dispatch({ type: USER_UPDATE_PROFILE_RESET });
-      dispatch({ type: USER_CREATE_PROFILE_RESET });
-    };
-  }, []);
+      dispatch({ type: USER_UPDATE_PROFILE_RESET })
+      dispatch({ type: USER_CREATE_PROFILE_RESET })
+    }
+  }, [])
 
   return (
     <div className='container justify-content-center px-4 py-5 my-3'>
@@ -59,9 +55,9 @@ const ComapnyProfileForm = ({
         validationSchema={validate}
         onSubmit={(values) => {
           if (profileExist) {
-            dispatch(updateUserProfile(userProfile, 'Pracodawca', values));
+            dispatch(updateUserProfile(userProfile, 'Pracodawca', values))
           } else {
-            dispatch(createUserProfile('Pracodawca', values));
+            dispatch(createUserProfile('Pracodawca', values))
           }
         }}
       >
@@ -180,7 +176,7 @@ const ComapnyProfileForm = ({
         )}
       </Formik>
     </div>
-  );
-};
+  )
+}
 
-export default ComapnyProfileForm;
+export default ComapnyProfileForm

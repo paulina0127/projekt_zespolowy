@@ -1,4 +1,3 @@
-
 const CategoryCheckbox = ({ category, selectedCategories, setSelectedCategories }) => {
 
   if (category.subcategories && category.subcategories.length > 0) {

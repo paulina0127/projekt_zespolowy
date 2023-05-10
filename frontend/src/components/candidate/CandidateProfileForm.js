@@ -1,13 +1,13 @@
-import { Form, Formik } from 'formik';
-import { Image } from 'react-bootstrap';
-import { FaPlus } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
-import { createUserProfile, updateUserProfile } from '../actions/userActions';
-import avatar from '../images/avatar.png';
-import styles from './CompanyProfileForm.module.css';
-import Loader from './Loader';
-import Message from './Message';
-import { TextField } from './TextField';
+import { Form, Formik } from 'formik'
+import { Image } from 'react-bootstrap'
+import { FaPlus } from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux'
+import { createUserProfile, updateUserProfile } from '../../actions/userActions'
+import avatar from '../../images/avatar.png'
+import styles from '../company/CompanyProfileForm.module.css'
+import { Loader, Message } from '../basics'
+import { TextField } from '../formHelpers'
+
 const CandidateProfileForm = ({
   initialValues,
   validate,
@@ -15,13 +15,13 @@ const CandidateProfileForm = ({
   profileExist,
   userProfile,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const updateProfile = useSelector((state) => state.userUpdateProfile);
-  const { error, success, loading } = updateProfile;
+  const updateProfile = useSelector((state) => state.userUpdateProfile)
+  const { error, success, loading } = updateProfile
 
-  const createProfile = useSelector((state) => state.userCreateProfile);
-  const { errorCreate, successCreate, loadingCreate } = createProfile;
+  const createProfile = useSelector((state) => state.userCreateProfile)
+  const { errorCreate, successCreate, loadingCreate } = createProfile
   return (
     <div>
       <h2 className={styles['profile-h2']}>Dane osobowe</h2>
@@ -43,17 +43,17 @@ const CandidateProfileForm = ({
           validationSchema={validate}
           onSubmit={(values) => {
             if (profileExist) {
-              const updatedValues = {};
+              const updatedValues = {}
               for (const key in values) {
                 if (values[key] !== initialValues[key]) {
-                  updatedValues[key] = values[key];
+                  updatedValues[key] = values[key]
                 }
               }
               dispatch(
                 updateUserProfile(userProfile, 'Kandydat', updatedValues)
-              );
+              )
             } else {
-              dispatch(createUserProfile('Kandydat', values));
+              dispatch(createUserProfile('Kandydat', values))
             }
           }}
         >
@@ -117,7 +117,7 @@ const CandidateProfileForm = ({
         </Formik>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CandidateProfileForm;
+export default CandidateProfileForm
