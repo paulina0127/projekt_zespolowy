@@ -19,11 +19,7 @@ class Company(models.Model):
     website = models.URLField(verbose_name=_("Strona internetowa"), blank=True)
     description = models.TextField(verbose_name=_("Opis"))
     image = models.ImageField(
-        verbose_name=_("Zdjęcie"),
-        upload_to="companies/images",
-        blank=True,
-        null=True,
-        default="companies/images/placeholder.png",
+        verbose_name=_("Zdjęcie"), upload_to="companies/images", blank=True, null=True
     )
 
     user = models.OneToOneField(
@@ -43,6 +39,12 @@ class Company(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+    def save(self, *args, **kwargs):
+        # Set image value to default if its null
+        if not self.image:
+            self.image = "/placeholder.png"
+        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         # Delete related location when company is deleted
@@ -66,11 +68,7 @@ class Candidate(models.Model):
     )
 
     image = models.ImageField(
-        verbose_name=_("Zdjęcie"),
-        upload_to="candidates/images",
-        blank=True,
-        null=True,
-        default="candidates/images/placeholder.png",
+        verbose_name=_("Zdjęcie"), upload_to="candidates/images", blank=True, null=True
     )
 
     user = models.OneToOneField(
@@ -87,6 +85,12 @@ class Candidate(models.Model):
 
     def __str__(self) -> str:
         return self.first_name + " " + self.last_name
+
+    def save(self, *args, **kwargs):
+        # Set image value to default if its null
+        if not self.image:
+            self.image = "/placeholder.png"
+        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         # Delete related location when candidate is deleted

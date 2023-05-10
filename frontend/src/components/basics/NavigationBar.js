@@ -1,21 +1,21 @@
 import {
-  Navbar,
+  Button,
+  Container,
+  Image,
   Nav,
   NavDropdown,
-  Container,
-  Button,
-  Image,
+  Navbar,
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { logout } from '../../actions/authActions';
 
 import { IoIosArrowDropdown } from 'react-icons/io';
-import placeholder from '../../images/avatar.png';
+import placeholder from '../../images/placeholder.png';
 import Brand from '../../images/brand.png';
 import styles from './NavigationBar.module.css';
 
-const NavigationBar = ({ logout, isAuthenticated }) => {
+const NavigationBar = ({ logout, user }) => {
   const guestLinks = () => (
     <>
       <Nav.Link as={Link} to='/logowanie'>
@@ -38,12 +38,17 @@ const NavigationBar = ({ logout, isAuthenticated }) => {
         title={
           <div className='pull-right'>
             <Image
-              style={{ width: '40px', marginRight: '10px' }}
-              src={placeholder}
+              style={{
+                height: '40px',
+                width: '40px',
+                marginRight: '10px',
+                objectFit: 'cover',
+              }}
+              src={user.profile?.image ? user.profile?.image : placeholder}
               alt='User pic'
               roundedCircle
             />
-            Moje Konto <IoIosArrowDropdown />
+            Moje konto <IoIosArrowDropdown />
           </div>
         }
         id='basic-nav-dropdown'
@@ -73,7 +78,7 @@ const NavigationBar = ({ logout, isAuthenticated }) => {
               Pracodawcy
             </Nav.Link>
           </Nav>
-          <Nav>{isAuthenticated ? authLinks() : guestLinks()}</Nav>
+          <Nav>{user ? authLinks() : guestLinks()}</Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
@@ -81,7 +86,7 @@ const NavigationBar = ({ logout, isAuthenticated }) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, { logout })(NavigationBar);

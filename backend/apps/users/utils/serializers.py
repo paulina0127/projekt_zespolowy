@@ -22,18 +22,18 @@ class DefaultUserSerializer(UserSerializer):
 
 class CandidateSerializer(serializers.ModelSerializer):
     class Meta:
-        model: Candidate
+        model = Candidate
         fields = ["id", "first_name", "last_name", "image"]
 
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
-        model: Company
+        model = Company
         fields = ["id", "name", "image"]
 
 
 class CandidateUserSerializer(UserSerializer):
-    profile = CandidateSerializer(read_only=True)
+    profile = CandidateSerializer(read_only=True, source="candidate_profile")
 
     class Meta(UserSerializer.Meta):
         model = User
@@ -41,7 +41,7 @@ class CandidateUserSerializer(UserSerializer):
 
 
 class CompanyUserSerializer(UserSerializer):
-    profile = CompanySerializer(read_only=True)
+    profile = CompanySerializer(read_only=True, source="company_profile")
 
     class Meta(UserSerializer.Meta):
         model = User

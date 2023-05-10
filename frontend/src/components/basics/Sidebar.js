@@ -1,20 +1,20 @@
-import { connect } from 'react-redux'
-import { Link, useLocation } from 'react-router-dom'
-import { logout } from '../../actions/authActions'
+import { Image } from 'react-bootstrap';
 import {
-  FaUserCog,
-  FaRegFileAlt,
-  FaRegAddressCard,
-  FaPowerOff,
   FaList,
-} from 'react-icons/fa'
-import { MdWork } from 'react-icons/md'
-import styles from './Sidebar.module.css'
-import { Image } from 'react-bootstrap'
-import placeholder from '../../images/avatar.png'
+  FaPowerOff,
+  FaRegAddressCard,
+  FaRegFileAlt,
+  FaUserCog,
+} from 'react-icons/fa';
+import { MdWork } from 'react-icons/md';
+import { connect } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+import { logout } from '../../actions/authActions';
+import placeholder from '../../images/placeholder.png';
+import styles from './Sidebar.module.css';
 
-const Sidebar = ({ logout, type }) => {
-  const { pathname } = useLocation()
+const Sidebar = ({ logout, user }) => {
+  const { pathname } = useLocation();
 
   const candidateLinks = () => (
     <>
@@ -50,7 +50,7 @@ const Sidebar = ({ logout, type }) => {
         </li>
       </Link>
     </>
-  )
+  );
 
   const companyLinks = () => (
     <>
@@ -84,13 +84,18 @@ const Sidebar = ({ logout, type }) => {
         </li>
       </Link>
     </>
-  )
+  );
 
   return (
     <div className='bg-dark col-auto col-md-3 col-lg-2 min-vh-100 gx-0 d-flex flex-column'>
       <Image
-        style={{ width: '100px', margin: '20px auto' }}
-        src={placeholder}
+        style={{
+          height: '100px',
+          width: '100px',
+          margin: '20px auto',
+          objectFit: 'cover',
+        }}
+        src={user?.profile?.image ? user?.profile?.image : placeholder}
         alt='User pic'
         roundedCircle
       />
@@ -105,9 +110,9 @@ const Sidebar = ({ logout, type }) => {
             <span className='ms-2'>Konto</span>
           </li>
         </Link>
-        {type === 'Kandydat'
+        {user?.type === 'Kandydat'
           ? candidateLinks()
-          : type === 'Pracodawca'
+          : user?.type === 'Pracodawca'
           ? companyLinks()
           : null}
         <li className='nav-item text-white fs-5 my-2 align-self-center'>
@@ -117,10 +122,10 @@ const Sidebar = ({ logout, type }) => {
         </li>
       </ul>
     </div>
-  )
-}
+  );
+};
 
 const mapStateToProps = (state) => ({
-  type: state.auth.user.type,
-})
-export default connect(mapStateToProps, { logout })(Sidebar)
+  user: state.auth.user,
+});
+export default connect(mapStateToProps, { logout })(Sidebar);
