@@ -5,7 +5,6 @@ import { USER_DETAILS_PROFILE_RESET } from '../../constants/userConst'
 import { validateCandidatePersonalInfo } from '../../validators/validators'
 import { Loader, Message } from '../basics'
 import CandidateProfileForm from './CandidateProfileForm'
-import CandidateExperience from './CandidateExperience'
 
 const CandidateProfileUpdate = ({ userProfile }) => {
   const dispatch = useDispatch()
@@ -14,10 +13,10 @@ const CandidateProfileUpdate = ({ userProfile }) => {
     return () => {
       dispatch({ type: USER_DETAILS_PROFILE_RESET })
     }
-  }, [])
+  }, [dispatch])
 
   const profile = useSelector((state) => state.userProfileDetails)
-  const { error, loading, user, files } = profile
+  const { error, loading, user } = profile
  
   const personalInfo = user && user.location
     ? {
@@ -41,7 +40,6 @@ const CandidateProfileUpdate = ({ userProfile }) => {
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : user && Object.keys(user).length === 0 ? null : (
-       <> 
         <CandidateProfileForm
           profileExist={true}
           userProfile={userProfile}
@@ -49,10 +47,6 @@ const CandidateProfileUpdate = ({ userProfile }) => {
           validate={validateCandidatePersonalInfo}
           label='Zapisz zmiany'
         />
-        <CandidateExperience
-          userProfile={userProfile}
-        />
-      </>
       )}
     </>
   )

@@ -9,7 +9,7 @@ import {
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../actions/authActions';
-
+import { FaPowerOff } from 'react-icons/fa'
 import { IoIosArrowDropdown } from 'react-icons/io';
 import placeholder from '../../images/placeholder.png';
 import Brand from '../../images/brand.png';
@@ -36,7 +36,7 @@ const NavigationBar = ({ logout, user }) => {
       <NavDropdown
         className={styles['dropdown-toggle']}
         title={
-          <div className='pull-right'>
+          <div className='pull-right fs-5 text-white'>
             <Image
               style={{
                 height: '40px',
@@ -53,11 +53,11 @@ const NavigationBar = ({ logout, user }) => {
         }
         id='basic-nav-dropdown'
       >
-        <NavDropdown.Item as={Link} to='/user-panel/konto'>
-          Profil
+        <NavDropdown.Item as={Link} to='/user-panel/konto' className='text-black'>
+          Panel użytkownika
         </NavDropdown.Item>
         <NavDropdown.Divider />
-        <NavDropdown.Item onClick={logout}>Wyloguj się</NavDropdown.Item>
+        <NavDropdown.Item onClick={logout}>Wyloguj się <FaPowerOff /></NavDropdown.Item>
       </NavDropdown>
     </>
   );
