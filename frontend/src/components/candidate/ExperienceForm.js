@@ -1,12 +1,14 @@
 import { Formik, Form, Field, FieldArray } from 'formik'
 import { useSelector } from 'react-redux'
+import { Col, Row } from 'react-bootstrap'
+import moment from 'moment'
 import { validateExperience } from '../../validators/validators'
 import { TextField, MyDatePicker } from '../formHelpers'
 import { HiOutlineTrash } from 'react-icons/hi'
 import { MdOutlineAdd } from 'react-icons/md'
 import styles from '../company/CreateOfferForm.module.css'
 
-const ExperienceForm = ({ type, experience, label }) => {
+const ExperienceForm = ({ type, experience, label, handleCloseModal }) => {
 
   const files = useSelector((state) => state.userProfileDetails.files)
 
@@ -32,8 +34,8 @@ const ExperienceForm = ({ type, experience, label }) => {
       postal_code: experience.location.postal_code,
       city: experience.location.city
     },
-    start_date: experience.start_date,
-    end_date: experience.end_date,
+    start_date: moment(experience.start_date, 'YYYY/MM/DD').format('dd/MM/yyyy'),
+    end_date: moment(experience.end_date, 'YYYY/MM/DD').format('dd/MM/yyyy'),
     duties: experience.duties,
     is_current: experience.is_current,
     references: experience.references
@@ -60,13 +62,34 @@ const ExperienceForm = ({ type, experience, label }) => {
     >
       {({ values }) => (
       <Form>
-        <TextField name='position' type='text' label='Stanowisko*' />
-        <TextField name='company' type='text' label='Nazwa firmy*' />
-        <TextField label='Ulica (nazwa i numer)' name='location.street_address' type='text' />
-        <TextField label='Kod pocztowy' name='location.postal_code' type='text' />
-        <TextField label='Miasto' name='location.city' type='text' />
-        <MyDatePicker label='Data rozpoczęcia pracy*' name='start_date' maxDate={new Date()}/>
-        <MyDatePicker label='Data zakończenia pracy' name='end_date' maxDate={new Date()}/>
+        <Row>
+          <Col>
+            <TextField name='position' type='text' label='Stanowisko*' />
+          </Col>
+          <Col>
+            <TextField name='company' type='text' label='Nazwa firmy*' />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <MyDatePicker label='Data rozpoczęcia pracy*' name='start_date' maxDate={new Date()}/>
+          </Col>
+          <Col>
+            <MyDatePicker label='Data zakończenia pracy' name='end_date' maxDate={new Date()}/>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+          <TextField label='Ulica' name='location.street_address' type='text' />
+          </Col>
+          <Col>
+          <TextField label='Kod pocztowy' name='location.postal_code' type='text' />
+          </Col>
+          <Col>
+          <TextField label='Miasto' name='location.city' type='text' />
+          </Col>
+        </Row>
+
         <FieldArray name='duties'>
           {({ push, remove, form }) => {
             const { values } = form
@@ -74,7 +97,7 @@ const ExperienceForm = ({ type, experience, label }) => {
             return (
               <>
                 <div className='d-flex align-items-center'>
-                  <h5 className='mb-0'>Obowiązki</h5>
+                  <h5 className='mb-0 text-muted'>Obowiązki</h5>
                   <button
                     type='button'
                     className={`btn btn-success rounded-circle ${styles.addBtn}`}
@@ -102,14 +125,24 @@ const ExperienceForm = ({ type, experience, label }) => {
             )
           }}
         </FieldArray>
-        <h5>Referencje: </h5>
+        <h5 className='text-muted'>Referencje: </h5>
         {/* select */}
-        <button
-          type='submit'
-          className='btn btn-warning rounded-pill fw-bold shadow-sm '
-        >
-          {label}
-        </button>
+        <hr className='text-secondary' />
+        <div className='d-flex justify-content-end'>
+          <button
+            type='button'
+            className='btn btn-outline-warning rounded-pill fw-bold shadow-sm mx-2 px-5'
+            onClick={handleCloseModal}
+          >
+            Wróć
+          </button>
+          <button
+            type='submit'
+            className='btn btn-warning rounded-pill fw-bold shadow-sm px-5'
+          >
+            {label}
+          </button>
+        </div>
       </Form>
     )}
     </Formik>
@@ -117,3 +150,7 @@ const ExperienceForm = ({ type, experience, label }) => {
 }
 
 export default ExperienceForm
+
+{/* <Modal.Footer >
+<Button onClick={handleCloseModal} variant='outline-warning'>Anuluj</Button>
+</Modal.Footer>  */}

@@ -11,7 +11,7 @@ import {
   SignUpScreen,
 } from './screens'
 import AccountManagement from './components/AccountManagement'
-import { Attachement, CandidateProfile } from './components/candidate'
+import { Attachement, CandidateProfile, CandidateExperience } from './components/candidate'
 import { CompanyOffers, CompanyProfile, ReceivedApplication } from './components/company'
 import Layout from './hocs/Layout'
 
@@ -30,7 +30,8 @@ const App = () => {
         <Route path='/oferta/:id' element={<OfferDetailsScreen />}/>
         <Route path='/user-panel/konto' element={<AccountManagement />} />
         <Route path='/user-panel/profil-pracodawcy' element={<CompanyProfile />} />
-        <Route path='/user-panel/profil-kandydata' element={<CandidateProfile />} />
+        <Route path='/user-panel/dane-osobowe' element={<CandidateProfile />} />
+        <Route path='/user-panel/doświadczenie' element={<CandidateExperience />} />
         {/* <Route path='moje-aplikacje' element={<MyApplications />} /> */}
         <Route path='/user-panel/moje-oferty' element={<CompanyOffers />} />
         <Route path='/user-panel/dokumenty' element={<Attachement />} />

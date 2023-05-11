@@ -1,3 +1,13 @@
-.active {
-  background: #e7b822;
+.sidebar {
+  background-color: var(--user);
 }
+
+.active {
+  background: var(--yellow);
+}
+
+.hoverEffect:hover {
+  background: var(--yellow);
+  transition: all 1s;
+}
+

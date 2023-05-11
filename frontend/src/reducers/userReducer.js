@@ -33,17 +33,17 @@ export const userProfileDetailsReducer = (state = {}, action) => {
     case USER_EXPERIENCE_REQUEST:
       return { ...state, loading: true };
     case USER_DETAILS_PROFILE_SUCCESS:
-      return { ...state, loading: false, user: action.payload };
+      return {loading: false, user: action.payload };
     case USER_EXPERIENCE_SUCCESS:
-      return { ...state, loading: false, experienceList: action.payload };
+      return {loading: false, experienceList: action.payload };
     case USER_FILES_SUCCESS:
-      return { ...state, loading: false, filesList: action.payload };
+      return {loading: false, filesList: action.payload };
     case USER_DETAILS_PROFILE_FAIL:
     case USER_EXPERIENCE_FAIL:
     case USER_FILES_FAIL:
-      return { ...state, loading: false, error: action.payload };
+      return { loading: false, error: action.payload };
     case USER_DETAILS_PROFILE_RESET:
-      return { ...state, user: {}, experienceList: {} };
+      return { user: {} };
     default:
       return state;
   }

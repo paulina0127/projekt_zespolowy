@@ -104,10 +104,6 @@ export const getUserDetails = (id, userType) => async (dispatch) => {
         payload: data,
       });
 
-      if (userType === 'Kandydat') {
-        dispatch(getCandidateExperience(data.id));
-        dispatch(getCandidateFiles(data.id));
-      }
     } catch (error) {
       dispatch({
         type: USER_DETAILS_PROFILE_FAIL,

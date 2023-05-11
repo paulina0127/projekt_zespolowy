@@ -5,9 +5,11 @@
 :root {
   --letter-spacing: 0.25rem;
   --background-color: rgb(240, 238, 230);
-  --yellow: #ffc107;
+  --yellow: rgb(207, 139, 11);
+  --user: rgb(39, 25, 49);
   --font: Imprima, sans-serif;
   --font-heading: Inter, sans-serif;
+
 }
 
 * {
@@ -29,10 +31,5 @@ html {
   box-sizing: border-box;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: var(--font-heading);
-}
+
+

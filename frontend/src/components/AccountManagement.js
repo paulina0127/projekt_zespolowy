@@ -3,7 +3,7 @@ import { TextField } from './formHelpers';
 import UserPanelLayout from '../hocs/UserPanelLayout';
 import styles from './company/CompanyProfileForm.module.css';
 
-const AccountManagement = ({}) => {
+const AccountManagement = () => {
   return (
     <UserPanelLayout>
       <div>
