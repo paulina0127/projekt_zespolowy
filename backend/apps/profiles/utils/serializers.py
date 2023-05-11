@@ -68,7 +68,7 @@ class FileSerializer(serializers.ModelSerializer):
 
 
 class ExperienceSerializer(serializers.ModelSerializer):
-    location = LocationSerializer()
+    location = LocationSerializer(required=False)
 
     class Meta:
         model = Experience
@@ -76,9 +76,11 @@ class ExperienceSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         # Add location while adding company profile
-        location_data = validated_data.pop("location")
-        location = Location.objects.create(**location_data)
-        experience = Experience.objects.create(location=location, **validated_data)
+        if "location" in validated_data:
+            location_data = validated_data.pop("location")
+            location = Location.objects.create(**location_data)
+            experience = Experience.objects.create(location=location, **validated_data)
+        experience = Experience.objects.create(**validated_data)
         return experience
 
     def update(self, experience, validated_data):

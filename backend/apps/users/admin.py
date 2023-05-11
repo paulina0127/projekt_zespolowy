@@ -46,6 +46,12 @@ class UserAdmin(DjangoUserAdmin):
     )
     ordering = ("type",)
 
+    def save_model(self, request, obj, form, change):
+        # Add the user to the appropriate group based on their type
+        super().save_model(request, obj, form, change)
+        group = Group.objects.get(name=obj.type)
+        obj.groups.add(group)
+
 
 @admin.register(Group)  # Register default Group model in users page
 class GroupAdmin(admin.ModelAdmin):

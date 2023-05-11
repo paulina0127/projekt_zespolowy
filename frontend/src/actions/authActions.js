@@ -241,10 +241,10 @@ export const reset_password_confirm =
   };
 
 export const logout = () => (dispatch) => {
+  window.location.href = '/';
   localStorage.removeItem('userTokens');
   localStorage.removeItem('user');
   dispatch({
     type: LOGOUT,
   });
-  window.location.href = '/';
 };
