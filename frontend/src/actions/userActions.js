@@ -32,6 +32,9 @@ export const getCandidateExperience = (id) => async (dispatch) => {
         type: USER_EXPERIENCE_SUCCESS,
         payload: data,
       });
+
+      dispatch(getCandidateFiles(id));
+
     } catch (error) {
       dispatch({
         type: USER_EXPERIENCE_FAIL,

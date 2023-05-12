@@ -1,9 +1,9 @@
 import { Modal, Button } from 'react-bootstrap'
 
-const MyModal = ({ children, title, showModal }) => {
+const MyModal = ({ children, title, showModal, danger }) => {
   return (
     <Modal show={showModal} size="md" aria-labelledby="contained-modal-title-vcenter" centered>
-      <Modal.Header>
+      <Modal.Header className={danger ? 'bg-danger' : 'bg-warning'}>
         <Modal.Title>
           {title}
         </Modal.Title>

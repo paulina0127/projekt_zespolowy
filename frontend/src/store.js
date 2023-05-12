@@ -7,6 +7,7 @@ import {
   offerCreateReducer, 
   offerDeleteReducer } 
 from './reducers/offerReducer'
+import { candidateReducer } from './reducers/candidateReducer'
 import { categoryListReducer } from './reducers/categoryReducer'
 import { userProfileDetailsReducer, userCreateProfileReducer, userUpdateProfileReducer } from './reducers/userReducer'
 
@@ -16,6 +17,8 @@ const reducer = combineReducers({
   userProfileDetails: userProfileDetailsReducer,
   userCreateProfile: userCreateProfileReducer,
   userUpdateProfile: userUpdateProfileReducer,
+
+  candidate: candidateReducer,
 
   offerList: offerListReducer,
   offerDetails: offerDetailsReducer,

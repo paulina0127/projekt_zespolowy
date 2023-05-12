@@ -2,6 +2,10 @@
   background-color: var(--user);
 }
 
+.candidateLinks {
+  cursor: pointer;
+}
+
 .active {
   background: var(--yellow);
 }

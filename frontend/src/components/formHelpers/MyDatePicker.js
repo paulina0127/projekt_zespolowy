@@ -16,8 +16,8 @@ const MyDatePicker = ({ label, name = '', minDate, maxDate }) => {
         {...field}
         minDate={minDate}
         maxDate={maxDate}
-        dateFormat='dd/MM/yyyy'
-        selected={value}
+        dateFormat='yyyy-MM-dd'
+        selected={value || null}
         onChange={(date) => setValue(date)}
       />
       <ErrorMessage component='div' name={field.name} className='error mt-2 text-danger' />

@@ -37,7 +37,7 @@ export const userProfileDetailsReducer = (state = {}, action) => {
     case USER_EXPERIENCE_SUCCESS:
       return {loading: false, experienceList: action.payload };
     case USER_FILES_SUCCESS:
-      return {loading: false, filesList: action.payload };
+      return {...state, loading: false, filesList: action.payload };
     case USER_DETAILS_PROFILE_FAIL:
     case USER_EXPERIENCE_FAIL:
     case USER_FILES_FAIL:

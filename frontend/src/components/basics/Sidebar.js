@@ -21,7 +21,7 @@ const Sidebar = ({ logout, user }) => {
 
   const candidateLinks = () => (
     <>
-      <Link className='nav-item text-white fs-5 my-2'>
+      <div className={`text-white fs-5 my-2 ${styles.candidateLinks}`}>
         <FaRegAddressCard className='ms-3' />
         <span 
           onClick={() => setOpen(!open)}
@@ -90,7 +90,7 @@ const Sidebar = ({ logout, user }) => {
             </Link>
           </ul>
         </Collapse>
-      </Link>
+      </div>
       <Link
         to={`/user-panel/moje-aplikacje`}
         className={

@@ -2,44 +2,66 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react'
 import { MdEdit, MdDelete, MdAddCircle } from 'react-icons/md'
 import { getCandidateExperience } from '../../actions/userActions'
-import { MyModal } from '../basics'
-import ExperienceForm from './ExperienceForm';
-import UserPanelLayout from '../../hocs/UserPanelLayout';
-import styles from './CandidateExperience.module.css';
+import { deleteExperience } from '../../actions/candidateActions'
+import { MyModal, Loader, Message } from '../basics'
+import { USER_DETAILS_PROFILE_RESET } from '../../constants/userConst';
+import ExperienceForm from './ExperienceForm'
+import CandidateInfoDelete from './CandidateInfoDelete';
+import UserPanelLayout from '../../hocs/UserPanelLayout'
+import styles from './CandidateExperience.module.css'
 
 const CandidateExperience = () => {
+  const [changeExperience, setChangeExperience] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
-  const [showEditModal, setShowEditModal] = useState(false)
+  const [editExperienceIndex, setEditExperienceIndex] = useState(null)
+  const [deleteExperienceIndex, setDeleteExperienceIndex] = useState(null)
+
+  const profile = useSelector(state => state.auth.user.profile.id)
 
   const handleShowAddModal = () => {
     setShowAddModal(true)
   }
   const handleCloseAddModal = () => {
     setShowAddModal(false);
-  };
-  const handleShowEditModal = () => {
-    setShowEditModal(true)
+  }
+  const handleShowEditModal = (index) => {
+    setEditExperienceIndex(index)
   }
   const handleCloseEditModal = () => {
-    setShowEditModal(false);
-  };
+    setEditExperienceIndex(null)
+  }
+  const handleShowDeleteModal = (index) => {
+    setDeleteExperienceIndex(index)
+  }
+  const handleCloseDeleteModal = () => {
+    setDeleteExperienceIndex(null)
+  }
 
-  const profile = useSelector(state => state.auth.user.profile.id);
-
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(getCandidateExperience(profile))
-    // return () => {
-    //   dispatch({ type: USER_DETAILS_PROFILE_RESET })
-    // }
-  }, [dispatch])
+  const handleDeleteExperience = (id) => {
+    dispatch(deleteExperience(profile, id))
+    setDeleteExperienceIndex(null)
+  }
 
   const details = useSelector(state => state.userProfileDetails)
   const { experienceList } = details
 
+  const candidateAction = useSelector(state => state.candidate)
+  const { error, success, loading } = candidateAction
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getCandidateExperience(profile))
+    return () => {
+      dispatch({ type: USER_DETAILS_PROFILE_RESET })
+    }
+  }, [dispatch, success])
+
   return (
     <UserPanelLayout>
-      <div className="container">
+      <div className="container mt-3">
+        {loading && <Loader />}
+        {success && <Message variant='success'>Zapisano</Message>}
+        {error && <Message variant='danger'>{error}</Message>}
         <div className={styles['table-wrapper']}>
           <div className={styles['table-title']}>
             <div className="row">
@@ -63,20 +85,50 @@ const CandidateExperience = () => {
               </tr>
             </thead>
             <tbody>
-              {experienceList && experienceList.results && experienceList.results.map((experience) => 
+              {!loading && experienceList && experienceList.results && experienceList.results.map((experience, index) => 
               <tr key={experience.id}>
                 <td>{experience.position}</td>
                 <td>{experience.company}</td>
-                <td>{experience.location.street_address}, {experience.location.postal_code} {experience.location.city}</td>
+                <td>{experience.location ? experience.location.street_address + ', ' + experience.location.postal_code + ' ' + experience.location.city : ''}</td>
                 <td>{experience.start_date}</td>
-                <td>{experience.end_date}</td>
+                <td>{experience.end_date ? experience.end_date : ''}</td>
                 <td>
-                  <span onClick={setShowEditModal}><MdEdit color='#00BE75'/></span>
-                  <span><MdDelete color='#DA4753'/></span>
+                  <span onClick={() => handleShowEditModal(index)}>
+                    <MdEdit color='#00BE75'/>
+                  </span>
+                  <span onClick={() => handleShowDeleteModal(index)}>
+                    <MdDelete color='#DA4753'/>
+                  </span>
                 </td>
-                {showEditModal &&  <MyModal showModal={showEditModal}  title='Edytowanie doświadczenia'>
-                <ExperienceForm experience={experience} type='update' handleCloseModal={handleCloseEditModal} label='Zapisz'/>
-                </MyModal> }
+                {editExperienceIndex === index && (
+                <MyModal
+                  showModal={true}
+                  title="Edytowanie doświadczenia"
+                  handleCloseModal={handleCloseEditModal}
+                >
+                  <ExperienceForm
+                    experience={experience}
+                    type="update"
+                    handleCloseModal={handleCloseEditModal}
+                    label="Zapisz"
+                  />
+                </MyModal>
+                )}
+                {deleteExperienceIndex === index && (
+                <MyModal
+                  showModal={true}
+                  title="Usuwanie doświadczenia"
+                  danger={true}
+                  handleCloseModal={handleCloseEditModal}
+                >
+                   <CandidateInfoDelete
+                    name='doświadczenie'
+                    handleCloseModal={handleCloseDeleteModal}
+                    id={experience.id}
+                    handleDelete={handleDeleteExperience}
+                   />
+                </MyModal>
+                )}
               </tr>
               )}
           </tbody>

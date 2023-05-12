@@ -140,8 +140,11 @@ export const validateOffer = object({
     end_date: date()
       .max(new Date(), 'Data zakończenia nie może być późniejsza niż teraźniejsza data')
       .test('end_date', 'Data zakończenia nie może być wcześniejsza niż data rozpoczęcia', function (value) {
-        const startDate = this.parent.start_date;
-        return startDate === undefined || value >= startDate;
+        const startDate = this.parent.start_date
+        if (startDate && value) {
+          return value >= startDate
+        }
+        return true
       }),
   })
 
