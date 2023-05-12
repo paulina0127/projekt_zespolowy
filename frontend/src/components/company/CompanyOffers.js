@@ -1,48 +1,48 @@
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { listFilteredOffers } from '../../actions/offerActions';
-import { OFFER_FILTERED_LIST_CLEAR } from '../../constants/offerConst';
-import { OFFER_DELETE_RESET } from '../../constants/offerConst';
-import OfferForCompany from './OfferForCompany';
-import CreateOfferForm from './CreateOfferForm';
-import { AiOutlineFileAdd } from 'react-icons/ai';
-import UserPanelLayout from '../../hocs/UserPanelLayout';
-import { Loader, Message } from '../basics';
+import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { listFilteredOffers } from '../../actions/offerActions'
+import { OFFER_FILTERED_LIST_CLEAR } from '../../constants/offerConst'
+import { OFFER_DELETE_RESET } from '../../constants/offerConst'
+import OfferForCompany from './OfferForCompany'
+import CreateOfferForm from './CreateOfferForm'
+import { AiOutlineFileAdd } from 'react-icons/ai'
+import UserPanelLayout from '../../hocs/UserPanelLayout'
+import { Loader, Message } from '../basics'
 
-import styles from '../../screens/MainPanelScreen.module.css';
-import styles2 from './OfferForCompany.module.css';
+import styles from '../../screens/MainPanelScreen.module.css'
+import styles2 from './OfferForCompany.module.css'
 
 const CompanyOffers = () => {
-  const [showOfferForm, setShowOfferForm] = useState(false);
+  const [showOfferForm, setShowOfferForm] = useState(false)
 
-  const company_id = useSelector((state) => state.auth.user.profile.id);
+  const company_id = useSelector((state) => state.auth.user.profile.id)
 
-  const offerList = useSelector((state) => state.offerList);
-  const { offers, loading, length, error } = offerList;
+  const offerList = useSelector((state) => state.offerList)
+  const { offers, loading, length, error } = offerList
 
-  const offerDelete = useSelector((state) => state.offerDelete);
+  const offerDelete = useSelector((state) => state.offerDelete)
   const { successDeleteOffer, errorDeleteOffer, loadingDeleteOffer } =
-    offerDelete;
+    offerDelete
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const params = {
     all: true,
     company: company_id,
-  };
+  }
 
   useEffect(() => {
     return () => {
-      dispatch({ type: OFFER_DELETE_RESET });
-    };
-  }, []);
+      dispatch({ type: OFFER_DELETE_RESET })
+    }
+  }, [])
 
   useEffect(() => {
-    dispatch(listFilteredOffers(params));
+    dispatch(listFilteredOffers(params))
     return () => {
-      dispatch({ type: OFFER_FILTERED_LIST_CLEAR });
-    };
-  }, [dispatch, successDeleteOffer]);
+      dispatch({ type: OFFER_FILTERED_LIST_CLEAR })
+    }
+  }, [dispatch, successDeleteOffer])
 
   return (
     <UserPanelLayout>
@@ -50,7 +50,7 @@ const CompanyOffers = () => {
         {!showOfferForm ? (
           <>
             <h2 className={styles['panel-h2']}>Moje oferty pracy: {length}</h2>
-            <div className={styles['white-bg']}>
+            <div className='shadow p-3 bg-white rounded-pill m-2'>
               <div className='d-flex align-items-center my-3'>
                 <button
                   className={`btn btn-success rounded-circle ${styles2.addOfferBtn}`}
@@ -88,14 +88,14 @@ const CompanyOffers = () => {
         ) : (
           <>
             <h2 className={styles['panel-h2']}> Nowa oferta pracy:</h2>
-            <div className={styles['white-bg']}>
+            <div className='shadow p-3 bg-white rounded-pill m-2'>
               <CreateOfferForm />
             </div>
           </>
         )}
       </div>
     </UserPanelLayout>
-  );
-};
+  )
+}
 
-export default CompanyOffers;
+export default CompanyOffers

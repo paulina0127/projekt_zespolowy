@@ -5,7 +5,7 @@ const CompanyProfileDelete = ({}) => {
     <div>
       <h2 className={styles['profile-h2']}>Usuń profil</h2>
       <div className='d-flex flex-row justify-content-around'>
-        <div className={styles['white-bg']}>
+        <div className='shadow p-3 bg-white rounded-pill m-2'>
           <p className={styles['profile-p']}>
             Usunięcie profilu jest nieodwracalne. Prosimy o rozważenie swojej
             decyzji.

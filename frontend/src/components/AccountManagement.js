@@ -1,82 +1,87 @@
-import { Formik, Form } from 'formik';
-import { TextField } from './formHelpers';
-import UserPanelLayout from '../hocs/UserPanelLayout';
-import styles from './company/CompanyProfileForm.module.css';
+import { Formik, Form } from 'formik'
+import { TextField } from './formHelpers'
+import UserPanelLayout from '../hocs/UserPanelLayout'
+import styles from './company/CompanyProfileForm.module.css'
 
 const AccountManagement = () => {
   return (
     <UserPanelLayout>
-      <div>
-        <Formik>
-          <Form>
-            <h2 className={styles['profile-h2']}>Zmień email</h2>
-            <div className={styles['white-bg']}>
-              <div className='container p-5'>
-                <div className='row align-items-center justify-content-evenly me-auto'>
-                  <div className='col col-6'>
-                    <h4 className={styles['profile-h4']}>Email</h4>
-                    <TextField name='email' type='text' />
+      <div className='container text-center mt-5 mb-5'>
+        <div className='row align-items-center justify-content-center'>
+          <div className='col'>
+            <Formik>
+              <Form>
+                <h2 className={styles['profile-h2']}>Zmień email</h2>
+                <div className='shadow p-4 bg-white rounded-5'>
+                  <div className='container p-5'>
+                    <div className='row align-items-center justify-content-evenly me-auto'>
+                      <div className='col col-8'>
+                        <TextField label='Email' name='email' type='text' />
+                      </div>
+                    </div>
+                  </div>
+                  <div className='d-grid col-2 mx-auto'>
+                    <button type='submit' className={styles['yellow-btn']}>
+                      Zapisz
+                    </button>
                   </div>
                 </div>
-              </div>
-              <div className='d-grid col-2 mx-auto'>
-                <button
-                  type='submit'
-                  className='btn btn-warning rounded-pill fw-bold shadow-sm '
-                >
-                  Zapisz
-                </button>
-              </div>
-            </div>
-          </Form>
-        </Formik>
-        <Formik>
-          <Form>
-            <h2 className={styles['profile-h2']}>Zmień hasło</h2>
-            <div className={styles['white-bg']}>
-              <div className='container p-5'>
-                <div className='row align-items-center justify-content-evenly me-auto'>
-                  <div className='col col-4'>
-                    <h4 className={styles['profile-h4']}>Aktualne hasło</h4>
-                    <TextField name='old-password' type='text' />
+              </Form>
+            </Formik>
+          </div>
+          <div className='col'>
+            <Formik>
+              <Form>
+                <h2 className={styles['profile-h2']}>Zmień hasło</h2>
+                <div className='shadow p-4 bg-white rounded-5'>
+                  <div className='row align-items-center justify-content-evenly'>
+                    <div className='col-6'>
+                      <TextField
+                        label='Aktualne hasło'
+                        name='old-password'
+                        type='text'
+                      />
+                    </div>
                   </div>
-                  <div className='col col-4'>
-                    <h4 className={styles['profile-h4']}>Nowe hasło</h4>
-                    <TextField name='new-password' type='text' />
+                  <div className='row align-items-center justify-content-evenly'>
+                    <div className='col-6'>
+                      <TextField
+                        label='Nowe hasło'
+                        name='new-password'
+                        type='text'
+                      />
+                    </div>
+                  </div>
+                  <div className='d-grid col-2 mx-auto'>
+                    <button type='submit' className={styles['yellow-btn']}>
+                      Zapisz
+                    </button>
                   </div>
                 </div>
-              </div>
-              <div className='d-grid col-2 mx-auto'>
+              </Form>
+            </Formik>
+          </div>
+          <h2 className={styles['profile-h2']}>Usuń konto</h2>
+          <div className='d-flex flex-row justify-content-around'>
+            <div className='shadow p-3 bg-white rounded-5 w-100'>
+              <p className={styles['profile-p']}>
+                Usunięcie konta jest nieodwracalne. Prosimy o rozważenie swojej
+                decyzji.
+              </p>
+              <div className='d-grid col-1 mx-auto'>
                 <button
                   type='submit'
-                  className='btn btn-warning rounded-pill fw-bold  shadow-sm '
+                  className='btn btn-danger rounded-pill shadow-sm '
                 >
-                  Zapisz
+                  Usuń
                 </button>
               </div>
-            </div>
-          </Form>
-        </Formik>
-        <h2 className={styles['profile-h2']}>Usuń konto</h2>
-        <div className='d-flex flex-row justify-content-around'>
-          <div className={styles['white-bg']}>
-            <p className={styles['profile-p']}>
-              Usunięcie konta jest nieodwracalne. Prosimy o rozważenie swojej
-              decyzji.
-            </p>
-            <div className='d-grid col-2 mx-auto'>
-              <button
-                type='submit'
-                className='btn btn-danger rounded-pill fw-bold shadow-sm '
-              >
-                Usuń
-              </button>
             </div>
           </div>
         </div>
       </div>
     </UserPanelLayout>
-  );
-};
+  )
+}
 
-export default AccountManagement;
+export default AccountManagement
