@@ -15,6 +15,7 @@ import AccountManagement from './components/AccountManagement'
 import {
   Attachement,
   CandidateProfile,
+  CandidateEducation,
   CandidateExperience,
   CandidateApplications,
 } from './components/candidate'
@@ -58,7 +59,10 @@ const App = () => {
             path='/user-panel/doświadczenie'
             element={<CandidateExperience />}
           />
-          {/* <Route path='moje-aplikacje' element={<MyApplications />} /> */}
+          <Route
+            path='/user-panel/wykształcenie'
+            element={<CandidateEducation />}
+          />
           <Route path='/user-panel/moje-oferty' element={<CompanyOffers />} />
           <Route path='/user-panel/dokumenty' element={<Attachement />} />
           <Route

@@ -18,6 +18,10 @@ import {
   USER_DELETE_PROFILE_SUCCESS,
   USER_DELETE_PROFILE_FAIL,
 
+  USER_EDUCATION_REQUEST,
+  USER_EDUCATION_SUCCESS,
+  USER_EDUCATION_FAIL,
+
   USER_EXPERIENCE_REQUEST,
   USER_EXPERIENCE_SUCCESS,
   USER_EXPERIENCE_FAIL,
@@ -36,9 +40,12 @@ export const userProfileDetailsReducer = (state = {}, action) => {
       return {loading: false, user: action.payload };
     case USER_EXPERIENCE_SUCCESS:
       return {loading: false, experienceList: action.payload };
+    case USER_EDUCATION_SUCCESS:
+      return {loading: false, educationList: action.payload };
     case USER_FILES_SUCCESS:
       return {...state, loading: false, filesList: action.payload };
     case USER_DETAILS_PROFILE_FAIL:
+    case USER_EDUCATION_FAIL:
     case USER_EXPERIENCE_FAIL:
     case USER_FILES_FAIL:
       return { loading: false, error: action.payload };

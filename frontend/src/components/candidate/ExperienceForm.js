@@ -1,10 +1,10 @@
 import { Formik, Form, Field, FieldArray } from 'formik'
 import { useSelector, useDispatch } from 'react-redux'
 import { Col, Row } from 'react-bootstrap'
-import { parseISO } from 'date-fns'
+import { parseISO, subDays } from 'date-fns'
 import { validateExperience } from '../../validators/validators'
 import { createExperience, updateExperience } from '../../actions/candidateActions'
-import { TextField, MyDatePicker } from '../formHelpers'
+import { TextField, MyDatePicker, SelectField } from '../formHelpers'
 import { HiOutlineTrash } from 'react-icons/hi'
 import { MdOutlineAdd } from 'react-icons/md'
 import styles from '../company/CreateOfferForm.module.css'
@@ -23,10 +23,10 @@ const ExperienceForm = ({ type, experience, label, handleCloseModal }) => {
       postal_code: '',
       city: ''
     },
-    start_date: new Date(),
+    start_date: '',
     end_date: '',
     duties: [],
-    is_current: 'false',
+    is_current: '',
     references: ''
   }
   : type === 'update' ? {
@@ -47,7 +47,7 @@ const ExperienceForm = ({ type, experience, label, handleCloseModal }) => {
     end_date: experience.end_date !== null ? parseISO(experience.end_date) : '',
     duties: experience.duties,
     is_current: experience.is_current.toString(),
-    references: experience.references
+    references: experience.references !== null ? experience.references : ''
   } : null
 
 
@@ -56,9 +56,15 @@ const ExperienceForm = ({ type, experience, label, handleCloseModal }) => {
       initialValues={initialValues}
       validationSchema={validateExperience}
       onSubmit={(values) => {
+        
+        if (!values.end_date) {
+          values.is_current = 'true'
+        } else {
+          values.is_current = 'false'
+        }
         if (type === 'update') {
           dispatch(updateExperience(profile, experience.id, values))
-        } else {
+        } else if (type === 'create') {
           dispatch(createExperience(profile, values))
         }
         handleCloseModal()
@@ -76,53 +82,25 @@ const ExperienceForm = ({ type, experience, label, handleCloseModal }) => {
         </Row>
         <Row>
           <Col>
-            <MyDatePicker label='Data rozpoczęcia pracy*' name='start_date' maxDate={new Date()}/>
+            <MyDatePicker label='Data rozpoczęcia pracy*' name='start_date' maxDate={subDays(new Date(), 1)}/>
           </Col>
           <Col>
-            <MyDatePicker label='Data zakończenia pracy' name='end_date' maxDate={new Date()}/>
+            <MyDatePicker label='Data zakończenia pracy' name='end_date' maxDate={subDays(new Date(), 1)}/>
           </Col>
         </Row>
-        <hr className='text-secondary' />
-        <Row>
-          <p className="text-secondary mb-2">Wypełnij wszystkie pola poniżej, aby lokalizacja została dodana:</p>
-          <Col>
-          <TextField label='Ulica' name='location.street_address' type='text' />
-          </Col>
-          <Col>
-          <TextField label='Kod pocztowy' name='location.postal_code' type='text' />
-          </Col>
-          <Col>
-          <TextField label='Miasto' name='location.city' type='text' />
-          </Col>
-        </Row>
-        <hr className='text-secondary' />
-        <div className="d-flex align-items-center mb-3">
-          <div className="text-muted mr-3">Czy to aktualna praca?</div>
-          <div className="form-check form-check-inline mt-2">
-            <label className="form-check-label d-flex align-items-center">
-              <Field className="form-check-input ms-2" type="radio" name="is_current" value="true" checked={values.is_current === 'true'} />
-              &nbsp;&nbsp;Tak
-            </label>
-          </div>
-          <div className="form-check form-check-inline mt-2">
-            <label className="form-check-label d-flex align-items-center">
-              <Field className="form-check-input" type="radio" name="is_current" value="false" checked={values.is_current === 'false'} />
-              &nbsp;&nbsp;Nie
-            </label>
-          </div>
-        </div>
 
-        <div className="d-flex align-items-center mb-3">
-          <label htmlFor="references" className="text-muted mr-2">Referencje:</label>
-          <div className="flex-grow-1">
-            <Field as="select" name="references" className="form-select rounded-pill ms-2 w-80">
-              <option value="">Wybierz referencje</option>
-              {files && files.results && files.results.map((file, index) => (
-                <option key={file.id} value={String(file.id)}>{file.name}</option>
-              ))}
-            </Field>
-          </div>
-        </div>
+        <Row>
+          <SelectField
+            label='Referencje'
+            name='references'
+            options={files && files.results ? files.results.map((file) => ({
+              label: file.name,
+              value: String(file.id),
+            })) : []}
+            defaultOption='Wybierz referencję'
+            value={type === 'update' ? experience.references : ''}
+          />
+        </Row>
 
         <FieldArray name='duties'>
           {({ push, remove, form }) => {
@@ -159,6 +137,18 @@ const ExperienceForm = ({ type, experience, label, handleCloseModal }) => {
             )
           }}
         </FieldArray>
+        <Row>
+          <p className='text-secondary mb-2 mt-4'>Wypełnij wszystkie pola poniżej, aby lokalizacja została dodana:</p>
+          <Col>
+            <TextField label='Ulica' name='location.street_address' type='text' />
+          </Col>
+          <Col>
+            <TextField label='Kod pocztowy' name='location.postal_code' type='text' />
+          </Col>
+          <Col>
+            <TextField label='Miasto' name='location.city' type='text' />
+          </Col>
+        </Row>
         <hr className='text-secondary' />
         <div className='d-flex justify-content-end'>
           <button

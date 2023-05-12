@@ -1,4 +1,5 @@
 import { string, object, array, ref, date } from 'yup'
+import { subDays } from 'date-fns'
 
 export const validateNewPassword = object({
   new_password: string()
@@ -102,49 +103,70 @@ export const validateOffer = object({
     .min(1, 'Wybierz co najmniej jedną opcję'),
   })
 
-  export const validateNewUser = object({
-    email: string()
-      .email('To nie jest prawidłowy adres email')
-      .required('Pole adres email jest obowiązkowe'),
-    password: string()
-      .min(8, 'Hasło musi zawierać co najmniej 8 znaków')
-      .matches(/[0-9]/, 'Hasło musi zawierać co najmniej 1. cyfrę')
-      .matches(/[A-Z]/, 'Hasło musi zawierać co najmniej 1. wielką literę ')
-      .required('Hasło jest obowiązkowe'),
-    re_password: string()
-      .oneOf([ref('password'), null], 'Wprowadzone hasła różnią się od siebie.')
-      .required('Powtórz wprowadzone hasło'),
-  })
+export const validateNewUser = object({
+  email: string()
+    .email('To nie jest prawidłowy adres email')
+    .required('Pole adres email jest obowiązkowe'),
+  password: string()
+    .min(8, 'Hasło musi zawierać co najmniej 8 znaków')
+    .matches(/[0-9]/, 'Hasło musi zawierać co najmniej 1. cyfrę')
+    .matches(/[A-Z]/, 'Hasło musi zawierać co najmniej 1. wielką literę ')
+    .required('Hasło jest obowiązkowe'),
+  re_password: string()
+    .oneOf([ref('password'), null], 'Wprowadzone hasła różnią się od siebie.')
+    .required('Powtórz wprowadzone hasło'),
+})
 
-  export const validateExperience = object({
-    position: string()
-      .required('Pole stanowisko jest obowiązkowe')
-      .max(255, 'Stanowisko może mieć maksymalnie 255 znaków.'),
-    company: string()
-      .required('Pole nazwa firmy jest obowiązkowe')
-      .max(255, 'Nazwa firmy może mieć maksymalnie 255 znaków.'),
-    location: object({
-      street_address: string()
-        .matches(/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9\s\-\/]+$/, 'Pole ulica może składać się tylko z liter, cyfr, spacji, myślnika i ukośnika.')
-        .max(255, 'Pole ulica może mieć maksymalnie 255 znaków.'),
-      postal_code: string()
-        .matches(/^\d{2}-\d{3}$/, 'Kod pocztowy powinien być w formacie XX-XXX.')
-        .max(6, 'Kod pocztowy powinien być w formacie XX-XXX.'),
-      city: string()
-        .matches(/^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]*$/, 'Miejscowość powinna składać się tylko z liter.')
-        .max(255, 'Pole miejcowość może mieć maksymalnie 255 znaków.'),
+export const validateExperience = object({
+  position: string()
+    .required('Pole stanowisko jest obowiązkowe')
+    .max(255, 'Stanowisko może mieć maksymalnie 255 znaków.'),
+  company: string()
+    .required('Pole nazwa firmy jest obowiązkowe')
+    .max(255, 'Nazwa firmy może mieć maksymalnie 255 znaków.'),
+  location: object({
+    street_address: string()
+      .matches(/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9\s\-\/]+$/, 'Pole ulica może składać się tylko z liter, cyfr, spacji, myślnika i ukośnika.')
+      .max(255, 'Pole ulica może mieć maksymalnie 255 znaków.'),
+    postal_code: string()
+      .matches(/^\d{2}-\d{3}$/, 'Kod pocztowy powinien być w formacie XX-XXX.')
+      .max(6, 'Kod pocztowy powinien być w formacie XX-XXX.'),
+    city: string()
+      .matches(/^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]*$/, 'Miejscowość powinna składać się tylko z liter.')
+      .max(255, 'Pole miejcowość może mieć maksymalnie 255 znaków.'),
+  }),
+  start_date: date()
+    .max(subDays(new Date(), 1), 'Data rozpoczęcia nie może być późniejsza wczorajszy dzień')
+    .required('Data rozpoczęcia jest wymagana'),
+  end_date: date()
+    .max(subDays(new Date(), 1), 'Data rozpoczęcia nie może być późniejsza wczorajszy dzień')
+    .test('end_date', 'Data zakończenia nie może być wcześniejsza niż data rozpoczęcia', function (value) {
+      const startDate = this.parent.start_date
+      if (startDate && value) {
+        return value >= startDate
+      }
+      return true
     }),
-    start_date: date()
-      .max(new Date(), 'Data rozpoczęcia nie może być późniejsza niż teraźniejsza data')
-      .required('Data rozpoczęcia jest wymagana'),
-    end_date: date()
-      .max(new Date(), 'Data zakończenia nie może być późniejsza niż teraźniejsza data')
-      .test('end_date', 'Data zakończenia nie może być wcześniejsza niż data rozpoczęcia', function (value) {
-        const startDate = this.parent.start_date
-        if (startDate && value) {
-          return value >= startDate
-        }
-        return true
-      }),
-  })
+})
+
+export const validateEducation = object({
+  institute: string()
+    .required('Pole uczelnia jest obowiązkowe')
+    .max(255, 'Uczelnia może mieć maksymalnie 255 znaków.'),
+  education_level: string()
+    .required('Pole poziom wykształcenia jest obowiązkowe')
+    .max(255, 'Poziom wykształcenia może mieć maksymalnie 255 znaków.'),
+  start_date: date()
+    .max(subDays(new Date(), 1), 'Data rozpoczęcia nie może być późniejsza wczorajszy dzień')
+    .required('Data rozpoczęcia jest wymagana'),
+  end_date: date()
+    .max(subDays(new Date(), 1), 'Data rozpoczęcia nie może być późniejsza wczorajszy dzień')
+    .test('end_date', 'Data zakończenia nie może być wcześniejsza niż data rozpoczęcia', function (value) {
+      const startDate = this.parent.start_date
+      if (startDate && value) {
+        return value >= startDate
+      }
+      return true
+    }),
+})
 

@@ -1,5 +1,6 @@
 import ApplicationForm from './ApplicationForm'
 import Attachement from './Attachement'
+import CandidateEducation from './CandidateEducation'
 import CandidateExperience from './CandidateExperience'
 import CandidateInfoDelete from './CandidateInfoDelete'
 import CandidateProfile from './CandidateProfile'
@@ -14,6 +15,7 @@ import CandidateApplications from './CandidateApplications'
 export {
   ApplicationForm,
   Attachement,
+  CandidateEducation,
   CandidateExperience,
   CandidateInfoDelete,
   CandidateProfile,
