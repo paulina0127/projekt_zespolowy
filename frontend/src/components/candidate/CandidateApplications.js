@@ -1,11 +1,12 @@
 import UserPanelLayout from '../../hocs/UserPanelLayout'
-import styles from './ReceivedApplication.module.css'
+import { FaChec, FaTimes, FaHourglassStart } from 'react-icons/fa'
+import styles from '../company/CompanyProfileForm.module.css'
 
-const ReceivedApplication = ({}) => {
+const CandidateApplications = ({}) => {
   return (
     <UserPanelLayout>
       <div>
-        <h2 className={styles['apps-h2']}>Otrzymane aplikacje</h2>
+        <h2 className={styles['profile-h2']}>Wysłane aplikacje</h2>
         <div className='container'>
           <div className='shadow p-3 bg-white rounded-pill m-2'>
             <div className='d-flex row align-items-center justify-content-around col-lg-12'>
@@ -20,34 +21,22 @@ const ReceivedApplication = ({}) => {
                 </div>
               </div>
               <div className='col-2'>
-                <h4 className={styles['apps-h4']}>Imię</h4>
+                <h4 className={styles['profile-h4']}>Imię</h4>
               </div>
               <div className='col-2'>
-                <h4 className={styles['apps-h4']}>Nazwisko</h4>
+                <h4 className={styles['profile-h4']}>Nazwisko</h4>
               </div>
               <div className='col-2'>
-                <h4 className={styles['apps-h4']}>Stanowisko</h4>
+                <h4 className={styles['profile-h4']}>Stanowisko</h4>
               </div>
               <div class='col'>
                 <button type='submit' className={styles['yellow-btn']}>
                   Wyświetl
                 </button>
               </div>
-              <div class='col'>
-                <button
-                  type='submit'
-                  className='btn btn-success rounded-pill fw-bold  shadow-sm '
-                >
-                  Akceptuj
-                </button>
-              </div>
-              <div class='col'>
-                <button
-                  type='submit'
-                  className='btn btn-danger rounded-pill fw-bold shadow-sm '
-                >
-                  Odrzuć
-                </button>
+              <div className='col text-center'>
+                {/* FaCheck, FaTimes, FaHourglassStart w zależności od statusu aplikacji*/}
+                <FaTimes size='2em ' />
               </div>
             </div>
           </div>
@@ -57,4 +46,4 @@ const ReceivedApplication = ({}) => {
   )
 }
 
-export default ReceivedApplication
+export default CandidateApplications

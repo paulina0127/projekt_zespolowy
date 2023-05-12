@@ -1,5 +1,5 @@
 .nav {
-  background-color: rgba(0, 0, 0, 0.900);
+  background-color: rgba(0, 0, 0, 0.9);
   position: sticky;
   top: 0;
   width: 100%;
@@ -9,7 +9,7 @@
 .link {
   color: #e7b922;
   text-transform: uppercase;
-  letter-spacing: .2em;
+  letter-spacing: 0.2em;
 }
 
 .link:hover {
@@ -17,5 +17,39 @@
 }
 
 .dropdown-toggle ::after {
-  display: none; 
+  display: none;
+}
+
+.login-btn {
+  background-color: var(--yellow);
+  border-color: var(--yellow);
+  border-width: 1px;
+  border-radius: 50rem;
+  line-height: 1.5;
+  padding: 0.375rem 0.75rem 0.375rem 0.75rem;
+  color: black;
+}
+
+.login-btn:hover {
+  background-color: white;
+  color: var(--yellow);
+  border: var(--yellow);
+  border-width: 1px;
+}
+
+.register-btn {
+  background-color: black;
+  border-radius: 50rem;
+  line-height: 1.5;
+  padding: 0.375rem 0.75rem 0.375rem 0.75rem;
+  color: var(--yellow);
+  border-color: var(--yellow);
+  border-width: 1px;
+}
+
+.register-btn:hover {
+  background-color: var(--yellow);
+  color: black;
+  border-color: var(--yellow);
+  border-width: 1px;
 }

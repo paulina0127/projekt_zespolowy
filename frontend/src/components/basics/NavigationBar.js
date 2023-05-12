@@ -5,31 +5,27 @@ import {
   Nav,
   NavDropdown,
   Navbar,
-} from 'react-bootstrap';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { logout } from '../../actions/authActions';
+} from 'react-bootstrap'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { logout } from '../../actions/authActions'
 import { FaPowerOff } from 'react-icons/fa'
-import { IoIosArrowDropdown } from 'react-icons/io';
-import placeholder from '../../images/placeholder.png';
-import Brand from '../../images/brand.png';
-import styles from './NavigationBar.module.css';
+import { IoIosArrowDropdown } from 'react-icons/io'
+import placeholder from '../../images/placeholder.png'
+import Brand from '../../images/brand.png'
+import styles from './NavigationBar.module.css'
 
 const NavigationBar = ({ logout, user }) => {
   const guestLinks = () => (
     <>
       <Nav.Link as={Link} to='/logowanie'>
-        <Button className='rounded-pill' variant='warning'>
-          Zaloguj się
-        </Button>
+        <Button className={styles['login-btn']}>Zaloguj się</Button>
       </Nav.Link>
       <Nav.Link as={Link} to='/rejestracja'>
-        <Button className='rounded-pill' variant='outline-warning'>
-          Zarejestruj się
-        </Button>
+        <Button className={styles['register-btn']}>Zarejestruj się</Button>
       </Nav.Link>
     </>
-  );
+  )
 
   const authLinks = () => (
     <>
@@ -53,14 +49,20 @@ const NavigationBar = ({ logout, user }) => {
         }
         id='basic-nav-dropdown'
       >
-        <NavDropdown.Item as={Link} to='/user-panel/konto' className='text-black'>
+        <NavDropdown.Item
+          as={Link}
+          to='/user-panel/konto'
+          className='text-black'
+        >
           Panel użytkownika
         </NavDropdown.Item>
         <NavDropdown.Divider />
-        <NavDropdown.Item onClick={logout}>Wyloguj się <FaPowerOff /></NavDropdown.Item>
+        <NavDropdown.Item onClick={logout}>
+          Wyloguj się <FaPowerOff />
+        </NavDropdown.Item>
       </NavDropdown>
     </>
-  );
+  )
 
   return (
     <Navbar collapseOnSelect expand='lg' className={styles.nav} variant='dark'>
@@ -82,11 +84,11 @@ const NavigationBar = ({ logout, user }) => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
-});
+})
 
-export default connect(mapStateToProps, { logout })(NavigationBar);
+export default connect(mapStateToProps, { logout })(NavigationBar)

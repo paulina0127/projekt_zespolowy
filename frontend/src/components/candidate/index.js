@@ -8,6 +8,7 @@ import CandidateProfileForm from './CandidateProfileForm'
 import CandidateProfileUpdate from './CandidateProfileUpdate'
 import ExperienceForm from './ExperienceForm'
 import NewApplication from './NewApplication'
+import CandidateApplications from './CandidateApplications'
 
 export {
   ApplicationForm,
@@ -19,6 +20,6 @@ export {
   CandidateProfileForm,
   CandidateProfileUpdate,
   ExperienceForm,
-  NewApplication
+  NewApplication,
+  CandidateApplications,
 }
-

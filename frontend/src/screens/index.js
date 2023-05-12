@@ -6,11 +6,13 @@ import LoginScreen from './Auth/LoginScreen'
 import ResetPassword from './Auth/ResetPassword'
 import ResetPasswordConfirm from './Auth/ResetPasswordConfirm'
 import SignUpScreen from './Auth/SignUpScreen'
+import CompaniesScreen from './CompaniesScreen'
 
 export {
   HomeScreen,
   OffersScreen,
   OfferDetailsScreen,
+  CompaniesScreen,
   ActivateAccountScreen,
   LoginScreen,
   ResetPassword,

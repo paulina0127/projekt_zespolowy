@@ -1,12 +1,7 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
-
 import styles from './HomeScreen.module.css'
 
 const HomeScreen = () => {
-  const [searchInput, setSearchInput] = useState('')
-  const [locationInput, setLocationInput] = useState('')
-
   return (
     <>
       <section className={styles['hero-image']}>
@@ -24,46 +19,67 @@ const HomeScreen = () => {
           </div>
         </div>
       </section>
-      <section className={styles['search-sec']}>
-        <div className='container'>
-          <form>
-            <div className='row align-items-center justify-content-around'>
-              <div className='col-lg-12'>
-                <div className='d-flex flex-row justify-content-around'>
-                  <div className='col-lg-6 col-md-3 col-sm-12 p-0 mx-2'>
-                    <div className='input-group'>
-                      <input
-                        type='text'
-                        className='form-control rounded-pill'
-                        placeholder='Zawód, firma'
-                        value={searchInput}
-                        onChange={(e) => setSearchInput(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className='col-lg-4 col-md-3 col-sm-12 p-0 mx-2'>
-                    <div className='input-group'>
-                      <input
-                        type='text'
-                        className='form-control rounded-pill'
-                        placeholder='Lokalizacja'
-                        value={locationInput}
-                        onChange={(e) => setLocationInput(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className='col-lg-3 col-md-3 col-sm-12 p-0 mx-2 flex-fill'>
-                    <button
-                      type='button'
-                      className='btn btn-warning rounded-pill fw-bold'
-                    >
-                      Wyszukaj
-                    </button>
-                  </div>
-                </div>
+      <section>
+        <div className='container text-center mb-5'>
+          <h1 className='text-center m-5'>Zaufaj nam, tak jak oni!</h1>
+          <div className='row align-items-center justify-content-center mt-5 mb-5'>
+            <div className='col-2'>
+              <div className='shadow p-3  bg-white rounded-circle'>
+                <img
+                  className='rounded'
+                  src={require('../images/mcdonalds.png')}
+                  alt='WcDonalds'
+                ></img>
               </div>
             </div>
-          </form>
+            <div className='col'>
+              <div className='shadow p-3 bg-white rounded-pill'>
+                <p className='fw-bold'>WCDONALD'S</p>
+                <p>
+                  "HireMeNow jest czymś niezwykłym... Jeszcze nigdy nie
+                  zatrudniliśmy tyle studentów!"
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className='row align-items-center justify-content-center mb-5'>
+            <div className='col'>
+              <div className='shadow p-3 bg-white rounded-pill'>
+                <p className='fw-bold'>OOOGLE</p>
+                <p>
+                  "Kandydaci na HireMeNow udowodnili nam, dlaczego warto
+                  rozwijać AI"
+                </p>
+              </div>
+            </div>
+            <div className='col-2'>
+              <div className='shadow p-3  bg-white rounded-circle'>
+                <img
+                  className='rounded'
+                  src={require('../images/google.png')}
+                  alt='Ooogle'
+                ></img>
+              </div>
+            </div>
+          </div>
+          <div className='row align-items-center justify-content-center mb-5'>
+            <div className='col-2'>
+              <div className='shadow p-3  bg-white rounded-circle'>
+                <img
+                  className='rounded-pill'
+                  src={require('../images/kot.jpg')}
+                  alt='Kot'
+                  s
+                ></img>
+              </div>
+            </div>
+            <div className='col'>
+              <div className='shadow p-3 bg-white rounded-pill'>
+                <p className='fw-bold'>KOT</p>
+                <p>"Wreszcie stać mojego właściciela na saszety, 10/10"</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       <div className={styles['hero-image']}>
@@ -74,10 +90,7 @@ const HomeScreen = () => {
               I zacznij szukać swojej wymarzonej <br /> pracy już teraz!
             </h1>
             <Link to='/rejestracja'>
-              <button
-                type='button'
-                className='btn btn-warning rounded-pill fw-bold btn-lg'
-              >
+              <button type='button' className={styles['yellow-btn']}>
                 Zarejestruj się
               </button>
             </Link>

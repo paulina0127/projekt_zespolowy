@@ -11,8 +11,8 @@ const Offer = ({ offer }) => {
   }
 
   const handleCloseModal = () => {
-    setShowModal(false);
-  };
+    setShowModal(false)
+  }
 
   return (
     <li className={styles['job-card']}>
@@ -44,13 +44,23 @@ const Offer = ({ offer }) => {
         <Link to={`/oferta/${offer.id}`}>
           <button className='btn mx-2'>Szczegóły</button>
         </Link>
-        <button className='btn' onClick={handleApplyClick} style={{ backgroundColor: '#E7B822' }}>
+        <button
+          className='btn'
+          onClick={handleApplyClick}
+          style={{ backgroundColor: 'var(--yellow)' }}
+        >
           Aplikuj
         </button>
       </ul>
-      {showModal && <NewApplication offer={offer} showModal={showModal} handleCloseModal={handleCloseModal} />}
+      {showModal && (
+        <NewApplication
+          offer={offer}
+          showModal={showModal}
+          handleCloseModal={handleCloseModal}
+        />
+      )}
     </li>
-  );
-};
+  )
+}
 
-export default Offer;
+export default Offer
