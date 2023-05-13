@@ -80,7 +80,8 @@ class ExperienceSerializer(serializers.ModelSerializer):
             location_data = validated_data.pop("location")
             location = Location.objects.create(**location_data)
             experience = Experience.objects.create(location=location, **validated_data)
-        experience = Experience.objects.create(**validated_data)
+        else:
+            experience = Experience.objects.create(**validated_data)
         return experience
 
     def update(self, experience, validated_data):
