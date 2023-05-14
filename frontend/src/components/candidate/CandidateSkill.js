@@ -1,19 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
 import { MdEdit, MdDelete, MdAddCircle } from 'react-icons/md'
-import { getCandidateEducation } from '../../actions/userActions'
+import { getCandidateSkills } from '../../actions/userActions'
 import { deleteCandidateComponent } from '../../actions/candidateActions'
 import { MyModal, Loader, Message } from '../basics'
 import { USER_DETAILS_PROFILE_RESET } from '../../constants/userConst'
-import EducationForm from './EducationForm'
+import SkillForm from './SkillForm'
 import CandidateInfoDelete from './CandidateInfoDelete'
 import UserPanelLayout from '../../hocs/UserPanelLayout'
 import styles from './CandidateInfo.module.css'
 
-const CandidateEducation = () => {
+const CandidateSkill = () => {
   const [showAddModal, setShowAddModal] = useState(false)
-  const [editEducationIndex, setEditEducationIndex] = useState(null)
-  const [deleteEducationIndex, setDeleteEducationIndex] = useState(null)
+  const [editSkillIndex, setEditSkillIndex] = useState(null)
+  const [deleteSkillIndex, setDeleteSkillIndex] = useState(null)
 
   const profile = useSelector(state => state.auth.user.profile.id)
 
@@ -24,25 +24,25 @@ const CandidateEducation = () => {
     setShowAddModal(false)
   }
   const handleShowEditModal = (index) => {
-    setEditEducationIndex(index)
+    setEditSkillIndex(index)
   }
   const handleCloseEditModal = () => {
-    setEditEducationIndex(null)
+    setEditSkillIndex(null)
   }
   const handleShowDeleteModal = (index) => {
-    setDeleteEducationIndex(index)
+    setDeleteSkillIndex(index)
   }
   const handleCloseDeleteModal = () => {
-    setDeleteEducationIndex(null)
+    setDeleteSkillIndex(null)
   }
 
-  const handleDeleteEducation = (id) => {
-    dispatch(deleteCandidateComponent(profile, id, 'education'))
-    setDeleteEducationIndex(null)
+  const handleDeleteSkill = (id) => {
+    dispatch(deleteCandidateComponent(profile, id, 'skills'))
+    setDeleteSkillIndex(null)
   }
 
   const details = useSelector(state => state.userProfileDetails)
-  const { educationList } = details
+  const { skillList } = details
 
   const candidateAction = useSelector(state => state.candidate)
   const { error, success, loading } = candidateAction
@@ -50,7 +50,7 @@ const CandidateEducation = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getCandidateEducation(profile))
+    dispatch(getCandidateSkills(profile))
     return () => {
       dispatch({ type: USER_DETAILS_PROFILE_RESET })
     }
@@ -65,14 +65,14 @@ const CandidateEducation = () => {
           <div className={styles['table-title']}>
             <div className='row'>
               <div className='col-sm-6 col-md-6'>
-                <h2>Moje wykształcenie</h2>
+                <h2>Moje umiejętności</h2>
               </div>
               <div className='col-sm-6'>
                 <button 
                   className={`btn btn-success ${styles['table_add_button']}`} 
                   onClick={handleShowAddModal}
                 >
-                  Nowe wykształcenie <MdAddCircle />
+                  Nowa umiejętność <MdAddCircle />
               </button>				
               </div>
             </div>
@@ -80,22 +80,20 @@ const CandidateEducation = () => {
           <table className='table table-striped table-hover'>
             <thead>
               <tr>
-                <th>Uczelnia</th>
-                <th>Poziom wykształcenia</th>
-                <th>Kierunek</th>
-                <th>Data rozpoczęcia</th>
-                <th>Data zakończenia</th>
+                <th>Nazwa</th>
+                <th>Rodzaj</th>
+                <th>Poziom</th>
+                <th>Certyfikat</th>
                 <th>Akcje</th>
               </tr>
             </thead>
             <tbody>
-              {!loading && educationList && educationList.results && educationList.results.map((education, index) => 
-              <tr key={education.id}>
-                <td>{education.institute}</td>
-                <td>{education.education_level}</td>
-                <td>{education.major ? education.major : ''}</td>
-                <td>{education.start_date}</td>
-                <td>{education.end_date ? education.end_date : ''}</td>
+              {!loading && skillList && skillList.results && skillList.results.map((skill, index) => 
+              <tr key={skill.id}>
+                <td>{skill.name}</td>
+                <td>{skill.type}</td>
+                <td>{skill.level ? skill.level : ''}</td>
+                <td>{skill.certificate ? skill.certificate : ''}</td>
                 <td>
                   <span onClick={() => handleShowEditModal(index)}>
                     <MdEdit color='#00BE75'/>
@@ -104,32 +102,32 @@ const CandidateEducation = () => {
                     <MdDelete color='#DA4753'/>
                   </span>
                 </td>
-                {editEducationIndex === index && (
+                {editSkillIndex === index && (
                 <MyModal
                   showModal={true}
-                  title='Edytowanie wykształcenia'
+                  title='Edytowanie umiejętności'
                   handleCloseModal={handleCloseEditModal}
                 >
-                  <EducationForm
-                    education={education}
+                  <SkillForm
+                    skill={skill}
                     type='update'
                     handleCloseModal={handleCloseEditModal}
                     label='Zapisz'
                   />
                 </MyModal>
                 )}
-                {deleteEducationIndex === index && (
+                {deleteSkillIndex === index && (
                 <MyModal
                   showModal={true}
-                  title='Usuwanie wykształcenia'
+                  title='Usuwanie umiejętności'
                   danger={true}
                   handleCloseModal={handleCloseEditModal}
                 >
                    <CandidateInfoDelete
-                    name='wykształcenie'
+                    name='umiejętność'
                     handleCloseModal={handleCloseDeleteModal}
-                    id={education.id}
-                    handleDelete={handleDeleteEducation}
+                    id={skill.id}
+                    handleDelete={handleDeleteSkill}
                    />
                 </MyModal>
                 )}
@@ -139,12 +137,12 @@ const CandidateEducation = () => {
         </table>
       </div>
     </div>
-    {showAddModal &&  <MyModal showModal={showAddModal}  title='Nowe wykształcenie'>
-      <EducationForm type='create' handleCloseModal={handleCloseAddModal} label='Dodaj'/>
+    {showAddModal &&  <MyModal showModal={showAddModal}  title='Nowa umiejętność'>
+      <SkillForm type='create' handleCloseModal={handleCloseAddModal} label='Dodaj'/>
       </MyModal> }
     
     </UserPanelLayout>
   )
 }
 
-export default CandidateEducation
+export default CandidateSkill

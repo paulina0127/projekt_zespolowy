@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { listSkills } from './skillActions'
 import {
   USER_CREATE_PROFILE_FAIL,
   USER_CREATE_PROFILE_REQUEST,
@@ -10,6 +11,8 @@ import {
   USER_EDUCATION_SUCCESS,
   USER_EXPERIENCE_FAIL,
   USER_EXPERIENCE_SUCCESS,
+  USER_SKILL_FAIL,
+  USER_SKILL_SUCCESS,
   USER_FILES_FAIL,
   USER_FILES_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
@@ -64,6 +67,30 @@ export const getCandidateExperience = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_EXPERIENCE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    })
+  }
+}
+
+export const getCandidateSkills = (id) => async (dispatch) => {
+  const config = { headers: getAuthHeaders() }
+  try {
+    const { data } = await axios.get(`/candidates/${id}/skills`, config)
+
+    dispatch({
+      type: USER_SKILL_SUCCESS,
+      payload: data,
+    })
+
+    dispatch(getCandidateFiles(id))
+    dispatch(listSkills())
+
+  } catch (error) {
+    dispatch({
+      type: USER_SKILL_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail

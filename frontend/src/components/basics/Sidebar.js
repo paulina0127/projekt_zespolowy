@@ -73,6 +73,19 @@ const Sidebar = ({ logout, user }) => {
               </li>
             </Link>
             <Link
+              to={`/user-panel/umiejętności`}
+              className={
+                pathname === '/user-panel/umiejętności'
+                  ? styles.active
+                  : styles.hoverEffect
+              }
+            >
+              <li className='nav-item text-white fs-5 my-2'>
+                <FaRegAddressCard className='ms-5' />
+                <span className='ms-2'>Umiejętności</span>
+              </li>
+            </Link>
+            <Link
               to={`/user-panel/kursy`}
               className={
                 pathname === '/user-panel/kursy'

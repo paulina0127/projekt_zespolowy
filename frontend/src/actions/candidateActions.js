@@ -174,5 +174,61 @@ export const updateEducation = (profile, id, values) => async dispatch => {
   }
 }
 
+export const createSkill = (profile, values) => async dispatch => {
+  const config = { headers: getAuthHeaders() }
+  try {
+    dispatch({type: CANDIDATE_COMPONENT_REQUEST})
+
+    const body = JSON.stringify({
+      skill: values.skill,
+      name: values.name,
+      type: values.type,
+      level: values.level,
+      certificate: values.certificate,
+    })
+
+    const { data } = await axios.post(`/candidates/${profile}/skills`, body, config)
+    dispatch({
+        type: CANDIDATE_COMPONENT_SUCCESS,
+        payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: CANDIDATE_COMPONENT_FAIL,
+      payload: error.response && error.response.data.detail
+        ? error.response.data.detail
+        : error.message,
+    })
+  }
+}
+
+export const updateSkill = (profile, id, values) => async dispatch => {
+  const config = { headers: getAuthHeaders() }
+  try {
+    dispatch({type: CANDIDATE_COMPONENT_REQUEST})
+
+    const body = JSON.stringify({
+      skill: values.skill,
+      name: values.name,
+      type: values.type,
+      ...(values.level && { level: values.level }),
+      ...(values.certificate && { certificate: values.certificate }),
+    })
+
+    const { data } = await axios.put(`/candidates/${profile}/skills/${id}`, body, config)
+    dispatch({
+        type: CANDIDATE_COMPONENT_SUCCESS,
+        payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: CANDIDATE_COMPONENT_FAIL,
+      payload: error.response && error.response.data.detail
+        ? error.response.data.detail
+        : error.message,
+    })
+  }
+}
+
 
 

@@ -9,6 +9,7 @@ import {
 from './reducers/offerReducer'
 import { candidateReducer } from './reducers/candidateReducer'
 import { categoryListReducer } from './reducers/categoryReducer'
+import { skillListReducer } from './reducers/skillReducer'
 import { userProfileDetailsReducer, userCreateProfileReducer, userUpdateProfileReducer } from './reducers/userReducer'
 
 const reducer = combineReducers({
@@ -26,6 +27,7 @@ const reducer = combineReducers({
   offerDelete: offerDeleteReducer,
 
   categoryList: categoryListReducer,
+  skillsList: skillListReducer,
 })
 
 const userTokensFromStorage = localStorage.getItem('userTokens')

@@ -18,6 +18,7 @@ import {
   CandidateEducation,
   CandidateExperience,
   CandidateApplications,
+  CandidateSkill
 } from './components/candidate'
 import {
   CompanyOffers,
@@ -35,44 +36,23 @@ const App = () => {
           <Route path='/logowanie' element={<LoginScreen />} />
           <Route path='/rejestracja' element={<SignUpScreen />} />
           <Route path='/przypominanie-hasła' element={<ResetPassword />} />
-          <Route
-            path='/resetowanie-hasła/:uid/:token'
-            element={<ResetPasswordConfirm />}
-          />
-          <Route
-            path='/aktywacja-konta/:uid/:token'
-            element={<ActivateAccountScreen />}
-          />
+          <Route path='/resetowanie-hasła/:uid/:token'element={<ResetPasswordConfirm />} />
+          <Route path='/aktywacja-konta/:uid/:token'element={<ActivateAccountScreen />}/>
           <Route path='/oferty/:filters?' element={<OffersScreen />} />
           <Route path='/pracodawcy' element={<CompaniesScreen />} />
           <Route path='/oferta/:id' element={<OfferDetailsScreen />} />
+
           <Route path='/user-panel/konto' element={<AccountManagement />} />
-          <Route
-            path='/user-panel/profil-pracodawcy'
-            element={<CompanyProfile />}
-          />
-          <Route
-            path='/user-panel/dane-osobowe'
-            element={<CandidateProfile />}
-          />
-          <Route
-            path='/user-panel/doświadczenie'
-            element={<CandidateExperience />}
-          />
-          <Route
-            path='/user-panel/wykształcenie'
-            element={<CandidateEducation />}
-          />
+          <Route path='/user-panel/profil-pracodawcy'element={<CompanyProfile />} />
+
+          <Route path='/user-panel/dane-osobowe' element={<CandidateProfile />} />
+          <Route path='/user-panel/doświadczenie' element={<CandidateExperience />} />
+          <Route path='/user-panel/wykształcenie'element={<CandidateEducation />} />
+          <Route path='/user-panel/umiejętności'element={<CandidateSkill />} />
           <Route path='/user-panel/moje-oferty' element={<CompanyOffers />} />
           <Route path='/user-panel/dokumenty' element={<Attachement />} />
-          <Route
-            path='/user-panel/aplikacje'
-            element={<ReceivedApplication />}
-          />
-          <Route
-            path='/user-panel/moje-aplikacje'
-            element={<CandidateApplications />}
-          />
+          <Route path='/user-panel/aplikacje' element={<ReceivedApplication />} />
+          <Route path='/user-panel/moje-aplikacje' element={<CandidateApplications />} />
         </Routes>
       </Layout>
     </BrowserRouter>

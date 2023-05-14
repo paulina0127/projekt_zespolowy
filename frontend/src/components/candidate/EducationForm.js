@@ -24,7 +24,7 @@ const EducationForm = ({ type, education, label, handleCloseModal }) => {
   : type === 'update' ? {
     institute: education.institute,
     education_level: education.education_level,
-    major: '',
+    major: education.major,
     start_date: parseISO(education.start_date),
     end_date: education.end_date !== null ? parseISO(education.end_date) : '',
     diploma: education.diploma !== null ? education.diploma : '',

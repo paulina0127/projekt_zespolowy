@@ -170,3 +170,18 @@ export const validateEducation = object({
     }),
 })
 
+export const validateSkill = object({
+  type: string()
+    .required('Pole rodzaj jest obowiązkowe'),
+  name: string()
+    .max(255, 'Nazwa może mieć maksymalnie 255 znaków.'),
+  skill: string()
+    .when('name', (name, schema) => {
+      if(name === '')
+        return schema.required('Pole nazwa jest obowiązkowe')
+      return schema
+    }),
+  level: string()
+    .max(255, 'Poziom umiejętności może mieć maksymalnie 255 znaków.'),
+})
+

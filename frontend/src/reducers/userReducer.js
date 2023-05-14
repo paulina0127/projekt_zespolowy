@@ -25,7 +25,10 @@ import {
   USER_EXPERIENCE_REQUEST,
   USER_EXPERIENCE_SUCCESS,
   USER_EXPERIENCE_FAIL,
-  USER_EXPERIENCE_RESET,
+
+  USER_SKILL_REQUEST,
+  USER_SKILL_SUCCESS,
+  USER_SKILL_FAIL,
 
   USER_FILES_SUCCESS,
   USER_FILES_FAIL,
@@ -34,25 +37,30 @@ import {
 export const userProfileDetailsReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_DETAILS_PROFILE_REQUEST:
+    case USER_EDUCATION_REQUEST:
     case USER_EXPERIENCE_REQUEST:
-      return { ...state, loading: true };
+    case USER_SKILL_REQUEST:
+      return { ...state, loading: true }
     case USER_DETAILS_PROFILE_SUCCESS:
-      return {loading: false, user: action.payload };
+      return {loading: false, user: action.payload }
     case USER_EXPERIENCE_SUCCESS:
-      return {loading: false, experienceList: action.payload };
+      return {loading: false, experienceList: action.payload }
     case USER_EDUCATION_SUCCESS:
-      return {loading: false, educationList: action.payload };
+      return {loading: false, educationList: action.payload }
+    case USER_SKILL_SUCCESS:
+      return {loading: false, skillList: action.payload }
     case USER_FILES_SUCCESS:
-      return {...state, loading: false, filesList: action.payload };
+      return {...state, loading: false, filesList: action.payload }
     case USER_DETAILS_PROFILE_FAIL:
     case USER_EDUCATION_FAIL:
     case USER_EXPERIENCE_FAIL:
+    case USER_SKILL_FAIL:
     case USER_FILES_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload }
     case USER_DETAILS_PROFILE_RESET:
-      return { user: {} };
+      return { user: {} }
     default:
-      return state;
+      return state
   }
 }
 
