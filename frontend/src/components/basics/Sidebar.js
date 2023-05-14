@@ -1,23 +1,23 @@
-import { useState } from 'react'
-import { connect } from 'react-redux'
-import { Link, useLocation } from 'react-router-dom'
-import { Image, Collapse } from 'react-bootstrap'
+import { useState } from 'react';
+import { connect } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+import { Image, Collapse } from 'react-bootstrap';
 import {
   FaList,
   FaPowerOff,
   FaRegAddressCard,
   FaRegFileAlt,
   FaUserCog,
-} from 'react-icons/fa'
-import { IoIosArrowDropdown } from 'react-icons/io'
-import { MdWork } from 'react-icons/md'
-import { logout } from '../../actions/authActions'
-import placeholder from '../../images/placeholder.png'
-import styles from './Sidebar.module.css'
+} from 'react-icons/fa';
+import { IoIosArrowDropdown } from 'react-icons/io';
+import { MdWork } from 'react-icons/md';
+import { logout } from '../../actions/authActions';
+import placeholder from '../../images/placeholder.png';
+import styles from './Sidebar.module.css';
 
 const Sidebar = ({ logout, user }) => {
-  const { pathname } = useLocation()
-  const [open, setOpen] = useState(false)
+  const { pathname } = useLocation();
+  const [open, setOpen] = useState(false);
 
   const candidateLinks = () => (
     <>
@@ -141,7 +141,7 @@ const Sidebar = ({ logout, user }) => {
         </li>
       </Link>
     </>
-  )
+  );
 
   const companyLinks = () => (
     <>
@@ -185,7 +185,7 @@ const Sidebar = ({ logout, user }) => {
         </li>
       </Link>
     </>
-  )
+  );
 
   return (
     <div
@@ -204,7 +204,11 @@ const Sidebar = ({ logout, user }) => {
       />
       <h3 className='text-white text-center fs-5 ml-2'>
         {user?.profile
-          ? user.profile.first_name + ' ' + user.profile.last_name
+          ? user?.type === 'Kandydat'
+            ? user?.profile?.first_name + ' ' + user?.profile?.last_name
+            : user?.type === 'Pracodawca'
+            ? user?.profile?.name
+            : ''
           : ''}
       </h3>
       <hr className='text-secondary' />
@@ -235,10 +239,10 @@ const Sidebar = ({ logout, user }) => {
         </li>
       </ul>
     </div>
-  )
-}
+  );
+};
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
-})
-export default connect(mapStateToProps, { logout })(Sidebar)
+});
+export default connect(mapStateToProps, { logout })(Sidebar);
