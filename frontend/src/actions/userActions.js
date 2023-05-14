@@ -13,6 +13,10 @@ import {
   USER_EXPERIENCE_SUCCESS,
   USER_SKILL_FAIL,
   USER_SKILL_SUCCESS,
+  USER_COURSE_FAIL,
+  USER_COURSE_SUCCESS,
+  USER_LINK_FAIL,
+  USER_LINK_SUCCESS,
   USER_FILES_FAIL,
   USER_FILES_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
@@ -91,6 +95,50 @@ export const getCandidateSkills = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_SKILL_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    })
+  }
+}
+
+export const getCandidateCourses = (id) => async (dispatch) => {
+  const config = { headers: getAuthHeaders() }
+  try {
+    const { data } = await axios.get(`/candidates/${id}/courses`, config)
+
+    dispatch({
+      type: USER_COURSE_SUCCESS,
+      payload: data,
+    })
+
+    dispatch(getCandidateFiles(id))
+
+  } catch (error) {
+    dispatch({
+      type: USER_COURSE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    })
+  }
+}
+
+export const getCandidateLinks = (id) => async (dispatch) => {
+  const config = { headers: getAuthHeaders() }
+  try {
+    const { data } = await axios.get(`/candidates/${id}/links`, config)
+
+    dispatch({
+      type: USER_LINK_SUCCESS,
+      payload: data,
+    })
+
+  } catch (error) {
+    dispatch({
+      type: USER_LINK_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail

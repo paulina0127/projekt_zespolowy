@@ -14,9 +14,11 @@ import {
 import AccountManagement from './components/AccountManagement'
 import {
   Attachement,
+  CandidateCourse,
   CandidateProfile,
   CandidateEducation,
   CandidateExperience,
+  CandidateLinks,
   CandidateApplications,
   CandidateSkill
 } from './components/candidate'
@@ -49,6 +51,9 @@ const App = () => {
           <Route path='/user-panel/doświadczenie' element={<CandidateExperience />} />
           <Route path='/user-panel/wykształcenie'element={<CandidateEducation />} />
           <Route path='/user-panel/umiejętności'element={<CandidateSkill />} />
+          <Route path='/user-panel/kursy'element={<CandidateCourse />} />
+          <Route path='/user-panel/linki'element={<CandidateLinks />} />
+
           <Route path='/user-panel/moje-oferty' element={<CompanyOffers />} />
           <Route path='/user-panel/dokumenty' element={<Attachement />} />
           <Route path='/user-panel/aplikacje' element={<ReceivedApplication />} />

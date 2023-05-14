@@ -7,7 +7,7 @@ export const TextArea = ({label, ...props}) => {
       <label htmlFor={field.name} className='mx-2 my-2 text-muted'>{label}</label>
       <Field
         as='textarea'
-        className={`form-control rounded-pill border-2 shadow-sm px-4 ${meta.touched && meta.error && 'is-invalid'}`}
+        className={`form-control rounded border-2 shadow-sm px-4 ${meta.touched && meta.error && 'is-invalid'}`}
         {...field} {...props}
       />
       <ErrorMessage component='div' name={field.name} className='error mt-2 text-danger' />

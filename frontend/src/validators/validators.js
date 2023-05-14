@@ -185,3 +185,29 @@ export const validateSkill = object({
     .max(255, 'Poziom umiejętności może mieć maksymalnie 255 znaków.'),
 })
 
+export const validateCourse = object({
+  name: string()
+    .max(255, 'Nazwa może mieć maksymalnie 255 znaków.')
+    .required('Pole nazwa jest obowiązkowe'),
+  start_date: date()
+    .max(subDays(new Date(), 1), 'Data rozpoczęcia nie może być późniejsza wczorajszy dzień')
+    .required('Data rozpoczęcia jest wymagana'),
+  end_date: date()
+    .max(subDays(new Date(), 1), 'Data zakończenia nie może być późniejsza wczorajszy dzień')
+    .required('Data zakończenia jest wymagana')
+    .test('end_date', 'Data zakończenia nie może być wcześniejsza niż data rozpoczęcia', function (value) {
+      const startDate = this.parent.start_date
+      if (startDate && value) {
+        return value >= startDate
+      }
+      return true
+    }),
+})
+
+export const validateLink = object({
+  type: string()
+    .required('Rodzaj jest wymagany'),
+  url: string()
+    .url('Podaj poprawny adres URL')
+    .required('Adres URL jest wymagany'),
+})

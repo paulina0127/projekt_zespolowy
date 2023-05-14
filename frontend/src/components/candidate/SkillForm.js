@@ -31,7 +31,6 @@ const SkillForm = ({ type, skill, label, handleCloseModal }) => {
       initialValues={initialValues}
       validationSchema={validateSkill}
       onSubmit={(values) => {
-        console.log(values)
         if (type === 'update') {
           dispatch(updateSkill(profile, skill.id, values))
         } else if (type === 'create') {

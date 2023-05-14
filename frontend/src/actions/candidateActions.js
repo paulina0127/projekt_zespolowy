@@ -183,8 +183,8 @@ export const createSkill = (profile, values) => async dispatch => {
       skill: values.skill,
       name: values.name,
       type: values.type,
-      level: values.level,
-      certificate: values.certificate,
+      ...(values.level && { level: values.level }),
+      ...(values.certificate && { certificate: values.certificate }),
     })
 
     const { data } = await axios.post(`/candidates/${profile}/skills`, body, config)
@@ -230,5 +230,110 @@ export const updateSkill = (profile, id, values) => async dispatch => {
   }
 }
 
+export const createCourse = (profile, values) => async dispatch => {
+  const config = { headers: getAuthHeaders() }
+  try {
+    dispatch({type: CANDIDATE_COMPONENT_REQUEST})
+
+    const body = JSON.stringify({
+      name: values.name,
+      start_date: values.start_date.toISOString().split('T')[0],
+      end_date: values.end_date.toISOString().split('T')[0],
+      ...(values.description && { description: values.description }),
+      ...(values.certificate && { certificate: values.certificate }),
+    })
+
+    const { data } = await axios.post(`/candidates/${profile}/courses`, body, config)
+    dispatch({
+        type: CANDIDATE_COMPONENT_SUCCESS,
+        payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: CANDIDATE_COMPONENT_FAIL,
+      payload: error.response && error.response.data.detail
+        ? error.response.data.detail
+        : error.message,
+    })
+  }
+}
+
+export const updateCourse = (profile, id, values) => async dispatch => {
+  const config = { headers: getAuthHeaders() }
+  try {
+    dispatch({type: CANDIDATE_COMPONENT_REQUEST})
+
+    const body = JSON.stringify({
+      name: values.name,
+      start_date: values.start_date.toISOString().split('T')[0],
+      end_date: values.end_date.toISOString().split('T')[0],
+      ...(values.description && { description: values.description }),
+      ...(values.certificate && { certificate: values.certificate }),
+    })
+
+    const { data } = await axios.put(`/candidates/${profile}/courses/${id}`, body, config)
+    dispatch({
+        type: CANDIDATE_COMPONENT_SUCCESS,
+        payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: CANDIDATE_COMPONENT_FAIL,
+      payload: error.response && error.response.data.detail
+        ? error.response.data.detail
+        : error.message,
+    })
+  }
+}
+
+export const createLink = (profile, values) => async dispatch => {
+  const config = { headers: getAuthHeaders() }
+  try {
+    dispatch({type: CANDIDATE_COMPONENT_REQUEST})
+
+    const body = JSON.stringify({
+      type: values.type,
+      url: values.url
+    })
+
+    const { data } = await axios.post(`/candidates/${profile}/links`, body, config)
+    dispatch({
+        type: CANDIDATE_COMPONENT_SUCCESS,
+        payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: CANDIDATE_COMPONENT_FAIL,
+      payload: error.response && error.response.data.detail
+        ? error.response.data.detail
+        : error.message,
+    })
+  }
+}
+
+export const updateLink = (profile, id, values) => async dispatch => {
+  const config = { headers: getAuthHeaders() }
+  try {
+    dispatch({type: CANDIDATE_COMPONENT_REQUEST})
+
+    const body = JSON.stringify({
+      type: values.type,
+      url: values.url
+    })
+
+    const { data } = await axios.put(`/candidates/${profile}/links/${id}`, body, config)
+    dispatch({
+        type: CANDIDATE_COMPONENT_SUCCESS,
+        payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: CANDIDATE_COMPONENT_FAIL,
+      payload: error.response && error.response.data.detail
+        ? error.response.data.detail
+        : error.message,
+    })
+  }
+}
 
 

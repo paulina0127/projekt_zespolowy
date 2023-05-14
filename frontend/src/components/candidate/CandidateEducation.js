@@ -126,7 +126,7 @@ const CandidateEducation = () => {
                   handleCloseModal={handleCloseEditModal}
                 >
                    <CandidateInfoDelete
-                    name='wykształcenie'
+                    name='te wykształcenie'
                     handleCloseModal={handleCloseDeleteModal}
                     id={education.id}
                     handleDelete={handleDeleteEducation}

@@ -3,7 +3,7 @@ import { MdDelete } from 'react-icons/md'
 const CandidateInfoDelete = ({ name, handleCloseModal, handleDelete, id }) => {
   return (
     <>
-      <h5>Czy na pewno chcesz usunąć te {name}?</h5>
+      <h5>Czy na pewno chcesz usunąć {name}?</h5>
       <p>Ta operacja jest nieodwracalna</p>
       <hr className='text-secondary' />
         <div className='d-flex justify-content-end'>

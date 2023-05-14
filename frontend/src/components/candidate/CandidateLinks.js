@@ -1,19 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
 import { MdEdit, MdDelete, MdAddCircle } from 'react-icons/md'
-import { getCandidateExperience } from '../../actions/userActions'
+import { getCandidateLinks } from '../../actions/userActions'
 import { deleteCandidateComponent } from '../../actions/candidateActions'
 import { MyModal, Loader, Message } from '../basics'
 import { USER_DETAILS_PROFILE_RESET } from '../../constants/userConst'
-import ExperienceForm from './ExperienceForm'
+import LinkForm from './LinkForm'
 import CandidateInfoDelete from './CandidateInfoDelete'
 import UserPanelLayout from '../../hocs/UserPanelLayout'
 import styles from './CandidateInfo.module.css'
 
-const CandidateExperience = () => {
+const CandidateLinks = () => {
   const [showAddModal, setShowAddModal] = useState(false)
-  const [editExperienceIndex, setEditExperienceIndex] = useState(null)
-  const [deleteExperienceIndex, setDeleteExperienceIndex] = useState(null)
+  const [editLinkIndex, setEditLinkIndex] = useState(null)
+  const [deleteLinkIndex, setDeleteLinkIndex] = useState(null)
 
   const profile = useSelector(state => state.auth.user.profile.id)
 
@@ -24,32 +24,33 @@ const CandidateExperience = () => {
     setShowAddModal(false)
   }
   const handleShowEditModal = (index) => {
-    setEditExperienceIndex(index)
+    setEditLinkIndex(index)
   }
   const handleCloseEditModal = () => {
-    setEditExperienceIndex(null)
+    setEditLinkIndex(null)
   }
   const handleShowDeleteModal = (index) => {
-    setDeleteExperienceIndex(index)
+    setDeleteLinkIndex(index)
   }
   const handleCloseDeleteModal = () => {
-    setDeleteExperienceIndex(null)
+    setDeleteLinkIndex(null)
   }
 
-  const handleDeleteExperience = (id) => {
-    dispatch(deleteCandidateComponent(profile, id, 'experience'))
-    setDeleteExperienceIndex(null)
+  const handleDeleteLink = (id) => {
+    dispatch(deleteCandidateComponent(profile, id, 'links'))
+    setDeleteLinkIndex(null)
   }
 
   const details = useSelector(state => state.userProfileDetails)
-  const { experienceList } = details
+  const { linkList } = details
 
   const candidateAction = useSelector(state => state.candidate)
   const { error, success, loading } = candidateAction
 
   const dispatch = useDispatch()
+
   useEffect(() => {
-    dispatch(getCandidateExperience(profile))
+    dispatch(getCandidateLinks(profile))
     return () => {
       dispatch({ type: USER_DETAILS_PROFILE_RESET })
     }
@@ -64,34 +65,31 @@ const CandidateExperience = () => {
           <div className={styles['table-title']}>
             <div className='row'>
               <div className='col-sm-6 col-md-6'>
-                <h2>Moje doświadczenie</h2>
+                <h2>Moje linki</h2>
               </div>
               <div className='col-sm-6'>
-                <button className={`btn btn-success ${styles['table_add_button']}`} onClick={handleShowAddModal}>Nowe doświadczenie <MdAddCircle /></button>				
+                <button 
+                  className={`btn btn-success ${styles['table_add_button']}`} 
+                  onClick={handleShowAddModal}
+                >
+                  Nowy link <MdAddCircle />
+              </button>				
               </div>
             </div>
           </div>
           <table className='table table-striped table-hover'>
             <thead>
               <tr>
-                <th>Stanowisko</th>
-                <th>Nazwa firmy</th>
-                <th>Lokalizacja</th>
-                <th>Data rozpoczęcia</th>
-                <th>Data zakończenia</th>
-                <th>Aktualna</th>
+                <th>Rodzaj</th>
+                <th>Adres URL</th>
                 <th>Akcje</th>
               </tr>
             </thead>
             <tbody>
-              {!loading && experienceList && experienceList.results && experienceList.results.map((experience, index) => 
-              <tr key={experience.id}>
-                <td>{experience.position}</td>
-                <td>{experience.company}</td>
-                <td>{experience.location ? experience.location.street_address + ', ' + experience.location.postal_code + ' ' + experience.location.city : ''}</td>
-                <td>{experience.start_date}</td>
-                <td>{experience.end_date ? experience.end_date : ''}</td>
-                <td>{experience.is_current === true ? 'Tak' : 'Nie'}</td>
+              {!loading && linkList && linkList.results && linkList.results.map((link, index) => 
+              <tr key={link.id}>
+                <td>{link.type}</td>
+                <td>{link.url}</td>
                 <td>
                   <span onClick={() => handleShowEditModal(index)}>
                     <MdEdit color='#00BE75'/>
@@ -100,32 +98,32 @@ const CandidateExperience = () => {
                     <MdDelete color='#DA4753'/>
                   </span>
                 </td>
-                {editExperienceIndex === index && (
+                {editLinkIndex === index && (
                 <MyModal
                   showModal={true}
-                  title='Edytowanie doświadczenia'
+                  title='Edytowanie linku'
                   handleCloseModal={handleCloseEditModal}
                 >
-                  <ExperienceForm
-                    experience={experience}
+                  <LinkForm
+                    link={link}
                     type='update'
                     handleCloseModal={handleCloseEditModal}
                     label='Zapisz'
                   />
                 </MyModal>
                 )}
-                {deleteExperienceIndex === index && (
+                {deleteLinkIndex === index && (
                 <MyModal
                   showModal={true}
-                  title='Usuwanie doświadczenia'
+                  title='Usuwanie linku'
                   danger={true}
                   handleCloseModal={handleCloseEditModal}
                 >
                    <CandidateInfoDelete
-                    name='te doświadczenie'
+                    name='ten link'
                     handleCloseModal={handleCloseDeleteModal}
-                    id={experience.id}
-                    handleDelete={handleDeleteExperience}
+                    id={link.id}
+                    handleDelete={handleDeleteLink}
                    />
                 </MyModal>
                 )}
@@ -135,12 +133,11 @@ const CandidateExperience = () => {
         </table>
       </div>
     </div>
-    {showAddModal &&  <MyModal showModal={showAddModal}  title='Nowe doświadczenie'>
-      <ExperienceForm type='create' handleCloseModal={handleCloseAddModal} label='Dodaj'/>
+    {showAddModal &&  <MyModal showModal={showAddModal}  title='Nowy link'>
+      <LinkForm type='create' handleCloseModal={handleCloseAddModal} label='Dodaj'/>
       </MyModal> }
     
     </UserPanelLayout>
   )
 }
-
-export default CandidateExperience
+export default CandidateLinks

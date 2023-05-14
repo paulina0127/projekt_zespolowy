@@ -124,7 +124,7 @@ const CandidateSkill = () => {
                   handleCloseModal={handleCloseEditModal}
                 >
                    <CandidateInfoDelete
-                    name='umiejętność'
+                    name='tę umiejętność'
                     handleCloseModal={handleCloseDeleteModal}
                     id={skill.id}
                     handleDelete={handleDeleteSkill}
