@@ -61,7 +61,7 @@ const ComapnyProfileForm = ({
         }}
       >
         {({ values }) => (
-          <Form>
+          <Form encType='multipart/form-data'>
             <div className='shadow p-3 bg-white rounded-5'>
               <div className='container'>
                 <div className='d-flex row justify-content-around'>

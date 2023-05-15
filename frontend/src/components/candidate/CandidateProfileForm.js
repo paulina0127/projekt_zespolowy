@@ -60,7 +60,7 @@ const CandidateProfileForm = ({
           }}
         >
           {({ values }) => (
-            <Form>
+            <Form encType='multipart/form-data'>
               <div className='container p-3 text-center'>
                 <div className='d-flex row justify-content-around '>
                   <div className='d-grid col col-4 align-self-center justify-items-center align-items-center text-center'>

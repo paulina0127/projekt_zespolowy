@@ -9,11 +9,11 @@ const CandidateProfile = () => {
   const { user } = auth;
   return (
     <UserPanelLayout>
-      {user.profile === null ? (
+      {user?.profile === null ? (
         <CandidateProfileCreate userId={user.id} />
       ) : (
         <>
-          <CandidateProfileUpdate userProfile={user.profile.id} />
+          <CandidateProfileUpdate userProfile={user?.profile?.id} />
           <CandidateProfileDelete />
         </>
       )}

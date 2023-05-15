@@ -1,13 +1,7 @@
 from django.urls import path
 
-from .views import (
-    ApiRoot,
-    CategoryDetail,
-    CategoryList,
-    SkillDetail,
-    SkillList,
-    serve_file,
-)
+from .views import (ApiRoot, CategoryDetail, CategoryList, SkillDetail,
+                    SkillList, serve_file)
 
 urlpatterns = [
     path("", ApiRoot.as_view(), name=ApiRoot.name),

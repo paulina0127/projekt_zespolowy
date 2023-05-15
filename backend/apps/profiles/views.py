@@ -11,6 +11,7 @@ class CompanyList(generics.ListCreateAPIView):
     search_fields = ["name"]
     ordering_fields = ["id", "name"]
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    parser_classes = [MultiPartParser, JSONParser]
 
     def get_serializer_class(self):
         # Return serializer for displaying companies if method is GET
@@ -33,12 +34,34 @@ class CompanyList(generics.ListCreateAPIView):
             # Throw error if user already has a profile
             raise BadRequest(_("Profil pracodawcy już istnieje."))
 
+    def post(self, request, *args, **kwargs):
+        location_data = {
+            "street_address": request.data.get("location[street_address]"),
+            "postal_code": request.data.get("location[postal_code]"),
+            "city": request.data.get("location[city]"),
+        }
+
+        data = {}
+        for key, value in request.data.items():
+            if not (key.startswith("location[") and key.endswith("]")):
+                data[key] = value
+
+        data["location"] = location_data
+
+        serializer_class = self.get_serializer_class()
+        serializer = serializer_class(data=data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 # Display single company
 class CompanyDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Company.objects.all()
     name = "company"
     permission_classes = [IsCompanyObjectOwnerOrAnonReadOnly]
+    parser_classes = [MultiPartParser, JSONParser]
 
     def get_serializer_class(self):
         user = self.request.user
@@ -49,6 +72,25 @@ class CompanyDetail(generics.RetrieveUpdateDestroyAPIView):
         else:
             return CompanySerializer  # Default serializer class
 
+    def patch(self, request, *args, **kwargs):
+        instance = self.get_object()
+
+        instance.location.street_address = request.data.get("location[street_address]")
+        instance.location.postal_code = request.data.get("location[postal_code]")
+        instance.location.city = request.data.get("location[city]")
+
+        data = {}
+        for key, value in request.data.items():
+            if not (key.startswith("location[") and key.endswith("]")):
+                data[key] = value
+
+        print(data)
+        serializer_class = self.get_serializer_class()
+        serializer = serializer_class(instance, data=data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
 
 # Create candidate profile
 class CandidateList(generics.ListCreateAPIView):
@@ -58,6 +100,7 @@ class CandidateList(generics.ListCreateAPIView):
     permission_classes = [
         DjangoModelPermissions,
     ]
+    parser_classes = [MultiPartParser, JSONParser]
 
     def get_queryset(self):
         user = self.request.user
@@ -80,12 +123,34 @@ class CandidateList(generics.ListCreateAPIView):
             # Throw error if user already has a profile
             raise BadRequest(_("Profil kandydata już istnieje."))
 
+    def post(self, request, *args, **kwargs):
+        location_data = {
+            "street_address": request.data.get("location[street_address]"),
+            "postal_code": request.data.get("location[postal_code]"),
+            "city": request.data.get("location[city]"),
+        }
+
+        data = {}
+        for key, value in request.data.items():
+            if not (key.startswith("location[") and key.endswith("]")):
+                data[key] = value
+
+        data["location"] = location_data
+
+        serializer_class = self.get_serializer_class()
+        serializer = serializer_class(data=data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 # Display single candidate
 class CandidateDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Candidate.objects.all()
     name = "candidate"
     permission_classes = [IsCandidateObjectOwnerOrCompanyReadOnly]
+    parser_classes = [MultiPartParser, JSONParser]
 
     def get_serializer_class(self):
         user = self.request.user
@@ -95,6 +160,24 @@ class CandidateDetail(generics.RetrieveUpdateDestroyAPIView):
             return CreateCandidateSerializer
         else:
             return CandidateSerializer
+
+    def patch(self, request, *args, **kwargs):
+        instance = self.get_object()
+
+        instance.location.street_address = request.data.get("location[street_address]")
+        instance.location.postal_code = request.data.get("location[postal_code]")
+        instance.location.city = request.data.get("location[city]")
+
+        data = {}
+        for key, value in request.data.items():
+            if not (key.startswith("location[") and key.endswith("]")):
+                data[key] = value
+
+        serializer_class = self.get_serializer_class()
+        serializer = serializer_class(instance, data=data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
 
 # Display file list

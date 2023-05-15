@@ -210,7 +210,19 @@ export const createUserProfile = (type, values) => async (dispatch) => {
           description: values.description,
           image: values.image,
         }
-      : null;
+      : {
+          first_name: values.first_name,
+          last_name: values.last_name,
+          phone_number: values.phone_number,
+          pesel: values.pesel,
+          image: values.image,
+          email: 'test@gmail.com',
+        };
+
+  // Add location
+  body[`location[street_address]`] = values.location.street_address;
+  body[`location[postal_code]`] = values.location.postal_code;
+  body[`location[city]`] = values.location.city;
 
   try {
     dispatch({
@@ -219,8 +231,8 @@ export const createUserProfile = (type, values) => async (dispatch) => {
 
     const { data } =
       type === 'Pracodawca'
-        ? await axios.post(`/companies`, body, config)
-        : null;
+        ? await axios.post('/companies', body, config)
+        : await axios.post('/candidates', body, config);
 
     dispatch({
       type: USER_CREATE_PROFILE_SUCCESS,
@@ -238,29 +250,34 @@ export const createUserProfile = (type, values) => async (dispatch) => {
 };
 
 export const updateUserProfile = (id, type, values) => async (dispatch) => {
-  const config = { headers: getAuthHeaders() };
+  const config = { headers: getAuthHeadersMP() };
 
   const body =
     type === 'Pracodawca'
-      ? JSON.stringify({
+      ? {
           nip: values.nip,
           name: values.name,
           phone_number: values.phone_number,
           email: values.email,
-          location: values.location,
           website: values.website,
           description: values.description,
           image: values.image,
-        })
-      : JSON.stringify({
+        }
+      : {
           first_name: values.first_name,
           last_name: values.last_name,
           phone_number: values.phone_number,
-          location: values.location,
           email: values.email,
           pesel: values.pesel,
           image: values.image,
-        });
+        };
+
+  // Add location
+  values.location.street_address &&
+    (body[`location[street_address]`] = values.location.street_address);
+  values.location.postal_code &&
+    (body[`location[postal_code]`] = values.location.postal_code);
+  values.location.city && (body[`location[city]`] = values.location.city);
 
   try {
     dispatch({
