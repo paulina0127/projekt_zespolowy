@@ -1,11 +1,12 @@
-import CategoryCheckbox from './CategoryCheckbox'
-import { CategorySelect } from './CategorySelect'
-import { CheckboxGroup } from './CheckboxGroup'
-import MyDatePicker from './MyDatePicker'
-import SearchInput from './SearchInput'
-import { SelectField } from './SelectField'
-import { TextArea } from './TextArea'
-import { TextField } from './TextField'
+import CategoryCheckbox from './CategoryCheckbox';
+import { CategorySelect } from './CategorySelect';
+import { CheckboxGroup } from './CheckboxGroup';
+import MyDatePicker from './MyDatePicker';
+import SearchInput from './SearchInput';
+import { SelectField } from './SelectField';
+import { TextArea } from './TextArea';
+import { TextField } from './TextField';
+import FileField from './FileField';
 
 export {
   CategoryCheckbox,
@@ -15,5 +16,6 @@ export {
   SearchInput,
   SelectField,
   TextArea,
-  TextField
-}
+  TextField,
+  FileField,
+};

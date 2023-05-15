@@ -1,7 +1,8 @@
-from apps.profiles.models import Candidate, Company
 from django.contrib.auth import get_user_model
 from djoser.serializers import UserCreateSerializer, UserSerializer
 from rest_framework import serializers
+
+from apps.profiles.models import Candidate, Company
 
 from .choices import UserType
 

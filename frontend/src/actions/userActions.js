@@ -1,5 +1,5 @@
-import axios from 'axios'
-import { listSkills } from './skillActions'
+import axios from 'axios';
+import { listSkills } from './skillActions';
 import {
   USER_CREATE_PROFILE_FAIL,
   USER_CREATE_PROFILE_REQUEST,
@@ -22,29 +22,37 @@ import {
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
-} from '../constants/userConst'
+} from '../constants/userConst';
 
 const getAuthHeaders = () => {
-  const userTokens = JSON.parse(localStorage.getItem('userTokens'))
-  const token = userTokens ? userTokens.access : null
+  const userTokens = JSON.parse(localStorage.getItem('userTokens'));
+  const token = userTokens ? userTokens.access : null;
   return {
     'Content-Type': 'application/json',
     Authorization: `JWT ${token}`,
-  }
-}
+  };
+};
+
+const getAuthHeadersMP = () => {
+  const userTokens = JSON.parse(localStorage.getItem('userTokens'));
+  const token = userTokens ? userTokens.access : null;
+  return {
+    'Content-Type': 'multipart/form-data',
+    Authorization: `JWT ${token}`,
+  };
+};
 
 export const getCandidateEducation = (id) => async (dispatch) => {
-  const config = { headers: getAuthHeaders() }
+  const config = { headers: getAuthHeaders() };
   try {
-    const { data } = await axios.get(`/candidates/${id}/education`, config)
+    const { data } = await axios.get(`/candidates/${id}/education`, config);
 
     dispatch({
       type: USER_EDUCATION_SUCCESS,
       payload: data,
-    })
+    });
 
-    dispatch(getCandidateFiles(id))
-
+    dispatch(getCandidateFiles(id));
   } catch (error) {
     dispatch({
       type: USER_EDUCATION_FAIL,
@@ -52,22 +60,21 @@ export const getCandidateEducation = (id) => async (dispatch) => {
         error.response && error.response.data.detail
           ? error.response.data.detail
           : error.message,
-    })
+    });
   }
-}
+};
 
 export const getCandidateExperience = (id) => async (dispatch) => {
-  const config = { headers: getAuthHeaders() }
+  const config = { headers: getAuthHeaders() };
   try {
-    const { data } = await axios.get(`/candidates/${id}/experience`, config)
+    const { data } = await axios.get(`/candidates/${id}/experience`, config);
 
     dispatch({
       type: USER_EXPERIENCE_SUCCESS,
       payload: data,
-    })
+    });
 
-    dispatch(getCandidateFiles(id))
-
+    dispatch(getCandidateFiles(id));
   } catch (error) {
     dispatch({
       type: USER_EXPERIENCE_FAIL,
@@ -75,23 +82,22 @@ export const getCandidateExperience = (id) => async (dispatch) => {
         error.response && error.response.data.detail
           ? error.response.data.detail
           : error.message,
-    })
+    });
   }
-}
+};
 
 export const getCandidateSkills = (id) => async (dispatch) => {
-  const config = { headers: getAuthHeaders() }
+  const config = { headers: getAuthHeaders() };
   try {
-    const { data } = await axios.get(`/candidates/${id}/skills`, config)
+    const { data } = await axios.get(`/candidates/${id}/skills`, config);
 
     dispatch({
       type: USER_SKILL_SUCCESS,
       payload: data,
-    })
+    });
 
-    dispatch(getCandidateFiles(id))
-    dispatch(listSkills())
-
+    dispatch(getCandidateFiles(id));
+    dispatch(listSkills());
   } catch (error) {
     dispatch({
       type: USER_SKILL_FAIL,
@@ -99,22 +105,21 @@ export const getCandidateSkills = (id) => async (dispatch) => {
         error.response && error.response.data.detail
           ? error.response.data.detail
           : error.message,
-    })
+    });
   }
-}
+};
 
 export const getCandidateCourses = (id) => async (dispatch) => {
-  const config = { headers: getAuthHeaders() }
+  const config = { headers: getAuthHeaders() };
   try {
-    const { data } = await axios.get(`/candidates/${id}/courses`, config)
+    const { data } = await axios.get(`/candidates/${id}/courses`, config);
 
     dispatch({
       type: USER_COURSE_SUCCESS,
       payload: data,
-    })
+    });
 
-    dispatch(getCandidateFiles(id))
-
+    dispatch(getCandidateFiles(id));
   } catch (error) {
     dispatch({
       type: USER_COURSE_FAIL,
@@ -122,20 +127,19 @@ export const getCandidateCourses = (id) => async (dispatch) => {
         error.response && error.response.data.detail
           ? error.response.data.detail
           : error.message,
-    })
+    });
   }
-}
+};
 
 export const getCandidateLinks = (id) => async (dispatch) => {
-  const config = { headers: getAuthHeaders() }
+  const config = { headers: getAuthHeaders() };
   try {
-    const { data } = await axios.get(`/candidates/${id}/links`, config)
+    const { data } = await axios.get(`/candidates/${id}/links`, config);
 
     dispatch({
       type: USER_LINK_SUCCESS,
       payload: data,
-    })
-
+    });
   } catch (error) {
     dispatch({
       type: USER_LINK_FAIL,
@@ -143,19 +147,19 @@ export const getCandidateLinks = (id) => async (dispatch) => {
         error.response && error.response.data.detail
           ? error.response.data.detail
           : error.message,
-    })
+    });
   }
-}
+};
 
 export const getCandidateFiles = (id) => async (dispatch) => {
-  const config = { headers: getAuthHeaders() }
+  const config = { headers: getAuthHeaders() };
   try {
-    const { data } = await axios.get(`/candidates/${id}/files`, config)
+    const { data } = await axios.get(`/candidates/${id}/files`, config);
 
     dispatch({
       type: USER_FILES_SUCCESS,
       payload: data,
-    })
+    });
   } catch (error) {
     dispatch({
       type: USER_FILES_FAIL,
@@ -163,25 +167,24 @@ export const getCandidateFiles = (id) => async (dispatch) => {
         error.response && error.response.data.detail
           ? error.response.data.detail
           : error.message,
-    })
+    });
   }
-}
+};
 
 export const getUserDetails = (id, userType) => async (dispatch) => {
-  const config = { headers: getAuthHeaders() }
+  const config = { headers: getAuthHeaders() };
   try {
-    dispatch({ type: USER_DETAILS_PROFILE_REQUEST })
+    dispatch({ type: USER_DETAILS_PROFILE_REQUEST });
 
     const { data } =
       userType === 'Pracodawca'
         ? await axios.get(`/companies/${id}`, config)
-        : await axios.get(`/candidates/${id}`, config)
+        : await axios.get(`/candidates/${id}`, config);
 
     dispatch({
       type: USER_DETAILS_PROFILE_SUCCESS,
       payload: data,
-    })
-
+    });
   } catch (error) {
     dispatch({
       type: USER_DETAILS_PROFILE_FAIL,
@@ -189,41 +192,52 @@ export const getUserDetails = (id, userType) => async (dispatch) => {
         error.response && error.response.data.detail
           ? error.response.data.detail
           : error.message,
-    })
+    });
   }
-}
+};
 
 export const createUserProfile = (type, values) => async (dispatch) => {
-  const config = { headers: getAuthHeaders() }
+  const config = { headers: getAuthHeadersMP() };
 
   const body =
     type === 'Pracodawca'
-      ? JSON.stringify({
+      ? {
           nip: values.nip,
           name: values.name,
           phone_number: values.phone_number,
           email: values.email,
-          location: values.location,
           website: values.website,
           description: values.description,
           image: values.image,
-        })
-      : null
+        }
+      : {
+          first_name: values.first_name,
+          last_name: values.last_name,
+          phone_number: values.phone_number,
+          pesel: values.pesel,
+          image: values.image,
+          email: 'test@gmail.com',
+        };
+
+  // Add location
+  body[`location[street_address]`] = values.location.street_address;
+  body[`location[postal_code]`] = values.location.postal_code;
+  body[`location[city]`] = values.location.city;
 
   try {
     dispatch({
       type: USER_CREATE_PROFILE_REQUEST,
-    })
+    });
 
     const { data } =
       type === 'Pracodawca'
-        ? await axios.post(`/companies`, body, config)
-        : null
+        ? await axios.post('/companies', body, config)
+        : await axios.post('/candidates', body, config);
 
     dispatch({
       type: USER_CREATE_PROFILE_SUCCESS,
       payload: data,
-    })
+    });
   } catch (error) {
     dispatch({
       type: USER_CREATE_PROFILE_FAIL,
@@ -231,49 +245,54 @@ export const createUserProfile = (type, values) => async (dispatch) => {
         error.response && error.response.data.detail
           ? error.response.data.detail
           : error.message,
-    })
+    });
   }
-}
+};
 
 export const updateUserProfile = (id, type, values) => async (dispatch) => {
-  const config = { headers: getAuthHeaders() }
+  const config = { headers: getAuthHeadersMP() };
 
   const body =
     type === 'Pracodawca'
-      ? JSON.stringify({
+      ? {
           nip: values.nip,
           name: values.name,
           phone_number: values.phone_number,
           email: values.email,
-          location: values.location,
           website: values.website,
           description: values.description,
           image: values.image,
-        })
-      : JSON.stringify({
+        }
+      : {
           first_name: values.first_name,
           last_name: values.last_name,
           phone_number: values.phone_number,
-          location: values.location,
           email: values.email,
           pesel: values.pesel,
           image: values.image,
-        })
+        };
+
+  // Add location
+  values.location.street_address &&
+    (body[`location[street_address]`] = values.location.street_address);
+  values.location.postal_code &&
+    (body[`location[postal_code]`] = values.location.postal_code);
+  values.location.city && (body[`location[city]`] = values.location.city);
 
   try {
     dispatch({
       type: USER_UPDATE_PROFILE_REQUEST,
-    })
+    });
 
     const { data } =
       type === 'Pracodawca'
         ? await axios.patch(`/companies/${id}`, body, config)
-        : await axios.patch(`/candidates/${id}`, body, config)
+        : await axios.patch(`/candidates/${id}`, body, config);
 
     dispatch({
       type: USER_UPDATE_PROFILE_SUCCESS,
       payload: data,
-    })
+    });
   } catch (error) {
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
@@ -281,6 +300,6 @@ export const updateUserProfile = (id, type, values) => async (dispatch) => {
         error.response && error.response.data.detail
           ? error.response.data.detail
           : error.message,
-    })
+    });
   }
-}
+};

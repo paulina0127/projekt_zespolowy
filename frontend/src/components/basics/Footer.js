@@ -12,22 +12,24 @@ const Footer = () => {
           </div>
           <div className='column'>
             <h1 className={styles['footer-h1']}>Dla kandydatów</h1>
-            <Link to='/rejestracja'>
+            <Link to='/rejestracja' className={styles['link-style']}>
               <p className={styles['footer-p']}>Zarejestruj się</p>
             </Link>
-            <Link to='/oferty'>
+            <Link to='/oferty' className={styles['link-style']}>
               <p className={styles['footer-p']}>Oferty pracy</p>
             </Link>
-            <Link to='/pracodawcy'>
+            <Link to='/pracodawcy' className={styles['link-style']}>
               <p className={styles['footer-p']}>Pracodawcy</p>
             </Link>
           </div>
           <div className='column'>
             <h1 className={styles['footer-h1']}>Dla pracodawców</h1>
-            <Link to='/rejestracja'>
+            <Link to='/rejestracja' className={styles['link-style']}>
               <p className={styles['footer-p']}>Zarejestruj się</p>
             </Link>
-            <p className={styles['footer-p']}>Dodaj ofertę pracy</p>
+            <Link className={styles['link-style']}>
+              <p className={styles['footer-p']}>Dodaj ofertę pracy</p>
+            </Link>
           </div>
           <div className='column'>
             <h1 className={styles['footer-h1']}>Kontakt</h1>
@@ -38,7 +40,7 @@ const Footer = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
 export default Footer

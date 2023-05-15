@@ -97,7 +97,7 @@ const Sidebar = ({ logout, user }) => {
         label='Dokumenty'
       />
     </>
-  )
+  );
 
   const companyLinks = () => (
     <>
@@ -120,7 +120,7 @@ const Sidebar = ({ logout, user }) => {
         label='Otrzymane aplikacje'
       />
     </>
-  )
+  );
 
   return (
     <div
@@ -133,9 +133,13 @@ const Sidebar = ({ logout, user }) => {
         roundedCircle
       />
       <h3 className='text-white text-center fs-5 ml-2'>
-        {user?.type && user?.profile && user.type ==='Kandydat'
-          ? user.profile.first_name + ' ' + user.profile.last_name
-          : user.type ==='Pracodawca' ? user.profile.name : ''}
+        {user?.profile
+          ? user?.type === 'Kandydat'
+            ? user?.profile?.first_name + ' ' + user?.profile?.last_name
+            : user?.type === 'Pracodawca'
+            ? user?.profile?.name
+            : ''
+          : ''}
       </h3>
       <hr className='text-secondary' />
       <ul className='nav nav-pills flex-column'>
@@ -158,10 +162,10 @@ const Sidebar = ({ logout, user }) => {
         </li>
       </ul>
     </div>
-  )
-}
+  );
+};
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
-})
-export default connect(mapStateToProps, { logout })(Sidebar)
+});
+export default connect(mapStateToProps, { logout })(Sidebar);

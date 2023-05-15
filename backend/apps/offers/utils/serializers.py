@@ -2,11 +2,9 @@ from rest_framework import serializers
 
 from apps.core.models import Location
 from apps.core.utils.serializers import CategorySerializer, LocationSerializer
-from apps.profiles.utils.serializers import (
-    CandidateSerializer,
-    FileSerializer,
-    MinCompanySerializer,
-)
+from apps.profiles.utils.serializers import (CandidateSerializer,
+                                             FileSerializer,
+                                             MinCompanySerializer)
 
 from ..models import Application, Attachment, Offer, Requirement
 

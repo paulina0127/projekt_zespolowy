@@ -200,3 +200,8 @@
   padding: 0.375rem 1.5rem 0.375rem 1.5rem;
   margin-top: 1rem;
 }
+
+.yellow-btn:hover {
+  background-color: #000000;
+  color: #ffffff;
+}

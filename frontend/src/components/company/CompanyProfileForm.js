@@ -9,7 +9,7 @@ import {
   USER_UPDATE_PROFILE_RESET,
 } from '../../constants/userConst'
 import { Loader, Message } from '../basics'
-import { TextArea, TextField } from '../formHelpers'
+import { TextArea, TextField, FileField } from '../formHelpers'
 import styles from './CompanyProfileForm.module.css'
 
 const ComapnyProfileForm = ({
@@ -61,11 +61,11 @@ const ComapnyProfileForm = ({
         }}
       >
         {({ values }) => (
-          <Form>
+          <Form encType='multipart/form-data'>
             <div className='shadow p-3 bg-white rounded-5'>
               <div className='container'>
                 <div className='d-flex row justify-content-around'>
-                  <div className='col col-9'>
+                  <div className='col'>
                     <div className='row mt-4'>
                       <div className='col-md-4'>
                         <TextField
@@ -118,7 +118,7 @@ const ComapnyProfileForm = ({
                           type='text'
                         />
                       </div>
-                      <div className='col-md-3'>
+                      <div className='col-md-5'>
                         <TextField
                           label='Kontaktowy adres e-mail'
                           name='email'
@@ -128,7 +128,7 @@ const ComapnyProfileForm = ({
                     </div>
 
                     <div className='row mt-4'>
-                      <div className='col-md-7'>
+                      <div className='col-md-8'>
                         <TextArea
                           label='Opis firmy'
                           name='description'
@@ -137,26 +137,33 @@ const ComapnyProfileForm = ({
                       </div>
                     </div>
                   </div>
-                  <div className='col align-self-center text-center'>
-                    <div className='row'>
-                      <div className={styles['avatar-title']}>Logo</div>
-                    </div>
-                    <div className='row top-50'>
-                      <button className={styles['logo-btn']}>
-                        <FaPlus size='2.5em' color='#242424' />
-                      </button>
-                    </div>
-                    <div className='row'>
-                      <Image
+
+                  <div className='d-grid col col-4 align-self-center justify-items-center text-center'>
+                    <div className={styles['avatar-title']}>Logo</div>
+                    <div className={styles.avatarContainer}>
+                      <img
+                        src={
+                          values?.image !== initialValues?.image &&
+                          values?.image instanceof File
+                            ? URL.createObjectURL(values?.image)
+                            : initialValues?.image
+                        }
                         style={{
-                          height: '300px',
-                          width: '300px',
-                          margin: '20px auto',
                           objectFit: 'cover',
+                          borderRadius: '50%',
+                          width: '100%',
+                          height: '100%',
                         }}
-                        src={initialValues.image}
-                        alt='User pic'
-                        roundedCircle
+                      />
+                      <label htmlFor='image'>
+                        <div className={styles.avatarBtn}>
+                          <FaPlus color='#fff' className={styles.avatarIcon} />
+                        </div>
+                      </label>
+                      <FileField
+                        name='image'
+                        type='file'
+                        accept='image/png, image/jpeg'
                       />
                     </div>
                   </div>

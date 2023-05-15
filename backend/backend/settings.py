@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "djoser",
     "corsheaders",
     "django_filters",
+    "django_cleanup",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True

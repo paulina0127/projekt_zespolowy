@@ -37,11 +37,16 @@
   color: var(--yellow);
 }
 
-a:visited {
+.link-style:visited {
   text-decoration: none;
   color: var(--yellow);
 }
 
-a:link {
+.link-style:link {
   text-decoration: none;
+  color: var(--yellow);
+}
+
+.link-style:hover {
+  color: #ffffff;
 }
