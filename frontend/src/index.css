@@ -9,7 +9,7 @@
   --user: rgb(39, 25, 49);
   --font: Imprima, sans-serif;
   --font-heading: Inter, sans-serif;
-
+  --dark-yellow: rgb(173, 115, 7);
 }
 
 * {
@@ -31,5 +31,12 @@ html {
   box-sizing: border-box;
 }
 
+a:visited {
+  text-decoration: none;
+  color: var(--yellow);
+}
 
-
+a:link {
+  text-decoration: none;
+  color: var(--yellow);
+}

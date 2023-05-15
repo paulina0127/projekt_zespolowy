@@ -21,6 +21,10 @@
   position: absolute;
 }
 
+.logo-btn:hover {
+  background-color: var(--dark-yellow);
+}
+
 .avatar-btn {
   height: 5rem;
   width: 5rem;
@@ -31,6 +35,10 @@
   border: none;
   margin-left: 4%;
   position: absolute;
+}
+
+.avatar-btn:hover {
+  background-color: var(--dark-yellow);
 }
 
 .logo-title {
@@ -98,6 +106,10 @@
   color: #ffffff;
 }
 
+.yellow-btn:hover {
+  background-color: var(--dark-yellow);
+}
+
 .yellow-blck-btn {
   background-color: var(--yellow);
   border: none;
@@ -113,4 +125,5 @@
 
 .yellow-blck-btn:hover {
   color: #ffffff;
+  background-color: var(--dark-yellow);
 }

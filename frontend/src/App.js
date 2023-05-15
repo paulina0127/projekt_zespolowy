@@ -1,7 +1,8 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import {
   CompaniesScreen,
+  CompanyDetailsScreen,
   ActivateAccountScreen,
   HomeScreen,
   LoginScreen,
@@ -10,8 +11,8 @@ import {
   ResetPassword,
   ResetPasswordConfirm,
   SignUpScreen,
-} from './screens';
-import AccountManagement from './components/AccountManagement';
+} from './screens'
+import AccountManagement from './components/AccountManagement'
 import {
   Attachement,
   CandidateCourse,
@@ -21,13 +22,13 @@ import {
   CandidateLinks,
   CandidateApplications,
   CandidateSkill,
-} from './components/candidate';
+} from './components/candidate'
 import {
   CompanyOffers,
   CompanyProfile,
   ReceivedApplication,
-} from './components/company';
-import Layout from './hocs/Layout';
+} from './components/company'
+import Layout from './hocs/Layout'
 
 const App = () => {
   return (
@@ -49,7 +50,7 @@ const App = () => {
           <Route path='/oferty/:filters?' element={<OffersScreen />} />
           <Route path='/oferta/:id' element={<OfferDetailsScreen />} />
           <Route path='/pracodawcy' element={<CompaniesScreen />} />
-          {/* <Route path='/pracodawca/:id' element={<CompanyDetailsScreen />} /> */}
+          <Route path='/pracodawca/:id' element={<CompanyDetailsScreen />} />
 
           <Route path='/user-panel/konto' element={<AccountManagement />} />
           <Route
@@ -86,7 +87,7 @@ const App = () => {
         </Routes>
       </Layout>
     </BrowserRouter>
-  );
-};
+  )
+}
 
-export default App;
+export default App

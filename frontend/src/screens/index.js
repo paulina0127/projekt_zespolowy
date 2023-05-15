@@ -7,6 +7,7 @@ import ResetPassword from './Auth/ResetPassword'
 import ResetPasswordConfirm from './Auth/ResetPasswordConfirm'
 import SignUpScreen from './Auth/SignUpScreen'
 import CompaniesScreen from './CompaniesScreen'
+import CompanyDetailsScreen from './CompanyDetailsScreen'
 
 export {
   HomeScreen,
@@ -18,4 +19,5 @@ export {
   ResetPassword,
   ResetPasswordConfirm,
   SignUpScreen,
+  CompanyDetailsScreen,
 }

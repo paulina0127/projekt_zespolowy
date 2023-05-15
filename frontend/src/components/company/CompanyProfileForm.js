@@ -143,7 +143,7 @@ const ComapnyProfileForm = ({
                     </div>
                     <div className='row top-50'>
                       <button className={styles['logo-btn']}>
-                        <FaPlus size='2.5em' color='#242424' />
+                        <FaPlus size='2.5em' color='#FFFFFF' />
                       </button>
                     </div>
                     <div className='row'>
