@@ -11,7 +11,7 @@ import {
   ResetPasswordConfirm,
   SignUpScreen,
 } from './screens'
-import AccountManagement from './components/AccountManagement'
+import { AccountManagement } from './components/accountSettings'
 import {
   Attachement,
   CandidateCourse,

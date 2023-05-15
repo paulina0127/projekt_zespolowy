@@ -1,6 +1,20 @@
 import { string, object, array, ref, date } from 'yup'
 import { subDays } from 'date-fns'
 
+export const validateResetPassword = object({
+  email: string()
+    .email('To nie jest prawidłowy adres email')
+    .required('Pole adres email jest obowiązkowe'),
+})
+
+export const validateDeleteAccount = object({
+  current_password: string()
+    .min(8, 'Hasło musi zawierać co najmniej 8 znaków')
+    .matches(/[0-9]/, 'Hasło musi zawierać co najmniej 1 cyfrę')
+    .matches(/[A-Z]/, 'Hasło musi zawierać co najmniej 1 wielką literę')
+    .required('Aktualne hasło jest obowiązkowe'),
+})
+
 export const validateNewPassword = object({
   new_password: string()
     .min(8, 'Hasło musi zawierać co najmniej 8 znaków')
@@ -10,7 +24,38 @@ export const validateNewPassword = object({
   re_new_password: string()
     .oneOf([ref('new_password'), null], 'Wprowadzone hasła różnią się od siebie.')
     .required('Powtórz wprowadzone hasło'),
-});
+})
+
+export const validateChangePassword = object({
+  current_password: string()
+    .min(8, 'Hasło musi zawierać co najmniej 8 znaków')
+    .matches(/[0-9]/, 'Hasło musi zawierać co najmniej 1 cyfrę')
+    .matches(/[A-Z]/, 'Hasło musi zawierać co najmniej 1 wielką literę')
+    .required('Aktualne hasło jest obowiązkowe'),
+  new_password: string()
+    .min(8, 'Hasło musi zawierać co najmniej 8 znaków')
+    .matches(/[0-9]/, 'Hasło musi zawierać co najmniej 1. cyfrę')
+    .matches(/[A-Z]/, 'Hasło musi zawierać co najmniej 1. wielką literę ')
+    .required('Nowe hasło jest obowiązkowe'),
+  re_new_password: string()
+    .oneOf([ref('new_password'), null], 'Wprowadzone hasła różnią się od siebie.')
+    .required('Powtórz wprowadzone hasło'),
+})
+
+export const validateChangeEmail = object({
+  current_password: string()
+    .min(8, 'Hasło musi zawierać co najmniej 8 znaków')
+    .matches(/[0-9]/, 'Hasło musi zawierać co najmniej 1 cyfrę')
+    .matches(/[A-Z]/, 'Hasło musi zawierać co najmniej 1 wielką literę')
+    .required('Aktualne hasło jest obowiązkowe'),
+  new_email: string()
+    .email('To nie jest prawidłowy adres email')
+    .required('Nowe adres e-mail jest obowiązkowy'),
+  re_new_email: string()
+    .oneOf([ref('new_email'), null], 'Wprowadzone adresy e-mail różnią się od siebie.')
+    .email('To nie jest prawidłowy adres email')
+    .required('Powtórz adres e-mail'),
+})
 
 export const validateCompanyProfile = object({
   nip: string()

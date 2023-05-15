@@ -49,12 +49,12 @@ const CandidateSkill = () => {
 
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(getCandidateSkills(profile))
-    return () => {
-      dispatch({ type: USER_DETAILS_PROFILE_RESET })
-    }
-  }, [dispatch, success])
+  // useEffect(() => {
+  //   dispatch(getCandidateSkills(profile))
+  //   return () => {
+  //     dispatch({ type: USER_DETAILS_PROFILE_RESET })
+  //   }
+  // }, [dispatch, success])
 
   return (
     <UserPanelLayout>

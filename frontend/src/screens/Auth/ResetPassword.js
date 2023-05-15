@@ -1,6 +1,6 @@
 import { connect, useSelector } from 'react-redux'
 import { Formik, Form } from 'formik'
-import { string, object } from 'yup'
+import { validateResetPassword } from '../../validators/validators'
 import { reset_password } from '../../actions/authActions'
 
 import { TextField } from '../../components/formHelpers'
@@ -10,11 +10,6 @@ import Background from '../../images/resetpass.jpg'
 import styles from '../../components/company/CompanyProfileForm.module.css'
 
 const ResetPassword = ({ reset_password }) => {
-  const validate = object({
-    email: string()
-      .email('To nie jest prawidłowy adres email')
-      .required('Pole adres email jest obowiązkowe'),
-  })
 
   const auth = useSelector((state) => state.auth)
   const { error, loading, success } = auth
@@ -36,7 +31,7 @@ const ResetPassword = ({ reset_password }) => {
         initialValues={{
           email: '',
         }}
-        validationSchema={validate}
+        validationSchema={validateResetPassword}
         onSubmit={(values, { resetForm }) => {
           const { email } = values
           reset_password(email)

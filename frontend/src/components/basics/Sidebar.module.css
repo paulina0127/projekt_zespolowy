@@ -10,6 +10,13 @@
   background: var(--yellow);
 }
 
+.user-img {
+  height: 100px;
+  width: 100px;
+  margin: 20px auto;
+  object-fit: cover;
+}
+
 .hoverEffect:hover {
   background: var(--yellow);
   transition: all 1s;
@@ -18,9 +25,9 @@
 .logout-btn {
   background-color: var(--yellow);
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 50rem;
   line-height: 1.5;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  padding: 0.375rem 0.75rem 0.375rem 0.75rem;
+  padding: 0.4rem 1rem 0.4rem 1rem;
   color: white;
 }
