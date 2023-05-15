@@ -1,51 +1,81 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
-
-import { FiCheckCircle } from 'react-icons/fi'
-import { GiReceiveMoney } from 'react-icons/gi'
-import {
-  IoBarChart,
-  IoCalendarOutline,
-  IoConstruct,
-  IoDocumentsOutline,
-  IoInvertMode,
-  IoLocationOutline,
-} from 'react-icons/io5'
-import {
-  MdWorkHistory,
-  MdOutlineNumbers,
-  MdOutlineLocalPhone,
-  MdOutlineAlternateEmail,
-} from 'react-icons/md'
-import { GrTextAlignFull } from 'react-icons/gr'
-import { SiPolywork } from 'react-icons/si'
-import { TbWorldWww } from 'react-icons/tb'
-import { OfferPoint } from '../components/offers'
-
-import styles from './OfferDetailsScreen.module.css'
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { IoLocationOutline } from 'react-icons/io5';
+import { MdOutlineLocalPhone, MdOutlineAlternateEmail } from 'react-icons/md';
+import { GrTextAlignFull } from 'react-icons/gr';
+import { TbWorldWww } from 'react-icons/tb';
+import { OfferPoint } from '../components/offers';
+import { COMPANY_DETAILS_CLEAR } from '../constants/companyConst';
+import { listCompanyDetails } from '../actions/companyActions';
+import styles from './OfferDetailsScreen.module.css';
+import { Loader, Message } from '../components/basics';
+import { Offer } from '../components/offers';
+import { listFilteredOffers } from '../actions/offerActions';
+import { OFFER_FILTERED_LIST_CLEAR } from '../constants/offerConst';
 
 const CompanyDetailsScreen = () => {
+  const company_id = useParams().id;
+  const dispatch = useDispatch();
+
+  const companyDetails = useSelector((state) => state.companyDetails);
+  const { errorCompany, loadingCompany, company } = companyDetails;
+
+  const offerList = useSelector((state) => state.offerList);
+  const { offers, loading, length, error } = offerList;
+
+  const params = {
+    company: company_id,
+  };
+
+  const location =
+    company && company.location
+      ? company.location.street_address +
+        ', ' +
+        company.location.postal_code +
+        ' ' +
+        company.location.city
+      : '';
+
+  useEffect(() => {
+    dispatch(listCompanyDetails(company_id));
+
+    return () => {
+      dispatch({ type: COMPANY_DETAILS_CLEAR });
+    };
+  }, [dispatch, company_id]);
+
+  useEffect(() => {
+    dispatch(listFilteredOffers(params));
+    return () => {
+      dispatch({ type: OFFER_FILTERED_LIST_CLEAR });
+    };
+  }, []);
+
   return (
-    <>
-      <>
-        <div className='container px-4 py-5 bg-white border shadow rounded my-3'>
+    <div className='container px-4 py-5 bg-white border shadow rounded my-3'>
+      {loadingCompany ? (
+        <Loader />
+      ) : errorCompany ? (
+        <Message variant='danger'>{errorCompany}</Message>
+      ) : Object.keys(company).length === 0 ? null : (
+        <>
           <div className='d-md-flex align-items-center pb-2 border-bottom'>
             <Link>
               <img
-                src={require('../images/kot.jpg')}
-                alt='Company pic'
+                src={company.image}
+                alt='Company logo'
                 className={styles.brandImg}
               />
             </Link>
             <div>
-              <h2>Pracodawca</h2>
+              <h2>{company.name}</h2>
               {/*Tu może być link z lokalizacją na Google Maps na podstawie https://developers.google.com/maps/documentation/urls/get-started - czyli np.
               https://www.google.com/maps/@?api=1&map_action=map&Olsztyn itd */}
               <Link>
                 <p className='text-primary'>
                   <strong>
-                    Olsztyn
+                    {company.location?.city}
                     <IoLocationOutline />
                   </strong>
                 </p>
@@ -54,55 +84,53 @@ const CompanyDetailsScreen = () => {
           </div>
           <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-2 g-4 py-5 mb-4 pb-0'>
             <OfferPoint
-              text='4076210711'
-              name='Nip'
-              icon={<MdOutlineNumbers />}
-            />
-            <Link>
-              <OfferPoint
-                text='https://pracodawca.pl'
-                name='Strona internetowa'
-                icon={<TbWorldWww />}
-              />
-            </Link>
-            <OfferPoint
-              text='Armii Krajowej 23,  11-111 Olsztyn'
-              name='Lokalizacja: '
+              text={location}
+              name='Lokalizacja'
               icon={<IoLocationOutline />}
             />
             <OfferPoint
-              text='999999999'
+              text={company.phone_number}
               name='Numer telefonu'
               icon={<MdOutlineLocalPhone />}
             />
+            {company.website && (
+              <Link to={company.website}>
+                <OfferPoint
+                  text={company.website}
+                  name='Strona internetowa'
+                  icon={<TbWorldWww />}
+                />
+              </Link>
+            )}
             <OfferPoint
-              text='email@pracodawca.pl'
+              text={company.email}
               name='Email'
               icon={<MdOutlineAlternateEmail />}
             />
-            {/* dla symetrii XD data zarejstrowania konta, ale może być bez*/}
-            <OfferPoint
-              text='2023-05-15'
-              name='Zarejestrowano'
-              icon={<IoCalendarOutline />}
-            />
           </div>
           <div className='row row-cols-12'>
-            <OfferPoint
-              text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-              name='Opis firmy'
-              icon={<GrTextAlignFull />}
-            />
+            <p className='fs-4 mt-2 mb-5'>{company.description}</p>
           </div>
-        </div>
-        <div className='container px-4 py-5 bg-white border shadow rounded my-3'>
-          <h2 className='pb-2 border-bottom'>Nasze oferty</h2>
-          <ul className='list-group list-group-flush'></ul>
-        </div>
-        {/*nie wiem dlaczego, ale nie ma footer */}
+        </>
+      )}
+      <>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message variant='danger'>{error}</Message>
+        ) : length === 0 ? null : (
+          <>
+            <h2 className='pb-2 border-bottom'>Nasze oferty</h2>
+            <ul className='col-12'>
+              {offers?.map((offer) => (
+                <Offer key={offer.id} offer={offer} />
+              ))}
+            </ul>
+          </>
+        )}
       </>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default CompanyDetailsScreen
+export default CompanyDetailsScreen;

@@ -127,3 +127,47 @@
   color: #ffffff;
   background-color: var(--dark-yellow);
 }
+
+/* ----------- AVATAR ----------- */
+.avatarContainer {
+  position: relative;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: 2px solid var(--yellow);
+}
+
+.avatarBtn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 8px;
+  background: var(--user);
+  border: 0;
+  border-radius: 25%;
+  cursor: pointer;
+}
+
+.avatarIcon {
+  font-size: 16px;
+}
+
+/* ----------- MEDIA QUERIES ----------- */
+@media screen and (min-width: 768px) {
+  .avatarContainer {
+    height: 200px;
+    width: 200px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .avatarContainer {
+    height: 300px;
+    width: 300px;
+  }
+
+  .avatarIcon {
+    font-size: 40px;
+  }
+}

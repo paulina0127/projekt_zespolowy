@@ -10,7 +10,6 @@ class CompanyList(generics.ListCreateAPIView):
     filterset_class = CompanyFilter
     search_fields = ["name"]
     ordering_fields = ["id", "name"]
-    pagination_class = SmallResultsPage
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
 
     def get_serializer_class(self):

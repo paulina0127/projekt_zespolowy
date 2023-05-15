@@ -1,11 +1,14 @@
-import { Form, Formik } from 'formik'
-import { Image } from 'react-bootstrap'
-import { FaPlus } from 'react-icons/fa'
-import { useDispatch, useSelector } from 'react-redux'
-import { createUserProfile, updateUserProfile } from '../../actions/userActions'
-import { Loader, Message } from '../basics'
-import styles from '../company/CompanyProfileForm.module.css'
-import { TextField } from '../formHelpers'
+import { Form, Formik } from 'formik';
+import { Image } from 'react-bootstrap';
+import { FaPlus } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  createUserProfile,
+  updateUserProfile,
+} from '../../actions/userActions';
+import { Loader, Message } from '../basics';
+import styles from '../company/CompanyProfileForm.module.css';
+import { TextField, FileField } from '../formHelpers';
 
 const CandidateProfileForm = ({
   initialValues,
@@ -14,13 +17,13 @@ const CandidateProfileForm = ({
   profileExist,
   userProfile,
 }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const updateProfile = useSelector((state) => state.userUpdateProfile)
-  const { error, success, loading } = updateProfile
+  const updateProfile = useSelector((state) => state.userUpdateProfile);
+  const { error, success, loading } = updateProfile;
 
-  const createProfile = useSelector((state) => state.userCreateProfile)
-  const { errorCreate, successCreate, loadingCreate } = createProfile
+  const createProfile = useSelector((state) => state.userCreateProfile);
+  const { errorCreate, successCreate, loadingCreate } = createProfile;
   return (
     <div>
       <h2 className={styles['profile-h2']}>Dane osobowe</h2>
@@ -42,17 +45,17 @@ const CandidateProfileForm = ({
           validationSchema={validate}
           onSubmit={(values) => {
             if (profileExist) {
-              const updatedValues = {}
+              const updatedValues = {};
               for (const key in values) {
                 if (values[key] !== initialValues[key]) {
-                  updatedValues[key] = values[key]
+                  updatedValues[key] = values[key];
                 }
               }
               dispatch(
                 updateUserProfile(userProfile, 'Kandydat', updatedValues)
-              )
+              );
             } else {
-              dispatch(createUserProfile('Kandydat', values))
+              dispatch(createUserProfile('Kandydat', values));
             }
           }}
         >
@@ -60,30 +63,36 @@ const CandidateProfileForm = ({
             <Form>
               <div className='container p-3 text-center'>
                 <div className='d-flex row justify-content-around '>
-                  <div className='col col-4'>
-                    <div className='row mt-5'>
-                      <div className={styles['avatar-title']}>Zdjęcie</div>
-                    </div>
-                    <div className='row top-50'>
-                      <button className={styles['avatar-btn']}>
-                        <FaPlus size='2.5em' color='#242424' />
-                      </button>
-                    </div>
-                    <div className='row'>
-                      <Image
+                  <div className='d-grid col col-4 align-self-center justify-items-center align-items-center text-center'>
+                    <div className={styles['avatar-title']}>Logo</div>
+                    <div className={styles.avatarContainer}>
+                      <img
+                        src={
+                          values?.image !== initialValues?.image &&
+                          values?.image instanceof File
+                            ? URL.createObjectURL(values?.image)
+                            : initialValues?.image
+                        }
                         style={{
-                          height: '300px',
-                          width: '300px',
-                          margin: '20px auto',
                           objectFit: 'cover',
+                          borderRadius: '50%',
+                          width: '100%',
+                          height: '100%',
                         }}
-                        src={initialValues.image}
-                        alt='User pic'
-                        roundedCircle
+                      />
+                      <label htmlFor='image'>
+                        <div className={styles.avatarBtn}>
+                          <FaPlus color='#fff' className={styles.avatarIcon} />
+                        </div>
+                      </label>
+                      <FileField
+                        name='image'
+                        type='file'
+                        accept='image/png, image/jpeg'
                       />
                     </div>
                   </div>
-                  <div className='col'>
+                  <div className='col col-8'>
                     <div className='row mt-4 justify-content-end'>
                       <div className='col col-md-5'>
                         <TextField label='Imię' name='first_name' type='text' />
@@ -147,7 +156,7 @@ const CandidateProfileForm = ({
         </Formik>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CandidateProfileForm
+export default CandidateProfileForm;

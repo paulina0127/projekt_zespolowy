@@ -9,7 +9,10 @@ import {
 } from './reducers/offerReducer';
 import { candidateReducer } from './reducers/candidateReducer';
 import { categoryListReducer } from './reducers/categoryReducer';
-import { companyListReducer } from './reducers/companyReducer';
+import {
+  companyListReducer,
+  companyDetailsReducer,
+} from './reducers/companyReducer';
 import { skillListReducer } from './reducers/skillReducer';
 import {
   userProfileDetailsReducer,
@@ -32,6 +35,7 @@ const reducer = combineReducers({
   offerDelete: offerDeleteReducer,
 
   companyList: companyListReducer,
+  companyDetails: companyDetailsReducer,
 
   categoryList: categoryListReducer,
   skillsList: skillListReducer,
