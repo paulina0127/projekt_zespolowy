@@ -1,11 +1,11 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-const ApplicationForm = ({initialValues, filesList}) => {
+const ApplicationForm = ({ initialValues, filesList }) => {
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={(values) => {
-        console.log(values)
+        console.log(values);
       }}
     >
       {({ values }) => (
@@ -23,7 +23,11 @@ const ApplicationForm = ({initialValues, filesList}) => {
               </option>
             ))}
           </Field>
-          <ErrorMessage component='div' name='selectedFiles' className='error mt-2 text-danger' />
+          <ErrorMessage
+            component='div'
+            name='selectedFiles'
+            className='error mt-2 text-danger'
+          />
           <button
             type='submit'
             className='btn btn-warning btn-block text-uppercase my-3 rounded-pill shadow-sm w-100'
@@ -33,7 +37,7 @@ const ApplicationForm = ({initialValues, filesList}) => {
         </Form>
       )}
     </Formik>
-  )
-}
+  );
+};
 
-export default ApplicationForm
+export default ApplicationForm;

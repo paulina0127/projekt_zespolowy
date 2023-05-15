@@ -1,7 +1,7 @@
 import { ErrorMessage, useField } from 'formik';
 import { useState } from 'react';
 
-const FileField = ({ label, accept, ...props }) => {
+const FileField = ({ label, accept, hidden, ...props }) => {
   const [field, meta] = useField(props);
   const [previewUrl, setPreviewUrl] = useState(null);
 
@@ -22,11 +22,11 @@ const FileField = ({ label, accept, ...props }) => {
       <input
         id={field.name}
         accept={accept}
-        className={`form-control rounded-pill border-2 shadow-sm px-4 ${
+        className={`form-control border-0 px-4 ${
           meta.touched && meta.error && 'is-invalid'
         }`}
         onChange={onChange}
-        hidden
+        hidden={hidden}
         {...props}
       />
       <ErrorMessage

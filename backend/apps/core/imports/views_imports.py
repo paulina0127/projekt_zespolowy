@@ -1,4 +1,5 @@
 # Imports for displaying files
+import mimetypes
 import os
 
 from django.conf import settings

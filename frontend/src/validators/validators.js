@@ -1,5 +1,5 @@
-import { string, object, array, ref, date } from 'yup'
-import { subDays } from 'date-fns'
+import { string, object, array, ref, date, mixed } from 'yup';
+import { subDays } from 'date-fns';
 
 export const validateResetPassword = object({
   email: string()
@@ -22,7 +22,10 @@ export const validateNewPassword = object({
     .matches(/[A-Z]/, 'Hasło musi zawierać co najmniej 1. wielką literę ')
     .required('Hasło jest obowiązkowe'),
   re_new_password: string()
-    .oneOf([ref('new_password'), null], 'Wprowadzone hasła różnią się od siebie.')
+    .oneOf(
+      [ref('new_password'), null],
+      'Wprowadzone hasła różnią się od siebie.'
+    )
     .required('Powtórz wprowadzone hasło'),
 })
 
@@ -73,22 +76,29 @@ export const validateCompanyProfile = object({
   location: object({
     street_address: string()
       .required('Pole ulica jest wymagane.')
-      .matches(/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9\s\-\/]+$/, 'Pole ulica może składać się tylko z liter, cyfr, spacji, myślnika i ukośnika.')
+      .matches(
+        /^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9\s\-\/]+$/,
+        'Pole ulica może składać się tylko z liter, cyfr, spacji, myślnika i ukośnika.'
+      )
       .max(255, 'Pole ulica może mieć maksymalnie 255 znaków.'),
     postal_code: string()
       .matches(/^\d{2}-\d{3}$/, 'Kod pocztowy powinien być w formacie XX-XXX.')
       .required('Kod pocztowy jest wymagany')
       .max(6, 'Kod pocztowy powinien być w formacie XX-XXX.'),
     city: string()
-      .matches(/^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]*$/, 'Miejscowość powinna składać się tylko z liter.')
+      .matches(
+        /^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]*$/,
+        'Miejscowość powinna składać się tylko z liter.'
+      )
       .required('Miejscowość jest wymagana')
       .max(255, 'Pole miejcowość może mieć maksymalnie 255 znaków.'),
   }),
-  website: string()
-    .matches(/^(ftp|http|https):\/\/[^ ']+$/, 'Niepoprawny format adresu strony internetowej.'),
-  description: string()
-    .required('Pole opis firmy jest obowiązkowe'),
-})
+  website: string().matches(
+    /^(ftp|http|https):\/\/[^ ']+$/,
+    'Niepoprawny format adresu strony internetowej.'
+  ),
+  description: string().required('Pole opis firmy jest obowiązkowe'),
+});
 
 export const validateCandidatePersonalInfo = object({
   pesel: string()
@@ -106,47 +116,56 @@ export const validateCandidatePersonalInfo = object({
   location: object({
     street_address: string()
       .required('Pole ulica jest wymagane.')
-      .matches(/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9\s\-\/]+$/, 'Pole ulica może składać się tylko z liter, cyfr, spacji, myślnika i ukośnika.')
+      .matches(
+        /^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9\s\-\/]+$/,
+        'Pole ulica może składać się tylko z liter, cyfr, spacji, myślnika i ukośnika.'
+      )
       .max(255, 'Pole ulica może mieć maksymalnie 255 znaków.'),
     postal_code: string()
       .matches(/^\d{2}-\d{3}$/, 'Kod pocztowy powinien być w formacie XX-XXX.')
       .required('Kod pocztowy jest wymagany')
       .max(6, 'Kod pocztowy powinien być w formacie XX-XXX.'),
     city: string()
-      .matches(/^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]*$/, 'Miejscowość powinna składać się tylko z liter.')
+      .matches(
+        /^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]*$/,
+        'Miejscowość powinna składać się tylko z liter.'
+      )
       .required('Miejscowość jest wymagana')
       .max(255, 'Pole miejcowość może mieć maksymalnie 255 znaków.'),
   }),
-})
+});
 
 export const validateOffer = object({
-  position: string()
-    .required('Pole stanowisko jest obowiązkowe'),
-  position_level: string()
-    .required('Pole poziom stanowiska jest obowiązkowe'),
-  salary: string()
-    .matches(/^\d+(\s*-\s*\d+)?$/, 'Wynagrodzenie powinno być w formie pojedynczej kwoty bądź widełek płacowych.'),
+  position: string().required('Pole stanowisko jest obowiązkowe'),
+  position_level: string().required('Pole poziom stanowiska jest obowiązkowe'),
+  salary: string().matches(
+    /^\d+(\s*-\s*\d+)?$/,
+    'Wynagrodzenie powinno być w formie pojedynczej kwoty bądź widełek płacowych.'
+  ),
   location: object({
     street_address: string()
       .required('Pole ulica jest wymagane.')
-      .matches(/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9\s\-\/]+$/, 'Pole ulica może składać się tylko z liter, cyfr, spacji, myślnika i ukośnika.')
+      .matches(
+        /^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9\s\-\/]+$/,
+        'Pole ulica może składać się tylko z liter, cyfr, spacji, myślnika i ukośnika.'
+      )
       .max(255, 'Pole ulica może mieć maksymalnie 255 znaków.'),
     postal_code: string()
       .matches(/^\d{2}-\d{3}$/, 'Kod pocztowy powinien być w formacie XX-XXX.')
       .required('Kod pocztowy jest wymagany')
       .max(6, 'Kod pocztowy powinien być w formacie XX-XXX.'),
     city: string()
-      .matches(/^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]*$/, 'Miejscowość powinna składać się tylko z liter.')
+      .matches(
+        /^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]*$/,
+        'Miejscowość powinna składać się tylko z liter.'
+      )
       .required('Miejscowość jest wymagana')
       .max(255, 'Pole miejcowość może mieć maksymalnie 255 znaków.'),
   }),
-  working_mode: array()
-    .min(1, 'Wybierz co najmniej jedną opcję'),
-  working_time: array()
-    .min(1, 'Wybierz co najmniej jedną opcję'),
-  contract_type: array()
-    .min(1, 'Wybierz co najmniej jedną opcję'),
-  })
+  working_mode: array().min(1, 'Wybierz co najmniej jedną opcję'),
+  working_time: array().min(1, 'Wybierz co najmniej jedną opcję'),
+  contract_type: array().min(1, 'Wybierz co najmniej jedną opcję'),
+});
 
 export const validateNewUser = object({
   email: string()
@@ -160,7 +179,7 @@ export const validateNewUser = object({
   re_password: string()
     .oneOf([ref('password'), null], 'Wprowadzone hasła różnią się od siebie.')
     .required('Powtórz wprowadzone hasło'),
-})
+});
 
 export const validateExperience = object({
   position: string()
@@ -171,28 +190,44 @@ export const validateExperience = object({
     .max(255, 'Nazwa firmy może mieć maksymalnie 255 znaków.'),
   location: object({
     street_address: string()
-      .matches(/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9\s\-\/]+$/, 'Pole ulica może składać się tylko z liter, cyfr, spacji, myślnika i ukośnika.')
+      .matches(
+        /^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9\s\-\/]+$/,
+        'Pole ulica może składać się tylko z liter, cyfr, spacji, myślnika i ukośnika.'
+      )
       .max(255, 'Pole ulica może mieć maksymalnie 255 znaków.'),
     postal_code: string()
       .matches(/^\d{2}-\d{3}$/, 'Kod pocztowy powinien być w formacie XX-XXX.')
       .max(6, 'Kod pocztowy powinien być w formacie XX-XXX.'),
     city: string()
-      .matches(/^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]*$/, 'Miejscowość powinna składać się tylko z liter.')
+      .matches(
+        /^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]*$/,
+        'Miejscowość powinna składać się tylko z liter.'
+      )
       .max(255, 'Pole miejcowość może mieć maksymalnie 255 znaków.'),
   }),
   start_date: date()
-    .max(subDays(new Date(), 1), 'Data rozpoczęcia nie może być późniejsza wczorajszy dzień')
+    .max(
+      subDays(new Date(), 1),
+      'Data rozpoczęcia nie może być późniejsza wczorajszy dzień'
+    )
     .required('Data rozpoczęcia jest wymagana'),
   end_date: date()
-    .max(subDays(new Date(), 1), 'Data rozpoczęcia nie może być późniejsza wczorajszy dzień')
-    .test('end_date', 'Data zakończenia nie może być wcześniejsza niż data rozpoczęcia', function (value) {
-      const startDate = this.parent.start_date
-      if (startDate && value) {
-        return value >= startDate
+    .max(
+      subDays(new Date(), 1),
+      'Data rozpoczęcia nie może być późniejsza wczorajszy dzień'
+    )
+    .test(
+      'end_date',
+      'Data zakończenia nie może być wcześniejsza niż data rozpoczęcia',
+      function (value) {
+        const startDate = this.parent.start_date;
+        if (startDate && value) {
+          return value >= startDate;
+        }
+        return true;
       }
-      return true
-    }),
-})
+    ),
+});
 
 export const validateEducation = object({
   institute: string()
@@ -202,57 +237,80 @@ export const validateEducation = object({
     .required('Pole poziom wykształcenia jest obowiązkowe')
     .max(255, 'Poziom wykształcenia może mieć maksymalnie 255 znaków.'),
   start_date: date()
-    .max(subDays(new Date(), 1), 'Data rozpoczęcia nie może być późniejsza wczorajszy dzień')
+    .max(
+      subDays(new Date(), 1),
+      'Data rozpoczęcia nie może być późniejsza wczorajszy dzień'
+    )
     .required('Data rozpoczęcia jest wymagana'),
   end_date: date()
-    .max(subDays(new Date(), 1), 'Data rozpoczęcia nie może być późniejsza wczorajszy dzień')
-    .test('end_date', 'Data zakończenia nie może być wcześniejsza niż data rozpoczęcia', function (value) {
-      const startDate = this.parent.start_date
-      if (startDate && value) {
-        return value >= startDate
+    .max(
+      subDays(new Date(), 1),
+      'Data rozpoczęcia nie może być późniejsza wczorajszy dzień'
+    )
+    .test(
+      'end_date',
+      'Data zakończenia nie może być wcześniejsza niż data rozpoczęcia',
+      function (value) {
+        const startDate = this.parent.start_date;
+        if (startDate && value) {
+          return value >= startDate;
+        }
+        return true;
       }
-      return true
-    }),
-})
+    ),
+});
 
 export const validateSkill = object({
-  type: string()
-    .required('Pole rodzaj jest obowiązkowe'),
-  name: string()
-    .max(255, 'Nazwa może mieć maksymalnie 255 znaków.'),
-  skill: string()
-    .when('name', (name, schema) => {
-      if(name === '')
-        return schema.required('Pole nazwa jest obowiązkowe')
-      return schema
-    }),
-  level: string()
-    .max(255, 'Poziom umiejętności może mieć maksymalnie 255 znaków.'),
-})
+  type: string().required('Pole rodzaj jest obowiązkowe'),
+  name: string().max(255, 'Nazwa może mieć maksymalnie 255 znaków.'),
+  skill: string().when('name', (name, schema) => {
+    if (name === '') return schema.required('Pole nazwa jest obowiązkowe');
+    return schema;
+  }),
+  level: string().max(
+    255,
+    'Poziom umiejętności może mieć maksymalnie 255 znaków.'
+  ),
+});
 
 export const validateCourse = object({
   name: string()
     .max(255, 'Nazwa może mieć maksymalnie 255 znaków.')
     .required('Pole nazwa jest obowiązkowe'),
   start_date: date()
-    .max(subDays(new Date(), 1), 'Data rozpoczęcia nie może być późniejsza wczorajszy dzień')
+    .max(
+      subDays(new Date(), 1),
+      'Data rozpoczęcia nie może być późniejsza wczorajszy dzień'
+    )
     .required('Data rozpoczęcia jest wymagana'),
   end_date: date()
-    .max(subDays(new Date(), 1), 'Data zakończenia nie może być późniejsza wczorajszy dzień')
+    .max(
+      subDays(new Date(), 1),
+      'Data zakończenia nie może być późniejsza wczorajszy dzień'
+    )
     .required('Data zakończenia jest wymagana')
-    .test('end_date', 'Data zakończenia nie może być wcześniejsza niż data rozpoczęcia', function (value) {
-      const startDate = this.parent.start_date
-      if (startDate && value) {
-        return value >= startDate
+    .test(
+      'end_date',
+      'Data zakończenia nie może być wcześniejsza niż data rozpoczęcia',
+      function (value) {
+        const startDate = this.parent.start_date;
+        if (startDate && value) {
+          return value >= startDate;
+        }
+        return true;
       }
-      return true
-    }),
-})
+    ),
+});
 
 export const validateLink = object({
-  type: string()
-    .required('Rodzaj jest wymagany'),
+  type: string().required('Rodzaj jest wymagany'),
   url: string()
     .url('Podaj poprawny adres URL')
     .required('Adres URL jest wymagany'),
-})
+});
+
+export const validateFile = object({
+  name: string().required('Nazwa jest obowiązkowa'),
+  type: string().required('Rodzaj pliku jest obowiązkowy'),
+  file: mixed().required('Wybierz plik'),
+});
