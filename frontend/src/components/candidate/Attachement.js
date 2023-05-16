@@ -1,27 +1,27 @@
-import { FaFile, FaPlus } from 'react-icons/fa';
-import UserPanelLayout from '../../hocs/UserPanelLayout';
-import styles from './Attachement.module.css';
-import { Modal, Button } from 'react-bootstrap';
-import { useState } from 'react';
-import { validateFile } from '../../validators/validators';
-import { Formik, Form } from 'formik';
-import { TextField, FileField, SelectField } from '../formHelpers';
-import { createFile } from '../../actions/candidateActions';
-import { useDispatch, useSelector } from 'react-redux';
-import classNames from 'classnames';
-import styles2 from '../offers/Offer.module.css';
-import { Link } from 'react-router-dom';
+import { FaFile, FaPlus } from 'react-icons/fa'
+import UserPanelLayout from '../../hocs/UserPanelLayout'
+import styles from './Attachement.module.css'
+import { Modal, Button } from 'react-bootstrap'
+import { useState } from 'react'
+import { validateFile } from '../../validators/validators'
+import { Formik, Form } from 'formik'
+import { TextField, FileField, SelectField } from '../formHelpers'
+import { createFile } from '../../actions/candidateActions'
+import { useDispatch, useSelector } from 'react-redux'
+import classNames from 'classnames'
+import styles2 from '../offers/Offer.module.css'
+import { Link } from 'react-router-dom'
 
 const Attachement = () => {
-  const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch()
+  const [showModal, setShowModal] = useState(false)
 
-  const files = useSelector((state) => state.userProfileDetails.filesList);
-  const profile = useSelector((state) => state.auth.user.profile.id);
+  const files = useSelector((state) => state.userProfileDetails.filesList)
+  const profile = useSelector((state) => state.auth.user.profile.id)
 
   const handleShowModal = () => {
-    setShowModal(!showModal);
-  };
+    setShowModal(!showModal)
+  }
 
   return (
     <UserPanelLayout>
@@ -43,8 +43,8 @@ const Attachement = () => {
             }}
             validationSchema={validateFile}
             onSubmit={(values, { resetForm }) => {
-              const { name, type, path } = values;
-              dispatch(createFile(profile, values));
+              const { name, type, path } = values
+              dispatch(createFile(profile, values))
               // resetForm({ values: '' });
             }}
           >
@@ -85,20 +85,26 @@ const Attachement = () => {
       </Modal>
 
       <div className='container'>
-        <div className='row'>
-          <h2 className={styles['doc-h2']}>Dokumenty</h2>
-          <button
-            className={classNames('align-self-end', styles['doc-btn'])}
-            onClick={handleShowModal}
-          >
-            <FaPlus size='3rem' color='#242424' />
-          </button>
+        <div className='row mt-5 mb-5 align-items-center'>
+          <div className='col col-11 mt-3'>
+            <h2 className={styles['doc-h2']}>Dokumenty</h2>
+          </div>
+          <div className='col col-1'>
+            <button
+              className={classNames('align-self-end', styles['doc-btn'])}
+              onClick={handleShowModal}
+            >
+              <FaPlus size='3rem' color='#242424' />
+            </button>
+          </div>
         </div>
-        <div className='row d-flex flex-column'>
-          {files?.results.map((file) => (
-            <li className={styles2['job-card']}>
-              <div className={styles2['job-card__info']}>
-                <div
+        <div className='container px-4 py-5 bg-white border shadow rounded my-3'>
+          <div className='row d-flex  justify-content-between'>
+            {/*
+              {files?.results.map((file) => (
+                <li className={styles2['job-card']}>
+                  <div className={styles2['job-card__info']}>
+                    <div
                   className='d-md-flex align-items-center gap-2'
                   key={file.id}
                 >
@@ -113,15 +119,40 @@ const Attachement = () => {
                         Wyświetl
                       </button>
                     </Link>
+                  </div> 
+                  </div>
+                  </div>
+                </li>
+              ))}
+              */}
+            <li className={styles2['job-card']}>
+              <div classNames='col'>
+                <div className={styles2['job-card__info']}>
+                  <div className='row d-flex align-items-center'>
+                    <div className='col'>
+                      <div className='row'>
+                        <p>Moje CV</p>
+                      </div>
+                      <div className='row'>
+                        <div className={styles['doc-p']}>Rodzaj: CV</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+              <div className='col col-1'>
+                <Link>
+                  <button type='button' className={styles['offer-btn']}>
+                    Wyświetl
+                  </button>
+                </Link>
+              </div>
             </li>
-          ))}
+          </div>
         </div>
       </div>
     </UserPanelLayout>
-  );
-};
+  )
+}
 
-export default Attachement;
+export default Attachement
