@@ -23,7 +23,6 @@ const LinkForm = ({ type, link, label, handleCloseModal }) => {
       initialValues={initialValues}
       validationSchema={validateLink}
       onSubmit={(values) => {
-        console.log(values)
         if (type === 'update') {
           dispatch(updateLink(profile, link.id, values))
         } else if (type === 'create') {

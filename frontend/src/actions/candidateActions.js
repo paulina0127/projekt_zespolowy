@@ -422,7 +422,6 @@ export const createFile = (profile, values) => async (dispatch) => {
       path: values.path,
     };
 
-    console.log(body);
     const { data } = await axios.post(
       `/candidates/${profile}/files`,
       body,
@@ -443,3 +442,36 @@ export const createFile = (profile, values) => async (dispatch) => {
     });
   }
 };
+
+export const updateFile = (profile, id, values) => async (dispatch) => {
+  const config = { headers: getAuthHeadersMP() };
+  try {
+    dispatch({ type: CANDIDATE_COMPONENT_REQUEST });
+
+    const body = {
+      name: values.name,
+      type: values.type,
+      path: values.path,
+    };
+
+    const { data } = await axios.put(
+      `/candidates/${profile}/files${id}`,
+      body,
+      config
+    );
+    dispatch({
+      type: CANDIDATE_COMPONENT_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error.response.data);
+    dispatch({
+      type: CANDIDATE_COMPONENT_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+

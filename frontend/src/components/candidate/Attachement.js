@@ -1,127 +1,142 @@
-import { FaFile, FaPlus } from 'react-icons/fa';
-import UserPanelLayout from '../../hocs/UserPanelLayout';
-import styles from './Attachement.module.css';
-import { Modal, Button } from 'react-bootstrap';
-import { useState } from 'react';
-import { validateFile } from '../../validators/validators';
-import { Formik, Form } from 'formik';
-import { TextField, FileField, SelectField } from '../formHelpers';
-import { createFile } from '../../actions/candidateActions';
-import { useDispatch, useSelector } from 'react-redux';
-import classNames from 'classnames';
-import styles2 from '../offers/Offer.module.css';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { MdEdit, MdDelete, MdContentPasteSearch } from 'react-icons/md'
+import { FaPlus } from 'react-icons/fa'
+import { MyModal, Loader, Message } from '../basics'
+import { getCandidateFiles } from '../../actions/userActions'
+import { deleteCandidateComponent } from '../../actions/candidateActions'
+import { USER_DETAILS_PROFILE_RESET } from '../../constants/userConst'
+import UserPanelLayout from '../../hocs/UserPanelLayout'
+import AttachementForm from './AttachementForm'
+import CandidateInfoDelete from './CandidateInfoDelete'
+import styles from './CandidateInfo.module.css'
 
 const Attachement = () => {
-  const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch()
+  const [showAddModal, setShowAddModal] = useState(false)
+  const [editFileIndex, setEditFileIndex] = useState(null)
+  const [deleteFileIndex, setDeleteFileIndex] = useState(null)
 
-  const files = useSelector((state) => state.userProfileDetails.filesList);
-  const profile = useSelector((state) => state.auth.user.profile.id);
+  const files = useSelector((state) => state.userProfileDetails.filesList)
+  const profile = useSelector((state) => state.auth.user.profile.id)
 
-  const handleShowModal = () => {
-    setShowModal(!showModal);
-  };
+  const candidateAction = useSelector(state => state.candidate)
+  const { error, success, loading } = candidateAction
+
+  const handleShowAddModal = () => {
+    setShowAddModal(true)
+  }
+  const handleCloseAddModal = () => {
+    setShowAddModal(false)
+  }
+  const handleShowEditModal = (index) => {
+    setEditFileIndex(index)
+  }
+  const handleCloseEditModal = () => {
+    setEditFileIndex(null)
+  }
+  const handleShowDeleteModal = (index) => {
+    setDeleteFileIndex(index)
+  }
+  const handleCloseDeleteModal = () => {
+    setDeleteFileIndex(null)
+  }
+
+  const handleDeleteFile = (id) => {
+    dispatch(deleteCandidateComponent(profile, id, 'files'))
+    setDeleteFileIndex(null)
+  }
+
+  useEffect(() => {
+    dispatch(getCandidateFiles(profile))
+    return () => {
+      dispatch({ type: USER_DETAILS_PROFILE_RESET })
+    }
+  }, [dispatch, success])
 
   return (
     <UserPanelLayout>
-      <Modal
-        show={showModal}
-        size='lg'
-        aria-labelledby='contained-modal-title-vcenter'
-        centered
-      >
-        <Modal.Header className='bg-warning'>
-          <Modal.Title>Dodaj nowy plik</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Formik
-            initialValues={{
-              name: '',
-              type: '',
-              path: null,
-            }}
-            validationSchema={validateFile}
-            onSubmit={(values, { resetForm }) => {
-              const { name, type, path } = values;
-              dispatch(createFile(profile, values));
-              // resetForm({ values: '' });
-            }}
-          >
-            {({ values }) => (
-              <Form id='form'>
-                <TextField label='Nazwa' name='name' type='text' />
-                <SelectField
-                  label='Rodzaj pliku*'
-                  name='type'
-                  options={[
-                    { label: 'CV', value: 'CV' },
-                    { label: 'Certyfikat', value: 'Certyfikat' },
-                    { label: 'Referencje', value: 'Referencje' },
-                    { label: 'Dyplom', value: 'Dyplom' },
-                    { label: 'List motywacyjny', value: 'List motywacyjny' },
-                    { label: 'Inny', value: 'Inny' },
-                  ]}
-                  defaultOption='Wybierz rodzaj pliku'
-                />
-                <FileField
-                  name='path'
-                  type='file'
-                  accept='.pdf, .doc, .docx, .jpg, .png'
-                  hidden={false}
-                />
-              </Form>
-            )}
-          </Formik>
-        </Modal.Body>
-        <Modal.Footer className='justify-content-center'>
-          <Button onClick={handleShowModal} variant='secondary'>
-            Anuluj
-          </Button>
-          <Button type='submit' form='form' variant='warning'>
-            Zapisz
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-      <div className='container'>
-        <div className='row'>
-          <h2 className={styles['doc-h2']}>Dokumenty</h2>
-          <button
-            className={classNames('align-self-end', styles['doc-btn'])}
-            onClick={handleShowModal}
-          >
-            <FaPlus size='3rem' color='#242424' />
-          </button>
-        </div>
-        <div className='row d-flex flex-column'>
-          {files?.results.map((file) => (
-            <li className={styles2['job-card']}>
-              <div className={styles2['job-card__info']}>
-                <div
-                  className='d-md-flex align-items-center gap-2'
-                  key={file.id}
-                >
-                  <div>{file.name}</div>
-                  <div>{file.type}</div>
-                  <div>
-                    <Link to={file.path}>
-                      <button
-                        type='button'
-                        className={`btn btn-secondary mx-2`}
-                      >
-                        Wyświetl
-                      </button>
-                    </Link>
-                  </div>
-                </div>
+      <div className='container mt-3'>
+        {loading && <Loader />}
+        {error && <Message variant='danger'>{error}</Message>}
+        <div className={styles['table-wrapper']}>
+          <div className={styles['table-title']}>
+            <div className='row'>
+              <div className='col-sm-6 col-md-6'>
+                <h2>Moje dokumenty</h2>
               </div>
-            </li>
-          ))}
-        </div>
+              <div className='col-sm-6'>
+                <button className={styles['doc-btn']} onClick={handleShowAddModal}>
+                  <FaPlus size='2rem' color='#242424' />
+                </button>
+              </div>
+            </div>
+          </div>
+          <table className='table table-striped table-hover'>
+            <thead>
+              <tr>
+                <th>Rodzaj</th>
+                <th>Nazwa</th>
+                <th>Akcje</th>
+              </tr>
+            </thead>
+            <tbody>
+              {!loading && files?.results.map((file, index) => 
+              <tr key={file.id}>
+                <td>{file.type}</td>
+                <td>{file.name}</td>
+                <td>
+                  <Link to={file.path}>
+                    <MdContentPasteSearch />
+                  </Link>
+                  <span onClick={() => handleShowEditModal(index)}>
+                    <MdEdit color='#00BE75'/>
+                  </span>
+                  <span onClick={() => handleShowDeleteModal(index)}>
+                    <MdDelete color='#DA4753'/>
+                  </span>
+                </td>
+                {editFileIndex === index && (
+                <MyModal
+                  showModal={true}
+                  title='Edytowanie pliku'
+                  handleCloseModal={handleCloseEditModal}
+                >
+                  <AttachementForm
+                    file={file}
+                    type='update'
+                    handleCloseModal={handleCloseEditModal}
+                    label='Zapisz'
+                    profile={profile}
+                  />
+                </MyModal>
+                )}
+                {deleteFileIndex === index && (
+                <MyModal
+                  showModal={true}
+                  title='Usuwanie pliku'
+                  danger={true}
+                  handleCloseModal={handleCloseEditModal}
+                >
+                   <CandidateInfoDelete
+                    name='ten plik'
+                    handleCloseModal={handleCloseDeleteModal}
+                    id={file.id}
+                    handleDelete={handleDeleteFile}
+                   />
+                </MyModal>
+                )}
+              </tr>
+              )}
+          </tbody>
+        </table>
       </div>
+    </div>
+    {showAddModal &&  <MyModal showModal={showAddModal}  title='Nowy plik'>
+      <AttachementForm type='create' handleCloseModal={handleCloseAddModal} label='Dodaj' profile={profile}/>
+      </MyModal> }
     </UserPanelLayout>
-  );
-};
-
-export default Attachement;
+  )
+}
+export default Attachement

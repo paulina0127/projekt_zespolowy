@@ -25,6 +25,15 @@
   float: right;
 }
 
+.doc-btn {
+  height: 3rem;
+  width: 3rem;
+  float: right;
+  background-color: var(--yellow);
+  border-radius: 1rem;
+  border: none;
+}
+
 td svg {
   font-size: 24px;
   margin: 0 5px;
