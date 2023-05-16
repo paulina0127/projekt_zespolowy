@@ -72,6 +72,7 @@ DOMAIN = "localhost:3000"
 SITE_NAME = "HireMeNow"
 
 DJOSER = {
+    "TOKEN_MODEL": None,
     "LOGIN_FIELD": "email",
     "USER_CREATE_PASSWORD_RETYPE": True,
     "USERNAME_CHANGED_EMAIL_CONFIRMATION": True,
