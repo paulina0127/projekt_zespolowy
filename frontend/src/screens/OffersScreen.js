@@ -23,6 +23,7 @@ const OffersScreen = () => {
 
   const dispatch = useDispatch()
 
+
   useEffect(() => {
     const filters = new URLSearchParams(window.location.search)
     dispatch(listFilteredOffers(Object.fromEntries(filters.entries())))

@@ -13,3 +13,18 @@
   line-height: 0;
   margin-left: 10px;
 }
+
+.yellow-lg-btn {
+  background-color: var(--yellow);
+  border: none;
+  border-radius: 50rem;
+  line-height: 1.5;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  padding: 0.375rem 7rem 0.375rem 7rem;
+  width: 100%;
+}
+
+.yellow-lg-btn:hover {
+  background-color: var(--dark-yellow);
+  color: #ffffff;
+}

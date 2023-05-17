@@ -89,6 +89,7 @@ const CandidateProfileForm = ({
                         name='image'
                         type='file'
                         accept='image/png, image/jpeg'
+                        hidden={true}
                       />
                     </div>
                   </div>
