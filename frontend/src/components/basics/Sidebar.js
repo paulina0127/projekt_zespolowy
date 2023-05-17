@@ -90,12 +90,14 @@ const Sidebar = ({ logout, user }) => {
         icon={<MdWorkHistory />}
         label='Moje aplikacje'
       />
+      {profile !== null && 
       <NavLinkItem
         to='/user-panel/dokumenty'
         pathname={pathname}
         icon={<FaRegFileAlt />}
         label='Dokumenty'
       />
+      }
     </>
   );
 

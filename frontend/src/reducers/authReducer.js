@@ -108,7 +108,7 @@ export const authReducer = (state = {}, action) => {
         ...state,
         loading: false,
         error: action.payload,
-      }
+      } 
 
     case ACTIVATION_FAIL:
     case PASSWORD_RESET_FAIL:

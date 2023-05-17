@@ -422,11 +422,8 @@ export const createFile = (profile, values) => async (dispatch) => {
       path: values.path,
     };
 
-    const { data } = await axios.post(
-      `/candidates/${profile}/files`,
-      body,
-      config
-    );
+    const { data } = await axios.post(`/candidates/${profile}/files`, body, config);
+    
     dispatch({
       type: CANDIDATE_COMPONENT_SUCCESS,
       payload: data,
@@ -448,17 +445,44 @@ export const updateFile = (profile, id, values) => async (dispatch) => {
   try {
     dispatch({ type: CANDIDATE_COMPONENT_REQUEST });
 
-    const body = {
-      name: values.name,
+    const body = JSON.stringify({
       type: values.type,
-      path: values.path,
-    };
+      url: values.url,
+    });
 
     const { data } = await axios.put(
       `/candidates/${profile}/files${id}`,
       body,
       config
     );
+    dispatch({
+      type: CANDIDATE_COMPONENT_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error.response.data);
+    dispatch({
+      type: CANDIDATE_COMPONENT_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const createApplication = (values) => async (dispatch) => {
+  const config = { headers: getAuthHeaders() };
+  try {
+    dispatch({ type: CANDIDATE_COMPONENT_REQUEST });
+
+    const body = JSON.stringify({
+      offer: values.offer,
+      type: values.type,
+      ...(values.attachments && { attachments: values.attachments }),
+    });
+
+    const { data } = await axios.post(`/applications`, body, config);
     dispatch({
       type: CANDIDATE_COMPONENT_SUCCESS,
       payload: data,

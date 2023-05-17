@@ -8,7 +8,7 @@ import { getCandidateFiles } from '../../actions/userActions'
 import { deleteCandidateComponent } from '../../actions/candidateActions'
 import { USER_DETAILS_PROFILE_RESET } from '../../constants/userConst'
 import UserPanelLayout from '../../hocs/UserPanelLayout'
-import AttachementForm from './AttachementForm'
+import AttachmentForm from './AttachmentForm'
 import CandidateInfoDelete from './CandidateInfoDelete'
 import styles from './CandidateInfo.module.css'
 
@@ -103,7 +103,7 @@ const Attachement = () => {
                   title='Edytowanie pliku'
                   handleCloseModal={handleCloseEditModal}
                 >
-                  <AttachementForm
+                  <AttachmentForm
                     file={file}
                     type='update'
                     handleCloseModal={handleCloseEditModal}
@@ -134,7 +134,7 @@ const Attachement = () => {
       </div>
     </div>
     {showAddModal &&  <MyModal showModal={showAddModal}  title='Nowy plik'>
-      <AttachementForm type='create' handleCloseModal={handleCloseAddModal} label='Dodaj' profile={profile}/>
+      <AttachmentForm type='create' handleCloseModal={handleCloseAddModal} label='Dodaj' profile={profile}/>
       </MyModal> }
     </UserPanelLayout>
   )

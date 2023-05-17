@@ -14,7 +14,7 @@ import {
 } from './screens'
 import { AccountManagement } from './components/accountSettings'
 import {
-  Attachement,
+  Attachment,
   CandidateCourse,
   CandidateProfile,
   CandidateEducation,
@@ -75,7 +75,7 @@ const App = () => {
           <Route path='/user-panel/linki' element={<CandidateLinks />} />
 
           <Route path='/user-panel/moje-oferty' element={<CompanyOffers />} />
-          <Route path='/user-panel/dokumenty' element={<Attachement />} />
+          <Route path='/user-panel/dokumenty' element={<Attachment />} />
           <Route
             path='/user-panel/aplikacje'
             element={<ReceivedApplication />}

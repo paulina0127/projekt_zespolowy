@@ -1,5 +1,5 @@
 import ApplicationForm from './ApplicationForm'
-import Attachement from './Attachement'
+import Attachment from './Attachment'
 import CandidateCourse from './CandidateCourse'
 import CandidateEducation from './CandidateEducation'
 import CandidateExperience from './CandidateExperience'
@@ -14,10 +14,11 @@ import CandidateSkill from './CandidateSkill'
 import ExperienceForm from './ExperienceForm'
 import NewApplication from './NewApplication'
 import CandidateApplications from './CandidateApplications'
+import SuccessApplicationModal from './SuccessApplicationModal'
 
 export {
   ApplicationForm,
-  Attachement,
+  Attachment,
   CandidateCourse,
   CandidateEducation,
   CandidateExperience,
@@ -32,4 +33,5 @@ export {
   ExperienceForm,
   NewApplication,
   CandidateApplications,
+  SuccessApplicationModal
 }

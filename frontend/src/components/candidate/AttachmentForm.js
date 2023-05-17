@@ -4,7 +4,7 @@ import { validateFile } from '../../validators/validators';
 import { TextField, FileField, SelectField } from '../formHelpers';
 import { createFile, updateFile } from '../../actions/candidateActions';
 
-const AttachementForm = ({ type, file, label, handleCloseModal, profile }) => {
+const AttachmentForm = ({ type, file, label, handleCloseModal, profile }) => {
   const dispatch = useDispatch()
 
   const initialValues = type === 'create' ? {
@@ -74,4 +74,4 @@ const AttachementForm = ({ type, file, label, handleCloseModal, profile }) => {
   )
 }
 
-export default AttachementForm
+export default AttachmentForm

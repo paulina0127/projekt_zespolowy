@@ -1,4 +1,5 @@
 import CategoryCheckbox from './CategoryCheckbox';
+import FileCheckbox from './FileCheckbox';
 import { CategorySelect } from './CategorySelect';
 import { CheckboxGroup } from './CheckboxGroup';
 import MyDatePicker from './MyDatePicker';
@@ -18,4 +19,6 @@ export {
   TextArea,
   TextField,
   FileField,
+  FileCheckbox,
 };
+

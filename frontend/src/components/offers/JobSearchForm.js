@@ -9,7 +9,6 @@ import { DropdownButton } from 'react-bootstrap'
 
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io'
 import { SearchInput, CategoryCheckbox } from '../formHelpers'
-import { Loader } from '../basics'
 import AdvancedFilters from './AdvancedFilters'
 import styles from './Offer.module.css'
 
@@ -124,7 +123,7 @@ const JobSearchForm = () => {
     return () => {
       dispatch({ type: OFFER_FILTERED_LIST_CLEAR })
     }
-  }, [dispatch, filters, navigate])
+  }, [filters, navigate])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -134,7 +133,7 @@ const JobSearchForm = () => {
   return (
     <>
       {Object.keys(categories).length === 0 ? (
-        <Loader />
+        ''
       ) : (
         <div className='container px-4 py-5 bg-white border shadow rounded my-3'>
           <form onSubmit={handleSubmit}>

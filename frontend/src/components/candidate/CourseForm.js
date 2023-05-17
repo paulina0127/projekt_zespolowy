@@ -53,7 +53,7 @@ const CourseForm = ({ type, course, label, handleCloseModal }) => {
                 label: file.name,
                 value: String(file.id),
               })) : []}
-              defaultOption='Wybierz referencję'
+              defaultOption='Wybierz certyfikat'
               value={type === 'update' ? course.certificate : ''}
             />
           </Col>

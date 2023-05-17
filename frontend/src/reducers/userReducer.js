@@ -52,7 +52,7 @@ export const userProfileDetailsReducer = (state = {}, action) => {
     case USER_SKILL_REQUEST:
       return { ...state, loading: true }
     case USER_DETAILS_PROFILE_SUCCESS:
-      return {loading: false, user: action.payload }
+      return {...state, loading: false, user: action.payload }
     case USER_COURSE_SUCCESS:
       return {loading: false, courseList: action.payload }
     case USER_EXPERIENCE_SUCCESS:
