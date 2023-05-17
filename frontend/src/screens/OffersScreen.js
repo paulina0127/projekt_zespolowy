@@ -1,58 +1,64 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams } from 'react-router-dom';
-import Pagination from 'react-bootstrap/Pagination';
-import { listFilteredOffers } from "../actions/offerActions";
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import Pagination from 'react-bootstrap/Pagination'
+import { listFilteredOffers } from '../actions/offerActions'
 
-import { Offer, JobSearchForm} from '../components/offers';
+import { Offer, JobSearchForm } from '../components/offers'
 import { Loader, Message } from '../components/basics'
 
 const OffersScreen = () => {
-  const { page = 1 } = useParams(); 
-  const offerList = useSelector(state => state.offerList);
-  const { offers, loading, length, error } = offerList;
+  const { page = 1 } = useParams()
+  const offerList = useSelector((state) => state.offerList)
+  const { offers, loading, length, error } = offerList
 
-  const perPage = 5; // number of offers to display per page
-  const start = (page - 1) * perPage; // calculate the start index of the current page
-  const end = start + perPage; // calculate 
+  const perPage = 5 // number of offers to display per page
+  const start = (page - 1) * perPage // calculate the start index of the current page
+  const end = start + perPage // calculate
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    const filters = new URLSearchParams(window.location.search);
-    dispatch(listFilteredOffers(Object.fromEntries(filters.entries())));
-  }, []);
+    const filters = new URLSearchParams(window.location.search)
+    dispatch(listFilteredOffers(Object.fromEntries(filters.entries())))
+  }, [])
 
   return (
     <>
-      <JobSearchForm page={page} />
-      <div className="container justify-content-center px-4 py-5 bg-white border shadow rounded my-3">
-        <h1 className='mt-2 mb-5'>Znalezione oferty pracy: {length}</h1>
-        { loading ? <Loader />
-          : error ? <Message variant='danger'>{error}</Message>
-          : length === 0 ? <Message variant='danger'>Brak wyników dla podanych filtrów</Message>
-          :
-          <ul className="col-12">
-            {offers
-              .slice(start, end)
-              .map(offer => <Offer key={offer.id} offer={offer}/>
-            )}
-          </ul>
-        }
-        <div className="d-flex justify-content-center">
-          <Pagination className="mt-4">
-            <Pagination.Prev disabled={page <= 1} />
-            {Array.from({ length: Math.ceil(length / perPage) }, (_, i) => (
-              <Pagination.Item key={i + 1} active={i + 1 === Number(page)} >
-                {i + 1}
-              </Pagination.Item>
-            ))}
-            <Pagination.Next disabled={page >= Math.ceil(length / perPage)} />
-          </Pagination>
+      <div style={{ minHeight: 'calc(100vh - 200px - 65px)' }}>
+        <JobSearchForm page={page} />
+        <div className='container justify-content-center px-4 py-5 bg-white border shadow rounded my-3'>
+          <h1 className='mt-2 mb-5'>Znalezione oferty pracy: {length}</h1>
+          {loading ? (
+            <Loader />
+          ) : error ? (
+            <Message variant='danger'>{error}</Message>
+          ) : length === 0 ? (
+            <Message variant='danger'>
+              Brak wyników dla podanych filtrów
+            </Message>
+          ) : (
+            <ul className='col-12'>
+              {offers.slice(start, end).map((offer) => (
+                <Offer key={offer.id} offer={offer} />
+              ))}
+            </ul>
+          )}
+          <div className='d-flex justify-content-center'>
+            <Pagination className='mt-4'>
+              <Pagination.Prev disabled={page <= 1} />
+              {Array.from({ length: Math.ceil(length / perPage) }, (_, i) => (
+                <Pagination.Item key={i + 1} active={i + 1 === Number(page)}>
+                  {i + 1}
+                </Pagination.Item>
+              ))}
+              <Pagination.Next disabled={page >= Math.ceil(length / perPage)} />
+            </Pagination>
+          </div>
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default OffersScreen;
+export default OffersScreen
