@@ -43,7 +43,7 @@ const ApplicationForm = ({ initialValues, filesList, handleCloseModal, applyMeth
     >
       {({ values }) => (
       <Form>
-        {!isAttachment && <Message variant='danger'>Wybierz co najmniej jeden załącznik przy aplikowaniu CV</Message>}
+        {!isAttachment && <Message variant='danger'>Wybierz co najmniej 1. załącznik przy aplikowaniu CV</Message>}
         <h4>Załączniki</h4>
         <DropdownButton variant='warning' title='Wybierz pliki'>
           {filesList.results.map((file) => (

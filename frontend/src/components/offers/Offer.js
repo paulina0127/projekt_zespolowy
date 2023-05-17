@@ -49,7 +49,6 @@ const Offer = ({ offer }) => {
           <button className='btn mx-2'>Szczegóły</button>
         </Link>
         <button
-          className=''
           onClick={handleApplyClick}
           style={{ backgroundColor: 'var(--yellow)' }}
         >

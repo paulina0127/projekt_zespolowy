@@ -10,8 +10,7 @@ import { Loader, Message } from '../components/basics'
 const OffersScreen = () => {
   const user = useSelector((state) => state.auth.user)
   const searchFormLoading = useSelector(state => state.categoryList.loading)
-  const candidateAction = useSelector(state => state.candidate)
-  const { success } = candidateAction
+  const success = useSelector(state => state.candidate.success)
 
   const { page = 1 } = useParams() 
   const offerList = useSelector(state => state.offerList)
@@ -79,8 +78,7 @@ const OffersScreen = () => {
           </>
         )}
       </div>
-      {success &&  
-        <SuccessApplicationModal showModal={success} /> }
+      {success &&  <SuccessApplicationModal showModal={success} /> }
     </>
   )
 }

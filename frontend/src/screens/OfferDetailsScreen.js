@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { listOfferDetails } from '../actions/offerActions'
-
+import { SuccessApplicationModal } from '../components/candidate'
 import { FiCheckCircle } from 'react-icons/fi'
 import { GiReceiveMoney } from 'react-icons/gi'
 import {
@@ -18,10 +18,23 @@ import { SiPolywork } from 'react-icons/si'
 import { Loader, Message } from '../components/basics'
 import { OfferPoint } from '../components/offers'
 import { OFFER_DETAILS_CLEAR } from '../constants/offerConst'
-
+import { NewApplication } from '../components/candidate'
 import styles from './OfferDetailsScreen.module.css'
 
 const OfferDetailsScreen = () => {
+  const [showModal, setShowModal] = useState(false)
+
+  const handleApplyClick = () => {
+    setShowModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
+
+  const user = useSelector((state) => state.auth.user)
+  const success = useSelector(state => state.candidate.success)
+
   const offer_id = useParams().id
   const dispatch = useDispatch()
 
@@ -120,7 +133,11 @@ const OfferDetailsScreen = () => {
                   icon={<MdWorkHistory />}
                 />
               </div>
-              <button className='btn btn-warning rounded-pill w-100'>
+              <button 
+                className='btn btn-warning rounded-pill w-100'
+                onClick={handleApplyClick}
+                style={{ backgroundColor: 'var(--yellow)' }}
+              >
                 Aplikuj
               </button>
             </div>
@@ -154,6 +171,14 @@ const OfferDetailsScreen = () => {
                 ))}
               </ul>
             </div>
+            {showModal && user !== null && user.profile !== null && (
+              <NewApplication
+                offer={offer}
+                showModal={showModal}
+                handleCloseModal={handleCloseModal}
+              />
+            )}
+            {success &&  <SuccessApplicationModal showModal={success} /> }
           </>
         )}
       </div>
