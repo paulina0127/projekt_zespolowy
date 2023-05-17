@@ -445,11 +445,12 @@ export const updateFile = (profile, id, values) => async (dispatch) => {
   try {
     dispatch({ type: CANDIDATE_COMPONENT_REQUEST });
 
-    const body = JSON.stringify({
+    const body = {
+      name: values.name,
       type: values.type,
-      url: values.url,
-    });
-
+      path: values.path,
+    };
+    
     const { data } = await axios.put(
       `/candidates/${profile}/files${id}`,
       body,
