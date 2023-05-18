@@ -19,6 +19,7 @@ import {
   userCreateProfileReducer,
   userUpdateProfileReducer,
 } from './reducers/userReducer';
+import { applicationReducer } from './reducers/applicationReducer';
 
 const reducer = combineReducers({
   auth: authReducer,
@@ -37,6 +38,7 @@ const reducer = combineReducers({
   companyList: companyListReducer,
   companyDetails: companyDetailsReducer,
 
+  application: applicationReducer,
   categoryList: categoryListReducer,
   skillsList: skillListReducer,
 });
