@@ -119,6 +119,13 @@ const CreateOfferForm = () => {
                 <div className='col-md-3'>
                   <TextField label='Wynagrodzenie' name='salary' type='text' />
                 </div>
+                <div className='col-md-3'>
+                  <MyDatePicker
+                    label='Data wygaśnięcia'
+                    name='expiration_date'
+                    minDate={minDate}
+                  />
+                </div>
               </div>
 
               <div className='row mt-4 justify-content-around'>
@@ -138,6 +145,13 @@ const CreateOfferForm = () => {
                 </div>
                 <div className='col-md-3'>
                   <TextField label='Miasto' name='location.city' type='text' />
+                </div>
+                <div className='col-md-3'>
+                  <CategorySelect
+                    categoryLabel='Kategoria'
+                    name='category'
+                    categories={categories}
+                  />
                 </div>
               </div>
 
@@ -191,22 +205,6 @@ const CreateOfferForm = () => {
                       { value: 'Kontrakt B2B', label: 'Kontrakt B2B' },
                       { value: 'Staż / Praktyka', label: 'Staż / Praktyka' },
                     ]}
-                  />
-                </div>
-              </div>
-              <div className='row mt-4 justify-content-center'>
-                <div className='col-md-3'>
-                  <MyDatePicker
-                    label='Data wygaśnięcia'
-                    name='expiration_date'
-                    minDate={minDate}
-                  />
-                </div>
-                <div className='col-md-3'>
-                  <CategorySelect
-                    categoryLabel='Kategoria'
-                    name='category'
-                    categories={categories}
                   />
                 </div>
               </div>
