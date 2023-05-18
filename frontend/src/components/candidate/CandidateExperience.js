@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { MdEdit, MdDelete, MdAddCircle } from 'react-icons/md'
+import { MdEdit, MdDelete } from 'react-icons/md'
+import { FaPlus } from 'react-icons/fa'
 import { getCandidateExperience } from '../../actions/userActions'
 import { deleteCandidateComponent } from '../../actions/candidateActions'
 import { MyModal, Loader, Message } from '../basics'
@@ -67,7 +68,9 @@ const CandidateExperience = () => {
                 <h2>Moje doświadczenie</h2>
               </div>
               <div className='col-sm-6'>
-                <button className={`btn btn-success ${styles['table_add_button']}`} onClick={handleShowAddModal}>Nowe doświadczenie <MdAddCircle /></button>				
+                <button className={styles['doc-btn']} onClick={handleShowAddModal}>
+                  <FaPlus size='2rem' color='#242424' />
+                </button>			
               </div>
             </div>
           </div>
@@ -104,7 +107,6 @@ const CandidateExperience = () => {
                 <MyModal
                   showModal={true}
                   title='Edytowanie doświadczenia'
-                  handleCloseModal={handleCloseEditModal}
                 >
                   <ExperienceForm
                     experience={experience}
@@ -119,7 +121,6 @@ const CandidateExperience = () => {
                   showModal={true}
                   title='Usuwanie doświadczenia'
                   danger={true}
-                  handleCloseModal={handleCloseEditModal}
                 >
                    <CandidateInfoDelete
                     name='te doświadczenie'

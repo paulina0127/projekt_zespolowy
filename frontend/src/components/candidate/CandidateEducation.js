@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { MdEdit, MdDelete, MdAddCircle } from 'react-icons/md'
+import { MdEdit, MdDelete } from 'react-icons/md'
+import { FaPlus } from 'react-icons/fa'
 import { getCandidateEducation } from '../../actions/userActions'
 import { deleteCandidateComponent } from '../../actions/candidateActions'
 import { MyModal, Loader, Message } from '../basics'
@@ -68,12 +69,9 @@ const CandidateEducation = () => {
                 <h2>Moje wykształcenie</h2>
               </div>
               <div className='col-sm-6'>
-                <button 
-                  className={`btn btn-success ${styles['table_add_button']}`} 
-                  onClick={handleShowAddModal}
-                >
-                  Nowe wykształcenie <MdAddCircle />
-              </button>				
+                <button className={styles['doc-btn']} onClick={handleShowAddModal}>
+                  <FaPlus size='2rem' color='#242424' />
+                </button>	
               </div>
             </div>
           </div>
@@ -108,7 +106,6 @@ const CandidateEducation = () => {
                 <MyModal
                   showModal={true}
                   title='Edytowanie wykształcenia'
-                  handleCloseModal={handleCloseEditModal}
                 >
                   <EducationForm
                     education={education}
@@ -123,7 +120,6 @@ const CandidateEducation = () => {
                   showModal={true}
                   title='Usuwanie wykształcenia'
                   danger={true}
-                  handleCloseModal={handleCloseEditModal}
                 >
                    <CandidateInfoDelete
                     name='te wykształcenie'

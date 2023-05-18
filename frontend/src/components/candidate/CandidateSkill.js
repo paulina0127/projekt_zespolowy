@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { MdEdit, MdDelete, MdAddCircle } from 'react-icons/md'
+import { MdEdit, MdDelete } from 'react-icons/md'
+import { FaPlus } from 'react-icons/fa'
 import { getCandidateSkills } from '../../actions/userActions'
 import { deleteCandidateComponent } from '../../actions/candidateActions'
 import { MyModal, Loader, Message } from '../basics'
@@ -49,12 +50,12 @@ const CandidateSkill = () => {
 
   const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   dispatch(getCandidateSkills(profile))
-  //   return () => {
-  //     dispatch({ type: USER_DETAILS_PROFILE_RESET })
-  //   }
-  // }, [dispatch, success])
+  useEffect(() => {
+    dispatch(getCandidateSkills(profile))
+    return () => {
+      dispatch({ type: USER_DETAILS_PROFILE_RESET })
+    }
+  }, [dispatch, success])
 
   return (
     <UserPanelLayout>
@@ -68,12 +69,9 @@ const CandidateSkill = () => {
                 <h2>Moje umiejętności</h2>
               </div>
               <div className='col-sm-6'>
-                <button 
-                  className={`btn btn-success ${styles['table_add_button']}`} 
-                  onClick={handleShowAddModal}
-                >
-                  Nowa umiejętność <MdAddCircle />
-              </button>				
+                <button className={styles['doc-btn']} onClick={handleShowAddModal}>
+                  <FaPlus size='2rem' color='#242424' />
+                </button>		
               </div>
             </div>
           </div>
@@ -106,7 +104,6 @@ const CandidateSkill = () => {
                 <MyModal
                   showModal={true}
                   title='Edytowanie umiejętności'
-                  handleCloseModal={handleCloseEditModal}
                 >
                   <SkillForm
                     skill={skill}
@@ -121,7 +118,6 @@ const CandidateSkill = () => {
                   showModal={true}
                   title='Usuwanie umiejętności'
                   danger={true}
-                  handleCloseModal={handleCloseEditModal}
                 >
                    <CandidateInfoDelete
                     name='tę umiejętność'

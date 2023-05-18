@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { MdEdit, MdDelete, MdAddCircle } from 'react-icons/md'
+import { MdEdit, MdDelete } from 'react-icons/md'
+import { FaPlus } from 'react-icons/fa'
 import { getCandidateCourses } from '../../actions/userActions'
 import { deleteCandidateComponent } from '../../actions/candidateActions'
 import { MyModal, Loader, Message } from '../basics'
@@ -68,12 +69,9 @@ const CandidateCourse = () => {
                 <h2>Moje kursy</h2>
               </div>
               <div className='col-sm-6'>
-                <button 
-                  className={`btn btn-success ${styles['table_add_button']}`} 
-                  onClick={handleShowAddModal}
-                >
-                  Nowy kurs <MdAddCircle />
-              </button>				
+                <button className={styles['doc-btn']} onClick={handleShowAddModal}>
+                  <FaPlus size='2rem' color='#242424' />
+                </button>		
               </div>
             </div>
           </div>
@@ -106,7 +104,6 @@ const CandidateCourse = () => {
                 <MyModal
                   showModal={true}
                   title='Edytowanie kursu'
-                  handleCloseModal={handleCloseEditModal}
                 >
                   <CourseForm
                     course={course}
@@ -121,7 +118,6 @@ const CandidateCourse = () => {
                   showModal={true}
                   title='Usuwanie kursu'
                   danger={true}
-                  handleCloseModal={handleCloseEditModal}
                 >
                    <CandidateInfoDelete
                     name='ten kurs'
