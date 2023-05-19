@@ -60,7 +60,10 @@ const StoreApplication = () => {
     }
     <h2 className={styles['profile-h2']}>Odrzucone aplikacje</h2>
     {header()}
-    {applications 
+    { loading ? <Loader />
+      : error ? <Message variant='danger'>{error}</Message>
+      : applications.length === 0 ? <Message variant='primary'>Brak aplikacji</Message>
+      : applications
         .filter(application => application.status === "Odrzucona")
         .map((application, index) =>
         <ReceivedApplicationItem 

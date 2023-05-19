@@ -68,7 +68,7 @@ const Attachement = () => {
               </div>
               <div className='col-sm-6'>
                 <button className={styles['doc-btn']} onClick={handleShowAddModal}>
-                  <FaPlus size='2rem' color='#242424' />
+                  <FaPlus />
                 </button>
               </div>
             </div>

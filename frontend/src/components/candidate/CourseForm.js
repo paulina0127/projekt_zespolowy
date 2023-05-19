@@ -1,4 +1,4 @@
-import { Formik, Form, Field, FieldArray } from 'formik'
+import { Formik, Form } from 'formik'
 import { useSelector, useDispatch } from 'react-redux'
 import { Col, Row } from 'react-bootstrap'
 import { parseISO, subDays } from 'date-fns'
@@ -6,7 +6,7 @@ import { validateCourse } from '../../validators/validators'
 import { createCourse, updateCourse } from '../../actions/candidateActions'
 import { TextField, MyDatePicker, SelectField, TextArea } from '../formHelpers'
 
-const CourseForm = ({ type, course, label, handleCloseModal }) => {
+const CourseForm = ({ type, course, handleCloseModal }) => {
   const files = useSelector((state) => state.userProfileDetails.filesList)
   const profile = useSelector((state) => state.auth.user.profile.id)
 
@@ -83,7 +83,7 @@ const CourseForm = ({ type, course, label, handleCloseModal }) => {
             type='submit'
             className='btn btn-warning rounded-pill fw-bold shadow-sm px-5'
           >
-            {label}
+            {type === 'create' ? 'Dodaj' : 'Zapisz'}
           </button>
         </div>
       </Form>

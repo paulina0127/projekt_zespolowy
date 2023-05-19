@@ -1,11 +1,11 @@
-import { Formik, Form, Field } from 'formik'
+import { Formik, Form } from 'formik'
 import { useSelector, useDispatch } from 'react-redux'
 import { Col, Row } from 'react-bootstrap'
 import { validateSkill} from '../../validators/validators'
 import { createSkill, updateSkill } from '../../actions/candidateActions'
 import { TextField, SelectField } from '../formHelpers'
 
-const SkillForm = ({ type, skill, label, handleCloseModal }) => {
+const SkillForm = ({ type, skill, handleCloseModal }) => {
   const files = useSelector((state) => state.userProfileDetails.filesList)
   const skills = useSelector((state) => state.skillsList.skills)
   const profile = useSelector((state) => state.auth.user.profile.id)
@@ -114,7 +114,7 @@ const SkillForm = ({ type, skill, label, handleCloseModal }) => {
             type='submit'
             className='btn btn-warning rounded-pill fw-bold shadow-sm px-5'
           >
-            {label}
+            {type === 'create' ? 'Dodaj' : 'Zapisz'}
           </button>
         </div>
       </Form>

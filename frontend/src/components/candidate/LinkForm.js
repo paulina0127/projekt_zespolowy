@@ -5,7 +5,7 @@ import { validateLink } from '../../validators/validators'
 import { createLink, updateLink } from '../../actions/candidateActions'
 import { TextField, SelectField } from '../formHelpers'
 
-const LinkForm = ({ type, link, label, handleCloseModal }) => {
+const LinkForm = ({ type, link, handleCloseModal }) => {
   const profile = useSelector((state) => state.auth.user.profile.id)
   const dispatch = useDispatch()
 
@@ -69,7 +69,7 @@ const LinkForm = ({ type, link, label, handleCloseModal }) => {
             type='submit'
             className='btn btn-warning rounded-pill fw-bold shadow-sm px-5'
           >
-            {label}
+            {type === 'create' ? 'Dodaj' : 'Zapisz'}
           </button>
         </div>
       </Form>

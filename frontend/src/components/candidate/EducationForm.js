@@ -6,7 +6,7 @@ import { validateEducation } from '../../validators/validators'
 import { createEducation, updateEducation } from '../../actions/candidateActions'
 import { TextField, MyDatePicker, SelectField } from '../formHelpers'
 
-const EducationForm = ({ type, education, label, handleCloseModal }) => {
+const EducationForm = ({ type, education, handleCloseModal }) => {
 
   const files = useSelector((state) => state.userProfileDetails.filesList)
   const profile = useSelector((state) => state.auth.user.profile.id)
@@ -115,7 +115,7 @@ const EducationForm = ({ type, education, label, handleCloseModal }) => {
             type='submit'
             className='btn btn-warning rounded-pill fw-bold shadow-sm px-5'
           >
-            {label}
+            {type === 'create' ? 'Dodaj' : 'Zapisz'}
           </button>
         </div>
       </Form>

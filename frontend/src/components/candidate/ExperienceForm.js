@@ -9,7 +9,7 @@ import { HiOutlineTrash } from 'react-icons/hi'
 import { MdOutlineAdd } from 'react-icons/md'
 import styles from '../company/CreateOfferForm.module.css'
 
-const ExperienceForm = ({ type, experience, label, handleCloseModal }) => {
+const ExperienceForm = ({ type, experience, handleCloseModal }) => {
 
   const files = useSelector((state) => state.userProfileDetails.filesList)
   const profile = useSelector((state) => state.auth.user.profile.id)
@@ -56,7 +56,6 @@ const ExperienceForm = ({ type, experience, label, handleCloseModal }) => {
       initialValues={initialValues}
       validationSchema={validateExperience}
       onSubmit={(values) => {
-        
         if (!values.end_date) {
           values.is_current = 'true'
         } else {
@@ -70,7 +69,7 @@ const ExperienceForm = ({ type, experience, label, handleCloseModal }) => {
         handleCloseModal()
       }}
     >
-      {({ values }) => (
+      {() => (
       <Form>
         <Row>
           <Col>
@@ -162,11 +161,11 @@ const ExperienceForm = ({ type, experience, label, handleCloseModal }) => {
             type='submit'
             className='btn btn-warning rounded-pill fw-bold shadow-sm px-5'
           >
-            {label}
+            {type === 'create' ? 'Dodaj' : 'Zapisz'}
           </button>
         </div>
       </Form>
-    )}
+      )}
     </Formik>
   )
 }
