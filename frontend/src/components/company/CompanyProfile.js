@@ -13,7 +13,7 @@ const CompanyProfile = () => {
         <CompanyProfileCreate userId={user.id} />
       ) : (
         <>
-          <CompanyProfileUpdate userProfile={user?.profile.id} />
+          <CompanyProfileUpdate userProfile={user?.profile?.id} />
           <CompanyProfileDelete />
         </>
       )}

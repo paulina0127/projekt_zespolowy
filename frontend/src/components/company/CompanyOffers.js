@@ -15,7 +15,7 @@ import styles2 from './OfferForCompany.module.css';
 const CompanyOffers = () => {
   const [showOfferForm, setShowOfferForm] = useState(false);
 
-  const company_id = useSelector((state) => state.auth.user.profile.id);
+  const company_id = useSelector((state) => state.auth.user?.profile?.id);
 
   const offerList = useSelector((state) => state.offerList);
   const { offers, loading, length, error } = offerList;

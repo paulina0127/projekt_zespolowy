@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
-import { listOfferDetails } from '../actions/offerActions'
-import { SuccessApplicationModal } from '../components/candidate'
-import { FiCheckCircle } from 'react-icons/fi'
-import { GiReceiveMoney } from 'react-icons/gi'
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { listOfferDetails } from '../actions/offerActions';
+import { SuccessApplicationModal } from '../components/candidate';
+import { FiCheckCircle } from 'react-icons/fi';
+import { GiReceiveMoney } from 'react-icons/gi';
 import {
   IoBarChart,
   IoCalendarOutline,
@@ -12,34 +12,34 @@ import {
   IoDocumentsOutline,
   IoInvertMode,
   IoLocationOutline,
-} from 'react-icons/io5'
-import { MdWorkHistory } from 'react-icons/md'
-import { SiPolywork } from 'react-icons/si'
-import { Loader, Message } from '../components/basics'
-import { OfferPoint } from '../components/offers'
-import { OFFER_DETAILS_CLEAR } from '../constants/offerConst'
-import { NewApplication } from '../components/candidate'
-import styles from './OfferDetailsScreen.module.css'
+} from 'react-icons/io5';
+import { MdWorkHistory } from 'react-icons/md';
+import { SiPolywork } from 'react-icons/si';
+import { Loader, Message } from '../components/basics';
+import { OfferPoint } from '../components/offers';
+import { OFFER_DETAILS_CLEAR } from '../constants/offerConst';
+import { NewApplication } from '../components/candidate';
+import styles from './OfferDetailsScreen.module.css';
 
 const OfferDetailsScreen = () => {
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
 
   const handleApplyClick = () => {
-    setShowModal(true)
-  }
+    setShowModal(true);
+  };
 
   const handleCloseModal = () => {
-    setShowModal(false)
-  }
+    setShowModal(false);
+  };
 
-  const user = useSelector((state) => state.auth.user)
-  const success = useSelector(state => state.candidate.success)
+  const user = useSelector((state) => state.auth.user);
+  const success = useSelector((state) => state.candidate.success);
 
-  const offer_id = useParams().id
-  const dispatch = useDispatch()
+  const offer_id = useParams().id;
+  const dispatch = useDispatch();
 
-  const offerDetails = useSelector((state) => state.offerDetails)
-  const { error, loading, offer } = offerDetails
+  const offerDetails = useSelector((state) => state.offerDetails);
+  const { error, loading, offer } = offerDetails;
   const location =
     offer && offer.location
       ? offer.location.street_address +
@@ -47,15 +47,15 @@ const OfferDetailsScreen = () => {
         offer.location.postal_code +
         ' ' +
         offer.location.city
-      : ''
+      : '';
 
   useEffect(() => {
-    dispatch(listOfferDetails(offer_id))
+    dispatch(listOfferDetails(offer_id));
 
     return () => {
-      dispatch({ type: OFFER_DETAILS_CLEAR })
-    }
-  }, [dispatch, offer_id])
+      dispatch({ type: OFFER_DETAILS_CLEAR });
+    };
+  }, [dispatch, offer_id]);
 
   return (
     <>
@@ -133,7 +133,7 @@ const OfferDetailsScreen = () => {
                   icon={<MdWorkHistory />}
                 />
               </div>
-              <button 
+              <button
                 className='btn btn-warning rounded-pill w-100'
                 onClick={handleApplyClick}
                 style={{ backgroundColor: 'var(--yellow)' }}
@@ -171,19 +171,19 @@ const OfferDetailsScreen = () => {
                 ))}
               </ul>
             </div>
-            {showModal && user !== null && user.profile !== null && (
+            {showModal && user !== null && user?.profile !== null && (
               <NewApplication
                 offer={offer}
                 showModal={showModal}
                 handleCloseModal={handleCloseModal}
               />
             )}
-            {success &&  <SuccessApplicationModal showModal={success} /> }
+            {success && <SuccessApplicationModal showModal={success} />}
           </>
         )}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default OfferDetailsScreen
+export default OfferDetailsScreen;

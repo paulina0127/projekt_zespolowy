@@ -19,7 +19,7 @@ const Attachement = () => {
   const [deleteFileIndex, setDeleteFileIndex] = useState(null)
 
   const files = useSelector((state) => state.userProfileDetails.filesList)
-  const profile = useSelector((state) => state.auth.user.profile.id)
+  const profile = useSelector((state) => state.auth.user?.profile?.id)
 
   const candidateAction = useSelector(state => state.candidate)
   const { error, success, loading } = candidateAction
