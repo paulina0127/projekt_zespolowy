@@ -28,6 +28,7 @@ import {
   CompanyProfile,
   ReceivedApplication,
   StoreApplication,
+  NewOffer
 } from './components/company'
 import Layout from './hocs/Layout'
 
@@ -76,6 +77,7 @@ const App = () => {
           <Route path='/user-panel/linki' element={<CandidateLinks />} />
 
           <Route path='/user-panel/moje-oferty' element={<CompanyOffers />} />
+          <Route path='/user-panel/nowa-oferta' element={<NewOffer />} />
           <Route path='/user-panel/dokumenty' element={<Attachment />} />
           <Route
             path='/user-panel/aplikacje'

@@ -52,20 +52,20 @@ const NavigationBar = ({ logout, user }) => {
         <NavDropdown.Item
           as={Link}
           to='/user-panel/konto'
-          className='text-black'
+          className={`text-black ${styles['dropdown-item']}`}
         >
           Panel użytkownika
         </NavDropdown.Item>
         <NavDropdown.Divider />
-        <NavDropdown.Item onClick={logout}>
-          Wyloguj się <FaPowerOff />
+        <NavDropdown.Item onClick={logout} className={`text-danger ${styles['dropdown-item']}`}>
+          Wyloguj się <FaPowerOff size='0.9rem' />
         </NavDropdown.Item>
       </NavDropdown>
     </>
   );
 
   return (
-    <Navbar collapseOnSelect expand='lg' className={styles.nav} variant='dark'>
+    <Navbar collapseOnSelect expand='md' className={styles.nav} variant='dark'>
       <Container>
         <Navbar.Brand as={Link} to='/'>
           <img alt='Logo' src={Brand} width='150' height='30' />

@@ -8,14 +8,34 @@
 }
 
 .link {
-  color: #e7b922;
+  color: var(--yellow);
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.14em;
+  margin-right: 20px;
+  font-weight: 700;
+  font-size: 18px;
+  transition: transform 0.6s ease;
 }
 
 .link:hover {
   color: #ffffff;
+  transform: scale(1.2);
 }
+
+.dropdown-item {
+  padding: 5px 20px;
+  font-weight: 600;
+}
+
+.dropdown-toggle {
+  letter-spacing: 0.03em;
+  transition: transform 0.6s ease;
+}
+
+.dropdown-toggle:hover {
+  transform: scale(1.1);
+}
+
 
 .dropdown-toggle ::after {
   display: none;

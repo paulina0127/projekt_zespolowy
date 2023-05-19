@@ -4,7 +4,7 @@ import { validateFile } from '../../validators/validators';
 import { TextField, FileField, SelectField } from '../formHelpers';
 import { createFile, updateFile } from '../../actions/candidateActions';
 
-const AttachmentForm = ({ type, file, label, handleCloseModal, profile }) => {
+const AttachmentForm = ({ type, file, handleCloseModal, profile }) => {
   const dispatch = useDispatch()
 
   const initialValues = type === 'create' ? {
@@ -65,7 +65,7 @@ const AttachmentForm = ({ type, file, label, handleCloseModal, profile }) => {
               type='submit'
               className='btn btn-warning rounded-pill fw-bold shadow-sm px-5'
             >
-              {label}
+              {type === 'create' ? 'Dodaj' : 'Zapisz'}
             </button>
         </div>
         </Form>

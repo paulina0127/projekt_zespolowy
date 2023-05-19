@@ -17,7 +17,7 @@ import {
 } from 'react-icons/fa'
 import { TbCertificate } from 'react-icons/tb'
 import { IoIosArrowDropdown } from 'react-icons/io'
-import { MdWork, MdWorkHistory } from 'react-icons/md'
+import { MdWork, MdWorkHistory, MdOutlineAddCircleOutline } from 'react-icons/md'
 import { logout } from '../../actions/authActions'
 import { NavLinkItem, SubMenuLinkItem } from './NavLinkItems'
 import placeholder from '../../images/placeholder.png'
@@ -115,6 +115,12 @@ const Sidebar = ({ logout, user }) => {
         pathname={pathname}
         icon={<FaList />}
         label='Moje oferty'
+      />
+      <NavLinkItem
+        to='/user-panel/nowa-oferta'
+        pathname={pathname}
+        icon={<MdOutlineAddCircleOutline />}
+        label='Nowa oferta'
       />
       <NavLinkItem
         to='/user-panel/aplikacje'

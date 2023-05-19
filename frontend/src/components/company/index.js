@@ -9,6 +9,7 @@ import OfferForCompany from './OfferForCompany'
 import ReceivedApplication from './ReceivedApplication'
 import StoreApplication from './StoreApplication'
 import Company from './Company'
+import NewOffer from './NewOffer'
 
 export {
   CompanyOffers,
@@ -22,4 +23,5 @@ export {
   ReceivedApplication,
   StoreApplication,
   Company,
+  NewOffer
 }

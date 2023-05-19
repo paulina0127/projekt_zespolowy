@@ -5,7 +5,7 @@ export const CheckboxGroup = ({ label, name, options, ...props }) => {
 
   return (
     <div className='form-group mb-3'>
-      <label htmlFor={props.id || props.name} className='mx-2 my-2 text-muted'>
+      <label htmlFor={props.id || props.name} className='mx-2 my-3 text-muted fs-5'>
         {label}
       </label>
       <div className='checkbox-group row'>
@@ -15,8 +15,8 @@ export const CheckboxGroup = ({ label, name, options, ...props }) => {
           className='error my-3 text-danger fw-bold'
         />
         {options.map((option) => (
-          <label key={option.value} className='checkbox-label mb-3'>
-            <Field type='checkbox' name={name} value={option.value} />
+          <label key={option.value} className='checkbox-label mb-2'>
+            <Field type='checkbox' name={name} value={option.value} className='mx-2'/>
             {option.label}
           </label>
         ))}
