@@ -1,3 +1,7 @@
+.container-app {
+  width: 80%;
+}
+
 .offer-btn {
   display: flex;
   flex-wrap: wrap;
@@ -33,6 +37,11 @@
   height: 45px;
   padding: 0;
   line-height: 0;
+}
+
+.circleBtn svg {
+  width: 20px;
+  height: 20px;
 }
 
 .addOfferBtn {

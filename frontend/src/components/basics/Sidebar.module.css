@@ -1,5 +1,6 @@
 .sidebar {
-  background-color: var(--user);
+  background: rgb(2,0,36);
+background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(12,12,28,1) 55%, rgba(255,173,0,1) 100%);
 }
 
 .candidateLinks {

@@ -48,26 +48,7 @@ export const deleteCandidateComponent =
     }
   }
 
-// export const deleteCandidateApplication = id => async dispatch => {
-//   const config = { headers: getAuthHeaders() }
-//   try {
-//     dispatch({ type: CANDIDATE_COMPONENT_REQUEST })
 
-//     await axios.delete(`/applications/${id}`, config)
-
-//     dispatch({
-//       type: CANDIDATE_COMPONENT_SUCCESS,
-//     })
-//   } catch (error) {
-//     dispatch({
-//       type: CANDIDATE_COMPONENT_FAIL,
-//       payload:
-//         error.response && error.response.data.detail
-//           ? error.response.data.detail
-//           : error.message,
-//     })
-//   }
-// }
 
 export const createExperience = (profile, values) => async (dispatch) => {
   const config = { headers: getAuthHeaders() }

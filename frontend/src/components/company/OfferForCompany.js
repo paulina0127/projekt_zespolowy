@@ -78,6 +78,7 @@ const OfferForCompany = ({ offer }) => {
           <Link to={`/oferta/${offer.id}`}>
             <button
               type='button'
+              title='Szczegóły oferty'
               className={`btn btn-secondary rounded-circle mx-1 ${styles2.circleBtn}`}
             >
               <HiSearch />
@@ -85,12 +86,14 @@ const OfferForCompany = ({ offer }) => {
           </Link>
           <button
             type='button'
+            title='Edytuj ofertę'
             className={`btn btn-success rounded-circle mx-1 ${styles2.circleBtn}`}
           >
             <BiEditAlt />
           </button>
           <button
             type='button'
+            title='Usuń ofertę'
             className={`btn btn-danger rounded-circle mx-1 ${styles2.circleBtn}`}
             onClick={() => setDelOffer(true)}
           >

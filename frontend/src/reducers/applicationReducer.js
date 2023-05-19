@@ -2,10 +2,18 @@ import {
   APPLICATION_LIST_REQUEST,
   APPLICATION_LIST_SUCCESS,
   APPLICATION_LIST_FAIL,
-  APPLICATION_LIST_CLEAR
+  APPLICATION_LIST_CLEAR,
+  APPLICATION_DETAILS_CLEAR,
+  APPLICATION_DETAILS_FAIL,
+  APPLICATION_DETAILS_REQUEST,
+  APPLICATION_DETAILS_SUCCESS,
+  APPLICATION_RESET,
+  APPLICATION_FAIL,
+  APPLICATION_REQUEST,
+  APPLICATION_SUCCESS,
 } from '../constants/applicationConst'
 
-export const applicationReducer = (state = {applications:[]}, action) => {
+export const applicationListReducer = (state = {applications:[]}, action) => {
   switch(action.type) {
     case APPLICATION_LIST_REQUEST:
       return {loading:true, applications:[]}
@@ -17,5 +25,35 @@ export const applicationReducer = (state = {applications:[]}, action) => {
       return { applications: [] }
     default:
       return state     
+  }
+}
+
+export const applicationDetailsReducer = (state = { application: {} }, action) => {
+  switch (action.type) {
+    case APPLICATION_DETAILS_REQUEST:
+      return { loading: true, ...state }
+    case APPLICATION_DETAILS_SUCCESS:
+      return { loading: false, application: action.payload }
+    case APPLICATION_DETAILS_FAIL:
+      return { loading: false, error: action.payload }
+    case APPLICATION_DETAILS_CLEAR:
+      return { application: {} }
+    default:
+      return state
+  }
+}
+
+export const applicationCompanyReducer = (state = {}, action) => {
+  switch (action.type) {
+    case APPLICATION_REQUEST:
+      return { loading: true }
+    case APPLICATION_SUCCESS:
+      return { loading: false, success: true }
+    case APPLICATION_FAIL:
+      return { loading: false, error: action.payload }
+    case APPLICATION_RESET:
+      return {}
+    default:
+      return state
   }
 }

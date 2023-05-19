@@ -13,6 +13,7 @@ import {
   FaBriefcase,
   FaRegFileAlt,
   FaUserCog,
+  FaArchive,
 } from 'react-icons/fa'
 import { TbCertificate } from 'react-icons/tb'
 import { IoIosArrowDropdown } from 'react-icons/io'
@@ -119,7 +120,13 @@ const Sidebar = ({ logout, user }) => {
         to='/user-panel/aplikacje'
         pathname={pathname}
         icon={<MdWork />}
-        label='Otrzymane aplikacje'
+        label='Nowe aplikacje'
+      />
+      <NavLinkItem
+        to='/user-panel/aplikacje-archiwum'
+        pathname={pathname}
+        icon={<FaArchive />}
+        label='Archiwum aplikacji'
       />
     </>
   );

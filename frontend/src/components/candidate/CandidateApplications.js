@@ -10,7 +10,7 @@ import styles from '../company/CompanyProfileForm.module.css'
 
 const CandidateApplications = () => {
 
-  const { applications, loading, error } = useSelector(state => state.application)
+  const { applications, loading, error } = useSelector(state => state.applicationList)
 
   const dispatch = useDispatch()
   useEffect(() => {

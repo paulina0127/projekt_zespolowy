@@ -1,13 +1,14 @@
-import CompanyOffers from './CompanyOffers';
-import CompanyProfile from './CompanyProfile';
-import CompanyProfileCreate from './CompanyProfileCreate';
-import CompanyProfileDelete from './CompanyProfileDelete';
-import ComapnyProfileForm from './CompanyProfileForm';
-import CompanyProfileUpdate from './CompanyProfileUpdate';
-import CreateOfferForm from './CreateOfferForm';
-import OfferForCompany from './OfferForCompany';
-import ReceivedApplication from './ReceivedApplication';
-import Company from './Company';
+import CompanyOffers from './CompanyOffers'
+import CompanyProfile from './CompanyProfile'
+import CompanyProfileCreate from './CompanyProfileCreate'
+import CompanyProfileDelete from './CompanyProfileDelete'
+import ComapnyProfileForm from './CompanyProfileForm'
+import CompanyProfileUpdate from './CompanyProfileUpdate'
+import CreateOfferForm from './CreateOfferForm'
+import OfferForCompany from './OfferForCompany'
+import ReceivedApplication from './ReceivedApplication'
+import StoreApplication from './StoreApplication'
+import Company from './Company'
 
 export {
   CompanyOffers,
@@ -19,5 +20,6 @@ export {
   CreateOfferForm,
   OfferForCompany,
   ReceivedApplication,
+  StoreApplication,
   Company,
-};
+}
