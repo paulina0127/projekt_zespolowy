@@ -1,31 +1,31 @@
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { useParams, Link } from 'react-router-dom'
-import Pagination from 'react-bootstrap/Pagination'
-import { listFilteredOffers } from '../actions/offerActions'
-import { SuccessApplicationModal } from '../components/candidate'
-import { Offer, JobSearchForm } from '../components/offers'
-import { Loader, Message } from '../components/basics'
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams, Link } from 'react-router-dom';
+import Pagination from 'react-bootstrap/Pagination';
+import { listFilteredOffers } from '../actions/offerActions';
+import { SuccessApplicationModal } from '../components/candidate';
+import { Offer, JobSearchForm } from '../components/offers';
+import { Loader, Message } from '../components/basics';
 
 const OffersScreen = () => {
-  const user = useSelector((state) => state.auth.user)
-  const searchFormLoading = useSelector((state) => state.categoryList.loading)
-  const success = useSelector((state) => state.candidate.success)
+  const user = useSelector((state) => state.auth.user);
+  const searchFormLoading = useSelector((state) => state.categoryList.loading);
+  const success = useSelector((state) => state.candidate.success);
 
-  const { page = 1 } = useParams()
-  const offerList = useSelector((state) => state.offerList)
-  const { offers, loading, length, error } = offerList
+  const { page = 1 } = useParams();
+  const offerList = useSelector((state) => state.offerList);
+  const { offers, loading, length, error } = offerList;
 
-  const perPage = 5 // number of offers to display per page
-  const start = (page - 1) * perPage // calculate the start index of the current page
-  const end = start + perPage // calculate
+  const perPage = 5; // number of offers to display per page
+  const start = (page - 1) * perPage; // calculate the start index of the current page
+  const end = start + perPage; // calculate
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const filters = new URLSearchParams(window.location.search)
-    dispatch(listFilteredOffers(Object.fromEntries(filters.entries())))
-  }, [])
+    const filters = new URLSearchParams(window.location.search);
+    dispatch(listFilteredOffers(Object.fromEntries(filters.entries())));
+  }, []);
 
   return (
     <>
@@ -50,7 +50,7 @@ const OffersScreen = () => {
                   </Link>
                   , aby móc aplikować
                 </Message>
-              ) : user.profile === null ? (
+              ) : user?.profile === null ? (
                 <Message>
                   Zauważyliśmy, że nie posiadasz profilu kandydata.
                   <Link
@@ -106,7 +106,7 @@ const OffersScreen = () => {
         {success && <SuccessApplicationModal showModal={success} />}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default OffersScreen
+export default OffersScreen;

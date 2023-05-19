@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import styles from './HomeScreen.module.css'
+import { Link } from 'react-router-dom';
+import styles from './HomeScreen.module.css';
 
 const HomeScreen = () => {
   return (
@@ -11,7 +11,16 @@ const HomeScreen = () => {
               Znajdź swoją <br />
               wymarzoną
               <br />
-              ofertę i <span style={{ color: 'var(--yellow)' }}>Aplikuj</span> z
+              ofertę i{' '}
+              <span
+                style={{
+                  color: 'var(--yellow)',
+                  fontFamily: 'var(--font-primary)',
+                }}
+              >
+                Aplikuj
+              </span>{' '}
+              z
               <br />
               nami!
             </h1>
@@ -99,7 +108,7 @@ const HomeScreen = () => {
       </div>
       <div className='container mt-5'></div>
     </>
-  )
-}
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;

@@ -1,22 +1,21 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { NewApplication } from '../candidate'
-import styles from './Offer.module.css'
-
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { NewApplication } from '../candidate';
+import styles from './Offer.module.css';
 
 const Offer = ({ offer }) => {
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
 
   const handleApplyClick = () => {
-    setShowModal(true)
-  }
+    setShowModal(true);
+  };
 
   const handleCloseModal = () => {
-    setShowModal(false)
-  }
+    setShowModal(false);
+  };
 
-  const user = useSelector((state) => state.auth.user)
+  const user = useSelector((state) => state.auth.user);
 
   return (
     <li className={styles['job-card']}>
@@ -55,7 +54,7 @@ const Offer = ({ offer }) => {
           Aplikuj
         </button>
       </ul>
-      {showModal && user !== null && user.profile !== null && (
+      {showModal && user !== null && user?.profile !== null && (
         <NewApplication
           offer={offer}
           showModal={showModal}
@@ -63,7 +62,7 @@ const Offer = ({ offer }) => {
         />
       )}
     </li>
-  )
-}
+  );
+};
 
-export default Offer
+export default Offer;

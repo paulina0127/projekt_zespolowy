@@ -1,50 +1,50 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { useState, useEffect } from 'react'
-import { MdEdit, MdDelete } from 'react-icons/md'
-import { getCandidateLinks } from '../../actions/userActions'
-import { deleteCandidateComponent } from '../../actions/candidateActions'
-import { MyModal, Loader, Message } from '../basics'
-import { USER_DETAILS_PROFILE_RESET } from '../../constants/userConst'
-import LinkForm from './LinkForm'
-import CandidateTable from './CandidateTable'
-import CandidateInfoDelete from './CandidateInfoDelete'
-import UserPanelLayout from '../../hocs/UserPanelLayout'
+import { useSelector, useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { MdEdit, MdDelete } from 'react-icons/md';
+import { getCandidateLinks } from '../../actions/userActions';
+import { deleteCandidateComponent } from '../../actions/candidateActions';
+import { MyModal, Loader, Message } from '../basics';
+import { USER_DETAILS_PROFILE_RESET } from '../../constants/userConst';
+import LinkForm from './LinkForm';
+import CandidateTable from './CandidateTable';
+import CandidateInfoDelete from './CandidateInfoDelete';
+import UserPanelLayout from '../../hocs/UserPanelLayout';
 
 const CandidateLinks = () => {
-  const profile = useSelector(state => state.auth.user.profile.id)
-  const [showAddModal, setShowAddModal] = useState(false)
-  const [editLinkIndex, setEditLinkIndex] = useState(null)
-  const [deleteLinkIndex, setDeleteLinkIndex] = useState(null)
+  const profile = useSelector((state) => state.auth.user?.profile?.id);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [editLinkIndex, setEditLinkIndex] = useState(null);
+  const [deleteLinkIndex, setDeleteLinkIndex] = useState(null);
 
-  const handleShowAddModal = () => setShowAddModal(true)
-  const handleCloseAddModal = () => setShowAddModal(false)
-  
-  const handleShowEditModal = index => setEditLinkIndex(index)
-  const handleCloseEditModal = () => setEditLinkIndex(null)
-  
-  const handleShowDeleteModal = index => setDeleteLinkIndex(index)
-  const handleCloseDeleteModal = () => setDeleteLinkIndex(null)
+  const handleShowAddModal = () => setShowAddModal(true);
+  const handleCloseAddModal = () => setShowAddModal(false);
+
+  const handleShowEditModal = (index) => setEditLinkIndex(index);
+  const handleCloseEditModal = () => setEditLinkIndex(null);
+
+  const handleShowDeleteModal = (index) => setDeleteLinkIndex(index);
+  const handleCloseDeleteModal = () => setDeleteLinkIndex(null);
 
   const handleDeleteLink = (id) => {
-    dispatch(deleteCandidateComponent(profile, id, 'links'))
-    setDeleteLinkIndex(null)
-  }
+    dispatch(deleteCandidateComponent(profile, id, 'links'));
+    setDeleteLinkIndex(null);
+  };
 
-  const linkList = useSelector(state => state.userProfileDetails.linkList)
+  const linkList = useSelector((state) => state.userProfileDetails.linkList);
 
-  const candidateAction = useSelector(state => state.candidate)
-  const { error, success, loading } = candidateAction
+  const candidateAction = useSelector((state) => state.candidate);
+  const { error, success, loading } = candidateAction;
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCandidateLinks(profile))
+    dispatch(getCandidateLinks(profile));
     return () => {
-      dispatch({ type: USER_DETAILS_PROFILE_RESET })
-    }
-  }, [dispatch, success, profile])
+      dispatch({ type: USER_DETAILS_PROFILE_RESET });
+    };
+  }, [dispatch, success, profile]);
 
-  const th_list = ['Rodzaj', 'Adres URL', 'Akcje']
+  const th_list = ['Rodzaj', 'Adres URL', 'Akcje'];
 
   return (
     <UserPanelLayout>
@@ -56,47 +56,53 @@ const CandidateLinks = () => {
           handleShowAddModal={handleShowAddModal}
           th_list={th_list}
         >
-        {!loading && linkList && linkList.results.map((link, index) => 
-        <tr key={link.id}>
-          <td>{link.type}</td>
-          <td>{link.url}</td>
-          <td>
-            <span onClick={() => handleShowEditModal(index)}>
-              <MdEdit color='#00BE75'/>
-            </span>
-            <span onClick={() => handleShowDeleteModal(index)}>
-              <MdDelete color='#DA4753'/>
-            </span>
-          </td>
-          {editLinkIndex === index && (
-          <MyModal showModal={true} title='Edytowanie linku'>
-            <LinkForm
-              link={link}
-              type='update'
-              handleCloseModal={handleCloseEditModal}
-            />
-          </MyModal>
-          )}
-          {deleteLinkIndex === index && (
-          <MyModal showModal={true} title='Usuwanie linku' danger={true}>
-            <CandidateInfoDelete
-            name='ten link'
-            id={link.id}
-            handleCloseModal={handleCloseDeleteModal}
-            handleDelete={handleDeleteLink}
-            />
-          </MyModal>
-          )}
-        </tr>
-        )}
-      </CandidateTable>
-    </div>
-    {showAddModal &&  
-      <MyModal showModal={showAddModal}  title='Nowy link'>
-        <LinkForm type='create' handleCloseModal={handleCloseAddModal} />
-      </MyModal> 
-    }
+          {!loading &&
+            linkList &&
+            linkList.results.map((link, index) => (
+              <tr key={link.id}>
+                <td>{link.type}</td>
+                <td>{link.url}</td>
+                <td>
+                  <span onClick={() => handleShowEditModal(index)}>
+                    <MdEdit color='#00BE75' />
+                  </span>
+                  <span onClick={() => handleShowDeleteModal(index)}>
+                    <MdDelete color='#DA4753' />
+                  </span>
+                </td>
+                {editLinkIndex === index && (
+                  <MyModal showModal={true} title='Edytowanie linku'>
+                    <LinkForm
+                      link={link}
+                      type='update'
+                      handleCloseModal={handleCloseEditModal}
+                    />
+                  </MyModal>
+                )}
+                {deleteLinkIndex === index && (
+                  <MyModal
+                    showModal={true}
+                    title='Usuwanie linku'
+                    danger={true}
+                  >
+                    <CandidateInfoDelete
+                      name='ten link'
+                      id={link.id}
+                      handleCloseModal={handleCloseDeleteModal}
+                      handleDelete={handleDeleteLink}
+                    />
+                  </MyModal>
+                )}
+              </tr>
+            ))}
+        </CandidateTable>
+      </div>
+      {showAddModal && (
+        <MyModal showModal={showAddModal} title='Nowy link'>
+          <LinkForm type='create' handleCloseModal={handleCloseAddModal} />
+        </MyModal>
+      )}
     </UserPanelLayout>
-  )
-}
-export default CandidateLinks
+  );
+};
+export default CandidateLinks;

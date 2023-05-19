@@ -26,7 +26,7 @@ import styles from './Sidebar.module.css'
 const Sidebar = ({ logout, user }) => {
   const { pathname } = useLocation()
   const [open, setOpen] = useState(false)
-  const profile = useSelector(state => state.auth.user.profile)
+  const profile = useSelector(state => state.auth.user?.profile)
 
   const candidateLinks = () => (
     <>

@@ -19,7 +19,10 @@ class OfferList(generics.ListCreateAPIView):
         company = self.request.query_params.get("company", "")
 
         # Return all ofers for company
-        if user.is_authenticated and all_offers and company:
+        if user.is_anonymous:
+            # Default queryset
+            queryset = Offer.objects.active_and_verified()
+        elif user.is_authenticated and all_offers and company:
             # Check if user has company profile
             try:
                 Company.objects.get(user=user)
@@ -72,8 +75,11 @@ class OfferDetail(generics.RetrieveUpdateDestroyAPIView):
         user = self.request.user
         offer = self.kwargs["pk"]
 
+        if user.is_anonymous:
+            # Default queryset
+            queryset = Offer.objects.active_and_verified()
         # Return all ofers for company
-        if user.is_authenticated:
+        elif user.is_authenticated:
             # Check if user has company profile
             try:
                 Company.objects.get(user=user)

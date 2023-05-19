@@ -12,7 +12,7 @@ import AttachmentForm from './AttachmentForm'
 import CandidateInfoDelete from './CandidateInfoDelete'
 
 const Attachement = () => {
-  const profile = useSelector((state) => state.auth.user.profile.id)
+  const profile = useSelector((state) => state.auth.user?.profile?.id)
   const [showAddModal, setShowAddModal] = useState(false)
   const [editFileIndex, setEditFileIndex] = useState(null)
   const [deleteFileIndex, setDeleteFileIndex] = useState(null)
@@ -28,6 +28,7 @@ const Attachement = () => {
 
   const dispatch = useDispatch()
   
+
   const handleDeleteFile = (id) => {
     dispatch(deleteCandidateComponent(profile, id, 'files'))
     setDeleteFileIndex(null)
