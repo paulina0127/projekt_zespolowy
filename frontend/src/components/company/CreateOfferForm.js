@@ -10,7 +10,7 @@ import { CATEGORY_LIST_CLEAR } from '../../constants/categoryConst';
 import { SKILL_LIST_CLEAR } from '../../constants/skillConst';
 import { addDays } from 'date-fns';
 import { HiOutlineTrash } from 'react-icons/hi';
-import { MdOutlineAdd } from 'react-icons/md';
+import { MdOutlineAdd, MdCheck } from 'react-icons/md';
 import {
   TextField,
   SelectField,
@@ -399,9 +399,9 @@ const CreateOfferForm = () => {
                   </FieldArray>
                 </Col>
               </Row>
-              <div className='d-flex justify-content-center mt-5'>
+              <div className='d-flex justify-content-end'>
                 <button type='submit' className={styles['yellow-lg-btn']}>
-                  Dodaj ofertę
+                  <MdCheck />
                 </button>
               </div>
             </div>
