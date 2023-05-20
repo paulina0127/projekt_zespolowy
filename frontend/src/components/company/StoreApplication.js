@@ -25,20 +25,22 @@ const StoreApplication = () => {
 
   const header = () => (
     <div
-      className={`shadow pd-2 bg-warning rounded-pill m-2 my-3 ${styles2['container-app']}`}
+      className={`shadow pd-2 bg-warning rounded-pill mx-5 my-3 px-5 ${styles2['container-app']}`}
     >
-      <Row className='d-flex align-items-center justify-content-around col-lg-12'>
-        <Col lg={2} />
-        <Col lg={2}>
-          <h4 className={styles['profile-h4']}>Imię i nazwisko</h4>
+      <Row className='d-flex align-items-center justify-content-center col-lg-12'>
+        <Col lg={3}>
+          <h4 className={styles['profile-h4']}>Kandydat</h4>
         </Col>
-        <Col lg={1}>
+        <Col lg={2}>
+          <h4 className={styles['profile-h4']}>Stanowisko</h4>
+        </Col>
+        <Col lg={2}>
           <h4 className={styles['profile-h4']}>Złożono</h4>
         </Col>
-        <Col lg={2}>
-          <h4 className={styles['profile-h4']}>Typ aplikowania</h4>
+        <Col lg={3}>
+          <h4 className={styles['profile-h4']}>Akcje</h4>
         </Col>
-        <Col lg={5} />
+        <Col lg={2} />
       </Row>
     </div>
   );

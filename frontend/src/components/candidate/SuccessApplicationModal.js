@@ -1,16 +1,15 @@
-import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { Modal } from 'react-bootstrap'
-import { BsClipboard2Check } from 'react-icons/bs'
-import { CANDIDATE_COMPONENT_RESET } from '../../constants/candidateConst'
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { Modal } from 'react-bootstrap';
+import { BsClipboard2Check } from 'react-icons/bs';
+import { CANDIDATE_COMPONENT_RESET } from '../../constants/candidateConst';
 
 const SuccessApplicationModal = ({ showModal }) => {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleCloseModal = () => {
-    dispatch({ type: CANDIDATE_COMPONENT_RESET })
-  }
+    dispatch({ type: CANDIDATE_COMPONENT_RESET });
+  };
 
   return (
     <Modal
@@ -25,12 +24,13 @@ const SuccessApplicationModal = ({ showModal }) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>Status swoich aplikacji możesz śledzić w zakładce 
+        <p>
+          Status swoich aplikacji możesz śledzić w zakładce
           <strong> Moje aplikacje. </strong>
-        <p className='mt-3'>Życzymy samych sukcesów!</p>
+          <p className='mt-3'>Życzymy samych sukcesów!</p>
         </p>
         <hr className='text-secondary' />
-        <div className='d-flex justify-content-end'>
+        <div className='d-flex justify-content-center'>
           <Link to='/oferty/'>
             <button
               type='button'
@@ -52,7 +52,7 @@ const SuccessApplicationModal = ({ showModal }) => {
         </div>
       </Modal.Body>
     </Modal>
-  )
-}
+  );
+};
 
-export default SuccessApplicationModal
+export default SuccessApplicationModal;

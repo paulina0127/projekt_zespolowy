@@ -16,7 +16,7 @@
 
 .radio_container label {
   height: -webkit-fill-available;
-  padding: 8px;
+  padding: 12px;
   font-family: var(--font-heading);
   font-size: 16px;
   display: flex;

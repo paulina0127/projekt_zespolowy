@@ -40,24 +40,30 @@
 .apply-btn {
   background-color: var(--yellow);
   border: none;
-  border-radius: 1rem;
-  font-size: 2rem;
+  border-radius: 50rem;
   line-height: 1.5;
   letter-spacing: 0.1rem;
+  font-size: 18px;
   font-weight: 700;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  padding: 1rem;
+  padding: 8px 24px;
   transition: transform 0.4s ease;
-  }
-  
-  .apply-btn:hover {
+  color: #fff;
+  margin: 0 48px;
+}
+
+.apply-btn:hover {
   background-color: var(--dark-yellow);
   color: #ffffff;
   transform: scale(1.2);
-  }
-  
-  .apply-btn svg {
+}
+
+.apply-btn:disabled {
+  display: none;
+}
+
+.apply-btn svg {
   width: 4rem;
   height: 4rem;
   color: rgb(53, 53, 53);
-  }
+}

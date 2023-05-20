@@ -112,7 +112,7 @@ const SkillForm = ({ type, skill, handleCloseModal }) => {
             </Col>
           </Row>
           <hr className='text-secondary' />
-          <div className='d-flex justify-content-end'>
+          <div className='d-flex justify-content-center'>
             <button
               type='button'
               className='btn btn-outline-warning rounded-pill fw-bold shadow-sm mx-2 px-5'

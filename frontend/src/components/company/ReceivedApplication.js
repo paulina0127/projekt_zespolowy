@@ -83,10 +83,10 @@ const ReceivedApplication = ({ offer_id, show }) => {
       )}
       <h2 className={styles['profile-h2']}>Otrzymane aplikacje</h2>
       <div
-        className={`shadow pd-2 bg-warning rounded-pill mx-5 px-3 ${styles2['container-app']}`}
+        className={`shadow pd-2 bg-warning rounded-pill mx-5 px-5 ${styles2['container-app']}`}
       >
         <Row className='d-flex align-items-center justify-content-around col-lg-12'>
-          <Col lg={2}>
+          <Col lg={3}>
             <h4 className={styles['profile-h4']}>Kandydat</h4>
           </Col>
           <Col lg={2}>
@@ -96,9 +96,6 @@ const ReceivedApplication = ({ offer_id, show }) => {
             <h4 className={styles['profile-h4']}>Złożono</h4>
           </Col>
           <Col lg={2}>
-            <h4 className={styles['profile-h4']}>Typ aplikowania</h4>
-          </Col>
-          <Col lg={1}>
             <h4 className={styles['profile-h4']}>Status</h4>
           </Col>
           <Col lg={3}>

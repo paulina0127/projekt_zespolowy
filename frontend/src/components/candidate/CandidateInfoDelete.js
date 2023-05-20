@@ -1,4 +1,4 @@
-import { MdDelete } from 'react-icons/md'
+import { MdDelete } from 'react-icons/md';
 
 const CandidateInfoDelete = ({ name, handleCloseModal, handleDelete, id }) => {
   return (
@@ -6,7 +6,7 @@ const CandidateInfoDelete = ({ name, handleCloseModal, handleDelete, id }) => {
       <h5>Czy na pewno chcesz usunąć {name}?</h5>
       <p>Ta operacja jest nieodwracalna</p>
       <hr className='text-secondary' />
-        <div className='d-flex justify-content-end'>
+      <div className='d-flex justify-content-center'>
         <button
           type='button'
           className='btn btn-secondary rounded-pill fw-bold shadow-sm mx-2 px-5'
@@ -23,7 +23,7 @@ const CandidateInfoDelete = ({ name, handleCloseModal, handleDelete, id }) => {
         </button>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default CandidateInfoDelete
+export default CandidateInfoDelete;

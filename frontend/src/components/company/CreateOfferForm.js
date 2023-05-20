@@ -399,7 +399,7 @@ const CreateOfferForm = () => {
                   </FieldArray>
                 </Col>
               </Row>
-              <div className='d-flex justify-content-end'>
+              <div className='d-flex justify-content-center'>
                 <button type='submit' className={styles['yellow-lg-btn']}>
                   <MdCheck />
                 </button>

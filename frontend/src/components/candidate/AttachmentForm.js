@@ -5,18 +5,22 @@ import { TextField, FileField, SelectField } from '../formHelpers';
 import { createFile, updateFile } from '../../actions/candidateActions';
 
 const AttachmentForm = ({ type, file, handleCloseModal, profile }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const initialValues = type === 'create' ? {
-    name: '',
-    type: '',
-    path: ''
-  }
-  : type === 'update' ? {
-    name: file.name,
-    type: file.type,
-    path: file.path
-  } : null
+  const initialValues =
+    type === 'create'
+      ? {
+          name: '',
+          type: '',
+          path: '',
+        }
+      : type === 'update'
+      ? {
+          name: file.name,
+          type: file.type,
+          path: file.path,
+        }
+      : null;
 
   return (
     <Formik
@@ -53,13 +57,13 @@ const AttachmentForm = ({ type, file, handleCloseModal, profile }) => {
             hidden={false}
           />
           <hr className='text-secondary' />
-          <div className='d-flex justify-content-end'>
+          <div className='d-flex justify-content-center'>
             <button
               type='button'
               className='btn btn-outline-warning rounded-pill fw-bold shadow-sm mx-2 px-5'
               onClick={handleCloseModal}
             >
-            Wróć
+              Wróć
             </button>
             <button
               type='submit'
@@ -67,11 +71,11 @@ const AttachmentForm = ({ type, file, handleCloseModal, profile }) => {
             >
               {type === 'create' ? 'Dodaj' : 'Zapisz'}
             </button>
-        </div>
+          </div>
         </Form>
       )}
     </Formik>
-  )
-}
+  );
+};
 
-export default AttachmentForm
+export default AttachmentForm;

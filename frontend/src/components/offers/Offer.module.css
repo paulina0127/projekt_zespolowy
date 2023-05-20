@@ -116,7 +116,7 @@
   transition: var(--transition);
 }
 .offer-btn button:hover {
-  background-color: #f1f7f5;
+  background-color: #f7f6f1;
   color: #000;
   border: 1px solid var(--yellow);
 }
@@ -129,6 +129,13 @@
 .offer-btn-yellow:hover {
   background: var(--dark-yellow) !important;
   color: #fff !important;
+}
+
+.offer-btn-yellow:disabled {
+  background: gray !important;
+  border-color: gray;
+  cursor: not-allowed;
+  display: none;
 }
 
 .offer-btn button:last-child {

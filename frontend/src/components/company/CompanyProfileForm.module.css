@@ -164,6 +164,11 @@
   border: 0;
   border-radius: 25%;
   cursor: pointer;
+  transition: var(--transition);
+}
+
+.avatarBtn:hover {
+  background: #6b567b;
 }
 
 .avatarIcon {

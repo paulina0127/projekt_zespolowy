@@ -13,13 +13,13 @@ const ReceivedApplicationItem = ({
 }) => {
   return (
     <div
-      className={`shadow bg-white rounded-pill mx-5 my-3 ${styles2['container-app']}`}
+      className={`shadow bg-white rounded-pill mx-5 my-3 px-5 ${styles2['container-app']}`}
     >
       <Row className='d-flex align-items-center col-lg-12'>
         <Col
-          lg={2}
-          className='d-grid align-items-center g-0'
-          style={{ gridTemplateColumns: 'min-content 1fr' }}
+          lg={3}
+          className='d-grid align-items-center justify-content-center gap-3'
+          style={{ gridTemplateColumns: 'min-content max-content' }}
         >
           <img
             src={application.candidate.image}
@@ -40,14 +40,23 @@ const ReceivedApplicationItem = ({
             {application.created_date.slice(0, 10)}
           </h6>
         </Col>
-        <Col lg={2}>
-          <h6 className={styles['profile-h4']}>{application.type}</h6>
-        </Col>
         {old ? (
-          ''
+          <Col lg={3}>
+            <ul className={styles2['offer-btn']}>
+              <Link to={`/`}>
+                <button
+                  type='button'
+                  title='Szczegóły aplikacji'
+                  className='btn btn-secondary rounded-pill mx-1 mt-3'
+                >
+                  Szczegóły
+                </button>
+              </Link>
+            </ul>
+          </Col>
         ) : (
           <>
-            <Col lg={1}>
+            <Col lg={2}>
               <h6 className={styles['profile-h4']}>{application.status}</h6>
             </Col>
             <Col lg={3}>

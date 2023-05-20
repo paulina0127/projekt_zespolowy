@@ -23,16 +23,16 @@
   padding: 1rem;
   margin-bottom: 2rem;
   transition: transform 0.4s ease;
-  }
-  
-  .yellow-lg-btn:hover {
+}
+
+.yellow-lg-btn:hover {
   background-color: var(--dark-yellow);
   color: #ffffff;
   transform: scale(1.2);
-  }
-  
-  .yellow-lg-btn svg {
+}
+
+.yellow-lg-btn svg {
   width: 4rem;
   height: 4rem;
-  color: rgb(53, 53, 53);
-  }
+  color: #fff;
+}

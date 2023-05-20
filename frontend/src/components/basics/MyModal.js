@@ -14,7 +14,7 @@ const MyModal = ({ children, title, showModal, danger }) => {
             ? 'bg-success text-light'
             : danger
             ? 'bg-danger text-light'
-            : 'bg-warning text-light'
+            : 'bg-warning'
         }
       >
         <Modal.Title>{title}</Modal.Title>

@@ -68,20 +68,30 @@ const OfferDetailsScreen = () => {
           <>
             <div className='container px-4 py-4 bg-white border shadow rounded my-3'>
               <div className='d-md-flex align-items-center pb-2 border-bottom'>
-                <Link to={`/companies/${offer.company.id}`}>
-                  <img
-                    src={offer.company.image}
-                    alt='Company pic'
-                    className={styles.brandImg}
-                  />
-                </Link>
-                <div>
-                  <h2>{offer.position}</h2>
+                <div className='d-md-flex align-items-center'>
                   <Link to={`/companies/${offer.company.id}`}>
-                    <p className='text-primary'>
-                      <strong>{offer.company.name}</strong>
-                    </p>
+                    <img
+                      src={offer.company.image}
+                      alt='Company pic'
+                      className={styles.brandImg}
+                    />
                   </Link>
+
+                  <div>
+                    <h2>{offer.position}</h2>
+                    <Link to={`/companies/${offer.company.id}`}>
+                      <p className='text-primary'>
+                        <strong>{offer.company.name}</strong>
+                      </p>
+                    </Link>
+                  </div>
+                  <button
+                    className={styles['apply-btn']}
+                    onClick={handleApplyClick}
+                    disabled={user?.type === 'Pracodawca' || user === null}
+                  >
+                    Aplikuj
+                  </button>
                 </div>
                 <div className={styles.salary}>
                   <GiReceiveMoney />
@@ -132,15 +142,6 @@ const OfferDetailsScreen = () => {
                   name='Oferta ważna do: '
                   icon={<MdWorkHistory />}
                 />
-              </div>
-              <div className='d-flex justify-content-end'>
-                <button
-                  className={styles['apply-btn']}
-                  onClick={handleApplyClick}
-                  disabled={user?.type === 'Pracodawca' || user === null }
-                >
-                  Aplikuj
-                </button>
               </div>
             </div>
             <div className='container px-4 py-5 bg-white border shadow rounded my-3'>
