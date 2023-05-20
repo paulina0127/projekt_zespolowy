@@ -48,3 +48,24 @@ h4,
 h5 {
   font-family: var(--font-heading);
 }
+
+/* ----------- PAGINATION ----------- */
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  align-self: end;
+}
+
+.paginationBtn {
+  padding: 4px;
+  border: 0;
+  border-radius: 25%;
+  background: black;
+  color: var(--yellow);
+}
+
+.paginationBtn:disabled {
+  background: #cfd5db;
+}

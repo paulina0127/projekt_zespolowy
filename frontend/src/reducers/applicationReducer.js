@@ -1,4 +1,4 @@
-import { 
+import {
   APPLICATION_LIST_REQUEST,
   APPLICATION_LIST_SUCCESS,
   APPLICATION_LIST_FAIL,
@@ -11,49 +11,59 @@ import {
   APPLICATION_FAIL,
   APPLICATION_REQUEST,
   APPLICATION_SUCCESS,
-} from '../constants/applicationConst'
+} from '../constants/applicationConst';
 
-export const applicationListReducer = (state = {applications:[]}, action) => {
-  switch(action.type) {
+export const applicationListReducer = (
+  state = { applications: [] },
+  action
+) => {
+  switch (action.type) {
     case APPLICATION_LIST_REQUEST:
-      return {loading:true, applications:[]}
+      return { loading: true, applications: [] };
     case APPLICATION_LIST_SUCCESS:
-      return {loading:false, applications: action.payload}
+      return {
+        loading: false,
+        applications: action.payload.results,
+        length: action.payload.count,
+      };
     case APPLICATION_LIST_FAIL:
-      return {loading:false, error: action.payload} 
+      return { loading: false, error: action.payload };
     case APPLICATION_LIST_CLEAR:
-      return { applications: [] }
+      return { applications: [] };
     default:
-      return state     
+      return state;
   }
-}
+};
 
-export const applicationDetailsReducer = (state = { application: {} }, action) => {
+export const applicationDetailsReducer = (
+  state = { application: {} },
+  action
+) => {
   switch (action.type) {
     case APPLICATION_DETAILS_REQUEST:
-      return { loading: true, ...state }
+      return { loading: true, ...state };
     case APPLICATION_DETAILS_SUCCESS:
-      return { loading: false, application: action.payload }
+      return { loading: false, application: action.payload };
     case APPLICATION_DETAILS_FAIL:
-      return { loading: false, error: action.payload }
+      return { loading: false, error: action.payload };
     case APPLICATION_DETAILS_CLEAR:
-      return { application: {} }
+      return { application: {} };
     default:
-      return state
+      return state;
   }
-}
+};
 
 export const applicationCompanyReducer = (state = {}, action) => {
   switch (action.type) {
     case APPLICATION_REQUEST:
-      return { loading: true }
+      return { loading: true };
     case APPLICATION_SUCCESS:
-      return { loading: false, success: true }
+      return { loading: false, success: true };
     case APPLICATION_FAIL:
-      return { loading: false, error: action.payload }
+      return { loading: false, error: action.payload };
     case APPLICATION_RESET:
-      return {}
+      return {};
     default:
-      return state
+      return state;
   }
-}
+};

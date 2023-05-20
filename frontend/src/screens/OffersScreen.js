@@ -1,36 +1,47 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import Pagination from 'react-bootstrap/Pagination';
 import { listFilteredOffers } from '../actions/offerActions';
 import { SuccessApplicationModal } from '../components/candidate';
 import { Offer, JobSearchForm } from '../components/offers';
-import { Loader, Message } from '../components/basics';
+import { Loader, Message, Pagination } from '../components/basics';
 
 const OffersScreen = () => {
   const user = useSelector((state) => state.auth.user);
   const searchFormLoading = useSelector((state) => state.categoryList.loading);
   const success = useSelector((state) => state.candidate.success);
 
-  const { page = 1 } = useParams();
   const offerList = useSelector((state) => state.offerList);
   const { offers, loading, length, error } = offerList;
 
-  const perPage = 5; // number of offers to display per page
-  const start = (page - 1) * perPage; // calculate the start index of the current page
-  const end = start + perPage; // calculate
+  const [page, setPage] = useState(1);
+  const pageSize = 5;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     const filters = new URLSearchParams(window.location.search);
+    filters.set('page', page);
+    console.log(filters);
     dispatch(listFilteredOffers(Object.fromEntries(filters.entries())));
-  }, []);
+  }, [page]);
+
+  const handleClickBack = () => {
+    setPage(page - 1);
+  };
+
+  const handleClickForward = () => {
+    setPage(page + 1);
+  };
+
+  const handlePageReset = () => {
+    setPage(1);
+  };
 
   return (
     <>
       <div style={{ minHeight: 'calc(100vh - 200px - 65px)' }}>
-        <JobSearchForm page={page} />
+        <JobSearchForm pageReset={handlePageReset} />
         <div className='container justify-content-center px-4 py-5 my-3'>
           {searchFormLoading ? (
             ''
@@ -76,29 +87,21 @@ const OffersScreen = () => {
                 </Message>
               ) : (
                 <ul className='col-12'>
-                  {offers.slice(start, end).map((offer) => (
+                  {offers.map((offer) => (
                     <Offer key={offer.id} offer={offer} />
                   ))}
                 </ul>
               )}
               <div className='d-flex justify-content-center'>
-                <Pagination className='mt-4'>
-                  <Pagination.Prev disabled={page <= 1} />
-                  {Array.from(
-                    { length: Math.ceil(length / perPage) },
-                    (_, i) => (
-                      <Pagination.Item
-                        key={i + 1}
-                        active={i + 1 === Number(page)}
-                      >
-                        {i + 1}
-                      </Pagination.Item>
-                    )
-                  )}
-                  <Pagination.Next
-                    disabled={page >= Math.ceil(length / perPage)}
+                {!loading && (
+                  <Pagination
+                    page={page}
+                    pageSize={pageSize}
+                    count={length}
+                    clickBack={handleClickBack}
+                    clickForward={handleClickForward}
                   />
-                </Pagination>
+                )}
               </div>
             </>
           )}

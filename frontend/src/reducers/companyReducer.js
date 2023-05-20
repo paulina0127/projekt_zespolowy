@@ -14,7 +14,11 @@ export const companyListReducer = (state = { companies: [] }, action) => {
     case COMPANY_LIST_REQUEST:
       return { loading: true, companies: [] };
     case COMPANY_LIST_SUCCESS:
-      return { loading: false, companies: action.payload };
+      return {
+        loading: false,
+        companies: action.payload.results,
+        length: action.payload.count,
+      };
     case COMPANY_LIST_FAIL:
       return { loading: false, error: action.payload };
     case COMPANY_LIST_CLEAR:

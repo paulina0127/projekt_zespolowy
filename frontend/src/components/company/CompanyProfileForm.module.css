@@ -83,9 +83,7 @@
   color: #000000;
   font-size: 2em;
   text-align: left;
-  margin-left: 6rem;
-  margin-top: 4%;
-  margin-bottom: 2%;
+  margin: 4% 6rem 2% 6rem;
 }
 
 .profile-p {
@@ -108,7 +106,7 @@
 }
 
 .delete-btn {
-  background-color: #DA4753;
+  background-color: #da4753;
   border: none;
   border-radius: 50rem;
   line-height: 1.5;
@@ -186,6 +184,7 @@
   width: 65px;
   float: right;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 /* ----------- MEDIA QUERIES ----------- */

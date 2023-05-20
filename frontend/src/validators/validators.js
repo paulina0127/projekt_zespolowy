@@ -5,7 +5,7 @@ export const validateResetPassword = object({
   email: string()
     .email('To nie jest prawidłowy adres email')
     .required('Pole adres email jest obowiązkowe'),
-})
+});
 
 export const validateDeleteAccount = object({
   current_password: string()
@@ -13,7 +13,7 @@ export const validateDeleteAccount = object({
     .matches(/[0-9]/, 'Hasło musi zawierać co najmniej 1 cyfrę')
     .matches(/[A-Z]/, 'Hasło musi zawierać co najmniej 1 wielką literę')
     .required('Aktualne hasło jest obowiązkowe'),
-})
+});
 
 export const validateNewPassword = object({
   new_password: string()
@@ -27,7 +27,7 @@ export const validateNewPassword = object({
       'Wprowadzone hasła różnią się od siebie.'
     )
     .required('Powtórz wprowadzone hasło'),
-})
+});
 
 export const validateChangePassword = object({
   current_password: string()
@@ -41,9 +41,12 @@ export const validateChangePassword = object({
     .matches(/[A-Z]/, 'Hasło musi zawierać co najmniej 1. wielką literę ')
     .required('Nowe hasło jest obowiązkowe'),
   re_new_password: string()
-    .oneOf([ref('new_password'), null], 'Wprowadzone hasła różnią się od siebie.')
+    .oneOf(
+      [ref('new_password'), null],
+      'Wprowadzone hasła różnią się od siebie.'
+    )
     .required('Powtórz wprowadzone hasło'),
-})
+});
 
 export const validateChangeEmail = object({
   current_password: string()
@@ -55,10 +58,13 @@ export const validateChangeEmail = object({
     .email('To nie jest prawidłowy adres email')
     .required('Nowe adres e-mail jest obowiązkowy'),
   re_new_email: string()
-    .oneOf([ref('new_email'), null], 'Wprowadzone adresy e-mail różnią się od siebie.')
+    .oneOf(
+      [ref('new_email'), null],
+      'Wprowadzone adresy e-mail różnią się od siebie.'
+    )
     .email('To nie jest prawidłowy adres email')
     .required('Powtórz adres e-mail'),
-})
+});
 
 export const validateCompanyProfile = object({
   nip: string()
@@ -142,6 +148,7 @@ export const validateOffer = object({
     /^\d+(\s*-\s*\d+)?$/,
     'Wynagrodzenie powinno być w formie pojedynczej kwoty bądź widełek płacowych.'
   ),
+  category: string().required('Pole kategoria jest wymagane'),
   location: object({
     street_address: string()
       .required('Pole ulica jest wymagane.')

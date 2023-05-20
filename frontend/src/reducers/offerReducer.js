@@ -1,4 +1,4 @@
-import { 
+import {
   OFFER_FILTERED_LIST_REQUEST,
   OFFER_FILTERED_LIST_SUCCESS,
   OFFER_FILTERED_LIST_FAIL,
@@ -15,65 +15,68 @@ import {
   OFFER_DELETE_SUCCESS,
   OFFER_DELETE_FAIL,
   OFFER_DELETE_RESET,
-} from '../constants/offerConst'
+} from '../constants/offerConst';
 
-
-export const offerListReducer = (state = {offers:[]}, action) => {
+export const offerListReducer = (state = { offers: [] }, action) => {
   switch (action.type) {
     case OFFER_FILTERED_LIST_REQUEST:
-      return { loading: true }
+      return { loading: true };
     case OFFER_FILTERED_LIST_SUCCESS:
-      return { loading: false, offers: action.payload.results, length: action.payload.count }
+      return {
+        loading: false,
+        offers: action.payload.results,
+        length: action.payload.count,
+      };
     case OFFER_FILTERED_LIST_FAIL:
-      return { loading: false, error: action.payload }
+      return { loading: false, error: action.payload };
     case OFFER_FILTERED_LIST_CLEAR:
-      return { offers: [] }
+      return { offers: [] };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export const offerDetailsReducer = (state = {offer:{}}, action) => {
-  switch(action.type) {
+export const offerDetailsReducer = (state = { offer: {} }, action) => {
+  switch (action.type) {
     case OFFER_DETAILS_REQUEST:
-      return {loading:true, ...state}
+      return { loading: true, ...state };
     case OFFER_DETAILS_SUCCESS:
-      return {loading:false, offer: action.payload}
+      return { loading: false, offer: action.payload };
     case OFFER_DETAILS_FAIL:
-      return {loading:false, error: action.payload} 
+      return { loading: false, error: action.payload };
     case OFFER_DETAILS_CLEAR:
-      return { offer: {} }
+      return { offer: {} };
     default:
-      return state     
+      return state;
   }
-}
+};
 
 export const offerCreateReducer = (state = {}, action) => {
   switch (action.type) {
     case OFFER_CREATE_REQUEST:
-      return { loading: true }
+      return { loading: true };
     case OFFER_CREATE_SUCCESS:
-      return { loading: false, success: true }
+      return { loading: false, success: true };
     case OFFER_CREATE_FAIL:
-      return { loading: false, error: action.payload }
+      return { loading: false, error: action.payload };
     case OFFER_CREATE_RESET:
-      return {}
+      return {};
     default:
-      return state
+      return state;
   }
-}
+};
 
 export const offerDeleteReducer = (state = {}, action) => {
   switch (action.type) {
     case OFFER_DELETE_REQUEST:
-      return { loadingDeleteOffer: true }
+      return { loadingDeleteOffer: true };
     case OFFER_DELETE_SUCCESS:
-      return { loadingDeleteOffer: false, successDeleteOffer: true }
+      return { loadingDeleteOffer: false, successDeleteOffer: true };
     case OFFER_DELETE_FAIL:
-      return { loadingDeleteOffer: false, errorDeleteOffer: action.payload }
+      return { loadingDeleteOffer: false, errorDeleteOffer: action.payload };
     case OFFER_DELETE_RESET:
-      return {}
+      return {};
     default:
-      return state
+      return state;
   }
-}
+};

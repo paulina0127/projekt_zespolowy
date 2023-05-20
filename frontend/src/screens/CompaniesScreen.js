@@ -1,24 +1,35 @@
-import React from 'react'
-import { Company } from '../components/company'
-import { Loader, Message } from '../components/basics'
-import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react'
-import { listCompanies } from '../actions/companyActions'
-import { COMPANY_LIST_CLEAR } from '../constants/companyConst'
-import styles from './CompaniesScreen.module.css'
-import classNames from 'classnames'
+import React from 'react';
+import { Company } from '../components/company';
+import { Loader, Message, Pagination } from '../components/basics';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { listCompanies } from '../actions/companyActions';
+import { COMPANY_LIST_CLEAR } from '../constants/companyConst';
+import styles from './CompaniesScreen.module.css';
+import classNames from 'classnames';
 
 const CompaniesScreen = () => {
-  const companyList = useSelector((state) => state.companyList)
-  const { companies, loading, length, error } = companyList
+  const companyList = useSelector((state) => state.companyList);
+  const { companies, loading, length, error } = companyList;
 
-  const dispatch = useDispatch()
+  const [page, setPage] = useState(1);
+  const pageSize = 15;
+
+  const handleClickBack = () => {
+    setPage(page - 1);
+  };
+
+  const handleClickForward = () => {
+    setPage(page + 1);
+  };
+
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(listCompanies())
+    dispatch(listCompanies({ page: page }));
     return () => {
-      dispatch({ type: COMPANY_LIST_CLEAR })
-    }
-  }, [])
+      dispatch({ type: COMPANY_LIST_CLEAR });
+    };
+  }, [page]);
 
   return (
     <>
@@ -31,15 +42,28 @@ const CompaniesScreen = () => {
         ) : length === 0 ? (
           <Message variant='danger'>Brak wyników</Message>
         ) : (
-          <div className={classNames('container mb-5', styles.container)}>
-            {companies.map((company) => (
-              <Company key={company.id} company={company} />
-            ))}
+          <div className={'container mb-5'}>
+            <div className={styles.container}>
+              {companies.map((company) => (
+                <Company key={company.id} company={company} />
+              ))}
+            </div>
+            <div className='d-flex mt-5 justify-content-center'>
+              {!loading && (
+                <Pagination
+                  page={page}
+                  pageSize={pageSize}
+                  count={length}
+                  clickBack={handleClickBack}
+                  clickForward={handleClickForward}
+                />
+              )}
+            </div>
           </div>
         )}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default CompaniesScreen
+export default CompaniesScreen;
