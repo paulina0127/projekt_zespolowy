@@ -86,13 +86,13 @@ const ReceivedApplication = ({ offer_id, show }) => {
         className={`shadow pd-2 bg-warning rounded-pill mx-5 px-3 ${styles2['container-app']}`}
       >
         <Row className='d-flex align-items-center justify-content-around col-lg-12'>
-          <Col lg={3}>
+          <Col lg={2}>
             <h4 className={styles['profile-h4']}>Kandydat</h4>
           </Col>
           <Col lg={2}>
             <h4 className={styles['profile-h4']}>Stanowisko</h4>
           </Col>
-          <Col lg={1}>
+          <Col lg={2}>
             <h4 className={styles['profile-h4']}>Złożono</h4>
           </Col>
           <Col lg={2}>

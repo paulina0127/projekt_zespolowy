@@ -49,7 +49,7 @@ const Offer = ({ offer }) => {
         </Link>
         <button
           onClick={handleApplyClick}
-          style={{ backgroundColor: 'var(--yellow)' }}
+          className={styles['offer-btn-yellow']}
         >
           Aplikuj
         </button>

@@ -36,7 +36,6 @@
   transform: scale(1.1);
 }
 
-
 .dropdown-toggle ::after {
   display: none;
 }
@@ -47,8 +46,9 @@
   border-width: 1px;
   border-radius: 50rem;
   line-height: 1.5;
+  font-size: 17px;
   padding: 0.375rem 0.75rem 0.375rem 0.75rem;
-  color: black;
+  color: #fff;
 }
 
 .login-btn:hover {
@@ -63,19 +63,20 @@
 }
 
 .register-btn {
-  background-color: black;
+  background-color: transparent;
   border-radius: 50rem;
   line-height: 1.5;
+  font-size: 17px;
   padding: 0.375rem 0.75rem 0.375rem 0.75rem;
-  color: var(--yellow);
+  color: #fff;
   border-color: var(--yellow);
   border-width: 1px;
 }
 
 .register-btn:hover {
-  color: #ffffff;
-  background-color: black;
-  border-color: var(--yellow);
+  color: #f1f7f5;
+  background-color: transparent;
+  border-color: var(--dark-yellow);
 }
 
 .register-btn:active {

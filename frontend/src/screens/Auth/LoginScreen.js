@@ -1,36 +1,36 @@
-import { useState } from 'react'
-import { Navigate, Link } from 'react-router-dom'
-import { connect, useSelector } from 'react-redux'
-import { login } from '../../actions/authActions'
+import { useState } from 'react';
+import { Navigate, Link } from 'react-router-dom';
+import { connect, useSelector } from 'react-redux';
+import { login } from '../../actions/authActions';
 
-import { Loader, Message } from '../../components/basics'
-import LayoutAuth from '../../hocs/LayoutAuth'
-import Background from '../../images/background_image_login.jpg'
-import styles from '../../components/company/CompanyProfileForm.module.css'
+import { Loader, Message } from '../../components/basics';
+import LayoutAuth from '../../hocs/LayoutAuth';
+import Background from '../../images/background_image_login.jpg';
+import styles from '../../components/company/CompanyProfileForm.module.css';
 
 const LoginScreen = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-  })
+  });
 
-  const { email, password } = formData
-  const auth = useSelector((state) => state.auth)
-  const { error, loading } = auth
+  const { email, password } = formData;
+  const auth = useSelector((state) => state.auth);
+  const { error, loading } = auth;
 
   const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    login(email, password)
-  }
+    login(email, password);
+  };
 
   // Is the user authenticated?
   // Redirect them to the home page
   if (isAuthenticated) {
-    return <Navigate replace to='/' />
+    return <Navigate replace to='/' />;
   }
 
   return (
@@ -73,23 +73,23 @@ const LoginScreen = ({ login, isAuthenticated }) => {
           Zaloguj
         </button>
       </form>
-      <p className='mt-3'>
+      <p className='mt-3 text-center'>
         Nie pamiętasz hasła?{' '}
         <Link className='text-decoration-none' to='/przypominanie-hasła'>
           Przypomnij hasło
         </Link>
       </p>
-      <p className='mt-3'>
+      <p className='mt-3 text-center'>
         Nie masz konta?{' '}
         <Link className='text-decoration-none' to='/rejestracja'>
           Zarejestruj się
         </Link>
       </p>
     </LayoutAuth>
-  )
-}
+  );
+};
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-})
-export default connect(mapStateToProps, { login })(LoginScreen)
+});
+export default connect(mapStateToProps, { login })(LoginScreen);

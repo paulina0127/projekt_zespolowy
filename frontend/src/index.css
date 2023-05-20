@@ -10,6 +10,7 @@
   --font: Imprima, sans-serif;
   --font-heading: Inter, sans-serif;
   --dark-yellow: rgb(173, 115, 7);
+  --transition: all 0.3s linear;
 }
 
 * {
@@ -39,6 +40,11 @@ a:visited {
 a:link {
   text-decoration: none;
   color: var(--yellow);
+}
+
+a,
+button {
+  transition: var(--transition) !important;
 }
 
 h1,
