@@ -16,10 +16,13 @@ const ReceivedApplicationItem = ({ application, index, handleShowModal, old }) =
             className={styles['img-candidate']}
           />
         </Col>
-        <Col lg={2}>
+        <Col lg={1}>
           <h6 className={styles['profile-h4']}>
             {application.candidate.first_name + ' ' + application.candidate.last_name}
           </h6>
+        </Col >
+        <Col lg={2}>
+          <h6 className={styles['profile-h4']}>{application.offer.position}</h6>
         </Col >
         <Col lg={1}>
           <h6 className={styles['profile-h4']}>{application.created_date.slice(0, 10)}</h6>
@@ -29,7 +32,7 @@ const ReceivedApplicationItem = ({ application, index, handleShowModal, old }) =
         </Col>
         {old ? '' :
         <>
-          <Col lg={2}>
+          <Col lg={1}>
             <h6 className={styles['profile-h4']}>{application.status}</h6>
           </Col>
           <Col lg={3}>
