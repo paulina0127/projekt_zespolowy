@@ -102,8 +102,10 @@ export const createOffer = (values) => async (dispatch) => {
       working_time: values.working_time,
       duties: values.duties.filter((duty) => duty !== ''), // usuwanie pustych wartości z tablicy obowiązków
       advantages: values.advantages.filter((advantage) => advantage !== ''), // usuwanie pustych wartości z tablicy zalet
+      requirements: values.requirements,
       expiration_date: values.expiration_date,
     });
+
     const { data } = await axios.post(`/offers`, body, config);
 
     dispatch({

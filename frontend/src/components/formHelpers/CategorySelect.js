@@ -15,10 +15,12 @@ export const CategorySelect = ({ categoryLabel, ...props }) => {
       >
         <option value='' disabled={true}>{isEmpty ? 'Wybierz kategorię' : null}</option>
         {props.categories.map(category => (
-          <Fragment key={category.name}>
+          <Fragment key={category.id}>
             <option value={category.id}>{category.name}</option>
             {category.subcategories && category.subcategories.map(subcategory => (
-              <option value={subcategory.id}>&nbsp;&nbsp;&nbsp; -- {subcategory.name}</option>
+              <Fragment key={subcategory.id}>
+                <option value={subcategory.id}>&nbsp;&nbsp;&nbsp; -- {subcategory.name}</option>
+              </Fragment>
             ))}
           </Fragment>
         ))}
