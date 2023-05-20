@@ -66,7 +66,7 @@ const OfferDetailsScreen = () => {
           <Message variant='danger'>{error}</Message>
         ) : Object.keys(offer).length === 0 ? null : (
           <>
-            <div className='container px-4 py-5 bg-white border shadow rounded my-3'>
+            <div className='container px-4 py-4 bg-white border shadow rounded my-3'>
               <div className='d-md-flex align-items-center pb-2 border-bottom'>
                 <Link to={`/companies/${offer.company.id}`}>
                   <img
@@ -133,13 +133,15 @@ const OfferDetailsScreen = () => {
                   icon={<MdWorkHistory />}
                 />
               </div>
-              <button
-                className='btn btn-warning rounded-pill w-100'
-                onClick={handleApplyClick}
-                style={{ backgroundColor: 'var(--yellow)' }}
-              >
-                Aplikuj
-              </button>
+              <div className='d-flex justify-content-end'>
+                <button
+                  className={styles['apply-btn']}
+                  onClick={handleApplyClick}
+                  disabled={user?.type === 'Pracodawca' || user === null }
+                >
+                  Aplikuj
+                </button>
+              </div>
             </div>
             <div className='container px-4 py-5 bg-white border shadow rounded my-3'>
               <h2 className='pb-2 border-bottom'>Twoje obowiązki</h2>
