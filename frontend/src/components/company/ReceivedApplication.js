@@ -12,8 +12,9 @@ import CompanyApplicationInfo from './CompanyApplicationInfo';
 import UserPanelLayout from '../../hocs/UserPanelLayout';
 import styles from '../company/CompanyProfileForm.module.css';
 import styles2 from '../company/OfferForCompany.module.css';
+import { BiArrowBack } from 'react-icons/bi';
 
-const ReceivedApplication = () => {
+const ReceivedApplication = ({ offer_id, show }) => {
   const [changeAppStatusIndex, setAppStatusIndex] = useState(null);
   const [statusType, setStatusType] = useState('');
   const { applications, loading, length, error } = useSelector(
@@ -82,19 +83,22 @@ const ReceivedApplication = () => {
       )}
       <h2 className={styles['profile-h2']}>Otrzymane aplikacje</h2>
       <div
-        className={`shadow pd-2 bg-warning rounded-pill mx-5 px-5 ${styles2['container-app']}`}
+        className={`shadow pd-2 bg-warning rounded-pill mx-5 px-3 ${styles2['container-app']}`}
       >
         <Row className='d-flex align-items-center justify-content-around col-lg-12'>
           <Col lg={3}>
             <h4 className={styles['profile-h4']}>Kandydat</h4>
           </Col>
           <Col lg={2}>
+            <h4 className={styles['profile-h4']}>Stanowisko</h4>
+          </Col>
+          <Col lg={1}>
             <h4 className={styles['profile-h4']}>Złożono</h4>
           </Col>
           <Col lg={2}>
             <h4 className={styles['profile-h4']}>Typ aplikowania</h4>
           </Col>
-          <Col lg={2}>
+          <Col lg={1}>
             <h4 className={styles['profile-h4']}>Status</h4>
           </Col>
           <Col lg={3}>

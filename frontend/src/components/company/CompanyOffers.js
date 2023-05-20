@@ -8,6 +8,7 @@ import OfferForCompany from './OfferForCompany';
 import { AiOutlineFileAdd } from 'react-icons/ai';
 import UserPanelLayout from '../../hocs/UserPanelLayout';
 import { Loader, Message, Pagination } from '../basics';
+import ReceivedApplication from './ReceivedApplication';
 
 import styles from '../../screens/MainPanelScreen.module.css';
 import styles2 from './OfferForCompany.module.css';
