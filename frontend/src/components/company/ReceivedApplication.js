@@ -49,7 +49,6 @@ const ReceivedApplication = () => {
     } else if (type === 'reject') {
       value.status = 'Odrzucona';
     }
-    console.log(value);
     dispatch(updateApplication(id, value));
     setAppStatusIndex(null);
   };
@@ -61,8 +60,26 @@ const ReceivedApplication = () => {
     };
   }, [dispatch, success, page]);
 
+  const filteredApplications = !loading
+    ? applications.filter(
+        (application) =>
+          application.status === 'Złożona' &&
+          (offer_id ? application.offer.id === offer_id : true)
+      )
+    : [];
+
   return (
     <UserPanelLayout>
+      {offer_id ? (
+        <button
+          className='btn btn-dark rounded-pill mt-3'
+          onClick={() => show(false)}
+        >
+          <BiArrowBack /> Wróć
+        </button>
+      ) : (
+        ''
+      )}
       <h2 className={styles['profile-h2']}>Otrzymane aplikacje</h2>
       <div
         className={`shadow pd-2 bg-warning rounded-pill mx-5 px-5 ${styles2['container-app']}`}

@@ -13,6 +13,9 @@ import styles from '../../screens/MainPanelScreen.module.css';
 import styles2 from './OfferForCompany.module.css';
 
 const CompanyOffers = () => {
+  const [showApplications, setShowApplications] = useState(false);
+  const showApplicationsHandler = (id) => setShowApplications(id);
+
   const company_id = useSelector((state) => state.auth.user?.profile?.id);
 
   const offerList = useSelector((state) => state.offerList);
@@ -55,53 +58,66 @@ const CompanyOffers = () => {
   }, [dispatch, successDeleteOffer, page]);
 
   return (
-    <UserPanelLayout>
-      <div className='container justify-content-center px-4 py-5 my-3'>
-        <Link to='/user-panel/nowa-oferta'>
-          <button
-            className={`btn btn-success rounded-circle ${styles2.addOfferBtn}`}
-          >
-            <AiOutlineFileAdd />
-          </button>
-        </Link>
-        {loadingDeleteOffer && <Loader />}
-        {errorDeleteOffer && (
-          <Message variant='danger'>{errorDeleteOffer}</Message>
-        )}
-        {successDeleteOffer && (
-          <Message variant='success'>Oferta pracy została usunięta</Message>
-        )}
-        {loading ? (
-          <Loader />
-        ) : error ? (
-          <Message variant='danger'>{error}</Message>
-        ) : length === 0 ? (
-          <Message variant='info'>
-            Nie dodano jeszcze żadnych ofert pracy
-          </Message>
-        ) : (
-          <>
-            <ul className='col-12'>
-              <h2 className={styles['panel-h2']}>
-                Moje oferty pracy: {length}
-              </h2>
-              {offers.map((offer) => (
-                <OfferForCompany key={offer.id} offer={offer} />
-              ))}
-            </ul>
-            <div className='d-flex mt-5 justify-content-center'>
-              <Pagination
-                page={page}
-                pageSize={pageSize}
-                count={length}
-                clickBack={handleClickBack}
-                clickForward={handleClickForward}
-              />
-            </div>
-          </>
-        )}
-      </div>
-    </UserPanelLayout>
+    <>
+      {showApplications ? (
+        <ReceivedApplication
+          offer_id={showApplications}
+          show={showApplicationsHandler}
+        />
+      ) : (
+        <UserPanelLayout>
+          <div className='container justify-content-center px-4 py-5 my-3'>
+            <Link to='/user-panel/nowa-oferta'>
+              <button
+                className={`btn btn-success rounded-circle ${styles2.addOfferBtn}`}
+              >
+                <AiOutlineFileAdd />
+              </button>
+            </Link>
+            {loadingDeleteOffer && <Loader />}
+            {errorDeleteOffer && (
+              <Message variant='danger'>{errorDeleteOffer}</Message>
+            )}
+            {successDeleteOffer && (
+              <Message variant='success'>Oferta pracy została usunięta</Message>
+            )}
+            {loading ? (
+              <Loader />
+            ) : error ? (
+              <Message variant='danger'>{error}</Message>
+            ) : length === 0 ? (
+              <Message variant='info'>
+                Nie dodano jeszcze żadnych ofert pracy
+              </Message>
+            ) : (
+              <>
+                <ul className='col-12'>
+                  <h2 className={styles['panel-h2']}>
+                    Moje oferty pracy: {length}
+                  </h2>
+                  {offers.map((offer) => (
+                    <OfferForCompany
+                      key={offer.id}
+                      offer={offer}
+                      handleShowApplications={showApplicationsHandler}
+                    />
+                  ))}
+                </ul>
+                <div className='d-flex mt-5 justify-content-center'>
+                  <Pagination
+                    page={page}
+                    pageSize={pageSize}
+                    count={length}
+                    clickBack={handleClickBack}
+                    clickForward={handleClickForward}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+        </UserPanelLayout>
+      )}
+    </>
   );
 };
 

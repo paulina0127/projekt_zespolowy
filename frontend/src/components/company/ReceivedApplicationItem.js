@@ -32,7 +32,15 @@ const ReceivedApplicationItem = ({
               application.candidate.last_name}
           </h6>
         </Col>
+        <Col lg={1}>
+          <h6 className={styles['profile-h4']}>
+            {application.created_date.slice(0, 10)}
+          </h6>
+        </Col>
         <Col lg={2}>
+          <h6 className={styles['profile-h4']}>{application.offer.position}</h6>
+        </Col>
+        <Col lg={1}>
           <h6 className={styles['profile-h4']}>
             {application.created_date.slice(0, 10)}
           </h6>

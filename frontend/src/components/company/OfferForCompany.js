@@ -8,7 +8,7 @@ import { BiEditAlt } from 'react-icons/bi'
 import styles from '../offers/Offer.module.css'
 import styles2 from '../company/OfferForCompany.module.css'
 
-const OfferForCompany = ({ offer }) => {
+const OfferForCompany = ({ offer, handleShowApplications }) => {
   const [delOffer, setDelOffer] = useState(false)
 
   const dispatch = useDispatch()
@@ -70,11 +70,12 @@ const OfferForCompany = ({ offer }) => {
           </div>
         </div>
         <ul className={styles2['offer-btn']}>
-          <Link to={`/`}>
-            <button className={`btn mx-2 ${styles2.applyBtn}`}>
-              Aplikacje
-            </button>
-          </Link>
+          <button 
+            className={`btn mx-2 ${styles2.applyBtn}`}
+            onClick={() => handleShowApplications(offer.id)}
+          >
+            Aplikacje
+          </button>
           <Link to={`/oferta/${offer.id}`}>
             <button
               type='button'
