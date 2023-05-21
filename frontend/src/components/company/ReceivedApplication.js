@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Col, Row } from 'react-bootstrap'
+import { Col, Row, Modal } from 'react-bootstrap'
 import ReceivedApplicationItem from './ReceivedApplicationItem'
 import { APPLICATION_LIST_CLEAR } from '../../constants/applicationConst'
 import {
@@ -14,10 +14,12 @@ import ApplicationEvaluationForm from './ApplicationEvaluationForm'
 import styles from '../company/CompanyProfileForm.module.css'
 import styles2 from '../company/OfferForCompany.module.css'
 import { BiArrowBack } from 'react-icons/bi'
+import { HiPhone, HiOutlineLocationMarker } from 'react-icons/hi'
 
 const ReceivedApplication = ({ offer_id, show }) => {
   const [changeAppStatusIndex, setAppStatusIndex] = useState(null)
-  const [addNotes, setAddNotes] = useState(null);
+  const [addNotes, setAddNotes] = useState(null)
+  const [candidate, setCandidate] = useState(null)
   const [statusType, setStatusType] = useState('')
   const { applications, loading, length, error } = useSelector(
     (state) => state.applicationList
@@ -43,8 +45,11 @@ const ReceivedApplication = ({ offer_id, show }) => {
   }
   const handleCloseModal = () => setAppStatusIndex(null)
 
-  const handleShowEditModal = (index) => setAddNotes(index);
-  const handleCloseEditModal = () => setAddNotes(null);
+  const handleShowEditModal = (index) => setAddNotes(index)
+  const handleCloseEditModal = () => setAddNotes(null)
+
+  const handleShowCandidateModal = (index) => setCandidate(index)
+  const handleCloseCandidateModal = () => setCandidate(null)
   
   const handleChageStatusApplication = (id, type) => {
     const value = { status: '' }
@@ -123,6 +128,7 @@ const ReceivedApplication = ({ offer_id, show }) => {
               index={index}
               handleShowModal={handleShowModal}
               handleShowEditModal={handleShowEditModal}
+              handleShowCandidateModal={handleShowCandidateModal}
             />
             {changeAppStatusIndex === index && (
               <MyModal
@@ -150,6 +156,25 @@ const ReceivedApplication = ({ offer_id, show }) => {
                   handleCloseModal={handleCloseEditModal}
                 />
               </MyModal>
+            )}
+            {candidate === index && (
+              <Modal show={true} onHide={() => handleCloseCandidateModal()} centered>
+                <div className={styles2.card}>
+                  <div className={styles2['img-placeholder']}>
+                    <img src={application.candidate.image}/>
+                  </div>
+                  <div>
+                    <h3 className='border-bottom mb-3'>{application.candidate.first_name + ' ' + application.candidate.last_name}</h3>
+                    <p><HiPhone />{application.candidate.phone_number}</p>
+                    <p><HiOutlineLocationMarker /> 
+                    {application.candidate.location.street_address + ', '
+                    + application.candidate.location.postal_code + ' '
+                    + application.candidate.location.city
+                    }
+                    </p>
+                  </div>
+                </div>
+              </Modal>
             )}
           </Fragment>
         ))

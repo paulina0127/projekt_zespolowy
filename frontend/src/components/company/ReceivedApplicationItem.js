@@ -1,15 +1,16 @@
-import { Link } from 'react-router-dom';
-import { Col, Row } from 'react-bootstrap';
-import { HiSearch } from 'react-icons/hi';
-import { AiOutlineCheck, AiOutlineClose, AiOutlineEdit } from 'react-icons/ai';
-import styles from '../company/CompanyProfileForm.module.css';
-import styles2 from '../company/OfferForCompany.module.css';
+import { Link } from 'react-router-dom'
+import { Col, Row } from 'react-bootstrap'
+import { HiSearch } from 'react-icons/hi'
+import { AiOutlineCheck, AiOutlineClose, AiOutlineEdit } from 'react-icons/ai'
+import styles from '../company/CompanyProfileForm.module.css'
+import styles2 from '../company/OfferForCompany.module.css'
 
 const ReceivedApplicationItem = ({
   application,
   index,
   handleShowModal,
   handleShowEditModal,
+  handleShowCandidateModal,
   old,
 }) => {
   return (
@@ -20,7 +21,8 @@ const ReceivedApplicationItem = ({
         <Col
           lg={3}
           className='d-grid align-items-center justify-content-center gap-3'
-          style={{ gridTemplateColumns: 'min-content max-content' }}
+          style={{ gridTemplateColumns: 'min-content max-content', cursor: 'pointer' }}
+          onClick={!old ? () => handleShowCandidateModal(index) : null}
         >
           <img
             src={application.candidate.image}
@@ -98,7 +100,7 @@ const ReceivedApplicationItem = ({
         )}
       </Row>
     </div>
-  );
-};
+  )
+}
 
-export default ReceivedApplicationItem;
+export default ReceivedApplicationItem

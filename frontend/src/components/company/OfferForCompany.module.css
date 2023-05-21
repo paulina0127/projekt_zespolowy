@@ -70,3 +70,37 @@
   text-align: left;
   margin: 4% 6rem 2% 6rem;
 }
+
+.card {
+  border: 3px solid var(--yellow);
+  padding: 20px;
+  background-color: #fff;
+  display: flex;
+  column-gap: 20px;
+  box-shadow: 1px 1px 16px -6px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 1px 1px 16px -6px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 1px 1px 16px -6px rgba(0, 0, 0, 0.5);
+}
+.card img {
+  max-width: 150px;
+}
+
+.card svg {
+  height: 25px;
+  width: 25px; 
+}
+
+.card p {
+  font-size: 20px;
+}
+
+.img-placeholder {
+  height: 150px;
+  width: 150px;
+  overflow: hidden;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 1px 1px 16px -6px rgba(0, 0, 0, 0.75);
+}
+
+
