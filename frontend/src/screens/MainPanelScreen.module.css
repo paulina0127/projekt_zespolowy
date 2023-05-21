@@ -1,8 +1,16 @@
-.panel-h4 {
+.panel-h5 {
+  margin: 10 20px;
   font-weight: 700;
   color: black;
-  font-size: 1em;
-  text-align: center;
+  font-size: 20px;
+  padding-top: 10px;
+}
+
+.panel-h4 {
+  margin: 10 20px;
+  font-weight: 700;
+  color: var(--yellow);
+  font-size: 24px;
   padding-top: 10px;
 }
 
@@ -23,12 +31,8 @@
 }
 
 .panel-p {
-  font-weight: 700;
   color: black;
-  font-size: 1em;
-  padding-left: 20px;
-  margin: 2%;
-  text-align: center;
+  font-size: 18px;
 }
 
 .white-bg {
@@ -70,4 +74,24 @@
   color: black;
   font-size: 1.25em;
   padding-left: 7.5%;
+}
+
+.star-rating {
+  direction: rtl;
+  display: inline-block;
+  cursor: default;
+}
+.star-rating input[type='radio'] {
+  display: none;
+}
+
+.star-rating label {
+  color: #bbb;
+  font-size: 3rem;
+  padding: 0.3rem;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.star-rating input[type='radio']:checked ~ label {
+  color: #f2b600;
 }

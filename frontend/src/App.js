@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import {
   CompaniesScreen,
@@ -11,8 +11,8 @@ import {
   ResetPassword,
   ResetPasswordConfirm,
   SignUpScreen,
-} from './screens'
-import { AccountManagement } from './components/accountSettings'
+} from './screens';
+import { AccountManagement } from './components/accountSettings';
 import {
   Attachment,
   CandidateCourse,
@@ -22,15 +22,16 @@ import {
   CandidateLinks,
   CandidateApplications,
   CandidateSkill,
-} from './components/candidate'
+} from './components/candidate';
 import {
   CompanyOffers,
   CompanyProfile,
   ReceivedApplication,
   StoreApplication,
-  NewOffer
-} from './components/company'
-import Layout from './hocs/Layout'
+  NewOffer,
+  ApplicationDetails,
+} from './components/company';
+import Layout from './hocs/Layout';
 
 const App = () => {
   return (
@@ -84,8 +85,16 @@ const App = () => {
             element={<ReceivedApplication />}
           />
           <Route
+            path='/user-panel/aplikacje/:id'
+            element={<ApplicationDetails />}
+          />
+          <Route
             path='/user-panel/aplikacje-archiwum'
             element={<StoreApplication />}
+          />
+          <Route
+            path='/user-panel/aplikacje-archiwum/:id'
+            element={<ApplicationDetails />}
           />
           <Route
             path='/user-panel/moje-aplikacje'
@@ -94,7 +103,7 @@ const App = () => {
         </Routes>
       </Layout>
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -21,7 +21,7 @@ const Offer = ({ offer }) => {
     <li className={styles['job-card']}>
       <div className={styles['job-card__info']}>
         <div className='d-md-flex align-items-center'>
-          <Link to={`/companies/${offer.company.id}`}>
+          <Link to={`/pracodawca/${offer.company.id}`}>
             <img
               src={offer.company.image}
               alt='Company pic'

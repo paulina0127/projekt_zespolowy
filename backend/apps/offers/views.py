@@ -169,6 +169,8 @@ class ApplicationList(generics.ListCreateAPIView):
                     queryset = Application.objects.filter(
                         offer__company=user.company_profile
                     )
+            elif user.type == UserType.ADMIN:
+                queryset = Application.objects.all()
 
         else:
             # Default queryset
@@ -186,7 +188,7 @@ class ApplicationList(generics.ListCreateAPIView):
             elif user.type == UserType.CANDIDATE:
                 return ApplicationSerializer
             # Return serializer for displaying application if user is company
-            elif user.type == UserType.COMPANY:
+            elif user.type == UserType.COMPANY or user.type == UserType.ADMIN:
                 return CompanyApplicationSerializer
         else:
             return ApplicationSerializer  # Default serializer class

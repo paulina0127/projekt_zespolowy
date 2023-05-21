@@ -1,73 +1,73 @@
-import { useState, useEffect, Fragment } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { Col, Row, Modal } from 'react-bootstrap'
-import ReceivedApplicationItem from './ReceivedApplicationItem'
-import { APPLICATION_LIST_CLEAR } from '../../constants/applicationConst'
+import { useState, useEffect, Fragment } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Col, Row, Modal } from 'react-bootstrap';
+import ReceivedApplicationItem from './ReceivedApplicationItem';
+import { APPLICATION_LIST_CLEAR } from '../../constants/applicationConst';
 import {
   listApplications,
   updateApplication,
-} from '../../actions/applicationActions'
-import { Loader, Message, MyModal, Pagination } from '../basics'
-import CompanyApplicationInfo from './CompanyApplicationInfo'
-import UserPanelLayout from '../../hocs/UserPanelLayout'
-import ApplicationEvaluationForm from './ApplicationEvaluationForm'
-import styles from '../company/CompanyProfileForm.module.css'
-import styles2 from '../company/OfferForCompany.module.css'
-import { BiArrowBack } from 'react-icons/bi'
-import { HiPhone, HiOutlineLocationMarker } from 'react-icons/hi'
+} from '../../actions/applicationActions';
+import { Loader, Message, MyModal, Pagination } from '../basics';
+import CompanyApplicationInfo from './CompanyApplicationInfo';
+import UserPanelLayout from '../../hocs/UserPanelLayout';
+import ApplicationEvaluationForm from './ApplicationEvaluationForm';
+import styles from '../company/CompanyProfileForm.module.css';
+import styles2 from '../company/OfferForCompany.module.css';
+import { BiArrowBack } from 'react-icons/bi';
+import { HiPhone, HiOutlineLocationMarker } from 'react-icons/hi';
 
 const ReceivedApplication = ({ offer_id, show }) => {
-  const [changeAppStatusIndex, setAppStatusIndex] = useState(null)
-  const [addNotes, setAddNotes] = useState(null)
-  const [candidate, setCandidate] = useState(null)
-  const [statusType, setStatusType] = useState('')
+  const [changeAppStatusIndex, setAppStatusIndex] = useState(null);
+  const [addNotes, setAddNotes] = useState(null);
+  const [candidate, setCandidate] = useState(null);
+  const [statusType, setStatusType] = useState('');
   const { applications, loading, length, error } = useSelector(
     (state) => state.applicationList
-  )
-  const success = useSelector((state) => state.applicationChanges)
+  );
+  const success = useSelector((state) => state.applicationChanges);
 
-  const [page, setPage] = useState(1)
-  const pageSize = 15
+  const [page, setPage] = useState(1);
+  const pageSize = 15;
 
   const handleClickBack = () => {
-    setPage(page - 1)
-  }
+    setPage(page - 1);
+  };
 
   const handleClickForward = () => {
-    setPage(page + 1)
-  }
+    setPage(page + 1);
+  };
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleShowModal = (index, type) => {
-    setAppStatusIndex(index)
-    setStatusType(type)
-  }
-  const handleCloseModal = () => setAppStatusIndex(null)
+    setAppStatusIndex(index);
+    setStatusType(type);
+  };
+  const handleCloseModal = () => setAppStatusIndex(null);
 
-  const handleShowEditModal = (index) => setAddNotes(index)
-  const handleCloseEditModal = () => setAddNotes(null)
+  const handleShowEditModal = (index) => setAddNotes(index);
+  const handleCloseEditModal = () => setAddNotes(null);
 
-  const handleShowCandidateModal = (index) => setCandidate(index)
-  const handleCloseCandidateModal = () => setCandidate(null)
-  
+  const handleShowCandidateModal = (index) => setCandidate(index);
+  const handleCloseCandidateModal = () => setCandidate(null);
+
   const handleChageStatusApplication = (id, type) => {
-    const value = { status: '' }
+    const value = { status: '' };
     if (type === 'accept') {
-      value.status = 'Zaakceptowana'
+      value.status = 'Zaakceptowana';
     } else if (type === 'reject') {
-      value.status = 'Odrzucona'
+      value.status = 'Odrzucona';
     }
-    dispatch(updateApplication(id, value))
-    setAppStatusIndex(null)
-  }
+    dispatch(updateApplication(id, value));
+    setAppStatusIndex(null);
+  };
 
   useEffect(() => {
-    dispatch(listApplications({ page: page }))
+    dispatch(listApplications({ page: page }));
     return () => {
-      dispatch({ type: APPLICATION_LIST_CLEAR })
-    }
-  }, [dispatch, success, page])
+      dispatch({ type: APPLICATION_LIST_CLEAR });
+    };
+  }, [dispatch, success, page]);
 
   const filteredApplications = !loading
     ? applications.filter(
@@ -75,7 +75,7 @@ const ReceivedApplication = ({ offer_id, show }) => {
           application.status === 'Złożona' &&
           (offer_id ? application.offer.id === offer_id : true)
       )
-    : []
+    : [];
 
   return (
     <UserPanelLayout>
@@ -103,13 +103,10 @@ const ReceivedApplication = ({ offer_id, show }) => {
           <Col lg={2}>
             <h4 className={styles['profile-h4']}>Złożono</h4>
           </Col>
-          <Col lg={1}>
+          <Col lg={2}>
             <h4 className={styles['profile-h4']}>Status</h4>
           </Col>
-          <Col lg={2}>
-            <h4 className={styles['profile-h4']}>Załączniki</h4>
-          </Col>
-          <Col lg={2}>
+          <Col lg={3}>
             <h4 className={styles['profile-h4']}>Akcje</h4>
           </Col>
         </Row>
@@ -158,19 +155,32 @@ const ReceivedApplication = ({ offer_id, show }) => {
               </MyModal>
             )}
             {candidate === index && (
-              <Modal show={true} onHide={() => handleCloseCandidateModal()} centered>
+              <Modal
+                show={true}
+                onHide={() => handleCloseCandidateModal()}
+                centered
+              >
                 <div className={styles2.card}>
                   <div className={styles2['img-placeholder']}>
-                    <img src={application.candidate.image}/>
+                    <img src={application.candidate.image} />
                   </div>
                   <div>
-                    <h3 className='border-bottom mb-3'>{application.candidate.first_name + ' ' + application.candidate.last_name}</h3>
-                    <p><HiPhone />{application.candidate.phone_number}</p>
-                    <p><HiOutlineLocationMarker /> 
-                    {application.candidate.location.street_address + ', '
-                    + application.candidate.location.postal_code + ' '
-                    + application.candidate.location.city
-                    }
+                    <h3 className='border-bottom mb-3'>
+                      {application.candidate.first_name +
+                        ' ' +
+                        application.candidate.last_name}
+                    </h3>
+                    <p>
+                      <HiPhone />
+                      {application.candidate.phone_number}
+                    </p>
+                    <p>
+                      <HiOutlineLocationMarker />
+                      {application.candidate.location.street_address +
+                        ', ' +
+                        application.candidate.location.postal_code +
+                        ' ' +
+                        application.candidate.location.city}
                     </p>
                   </div>
                 </div>
@@ -191,7 +201,7 @@ const ReceivedApplication = ({ offer_id, show }) => {
         />
       </div>
     </UserPanelLayout>
-  )
-}
+  );
+};
 
-export default ReceivedApplication
+export default ReceivedApplication;

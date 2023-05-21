@@ -3,8 +3,16 @@ from rest_framework import serializers
 from apps.core.models import Location
 from apps.core.utils.serializers import LocationSerializer
 
-from ..models import (Candidate, Company, Course, CSkill, Education,
-                      Experience, File, Link)
+from ..models import (
+    Candidate,
+    Company,
+    Course,
+    CSkill,
+    Education,
+    Experience,
+    File,
+    Link,
+)
 
 
 # Serializer for user's company profile
@@ -151,6 +159,11 @@ class CreateCandidateSerializer(serializers.ModelSerializer):
 # Serializer for displaying candidate on application
 class CandidateSerializer(serializers.ModelSerializer):
     location = LocationSerializer(many=False, read_only=True)
+    education = EducationSerializer(many=True, read_only=True)
+    experience = ExperienceSerializer(many=True, read_only=True)
+    courses = CourseSerializer(many=True, read_only=True)
+    skills = CSkillSerializer(many=True, read_only=True)
+    links = LinkSerializer(many=True, read_only=True)
 
     class Meta:
         model = Candidate

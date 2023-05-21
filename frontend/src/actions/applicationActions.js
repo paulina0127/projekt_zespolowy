@@ -58,10 +58,11 @@ export const listApplications = (filters) => async (dispatch) => {
 };
 
 export const listApplicationDetails = (id) => async (dispatch) => {
+  const config = { headers: getAuthHeaders() };
   try {
     dispatch({ type: APPLICATION_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`/applications/${id}`);
+    const { data } = await axios.get(`/applications/${id}`, config);
 
     dispatch({
       type: APPLICATION_DETAILS_SUCCESS,
