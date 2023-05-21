@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Col, Row } from 'react-bootstrap';
 import { HiSearch } from 'react-icons/hi';
-import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineCheck, AiOutlineClose, AiOutlineEdit } from 'react-icons/ai';
 import styles from '../company/CompanyProfileForm.module.css';
 import styles2 from '../company/OfferForCompany.module.css';
 
@@ -9,6 +9,7 @@ const ReceivedApplicationItem = ({
   application,
   index,
   handleShowModal,
+  handleShowEditModal,
   old,
 }) => {
   return (
@@ -43,33 +44,30 @@ const ReceivedApplicationItem = ({
         {old ? (
           <Col lg={3}>
             <ul className={styles2['offer-btn']}>
-              <Link to={`/`}>
-                <button
-                  type='button'
-                  title='Szczegóły aplikacji'
-                  className='btn btn-secondary rounded-pill mx-1 mt-3'
-                >
-                  Szczegóły
-                </button>
-              </Link>
+              <button
+                type='button'
+                title='Szczegóły aplikacji'
+                className='btn btn-secondary rounded-pill mx-1 mt-3'
+              >
+                Szczegóły
+              </button>
             </ul>
           </Col>
         ) : (
           <>
-            <Col lg={2}>
+            <Col lg={1}>
               <h6 className={styles['profile-h4']}>{application.status}</h6>
             </Col>
-            <Col lg={3}>
+            <Col lg={2}>
+              {application.attachments.lenght === 0 ? '' : 
+                application.attachments.map(att => (
+                  <Link to={att.file.path} key={att.id}>
+                    <h6 className={styles['profile-h4']}>{att.file.name}</h6>
+                  </Link>
+              ))}
+            </Col>
+            <Col lg={2}>
               <ul className={styles2['offer-btn']}>
-                <Link to={`/`}>
-                  <button
-                    type='button'
-                    title='Szczegóły aplikacji'
-                    className={`btn btn-secondary rounded-circle mx-1 mt-3 ${styles2.circleBtn}`}
-                  >
-                    <HiSearch />
-                  </button>
-                </Link>
                 <button
                   type='button'
                   title='Akceptuj aplikację'
@@ -85,6 +83,14 @@ const ReceivedApplicationItem = ({
                   onClick={() => handleShowModal(index, 'reject')}
                 >
                   <AiOutlineClose />
+                </button>
+                <button
+                  type='button'
+                  title='Notatki'
+                  className={`btn btn-primary rounded-circle mx-1 mt-3 ${styles2.circleBtn}`}
+                  onClick={() => handleShowEditModal(index)}
+                >
+                  <AiOutlineEdit />
                 </button>
               </ul>
             </Col>

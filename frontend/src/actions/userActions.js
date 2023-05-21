@@ -216,7 +216,6 @@ export const createUserProfile = (type, values) => async (dispatch) => {
           phone_number: values.phone_number,
           pesel: values.pesel,
           image: values.image,
-          email: 'test@gmail.com',
         };
 
   // Add location
@@ -267,7 +266,6 @@ export const updateUserProfile = (id, type, values) => async (dispatch) => {
           first_name: values.first_name,
           last_name: values.last_name,
           phone_number: values.phone_number,
-          email: values.email,
           pesel: values.pesel,
           image: values.image,
         };

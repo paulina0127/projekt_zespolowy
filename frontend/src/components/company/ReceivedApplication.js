@@ -10,12 +10,14 @@ import {
 import { Loader, Message, MyModal, Pagination } from '../basics'
 import CompanyApplicationInfo from './CompanyApplicationInfo'
 import UserPanelLayout from '../../hocs/UserPanelLayout'
+import ApplicationEvaluationForm from './ApplicationEvaluationForm'
 import styles from '../company/CompanyProfileForm.module.css'
 import styles2 from '../company/OfferForCompany.module.css'
 import { BiArrowBack } from 'react-icons/bi'
 
 const ReceivedApplication = ({ offer_id, show }) => {
   const [changeAppStatusIndex, setAppStatusIndex] = useState(null)
+  const [addNotes, setAddNotes] = useState(null);
   const [statusType, setStatusType] = useState('')
   const { applications, loading, length, error } = useSelector(
     (state) => state.applicationList
@@ -39,10 +41,11 @@ const ReceivedApplication = ({ offer_id, show }) => {
     setAppStatusIndex(index)
     setStatusType(type)
   }
-  const handleCloseModal = () => {
-    setAppStatusIndex(null)
-  }
+  const handleCloseModal = () => setAppStatusIndex(null)
 
+  const handleShowEditModal = (index) => setAddNotes(index);
+  const handleCloseEditModal = () => setAddNotes(null);
+  
   const handleChageStatusApplication = (id, type) => {
     const value = { status: '' }
     if (type === 'accept') {
@@ -95,10 +98,13 @@ const ReceivedApplication = ({ offer_id, show }) => {
           <Col lg={2}>
             <h4 className={styles['profile-h4']}>Złożono</h4>
           </Col>
-          <Col lg={2}>
+          <Col lg={1}>
             <h4 className={styles['profile-h4']}>Status</h4>
           </Col>
-          <Col lg={3}>
+          <Col lg={2}>
+            <h4 className={styles['profile-h4']}>Załączniki</h4>
+          </Col>
+          <Col lg={2}>
             <h4 className={styles['profile-h4']}>Akcje</h4>
           </Col>
         </Row>
@@ -116,6 +122,7 @@ const ReceivedApplication = ({ offer_id, show }) => {
               application={application}
               index={index}
               handleShowModal={handleShowModal}
+              handleShowEditModal={handleShowEditModal}
             />
             {changeAppStatusIndex === index && (
               <MyModal
@@ -133,6 +140,14 @@ const ReceivedApplication = ({ offer_id, show }) => {
                   handleCloseModal={handleCloseModal}
                   handleChangeStatus={handleChageStatusApplication}
                   id={application.id}
+                />
+              </MyModal>
+            )}
+            {addNotes === index && (
+              <MyModal showModal={true} title='Notatki i ocena'>
+                <ApplicationEvaluationForm
+                  application={application}
+                  handleCloseModal={handleCloseEditModal}
                 />
               </MyModal>
             )}
