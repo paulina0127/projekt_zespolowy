@@ -11,6 +11,10 @@ import {
   OFFER_CREATE_SUCCESS,
   OFFER_CREATE_FAIL,
   OFFER_CREATE_RESET,
+  OFFER_UPDATE_REQUEST,
+  OFFER_UPDATE_SUCCESS,
+  OFFER_UPDATE_FAIL,
+  OFFER_UPDATE_RESET,
   OFFER_DELETE_REQUEST,
   OFFER_DELETE_SUCCESS,
   OFFER_DELETE_FAIL,
@@ -54,12 +58,16 @@ export const offerDetailsReducer = (state = { offer: {} }, action) => {
 export const offerCreateReducer = (state = {}, action) => {
   switch (action.type) {
     case OFFER_CREATE_REQUEST:
+    case OFFER_UPDATE_REQUEST:
       return { loading: true };
     case OFFER_CREATE_SUCCESS:
+    case OFFER_UPDATE_SUCCESS:
       return { loading: false, success: true };
     case OFFER_CREATE_FAIL:
+    case OFFER_UPDATE_FAIL:
       return { loading: false, error: action.payload };
     case OFFER_CREATE_RESET:
+    case OFFER_UPDATE_RESET:
       return {};
     default:
       return state;

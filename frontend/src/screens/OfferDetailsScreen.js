@@ -144,26 +144,7 @@ const OfferDetailsScreen = () => {
                 />
               </div>
             </div>
-            <div className='container px-4 py-5 bg-white border shadow rounded my-3'>
-              <h2 className='pb-2 border-bottom'>Twoje obowiązki</h2>
-              <ul className='list-group list-group-flush'>
-                {offer.duties.map((duty) => (
-                  <li className='list-group-item'>
-                    <FiCheckCircle /> {duty}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className='container px-4 py-5 bg-white border shadow rounded my-3'>
-              <h2 className='pb-2 border-bottom'>Nasze wymagania</h2>
-              <ul className='list-group list-group-flush'>
-                {offer.requirements.map((req) => (
-                  <li className='list-group-item'>
-                    <FiCheckCircle /> {req.name}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {offer.advantages.length === 0  === [] || offer.advantages === null ? '' : 
             <div className='container px-4 py-5 bg-white border shadow rounded my-3'>
               <h2 className='pb-2 border-bottom'>Zalety</h2>
               <ul className='list-group list-group-flush'>
@@ -174,6 +155,31 @@ const OfferDetailsScreen = () => {
                 ))}
               </ul>
             </div>
+            }
+            {offer.duties.length === 0  || offer.duties === null ? '' :
+            <div className='container px-4 py-5 bg-white border shadow rounded my-3'>
+              <h2 className='pb-2 border-bottom'>Twoje obowiązki</h2>
+              <ul className='list-group list-group-flush'>
+                {offer.duties.map((duty) => (
+                  <li className='list-group-item'>
+                    <FiCheckCircle /> {duty}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            }
+            {offer.requirements.length === 0 || offer.requirements === null ? '' :
+            <div className='container px-4 py-5 bg-white border shadow rounded my-3'>
+              <h2 className='pb-2 border-bottom'>Nasze wymagania</h2>
+              <ul className='list-group list-group-flush'>
+                {offer.requirements.map((req) => (
+                  <li className='list-group-item'>
+                    <FiCheckCircle /> {req.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            }
             {showModal && user !== null && user?.profile !== null && (
               <NewApplication
                 offer={offer}

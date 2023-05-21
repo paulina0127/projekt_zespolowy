@@ -8,7 +8,7 @@ import { BiEditAlt } from 'react-icons/bi'
 import styles from '../offers/Offer.module.css'
 import styles2 from '../company/OfferForCompany.module.css'
 
-const OfferForCompany = ({ offer, handleShowApplications }) => {
+const OfferForCompany = ({ offer, handleShowApplications, handleEditOffer }) => {
   const [delOffer, setDelOffer] = useState(false)
 
   const dispatch = useDispatch()
@@ -89,6 +89,7 @@ const OfferForCompany = ({ offer, handleShowApplications }) => {
             type='button'
             title='Edytuj ofertę'
             className={`btn btn-success rounded-circle mx-1 ${styles2.circleBtn}`}
+            onClick={() => handleEditOffer(offer)}
           >
             <BiEditAlt />
           </button>

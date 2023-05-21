@@ -1,44 +1,69 @@
-import { Formik, Form, Field, FieldArray } from 'formik';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col } from 'react-bootstrap';
-import { listCategories } from '../../actions/categoryActions';
-import { listSkills } from '../../actions/skillActions';
-import { createOffer } from '../../actions/offerActions';
-import { validateOffer } from '../../validators/validators';
-import { CATEGORY_LIST_CLEAR } from '../../constants/categoryConst';
-import { SKILL_LIST_CLEAR } from '../../constants/skillConst';
-import { addDays } from 'date-fns';
-import { HiOutlineTrash } from 'react-icons/hi';
-import { MdOutlineAdd, MdCheck } from 'react-icons/md';
+import { Formik, Form, Field, FieldArray } from 'formik'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Row, Col } from 'react-bootstrap'
+import { listCategories } from '../../actions/categoryActions'
+import { listSkills } from '../../actions/skillActions'
+import { createOffer, updateOffer } from '../../actions/offerActions'
+import { validateOffer } from '../../validators/validators'
+import { OFFER_CREATE_RESET } from '../../constants/offerConst'
+import { CATEGORY_LIST_CLEAR } from '../../constants/categoryConst'
+import { SKILL_LIST_CLEAR } from '../../constants/skillConst'
+import { addDays, parseISO } from 'date-fns'
+import { HiOutlineTrash } from 'react-icons/hi'
+import { MdOutlineAdd, MdCheck } from 'react-icons/md'
 import {
   TextField,
   SelectField,
   CategorySelect,
   CheckboxGroup,
   MyDatePicker,
-} from '../formHelpers';
-import { Message, Loader } from '../basics';
-import styles from './CreateOfferForm.module.css';
+} from '../formHelpers'
+import { Message, Loader } from '../basics'
+import styles from './CreateOfferForm.module.css'
 
-const CreateOfferForm = () => {
-  const categories = useSelector((state) => state.categoryList.categories);
-  const skills = useSelector((state) => state.skillsList.skills);
-  const { success, error, loading } = useSelector((state) => state.offerCreate);
+const OfferForm = ({ type, offer }) => {
+  const categories = useSelector((state) => state.categoryList.categories)
+  const skills = useSelector((state) => state.skillsList.skills)
+  const { success, error, loading } = useSelector((state) => state.offerCreate)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(listCategories());
-    dispatch(listSkills());
+    dispatch(listCategories())
+    dispatch(listSkills())
     return () => {
-      dispatch({ type: CATEGORY_LIST_CLEAR });
-      dispatch({ type: SKILL_LIST_CLEAR });
-    };
-  }, []);
+      dispatch({ type: CATEGORY_LIST_CLEAR })
+      dispatch({ type: SKILL_LIST_CLEAR })
+      dispatch({ type: OFFER_CREATE_RESET })
+    }
+  }, [])
 
-  const minDate = addDays(new Date(), 1);
-
-  const initialValues = {
+  const initialValues = type === 'update' ?
+  {
+    position: offer.position,
+    position_level: offer.position_level,
+    location: offer.location !== null ? 
+      {
+        street_address: offer.location.street_address,
+        postal_code: offer.location.postal_code,
+        city: offer.location.city,
+      }
+    : {
+        street_address: '',
+        postal_code: '',
+        city: '',
+      },
+    category: offer.category,
+    salary: offer.salary,
+    contract_type: offer.contract_type,
+    working_mode: offer.working_mode,
+    working_time: offer.working_time,
+    duties: offer.duties,
+    advantages: offer.advantages !== null ? offer.advantages : [],
+    requirements: offer.requirements,
+    expiration_date: parseISO(offer.expiration_date),
+  } : type === 'create' ? 
+  {
     position: '',
     position_level: '',
     location: {
@@ -54,16 +79,21 @@ const CreateOfferForm = () => {
     duties: [],
     advantages: [],
     requirements: [],
-    expiration_date: new Date(),
-  };
+    expiration_date: '',
+  } : null
 
   return (
     <>
       {loading && <Loader />}
-      {success && (
+      {success && type === 'create'(
         <Message variant='success'>
           Nowa oferta została dodana i oczekuje na weryfikację. Możesz dodać
           kolejną ofertę pracy.
+        </Message>
+      )}
+      {success && type === 'update'(
+        <Message variant='success'>
+          Zapisano zmiany
         </Message>
       )}
       {error && <Message variant='danger'>{error}</Message>}
@@ -71,11 +101,16 @@ const CreateOfferForm = () => {
         initialValues={initialValues}
         validationSchema={validateOffer}
         onSubmit={(values, { resetForm }) => {
-          dispatch(createOffer(values));
+          if (type === 'update') {
+            values.category = values.category.id
+            dispatch(updateOffer(values, offer.id))
+          } else if (type === 'create') {
+            dispatch(createOffer(values))
+          }
           // resetForm()
         }}
       >
-        {() => (
+        {({values}) => (
           <Form>
             <div className='container'>
               <Row className='mt-4 justify-content-around'>
@@ -117,6 +152,7 @@ const CreateOfferForm = () => {
                       },
                     ]}
                     defaultOption='Wybierz poziom stanowiska'
+                    value={type === 'update' ? offer.position_level : ''}
                   />
                 </Col>
                 <Col md={3}>
@@ -126,7 +162,7 @@ const CreateOfferForm = () => {
                   <MyDatePicker
                     label='Data wygaśnięcia'
                     name='expiration_date'
-                    minDate={minDate}
+                    minDate={addDays(new Date(), 1)}
                   />
                 </Col>
               </Row>
@@ -149,6 +185,7 @@ const CreateOfferForm = () => {
                 <Col md={3}>
                   <TextField label='Miasto' name='location.city' type='text' />
                 </Col>
+                {type === 'create' &&
                 <Col md={3}>
                   <CategorySelect
                     categoryLabel='Kategoria'
@@ -156,6 +193,7 @@ const CreateOfferForm = () => {
                     categories={categories}
                   />
                 </Col>
+                }
               </Row>
 
               <Row className='mt-4 justify-content-around'>
@@ -215,8 +253,8 @@ const CreateOfferForm = () => {
                 <Col md={6}>
                   <FieldArray name='duties'>
                     {({ push, remove, form }) => {
-                      const { values } = form;
-                      const { duties } = values;
+                      const { values } = form
+                      const { duties } = values
                       return (
                         <>
                           <div className='d-flex align-items-center'>
@@ -248,15 +286,15 @@ const CreateOfferForm = () => {
                             </div>
                           ))}
                         </>
-                      );
+                      )
                     }}
                   </FieldArray>
                 </Col>
                 <Col md={6}>
                   <FieldArray name='advantages'>
                     {({ push, remove, form }) => {
-                      const { values } = form;
-                      const { advantages } = values;
+                      const { values } = form
+                      const { advantages } = values
                       return (
                         <>
                           <div className='d-flex align-items-center'>
@@ -288,7 +326,7 @@ const CreateOfferForm = () => {
                             </div>
                           ))}
                         </>
-                      );
+                      )
                     }}
                   </FieldArray>
                 </Col>
@@ -297,8 +335,8 @@ const CreateOfferForm = () => {
                 <Col md={12}>
                   <FieldArray name='requirements'>
                     {({ push, remove, form }) => {
-                      const { values } = form;
-                      const { requirements } = values;
+                      const { values } = form
+                      const { requirements } = values
                       return (
                         <>
                           <div className='d-flex align-items-center'>
@@ -340,7 +378,7 @@ const CreateOfferForm = () => {
                                     { label: 'Inny', value: 'Inny' },
                                   ]}
                                   defaultOption='Wybierz rodzaj umiejętności'
-                                  value=''
+                                  value={type === 'update' && offer.requirements[index] !== undefined ? offer.requirements[index].type : ''}
                                 />
                               </Col>
                               <Col>
@@ -367,6 +405,7 @@ const CreateOfferForm = () => {
                                   name={`requirements[${index}].skill`}
                                   disabled={requirement.name !== ''}
                                   defaultOption='Wybierz umiejętność'
+                                  value={type === 'update' && offer.requirements[index] !== undefined ? offer.requirements[index].skill : ''}
                                   options={
                                     skills
                                       ? skills
@@ -394,7 +433,7 @@ const CreateOfferForm = () => {
                             </div>
                           ))}
                         </>
-                      );
+                      )
                     }}
                   </FieldArray>
                 </Col>
@@ -409,7 +448,7 @@ const CreateOfferForm = () => {
         )}
       </Formik>
     </>
-  );
-};
+  )
+}
 
-export default CreateOfferForm;
+export default OfferForm

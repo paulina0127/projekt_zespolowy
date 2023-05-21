@@ -4,7 +4,7 @@ import CompanyProfileCreate from './CompanyProfileCreate'
 import CompanyProfileDelete from './CompanyProfileDelete'
 import ComapnyProfileForm from './CompanyProfileForm'
 import CompanyProfileUpdate from './CompanyProfileUpdate'
-import CreateOfferForm from './CreateOfferForm'
+import OfferForm from './OfferForm'
 import OfferForCompany from './OfferForCompany'
 import ReceivedApplication from './ReceivedApplication'
 import StoreApplication from './StoreApplication'
@@ -18,7 +18,7 @@ export {
   CompanyProfileDelete,
   ComapnyProfileForm,
   CompanyProfileUpdate,
-  CreateOfferForm,
+  OfferForm,
   OfferForCompany,
   ReceivedApplication,
   StoreApplication,

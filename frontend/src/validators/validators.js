@@ -148,7 +148,7 @@ export const validateOffer = object({
     /^\d+(\s*-\s*\d+)?$/,
     'Wynagrodzenie powinno być w formie pojedynczej kwoty bądź widełek płacowych.'
   ),
-  category: string().required('Pole kategoria jest wymagane'),
+  // category: string().required('Pole kategoria jest wymagane'),
   location: object({
     street_address: string()
       .required('Pole ulica jest wymagane.')
@@ -172,6 +172,7 @@ export const validateOffer = object({
   working_mode: array().min(1, 'Wybierz co najmniej jedną opcję'),
   working_time: array().min(1, 'Wybierz co najmniej jedną opcję'),
   contract_type: array().min(1, 'Wybierz co najmniej jedną opcję'),
+  expiration_date: date().required('Data wygaśnięcia jest wymagana'),
 });
 
 export const validateNewUser = object({

@@ -47,7 +47,6 @@ const StoreApplication = () => {
 
   return (
     <UserPanelLayout>
-      {console.log(length)}
       <h2 className={styles['profile-h2']}>Zaakceptowane aplikacje</h2>
       {header()}
       {loading ? (

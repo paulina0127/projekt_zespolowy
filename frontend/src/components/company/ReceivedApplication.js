@@ -1,65 +1,65 @@
-import { useState, useEffect, Fragment } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Col, Row } from 'react-bootstrap';
-import ReceivedApplicationItem from './ReceivedApplicationItem';
-import { APPLICATION_LIST_CLEAR } from '../../constants/applicationConst';
+import { useState, useEffect, Fragment } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Col, Row } from 'react-bootstrap'
+import ReceivedApplicationItem from './ReceivedApplicationItem'
+import { APPLICATION_LIST_CLEAR } from '../../constants/applicationConst'
 import {
   listApplications,
   updateApplication,
-} from '../../actions/applicationActions';
-import { Loader, Message, MyModal, Pagination } from '../basics';
-import CompanyApplicationInfo from './CompanyApplicationInfo';
-import UserPanelLayout from '../../hocs/UserPanelLayout';
-import styles from '../company/CompanyProfileForm.module.css';
-import styles2 from '../company/OfferForCompany.module.css';
-import { BiArrowBack } from 'react-icons/bi';
+} from '../../actions/applicationActions'
+import { Loader, Message, MyModal, Pagination } from '../basics'
+import CompanyApplicationInfo from './CompanyApplicationInfo'
+import UserPanelLayout from '../../hocs/UserPanelLayout'
+import styles from '../company/CompanyProfileForm.module.css'
+import styles2 from '../company/OfferForCompany.module.css'
+import { BiArrowBack } from 'react-icons/bi'
 
 const ReceivedApplication = ({ offer_id, show }) => {
-  const [changeAppStatusIndex, setAppStatusIndex] = useState(null);
-  const [statusType, setStatusType] = useState('');
+  const [changeAppStatusIndex, setAppStatusIndex] = useState(null)
+  const [statusType, setStatusType] = useState('')
   const { applications, loading, length, error } = useSelector(
     (state) => state.applicationList
-  );
-  const success = useSelector((state) => state.applicationChanges);
+  )
+  const success = useSelector((state) => state.applicationChanges)
 
-  const [page, setPage] = useState(1);
-  const pageSize = 15;
+  const [page, setPage] = useState(1)
+  const pageSize = 15
 
   const handleClickBack = () => {
-    setPage(page - 1);
-  };
+    setPage(page - 1)
+  }
 
   const handleClickForward = () => {
-    setPage(page + 1);
-  };
+    setPage(page + 1)
+  }
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const handleShowModal = (index, type) => {
-    setAppStatusIndex(index);
-    setStatusType(type);
-  };
+    setAppStatusIndex(index)
+    setStatusType(type)
+  }
   const handleCloseModal = () => {
-    setAppStatusIndex(null);
-  };
+    setAppStatusIndex(null)
+  }
 
   const handleChageStatusApplication = (id, type) => {
-    const value = { status: '' };
+    const value = { status: '' }
     if (type === 'accept') {
-      value.status = 'Zaakceptowana';
+      value.status = 'Zaakceptowana'
     } else if (type === 'reject') {
-      value.status = 'Odrzucona';
+      value.status = 'Odrzucona'
     }
-    dispatch(updateApplication(id, value));
-    setAppStatusIndex(null);
-  };
+    dispatch(updateApplication(id, value))
+    setAppStatusIndex(null)
+  }
 
   useEffect(() => {
-    dispatch(listApplications({ page: page }));
+    dispatch(listApplications({ page: page }))
     return () => {
-      dispatch({ type: APPLICATION_LIST_CLEAR });
-    };
-  }, [dispatch, success, page]);
+      dispatch({ type: APPLICATION_LIST_CLEAR })
+    }
+  }, [dispatch, success, page])
 
   const filteredApplications = !loading
     ? applications.filter(
@@ -67,7 +67,7 @@ const ReceivedApplication = ({ offer_id, show }) => {
           application.status === 'Złożona' &&
           (offer_id ? application.offer.id === offer_id : true)
       )
-    : [];
+    : []
 
   return (
     <UserPanelLayout>
@@ -107,39 +107,37 @@ const ReceivedApplication = ({ offer_id, show }) => {
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error}</Message>
-      ) : applications.length === 0 ? (
+      ) : filteredApplications.length === 0 ? (
         <Message variant='primary'>Brak aplikacji</Message>
       ) : (
-        applications
-          .filter((application) => application.status === 'Złożona')
-          .map((application, index) => (
-            <Fragment key={application.id}>
-              <ReceivedApplicationItem
-                application={application}
-                index={index}
-                handleShowModal={handleShowModal}
-              />
-              {changeAppStatusIndex === index && (
-                <MyModal
-                  showModal={true}
-                  title={
-                    statusType === 'accept'
-                      ? 'Akceptowanie aplikacji'
-                      : 'Odrzucanie aplikacji'
-                  }
-                  danger={statusType === 'reject' ? true : 'accept'}
-                >
-                  <CompanyApplicationInfo
-                    type={statusType}
-                    name='tę aplikację'
-                    handleCloseModal={handleCloseModal}
-                    handleChangeStatus={handleChageStatusApplication}
-                    id={application.id}
-                  />
-                </MyModal>
-              )}
-            </Fragment>
-          ))
+        filteredApplications.map((application, index) => (
+          <Fragment key={application.id}>
+            <ReceivedApplicationItem
+              application={application}
+              index={index}
+              handleShowModal={handleShowModal}
+            />
+            {changeAppStatusIndex === index && (
+              <MyModal
+                showModal={true}
+                title={
+                  statusType === 'accept'
+                    ? 'Akceptowanie aplikacji'
+                    : 'Odrzucanie aplikacji'
+                }
+                danger={statusType === 'reject' ? true : 'accept'}
+              >
+                <CompanyApplicationInfo
+                  type={statusType}
+                  name='tę aplikację'
+                  handleCloseModal={handleCloseModal}
+                  handleChangeStatus={handleChageStatusApplication}
+                  id={application.id}
+                />
+              </MyModal>
+            )}
+          </Fragment>
+        ))
       )}
       <div
         className={`d-flex mt-5 justify-content-center mx-5 ${styles2['container-app']}`}
@@ -153,7 +151,7 @@ const ReceivedApplication = ({ offer_id, show }) => {
         />
       </div>
     </UserPanelLayout>
-  );
-};
+  )
+}
 
-export default ReceivedApplication;
+export default ReceivedApplication

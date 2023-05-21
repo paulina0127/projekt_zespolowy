@@ -58,7 +58,7 @@ const NavigationBar = ({ logout, user }) => {
         </NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item onClick={logout} className={`text-danger ${styles['dropdown-item']}`}>
-          Wyloguj się <FaPowerOff size='0.9rem' />
+          Wyloguj się <FaPowerOff />
         </NavDropdown.Item>
       </NavDropdown>
     </>
