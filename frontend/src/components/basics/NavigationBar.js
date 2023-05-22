@@ -80,7 +80,9 @@ const NavigationBar = ({ logout, user }) => {
               Pracodawcy
             </Nav.Link>
           </Nav>
-          <Nav>{user ? authLinks() : guestLinks()}</Nav>
+          <Nav>
+            {user === null ? guestLinks() : user ? authLinks() : ''}
+          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>

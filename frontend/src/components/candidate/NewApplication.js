@@ -24,7 +24,7 @@ const NewApplication = ({
 
   const profile = useSelector((state) => state.auth.user?.profile);
   const { user, filesList } = useSelector((state) => state.userProfileDetails);
-  const { success, loading } = useSelector((state) => state.candidate);
+  const { success, loading, error } = useSelector((state) => state.candidate);
 
   if (success) {
     handleCloseModal();
@@ -87,6 +87,7 @@ const NewApplication = ({
           <Loader />
         ) : user && user.location && filesList !== undefined ? (
           <Row>
+            {error && <Message variant='danger'>Aplikacja została już złożona dla tej oferty.</Message>}
             <Col md={12} className='justify-content-center'>
               <h4>Twoje dane osobowe</h4>
               <h6>Imię: {user.first_name}</h6>

@@ -42,7 +42,7 @@ const ApplicationItem = ({ application }) => {
         </Col>
         <Col lg={2}>
           {application.attachments ? application.attachments.map(att => (
-            <Link to={att.file.path} key={att.id}>
+            <Link to={att.file.path} key={att.id} target='_blank'>
               <h6 className={styles['profile-h4']}>{att.file.name}</h6>
             </Link>
           )) : ''}

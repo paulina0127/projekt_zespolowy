@@ -27,6 +27,7 @@ import {
 const ApplicationDetails = () => {
   const [changeAppStatus, setAppStatus] = useState(false)
   const [statusType, setStatusType] = useState('')
+  const [activeSection, setActiveSection] = useState('')
   const application_id = useParams().id
 
   const dispatch = useDispatch()
@@ -55,6 +56,14 @@ const ApplicationDetails = () => {
     }
     dispatch(updateApplication(id, value))
     setAppStatus(false)
+  }
+
+  const handleButtonClick = (section) => {
+    if (activeSection === section) {
+      setActiveSection('')
+    } else {
+      setActiveSection(section)
+    }
   }
 
   useEffect(() => {
@@ -134,7 +143,53 @@ const ApplicationDetails = () => {
             </div>
             {application.type === 'Profil kandydata' ? (
               <>
-                {application.candidate?.experience?.length > 0 && (
+                <div className='d-flex justify-content-center mt-4'> 
+                  <div className={styles.btngroup}>
+                    <button 
+                      className={`${styles['btngroup--btn']} 
+                      ${activeSection === 'experience' ? styles['btn-active'] : ''}`}
+                      onClick={() => handleButtonClick('experience')}
+                    >
+                        Doświadczenie
+                    </button>
+                    <button 
+                      className={`${styles['btngroup--btn']} 
+                      ${activeSection === 'education' ? styles['btn-active'] : ''}`}
+                      onClick={() => handleButtonClick('education')}
+                      >
+                      Wykształcenie
+                    </button>
+                    <button
+                      className={`${styles['btngroup--btn']} 
+                      ${activeSection === 'skills' ? styles['btn-active'] : ''}`}
+                      onClick={() => handleButtonClick('skills')}
+                    >
+                      Umiejętności
+                    </button>
+                    <button
+                      className={`${styles['btngroup--btn']} 
+                      ${activeSection === 'courses' ? styles['btn-active'] : ''}`}
+                      onClick={() => handleButtonClick('courses')}
+                    >
+                      Kursy
+                    </button>
+                    <button
+                      className={`${styles['btngroup--btn']} 
+                      ${activeSection === 'links' ? styles['btn-active'] : ''}`}
+                      onClick={() => handleButtonClick('links')}
+                    >
+                      Linki
+                    </button>
+                    <button
+                      className={`${styles['btngroup--btn']} 
+                      ${activeSection === 'attachments' ? styles['btn-active'] : ''}`}
+                      onClick={() => handleButtonClick('attachments')}
+                    >
+                      Załączniki
+                    </button>
+                  </div>
+                </div>
+                {activeSection === 'experience' && application.candidate?.experience?.length > 0 && (
                   <div className='d-flex flex-column px-4 py-2'>
                     <h4 className={styles['panel-h4']}>Doświadczenie</h4>
                     {application.candidate?.experience
@@ -154,7 +209,7 @@ const ApplicationDetails = () => {
                       ))}
                   </div>
                 )}
-                {application.candidate?.education?.length > 0 && (
+                {activeSection === 'education' && application.candidate?.education?.length > 0 && (
                   <div className='d-flex flex-column px-4 py-2'>
                     <h4 className={styles['panel-h4']}>Wykształcenie</h4>
                     {application.candidate?.education
@@ -174,7 +229,7 @@ const ApplicationDetails = () => {
                       ))}
                   </div>
                 )}
-                {application.candidate?.skills?.length > 0 && (
+                {activeSection === 'skills' && application.candidate?.skills?.length > 0 && (
                   <div className='d-flex flex-column px-4 py-2'>
                     <h4 className={styles['panel-h4']}>Umiejętności</h4>
                     {application.candidate?.skills?.filter(
@@ -250,7 +305,7 @@ const ApplicationDetails = () => {
                   </div>
                 )}
 
-                {application.candidate?.courses?.length > 0 && (
+                {activeSection === 'courses' && application.candidate?.courses?.length > 0 && (
                   <div className='d-flex flex-column px-4 py-2'>
                     <h4 className={styles['panel-h4']}>Kursy</h4>
                     {application.candidate.courses
@@ -262,7 +317,7 @@ const ApplicationDetails = () => {
                       ))}
                   </div>
                 )}
-                {application.candidate?.links?.length > 0 && (
+                {activeSection === 'links' && application.candidate?.links?.length > 0 && (
                   <div className='d-flex flex-column px-4 py-2'>
                     <h4 className={styles['panel-h4']}>Linki</h4>
                     <ul>
@@ -275,7 +330,7 @@ const ApplicationDetails = () => {
               </>
             ) : (
               <>
-                {application.attachments?.length > 0 && (
+                {activeSection === 'attachments' && application.attachments?.length > 0 && (
                   <>
                     <hr></hr>
                     <div className='d-flex flex-column px-4 py-2'>

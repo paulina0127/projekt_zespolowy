@@ -44,7 +44,7 @@ const CandidateSkill = () => {
     };
   }, [dispatch, success, profile]);
 
-  const th_list = ['Nazwa', 'Rodzaj', 'Poziom', 'Certyfikat', 'Akcje'];
+  const th_list = ['Nazwa', 'Rodzaj', 'Poziom', 'Akcje'];
 
   return (
     <UserPanelLayout>
@@ -63,7 +63,6 @@ const CandidateSkill = () => {
                 <td>{skill.name}</td>
                 <td>{skill.type}</td>
                 <td>{skill.level ? skill.level : ''}</td>
-                <td>{skill.certificate ? skill.certificate : ''}</td>
                 <td>
                   <span onClick={() => handleShowEditModal(index)}>
                     <MdEdit color='#00BE75' />

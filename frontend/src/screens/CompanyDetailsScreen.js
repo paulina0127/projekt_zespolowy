@@ -95,7 +95,7 @@ const CompanyDetailsScreen = () => {
                 icon={<MdOutlineLocalPhone />}
               />
               {company.website && (
-                <Link to={company.website}>
+                <Link to={company.website} target='_blank'>
                   <OfferPoint
                     text={company.website}
                     name='Strona internetowa'
@@ -116,7 +116,7 @@ const CompanyDetailsScreen = () => {
         )}
         <>
           {loading ? (
-            <Loader />
+            null
           ) : error ? (
             <Message variant='danger'>{error}</Message>
           ) : length === 0 ? null : (
