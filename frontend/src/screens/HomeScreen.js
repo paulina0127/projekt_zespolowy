@@ -24,7 +24,6 @@ const HomeScreen = () => {
               <br />
               nami!
             </h1>
-            {/* <a href="" className={styles["hero-butt"]}>Button</a> */}
           </div>
         </div>
       </section>

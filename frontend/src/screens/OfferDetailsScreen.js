@@ -88,7 +88,7 @@ const OfferDetailsScreen = () => {
                   <button
                     className={styles['apply-btn']}
                     onClick={handleApplyClick}
-                    disabled={user?.type === 'Pracodawca' || user === null}
+                    disabled={user?.type === 'Pracodawca' || user === null || user?.profile === null}
                   >
                     Aplikuj
                   </button>

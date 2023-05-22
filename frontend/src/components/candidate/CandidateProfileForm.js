@@ -9,6 +9,7 @@ import {
 import { Loader, Message } from '../basics';
 import styles from '../company/CompanyProfileForm.module.css';
 import { TextField, FileField } from '../formHelpers';
+import placeholder from '../../images/placeholder.png';
 
 const CandidateProfileForm = ({
   initialValues,
@@ -72,6 +73,8 @@ const CandidateProfileForm = ({
                           values?.image instanceof File
                             ? URL.createObjectURL(values?.image)
                             : initialValues?.image
+                            ? initialValues?.image
+                            : placeholder
                         }
                         style={{
                           objectFit: 'cover',

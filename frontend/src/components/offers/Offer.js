@@ -50,7 +50,11 @@ const Offer = ({ offer }) => {
         <button
           onClick={handleApplyClick}
           className={styles['offer-btn-yellow']}
-          disabled={user?.type === 'Pracodawca' || user === null}
+          disabled={
+            user?.type === 'Pracodawca' ||
+            user === null ||
+            user?.profile === null
+          }
         >
           Aplikuj
         </button>
