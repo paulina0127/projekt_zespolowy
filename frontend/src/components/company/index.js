@@ -11,6 +11,9 @@ import StoreApplication from './StoreApplication';
 import Company from './Company';
 import NewOffer from './NewOffer';
 import ApplicationDetails from './ApplicationDetails';
+import ReceivedApplicationItem from './ReceivedApplicationItem';
+import ApplicationEvaluationForm from './ApplicationEvaluationForm';
+import CompanyApplicationInfo from './CompanyApplicationInfo';
 
 export {
   CompanyOffers,
@@ -26,4 +29,7 @@ export {
   Company,
   NewOffer,
   ApplicationDetails,
+  ReceivedApplicationItem,
+  ApplicationEvaluationForm,
+  CompanyApplicationInfo,
 };

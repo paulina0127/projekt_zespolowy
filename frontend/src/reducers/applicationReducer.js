@@ -56,11 +56,11 @@ export const applicationDetailsReducer = (
 export const applicationCompanyReducer = (state = {}, action) => {
   switch (action.type) {
     case APPLICATION_REQUEST:
-      return { loading: true };
+      return { loadingUpdate: true };
     case APPLICATION_SUCCESS:
-      return { loading: false, success: true };
+      return { loadingUpdate: false, successUpdate: true };
     case APPLICATION_FAIL:
-      return { loading: false, error: action.payload };
+      return { loadingUpdae: false, errorUpdate: action.payload };
     case APPLICATION_RESET:
       return {};
     default:

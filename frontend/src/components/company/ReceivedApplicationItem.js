@@ -7,15 +7,16 @@ import styles2 from '../company/OfferForCompany.module.css';
 
 const ReceivedApplicationItem = ({
   application,
-  index,
   handleShowModal,
   handleShowEditModal,
   handleShowCandidateModal,
   old,
+  display,
 }) => {
   return (
     <div
       className={`shadow bg-white rounded-pill mx-5 my-3 px-5 ${styles2['container-app']}`}
+      style={!old && !display ? { width: 'auto' } : null}
     >
       <Row className='d-flex align-items-center col-lg-12'>
         <Col
@@ -50,17 +51,17 @@ const ReceivedApplicationItem = ({
           <Col lg={3}>
             <ul className={styles2['offer-btn']}>
               <Link to={`/user-panel/aplikacje-archiwum/${application.id}`}>
-              <button
-                type='button'
-                title='Szczegóły aplikacji'
-                className='btn btn-secondary rounded-pill mx-1 mt-3'
-              >
-                Szczegóły
-              </button>
+                <button
+                  type='button'
+                  title='Szczegóły aplikacji'
+                  className='btn btn-secondary rounded-pill mx-1 mt-3'
+                >
+                  Szczegóły
+                </button>
               </Link>
             </ul>
           </Col>
-        ) : (
+        ) : display ? (
           <>
             <Col lg={2}>
               <h6 className={styles['profile-h4']}>{application.status}</h6>
@@ -71,16 +72,26 @@ const ReceivedApplicationItem = ({
                   <button
                     type='button'
                     title='Szczegóły aplikacji'
-                    className={`btn btn-secondary rounded-circle mx-1 mt-3 ${styles2.circleBtn}`}
+                    className='btn btn-secondary rounded-pill mx-1 mt-3'
                   >
-                    <HiSearch />
+                    Szczegóły
                   </button>
                 </Link>
+              </ul>
+            </Col>
+          </>
+        ) : (
+          <>
+            <Col lg={2}>
+              <h6 className={styles['profile-h4']}>{application.status}</h6>
+            </Col>
+            <Col lg={3}>
+              <ul className={styles2['offer-btn']}>
                 <button
                   type='button'
                   title='Akceptuj aplikację'
                   className={`btn btn-success rounded-circle mx-1 mt-3 ${styles2.circleBtn}`}
-                  onClick={() => handleShowModal(index, 'accept')}
+                  onClick={() => handleShowModal('accept')}
                 >
                   <AiOutlineCheck />
                 </button>
@@ -88,17 +99,9 @@ const ReceivedApplicationItem = ({
                   type='button'
                   title='Odrzuć aplikację'
                   className={`btn btn-danger rounded-circle mx-1 mt-3 ${styles2.circleBtn}`}
-                  onClick={() => handleShowModal(index, 'reject')}
+                  onClick={() => handleShowModal('reject')}
                 >
                   <AiOutlineClose />
-                </button>
-                <button
-                  type='button'
-                  title='Notatki'
-                  className={`btn btn-primary rounded-circle mx-1 mt-3 ${styles2.circleBtn}`}
-                  onClick={() => handleShowEditModal(index)}
-                >
-                  <AiOutlineEdit />
                 </button>
               </ul>
             </Col>

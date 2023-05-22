@@ -70,6 +70,7 @@ class FileSerializer(serializers.ModelSerializer):
 
 class ExperienceSerializer(serializers.ModelSerializer):
     location = LocationSerializer(required=False)
+    references = FileSerializer(read_only=True)
 
     class Meta:
         model = Experience
@@ -102,18 +103,24 @@ class ExperienceSerializer(serializers.ModelSerializer):
 
 
 class EducationSerializer(serializers.ModelSerializer):
+    diploma = FileSerializer(read_only=True)
+
     class Meta:
         model = Education
         exclude = ["candidate"]
 
 
 class CSkillSerializer(serializers.ModelSerializer):
+    certificate = FileSerializer(read_only=True)
+
     class Meta:
         model = CSkill
         exclude = ["candidate"]
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    certificate = FileSerializer(read_only=True)
+
     class Meta:
         model = Course
         exclude = ["candidate"]

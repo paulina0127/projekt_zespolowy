@@ -223,7 +223,7 @@ class ApplicationDetail(generics.RetrieveUpdateAPIView):
             if user.type == UserType.CANDIDATE:
                 return ApplicationSerializer
             # Return serializer for displaying application if user is company
-            elif user.type == UserType.COMPANY:
+            elif user.type == UserType.COMPANY or user.type == UserType.ADMIN:
                 return CompanyApplicationSerializer
         else:
             return ApplicationSerializer  # Default serializer class

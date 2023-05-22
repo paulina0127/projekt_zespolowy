@@ -43,6 +43,7 @@ const ReceivedApplication = ({ offer_id, show }) => {
     setAppStatusIndex(index);
     setStatusType(type);
   };
+
   const handleCloseModal = () => setAppStatusIndex(null);
 
   const handleShowEditModal = (index) => setAddNotes(index);
@@ -126,6 +127,7 @@ const ReceivedApplication = ({ offer_id, show }) => {
               handleShowModal={handleShowModal}
               handleShowEditModal={handleShowEditModal}
               handleShowCandidateModal={handleShowCandidateModal}
+              display={true}
             />
             {changeAppStatusIndex === index && (
               <MyModal

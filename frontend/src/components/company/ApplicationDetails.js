@@ -4,12 +4,32 @@ import { Navigate } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { listApplicationDetails } from '../../actions/applicationActions';
+import {
+  listApplicationDetails,
+  updateApplication,
+} from '../../actions/applicationActions';
 import { APPLICATION_DETAILS_CLEAR } from '../../constants/applicationConst';
-import { useEffect } from 'react';
-import { Loader, Message } from '../../components/basics';
+import { useState, useEffect, Fragment } from 'react';
+import { Loader, Message, MyModal } from '../../components/basics';
+import {
+  ReceivedApplicationItem,
+  ApplicationEvaluationForm,
+  CompanyApplicationInfo,
+} from '.';
+import {
+  Experience,
+  Education,
+  Skill,
+  Course,
+  CLink,
+  Attachment,
+} from './ApplicationDetailsItems';
 
 const ApplicationDetails = () => {
+  const [changeAppStatusIndex, setAppStatusIndex] = useState(null);
+  const [addNotes, setAddNotes] = useState(null);
+  const [candidate, setCandidate] = useState(null);
+  const [statusType, setStatusType] = useState('');
   const application_id = useParams().id;
 
   const dispatch = useDispatch();
@@ -18,12 +38,40 @@ const ApplicationDetails = () => {
     (state) => state.applicationDetails
   );
 
+  const { loadingUpdate, successUpdate, errorUpdate } = useSelector(
+    (state) => state.applicationChanges
+  );
+
+  const handleShowModal = (index, type) => {
+    setAppStatusIndex(index);
+    setStatusType(type);
+  };
+
+  const handleCloseModal = () => setAppStatusIndex(null);
+
+  const handleShowEditModal = (index) => setAddNotes(index);
+  const handleCloseEditModal = () => setAddNotes(null);
+
+  const handleShowCandidateModal = (index) => setCandidate(index);
+  const handleCloseCandidateModal = () => setCandidate(null);
+
+  const handleChageStatusApplication = (id, type) => {
+    const value = { status: '' };
+    if (type === 'accept') {
+      value.status = 'Zaakceptowana';
+    } else if (type === 'reject') {
+      value.status = 'Odrzucona';
+    }
+    dispatch(updateApplication(id, value));
+    setAppStatusIndex(null);
+  };
+
   useEffect(() => {
     dispatch(listApplicationDetails(application_id));
     return () => {
       dispatch({ type: APPLICATION_DETAILS_CLEAR });
     };
-  }, []);
+  }, [successUpdate]);
 
   return (
     <UserPanelLayout>
@@ -40,6 +88,34 @@ const ApplicationDetails = () => {
           <Message variant='danger'>{error}</Message>
         ) : Object.keys(application).length === 0 ? null : (
           <div className='shadow p-3 bg-white rounded-5 m-2'>
+            <Fragment key={application.id}>
+              <ReceivedApplicationItem
+                application={application}
+                handleShowModal={handleShowModal}
+                handleShowEditModal={handleShowEditModal}
+                handleShowCandidateModal={handleShowCandidateModal}
+                display={true}
+              />
+              {changeAppStatusIndex === index && (
+                <MyModal
+                  showModal={true}
+                  title={
+                    statusType === 'accept'
+                      ? 'Akceptowanie aplikacji'
+                      : 'Odrzucanie aplikacji'
+                  }
+                  danger={statusType === 'reject' ? true : 'accept'}
+                >
+                  <CompanyApplicationInfo
+                    type={statusType}
+                    name='tę aplikację'
+                    handleCloseModal={handleCloseModal}
+                    handleChangeStatus={handleChageStatusApplication}
+                    id={application.id}
+                  />
+                </MyModal>
+              )}
+            </Fragment>
             <div className='d-grid' style={{ gridTemplateColumns: '1fr 1fr' }}>
               <div className='d-flex flex-column p-4'>
                 <h4 className={styles['panel-h4']}>Dane osobowe</h4>
@@ -64,112 +140,165 @@ const ApplicationDetails = () => {
               </div>
               <div className='d-flex flex-column p-4'>
                 <h4 className={styles['panel-h4']}>Ocena kandydata</h4>
-                <div className='d-flex flex-column'>
-                  <h5 className={styles['panel-h5']}>Ocena kompetencji</h5>
-                  <div className='d-flex'>
-                    <div className={styles['star-rating']}>
-                      <input
-                        id='star-5'
-                        type='radio'
-                        name='mark'
-                        value={5}
-                        checked={application.mark === 5}
-                        readOnly={true}
-                      />
-                      <label htmlFor='star-5' title='5 stars'>
-                        <i className='active fa fa-star' aria-hidden='true'></i>
-                      </label>
-                      <input
-                        id='star-4'
-                        type='radio'
-                        name='mark'
-                        value={4}
-                        checked={application.mark <= 4}
-                        readOnly={true}
-                      />
-                      <label htmlFor='star-4' title='4 stars'>
-                        <i className='active fa fa-star' aria-hidden='true'></i>
-                      </label>
-                      <input
-                        id='star-3'
-                        type='radio'
-                        name='mark'
-                        value={3}
-                        checked={application.mark <= 3}
-                        readOnly={true}
-                      />
-                      <label htmlFor='star-3' title='3 stars'>
-                        <i className='active fa fa-star' aria-hidden='true'></i>
-                      </label>
-                      <input
-                        id='star-2'
-                        type='radio'
-                        name='mark'
-                        value={2}
-                        checked={application.mark <= 2}
-                        readOnly={true}
-                      />
-                      <label htmlFor='star-2' title='2 stars'>
-                        <i className='active fa fa-star' aria-hidden='true'></i>
-                      </label>
-                      <input
-                        id='star-1'
-                        type='radio'
-                        name='mark'
-                        value={1}
-                        checked={application.mark >= 1}
-                        readOnly={true}
-                      />
-                      <label htmlFor='star-1' title='1 star'>
-                        <i className='active fa fa-star' aria-hidden='true'></i>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div className='d-flex flex-column'>
-                  <h5 className={styles['panel-h5']}>Notatki</h5>
-                  <textarea
-                    value={application.notes}
-                    readOnly={true}
-                    className='form-control rounded border-2 shadow-sm px-4'
-                  />
-                </div>
+
+                <ApplicationEvaluationForm application={application} />
               </div>
             </div>
             {application.type === 'Profil kandydata' ? (
               <>
                 {application.candidate?.experience?.length > 0 && (
-                  <div className='d-flex flex-column p-4'>
+                  <div className='d-flex flex-column px-4 py-2'>
                     <h4 className={styles['panel-h4']}>Doświadczenie</h4>
+                    {application.candidate?.experience
+                      ?.sort((a, b) => {
+                        if (!a.end_date && !b.end_date) {
+                          return 0; // Both offers have no end date, maintain their original order
+                        } else if (!a.end_date) {
+                          return -1; // Offer 'a' has no end date, so it should be on top
+                        } else if (!b.end_date) {
+                          return 1; // Offer 'b' has no end date, so it should be on top
+                        } else {
+                          return new Date(b.end_date) - new Date(a.end_date); // Compare based on end dates
+                        }
+                      })
+                      .map((exp) => (
+                        <Experience experience={exp} />
+                      ))}
                   </div>
                 )}
                 {application.candidate?.education?.length > 0 && (
-                  <div className='d-flex flex-column p-4'>
+                  <div className='d-flex flex-column px-4 py-2'>
                     <h4 className={styles['panel-h4']}>Wykształcenie</h4>
+                    {application.candidate?.education
+                      ?.sort((a, b) => {
+                        if (!a.end_date && !b.end_date) {
+                          return 0; // Both items have no end date, maintain their original order
+                        } else if (!a.end_date) {
+                          return -1; // Item 'a' has no end date, so it should be on top
+                        } else if (!b.end_date) {
+                          return 1; // Item'b' has no end date, so it should be on top
+                        } else {
+                          return new Date(b.end_date) - new Date(a.end_date); // Compare based on end dates
+                        }
+                      })
+                      .map((edu) => (
+                        <Education education={edu} />
+                      ))}
                   </div>
                 )}
                 {application.candidate?.skills?.length > 0 && (
-                  <div className='d-flex flex-column p-4'>
+                  <div className='d-flex flex-column px-4 py-2'>
                     <h4 className={styles['panel-h4']}>Umiejętności</h4>
+                    {application.candidate?.skills?.filter(
+                      (skill) => skill.type === 'Umiejętność twarda'
+                    ).length > 0 && (
+                      <>
+                        <h5 className={styles['panel-h5']}>
+                          Umiejętności twarde
+                        </h5>
+                        <ul>
+                          {application.candidate?.skills
+                            ?.filter(
+                              (skill) => skill.type === 'Umiejętność twarda'
+                            )
+                            .map((skill) => (
+                              <Skill skill={skill} />
+                            ))}
+                        </ul>
+                        <hr></hr>
+                      </>
+                    )}
+
+                    {application.candidate?.skills?.filter(
+                      (skill) => skill.type === 'Umiejętność miękka'
+                    ).length > 0 && (
+                      <>
+                        <h5 className={styles['panel-h5']}>
+                          Umiejętności miękkie
+                        </h5>
+                        <ul>
+                          {application.candidate?.skills
+                            ?.filter(
+                              (skill) => skill.type === 'Umiejętność miękka'
+                            )
+                            .map((skill) => (
+                              <Skill skill={skill} />
+                            ))}
+                        </ul>
+                        <hr></hr>
+                      </>
+                    )}
+                    {application.candidate?.skills?.filter(
+                      (skill) => skill.type === 'Język'
+                    ).length > 0 && (
+                      <>
+                        <h5 className={styles['panel-h5']}>Języki</h5>
+                        <ul>
+                          {application.candidate?.skills
+                            ?.filter((skill) => skill.type === 'Język')
+                            .map((skill) => (
+                              <Skill skill={skill} />
+                            ))}
+                        </ul>
+                        <hr></hr>
+                      </>
+                    )}
+
+                    {application.candidate?.skills?.filter(
+                      (skill) => skill.type === 'Inny'
+                    ).length > 0 && (
+                      <>
+                        <h5 className={styles['panel-h5']}>Inne</h5>
+                        <ul>
+                          {application.candidate?.skills
+                            ?.filter((skill) => skill.type === 'Inny')
+                            .map((skill) => (
+                              <Skill skill={skill} />
+                            ))}
+                        </ul>
+                        <hr></hr>
+                      </>
+                    )}
                   </div>
                 )}
-                {application.candidate?.skills?.length > 0 && (
-                  <div className='d-flex flex-column p-4'>
+
+                {application.candidate?.courses?.length > 0 && (
+                  <div className='d-flex flex-column px-4 py-2'>
                     <h4 className={styles['panel-h4']}>Kursy</h4>
+                    {application.candidate.courses
+                      .sort(
+                        (a, b) => new Date(b.end_date) - new Date(a.end_date)
+                      )
+                      .map((course) => (
+                        <Course course={course} />
+                      ))}
                   </div>
                 )}
                 {application.candidate?.links?.length > 0 && (
-                  <div className='d-flex flex-column p-4'>
+                  <div className='d-flex flex-column px-4 py-2'>
                     <h4 className={styles['panel-h4']}>Linki</h4>
+                    <ul>
+                      {application.candidate.links.map((link) => (
+                        <CLink link={link} />
+                      ))}
+                    </ul>
                   </div>
                 )}
               </>
             ) : (
               <>
                 {application.attachments?.length > 0 && (
-                  <div className='d-flex flex-column p-4'>
-                    <h4 className={styles['panel-h4']}>Załączniki</h4>
-                  </div>
+                  <>
+                    <hr></hr>
+                    <div className='d-flex flex-column px-4 py-2'>
+                      <h4 className={styles['panel-h4']}>Załączniki</h4>
+                      <ul>
+                        {application.attachments.map((attachment) => (
+                          <Attachment attachment={attachment} />
+                        ))}
+                      </ul>
+                    </div>
+                  </>
                 )}
               </>
             )}

@@ -4,36 +4,28 @@ import { Col, Row } from 'react-bootstrap';
 import { validateSkill } from '../../validators/validators';
 import { updateApplication } from '../../actions/applicationActions';
 import { TextArea } from '../formHelpers';
-import styles from './ApplicationEvaluationForm.module.css'
+import styles from './ApplicationEvaluationForm.module.css';
+import styles2 from '../../screens/MainPanelScreen.module.css';
 
-const ApplicationEvaluationForm = ({ handleCloseModal, application }) => {
-  const dispatch = useDispatch()
+const ApplicationEvaluationForm = ({ application }) => {
+  const dispatch = useDispatch();
 
   const initialValues = {
     notes: application.notes,
     mark: application.mark,
-  }
+  };
 
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={(values) => {
-        console.log(values)
-        dispatch(updateApplication(application.id, values))
-        handleCloseModal()
+        dispatch(updateApplication(application.id, values));
       }}
     >
-      {({values, setFieldValue}) => (
+      {({ values, setFieldValue }) => (
         <Form>
           <Row>
-            <TextArea
-              label='Notatki'
-              name='notes'
-              as='textarea'
-            />
-          </Row>
-          <Row>
-            <span className='my-2 mx-2 text-muted'>Ocena</span>
+            <h5 className={styles2['panel-h5']}>Ocena kompetencji</h5>
             <div className='d-flex justify-content-center'>
               <div className={styles['star-rating']}>
                 <input
@@ -94,18 +86,14 @@ const ApplicationEvaluationForm = ({ handleCloseModal, application }) => {
               </div>
             </div>
           </Row>
-          <hr className='text-secondary' />
+          <Row>
+            <h5 className={styles2['panel-h5']}>Notatki</h5>
+            <TextArea name='notes' as='textarea' />
+          </Row>
           <div className='d-flex justify-content-center'>
             <button
-              type='button'
-              className='btn btn-outline-warning rounded-pill fw-bold shadow-sm mx-2 px-5'
-              onClick={handleCloseModal}
-            >
-              Wróć
-            </button>
-            <button
               type='submit'
-              className='btn btn-warning rounded-pill fw-bold shadow-sm px-5'
+              className={`btn rounded-pill px-4 ${styles.saveBtn}`}
             >
               Zapisz
             </button>
@@ -113,7 +101,7 @@ const ApplicationEvaluationForm = ({ handleCloseModal, application }) => {
         </Form>
       )}
     </Formik>
-  )
-}
+  );
+};
 
-export default ApplicationEvaluationForm
+export default ApplicationEvaluationForm;

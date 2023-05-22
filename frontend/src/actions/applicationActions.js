@@ -90,7 +90,7 @@ export const updateApplication = (id, values) => async (dispatch) => {
       notes: values.notes,
     });
     console.log(body);
-    await axios.put(`/applications/${id}`, body, config);
+    await axios.patch(`/applications/${id}`, body, config);
 
     dispatch({
       type: APPLICATION_SUCCESS,
