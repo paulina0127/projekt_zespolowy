@@ -58,11 +58,10 @@ const StoreApplication = () => {
       ) : (
         applications
           .filter((application) => application.status === 'Zaakceptowana')
-          .map((application, index) => (
+          .map(application => (
             <ReceivedApplicationItem
               application={application}
               key={application.id}
-              index={index}
               old={true}
             />
           ))

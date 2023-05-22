@@ -1,25 +1,24 @@
-import { Formik, Form } from 'formik';
-import { useDispatch } from 'react-redux';
-import { Col, Row } from 'react-bootstrap';
-import { validateSkill } from '../../validators/validators';
-import { updateApplication } from '../../actions/applicationActions';
-import { TextArea } from '../formHelpers';
-import styles from './ApplicationEvaluationForm.module.css';
-import styles2 from '../../screens/MainPanelScreen.module.css';
+import { Formik, Form } from 'formik'
+import { useDispatch } from 'react-redux'
+import { Row } from 'react-bootstrap'
+import { updateApplication } from '../../actions/applicationActions'
+import { TextArea } from '../formHelpers'
+import styles from './ApplicationEvaluationForm.module.css'
+import styles2 from '../../screens/MainPanelScreen.module.css'
 
 const ApplicationEvaluationForm = ({ application }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const initialValues = {
     notes: application.notes,
     mark: application.mark,
-  };
+  }
 
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={(values) => {
-        dispatch(updateApplication(application.id, values));
+        dispatch(updateApplication(application.id, values))
       }}
     >
       {({ values, setFieldValue }) => (
@@ -101,7 +100,7 @@ const ApplicationEvaluationForm = ({ application }) => {
         </Form>
       )}
     </Formik>
-  );
-};
+  )
+}
 
-export default ApplicationEvaluationForm;
+export default ApplicationEvaluationForm

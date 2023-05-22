@@ -87,4 +87,4 @@ class ApplicationFilter(FilterSet):
 
     class Meta:
         model = Application
-        fields = ["candidate", "offer", "company"]
+        fields = ["candidate", "offer", "company", "status"]

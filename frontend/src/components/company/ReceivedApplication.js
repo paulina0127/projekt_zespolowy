@@ -1,82 +1,37 @@
-import { useState, useEffect, Fragment } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Col, Row, Modal } from 'react-bootstrap';
-import ReceivedApplicationItem from './ReceivedApplicationItem';
-import { APPLICATION_LIST_CLEAR } from '../../constants/applicationConst';
-import {
-  listApplications,
-  updateApplication,
-} from '../../actions/applicationActions';
-import { Loader, Message, MyModal, Pagination } from '../basics';
-import CompanyApplicationInfo from './CompanyApplicationInfo';
-import UserPanelLayout from '../../hocs/UserPanelLayout';
-import ApplicationEvaluationForm from './ApplicationEvaluationForm';
-import styles from '../company/CompanyProfileForm.module.css';
-import styles2 from '../company/OfferForCompany.module.css';
-import { BiArrowBack } from 'react-icons/bi';
-import { HiPhone, HiOutlineLocationMarker } from 'react-icons/hi';
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Col, Row, Modal } from 'react-bootstrap'
+import ReceivedApplicationItem from './ReceivedApplicationItem'
+import { APPLICATION_LIST_CLEAR } from '../../constants/applicationConst'
+import { listApplications } from '../../actions/applicationActions'
+import { Loader, Message, MyModal, Pagination } from '../basics'
+import UserPanelLayout from '../../hocs/UserPanelLayout'
+import styles from '../company/CompanyProfileForm.module.css'
+import styles2 from '../company/OfferForCompany.module.css'
+import { BiArrowBack } from 'react-icons/bi'
+
 
 const ReceivedApplication = ({ offer_id, show }) => {
-  const [changeAppStatusIndex, setAppStatusIndex] = useState(null);
-  const [addNotes, setAddNotes] = useState(null);
-  const [candidate, setCandidate] = useState(null);
-  const [statusType, setStatusType] = useState('');
+
   const { applications, loading, length, error } = useSelector(
     (state) => state.applicationList
-  );
-  const success = useSelector((state) => state.applicationChanges);
+  )
+  const success = useSelector((state) => state.applicationChanges)
 
-  const [page, setPage] = useState(1);
-  const pageSize = 5;
+  const [page, setPage] = useState(1)
+  const pageSize = 5
 
-  const handleClickBack = () => {
-    setPage(page - 1);
-  };
-
-  const handleClickForward = () => {
-    setPage(page + 1);
-  };
-
-  const dispatch = useDispatch();
-
-  const handleShowModal = (index, type) => {
-    setAppStatusIndex(index);
-    setStatusType(type);
-  };
-
-  const handleCloseModal = () => setAppStatusIndex(null);
-
-  const handleShowEditModal = (index) => setAddNotes(index);
-  const handleCloseEditModal = () => setAddNotes(null);
-
-  const handleShowCandidateModal = (index) => setCandidate(index);
-  const handleCloseCandidateModal = () => setCandidate(null);
-
-  const handleChageStatusApplication = (id, type) => {
-    const value = { status: '' };
-    if (type === 'accept') {
-      value.status = 'Zaakceptowana';
-    } else if (type === 'reject') {
-      value.status = 'Odrzucona';
-    }
-    dispatch(updateApplication(id, value));
-    setAppStatusIndex(null);
-  };
+  const handleClickBack = () => setPage(page - 1)
+  const handleClickForward = () => setPage(page + 1)
+  
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(listApplications({ page: page }));
+    dispatch(listApplications({ page: page, status: 'Złożona' }))
     return () => {
-      dispatch({ type: APPLICATION_LIST_CLEAR });
-    };
-  }, [dispatch, success, page]);
-
-  const filteredApplications = !loading
-    ? applications.filter(
-        (application) =>
-          application.status === 'Złożona' &&
-          (offer_id ? application.offer.id === offer_id : true)
-      )
-    : [];
+      dispatch({ type: APPLICATION_LIST_CLEAR })
+    }
+  }, [dispatch, success, page])
 
   return (
     <UserPanelLayout>
@@ -116,79 +71,15 @@ const ReceivedApplication = ({ offer_id, show }) => {
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error}</Message>
-      ) : filteredApplications.length === 0 ? (
+      ) : applications.length === 0 ? (
         <Message variant='primary'>Brak aplikacji</Message>
       ) : (
-        filteredApplications.map((application, index) => (
-          <Fragment key={application.id}>
-            <ReceivedApplicationItem
-              application={application}
-              index={index}
-              handleShowModal={handleShowModal}
-              handleShowEditModal={handleShowEditModal}
-              handleShowCandidateModal={handleShowCandidateModal}
-              display={true}
-            />
-            {changeAppStatusIndex === index && (
-              <MyModal
-                showModal={true}
-                title={
-                  statusType === 'accept'
-                    ? 'Akceptowanie aplikacji'
-                    : 'Odrzucanie aplikacji'
-                }
-                danger={statusType === 'reject' ? true : 'accept'}
-              >
-                <CompanyApplicationInfo
-                  type={statusType}
-                  name='tę aplikację'
-                  handleCloseModal={handleCloseModal}
-                  handleChangeStatus={handleChageStatusApplication}
-                  id={application.id}
-                />
-              </MyModal>
-            )}
-            {addNotes === index && (
-              <MyModal showModal={true} title='Notatki i ocena'>
-                <ApplicationEvaluationForm
-                  application={application}
-                  handleCloseModal={handleCloseEditModal}
-                />
-              </MyModal>
-            )}
-            {candidate === index && (
-              <Modal
-                show={true}
-                onHide={() => handleCloseCandidateModal()}
-                centered
-              >
-                <div className={styles2.card}>
-                  <div className={styles2['img-placeholder']}>
-                    <img src={application.candidate.image} />
-                  </div>
-                  <div>
-                    <h3 className='border-bottom mb-3'>
-                      {application.candidate.first_name +
-                        ' ' +
-                        application.candidate.last_name}
-                    </h3>
-                    <p>
-                      <HiPhone />
-                      {application.candidate.phone_number}
-                    </p>
-                    <p>
-                      <HiOutlineLocationMarker />
-                      {application.candidate.location.street_address +
-                        ', ' +
-                        application.candidate.location.postal_code +
-                        ' ' +
-                        application.candidate.location.city}
-                    </p>
-                  </div>
-                </div>
-              </Modal>
-            )}
-          </Fragment>
+        applications.map(application => (
+          <ReceivedApplicationItem
+            key={application.id}
+            application={application}
+            display={true}
+          />
         ))
       )}
       <div
@@ -203,7 +94,7 @@ const ReceivedApplication = ({ offer_id, show }) => {
         />
       </div>
     </UserPanelLayout>
-  );
-};
+  )
+}
 
-export default ReceivedApplication;
+export default ReceivedApplication

@@ -1,21 +1,20 @@
-import UserPanelLayout from '../../hocs/UserPanelLayout';
-import styles from '../../screens/MainPanelScreen.module.css';
-import { Navigate } from 'react-router-dom';
-import { BiArrowBack } from 'react-icons/bi';
-import { useParams, Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import UserPanelLayout from '../../hocs/UserPanelLayout'
+import styles from '../../screens/MainPanelScreen.module.css'
+import { BiArrowBack } from 'react-icons/bi'
+import { useParams, Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   listApplicationDetails,
   updateApplication,
-} from '../../actions/applicationActions';
-import { APPLICATION_DETAILS_CLEAR } from '../../constants/applicationConst';
-import { useState, useEffect, Fragment } from 'react';
-import { Loader, Message, MyModal } from '../../components/basics';
+} from '../../actions/applicationActions'
+import { APPLICATION_DETAILS_CLEAR } from '../../constants/applicationConst'
+import { useState, useEffect, Fragment } from 'react'
+import { Loader, Message, MyModal } from '../../components/basics'
 import {
   ReceivedApplicationItem,
   ApplicationEvaluationForm,
   CompanyApplicationInfo,
-} from '.';
+} from '.'
 import {
   Experience,
   Education,
@@ -23,55 +22,47 @@ import {
   Course,
   CLink,
   Attachment,
-} from './ApplicationDetailsItems';
+} from './ApplicationDetailsItems'
 
 const ApplicationDetails = () => {
-  const [changeAppStatusIndex, setAppStatusIndex] = useState(null);
-  const [addNotes, setAddNotes] = useState(null);
-  const [candidate, setCandidate] = useState(null);
-  const [statusType, setStatusType] = useState('');
-  const application_id = useParams().id;
+  const [changeAppStatus, setAppStatus] = useState(false)
+  const [statusType, setStatusType] = useState('')
+  const application_id = useParams().id
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const { application, loading, error } = useSelector(
     (state) => state.applicationDetails
-  );
+  )
 
   const { loadingUpdate, successUpdate, errorUpdate } = useSelector(
     (state) => state.applicationChanges
-  );
+  )
 
-  // const handleShowModal = (index, type) => {
-  //   setAppStatusIndex(index);
-  //   setStatusType(type);
-  // };
+  const handleShowModal = (type) => {
+    setAppStatus(true)
+    setStatusType(type)
+  }
 
-  // const handleCloseModal = () => setAppStatusIndex(null);
+  const handleCloseModal = () => setAppStatus(false)
 
-  // const handleShowEditModal = (index) => setAddNotes(index);
-  // const handleCloseEditModal = () => setAddNotes(null);
-
-  // const handleShowCandidateModal = (index) => setCandidate(index);
-  // const handleCloseCandidateModal = () => setCandidate(null);
-
-  // const handleChageStatusApplication = (id, type) => {
-  //   const value = { status: '' };
-  //   if (type === 'accept') {
-  //     value.status = 'Zaakceptowana';
-  //   } else if (type === 'reject') {
-  //     value.status = 'Odrzucona';
-  //   }
-  //   dispatch(updateApplication(id, value));
-  //   setAppStatusIndex(null);
-  // };
+  const handleChageStatusApplication = (id, type) => {
+    const value = { status: '' }
+    if (type === 'accept') {
+      value.status = 'Zaakceptowana'
+    } else if (type === 'reject') {
+      value.status = 'Odrzucona'
+    }
+    dispatch(updateApplication(id, value))
+    setAppStatus(false)
+  }
 
   useEffect(() => {
-    dispatch(listApplicationDetails(application_id));
+    dispatch(listApplicationDetails(application_id))
     return () => {
-      dispatch({ type: APPLICATION_DETAILS_CLEAR });
-    };
-  }, [successUpdate]);
+      dispatch({ type: APPLICATION_DETAILS_CLEAR })
+    }
+  }, [successUpdate])
 
   return (
     <UserPanelLayout>
@@ -91,18 +82,16 @@ const ApplicationDetails = () => {
             <Fragment key={application.id}>
               <ReceivedApplicationItem
                 application={application}
-                // handleShowModal={handleShowModal}
-                // handleShowEditModal={handleShowEditModal}
-                // handleShowCandidateModal={handleShowCandidateModal}
+                handleShowModal={handleShowModal}
               />
-              {/* {changeAppStatusIndex === index && (
+              {changeAppStatus && (
                 <MyModal
                   showModal={true}
                   title={
                     statusType === 'accept'
                       ? 'Akceptowanie aplikacji'
                       : 'Odrzucanie aplikacji'
-                  }
+                  } 
                   danger={statusType === 'reject' ? true : 'accept'}
                 >
                   <CompanyApplicationInfo
@@ -113,7 +102,7 @@ const ApplicationDetails = () => {
                     id={application.id}
                   />
                 </MyModal>
-              )} */}
+              )}
             </Fragment>
             <div className='d-grid' style={{ gridTemplateColumns: '1fr 1fr' }}>
               <div className='d-flex flex-column p-4'>
@@ -151,13 +140,13 @@ const ApplicationDetails = () => {
                     {application.candidate?.experience
                       ?.sort((a, b) => {
                         if (!a.end_date && !b.end_date) {
-                          return 0; // Both offers have no end date, maintain their original order
+                          return 0 // Both offers have no end date, maintain their original order
                         } else if (!a.end_date) {
-                          return -1; // Offer 'a' has no end date, so it should be on top
+                          return -1 // Offer 'a' has no end date, so it should be on top
                         } else if (!b.end_date) {
-                          return 1; // Offer 'b' has no end date, so it should be on top
+                          return 1 // Offer 'b' has no end date, so it should be on top
                         } else {
-                          return new Date(b.end_date) - new Date(a.end_date); // Compare based on end dates
+                          return new Date(b.end_date) - new Date(a.end_date) // Compare based on end dates
                         }
                       })
                       .map((exp) => (
@@ -171,13 +160,13 @@ const ApplicationDetails = () => {
                     {application.candidate?.education
                       ?.sort((a, b) => {
                         if (!a.end_date && !b.end_date) {
-                          return 0; // Both items have no end date, maintain their original order
+                          return 0 // Both items have no end date, maintain their original order
                         } else if (!a.end_date) {
-                          return -1; // Item 'a' has no end date, so it should be on top
+                          return -1 // Item 'a' has no end date, so it should be on top
                         } else if (!b.end_date) {
-                          return 1; // Item'b' has no end date, so it should be on top
+                          return 1 // Item'b' has no end date, so it should be on top
                         } else {
-                          return new Date(b.end_date) - new Date(a.end_date); // Compare based on end dates
+                          return new Date(b.end_date) - new Date(a.end_date) // Compare based on end dates
                         }
                       })
                       .map((edu) => (
@@ -305,7 +294,7 @@ const ApplicationDetails = () => {
         )}
       </div>
     </UserPanelLayout>
-  );
-};
+  )
+}
 
-export default ApplicationDetails;
+export default ApplicationDetails

@@ -1,19 +1,16 @@
-import { Link } from 'react-router-dom';
-import { Col, Row } from 'react-bootstrap';
-import { HiSearch } from 'react-icons/hi';
-import { AiOutlineCheck, AiOutlineClose, AiOutlineEdit } from 'react-icons/ai';
-import styles from '../company/CompanyProfileForm.module.css';
-import styles2 from '../company/OfferForCompany.module.css';
+import { Link } from 'react-router-dom'
+import { Col, Row } from 'react-bootstrap'
+import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai'
+import styles from '../company/CompanyProfileForm.module.css'
+import styles2 from '../company/OfferForCompany.module.css'
 
 const ReceivedApplicationItem = ({
   application,
-  index,
   handleShowModal,
-  handleShowEditModal,
-  handleShowCandidateModal,
   old,
   display,
 }) => {
+
   return (
     <div
       className={`shadow bg-white rounded-pill mx-5 my-3 px-5 ${styles2['container-app']}`}
@@ -27,7 +24,6 @@ const ReceivedApplicationItem = ({
             gridTemplateColumns: 'min-content max-content',
             cursor: 'pointer',
           }}
-          onClick={!old ? () => handleShowCandidateModal(index) : null}
         >
           <img
             src={application.candidate.image}
@@ -86,6 +82,7 @@ const ReceivedApplicationItem = ({
             <Col lg={2}>
               <h6 className={styles['profile-h4']}>{application.status}</h6>
             </Col>
+            {application.status !== 'Złożona' ? <Col lg={3} /> : (
             <Col lg={3}>
               <ul className={styles2['offer-btn']}>
                 <button
@@ -106,11 +103,12 @@ const ReceivedApplicationItem = ({
                 </button>
               </ul>
             </Col>
+            )}
           </>
         )}
       </Row>
     </div>
-  );
-};
+  )
+}
 
-export default ReceivedApplicationItem;
+export default ReceivedApplicationItem
