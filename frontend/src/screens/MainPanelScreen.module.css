@@ -93,3 +93,39 @@
   width: 20px;
   height: 20px;
 }
+
+.btngroup {
+  display: inline;
+}
+
+.btngroup--btn {
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: transparent;
+  border: 2px solid black;
+  border-left-width: 0;
+  display: inline-block;
+  padding: 0.5em 1.25em;
+  transition: transform 0.6s ease;
+  /* outline: 0; */
+}
+.btngroup--btn:first-child {
+  border-left-width: 2px;
+  border-radius: 2em 0 0 2em;
+}
+.btngroup--btn:last-child {
+  border-radius: 0 2em 2em 0;
+}
+
+.btngroup--btn:hover {
+  background: var(--yellow);
+  color: #fff;
+  border: 2px solid black;
+  transform: scale(1.1);
+}
+.btn-active {
+  background: var(--yellow);
+  color: #fff;
+}
