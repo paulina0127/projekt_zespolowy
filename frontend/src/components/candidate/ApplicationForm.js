@@ -45,7 +45,6 @@ const ApplicationForm = ({
             dispatch(createApplication(values));
           }
         }
-        console.log(values);
       }}
     >
       {({ values }) => (

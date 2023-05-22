@@ -1,100 +1,102 @@
-import { Formik, Form, Field, FieldArray } from 'formik'
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col } from 'react-bootstrap'
-import { listCategories } from '../../actions/categoryActions'
-import { listSkills } from '../../actions/skillActions'
-import { createOffer, updateOffer } from '../../actions/offerActions'
-import { validateOffer } from '../../validators/validators'
-import { OFFER_CREATE_RESET } from '../../constants/offerConst'
-import { CATEGORY_LIST_CLEAR } from '../../constants/categoryConst'
-import { SKILL_LIST_CLEAR } from '../../constants/skillConst'
-import { addDays, parseISO } from 'date-fns'
-import { HiOutlineTrash } from 'react-icons/hi'
-import { MdOutlineAdd, MdCheck } from 'react-icons/md'
+import { Formik, Form, Field, FieldArray } from 'formik';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Row, Col } from 'react-bootstrap';
+import { listCategories } from '../../actions/categoryActions';
+import { listSkills } from '../../actions/skillActions';
+import { createOffer, updateOffer } from '../../actions/offerActions';
+import { validateOffer } from '../../validators/validators';
+import { OFFER_CREATE_RESET } from '../../constants/offerConst';
+import { CATEGORY_LIST_CLEAR } from '../../constants/categoryConst';
+import { SKILL_LIST_CLEAR } from '../../constants/skillConst';
+import { addDays, parseISO } from 'date-fns';
+import { HiOutlineTrash } from 'react-icons/hi';
+import { MdOutlineAdd, MdCheck } from 'react-icons/md';
 import {
   TextField,
   SelectField,
   CategorySelect,
   CheckboxGroup,
   MyDatePicker,
-} from '../formHelpers'
-import { Message, Loader } from '../basics'
-import styles from './CreateOfferForm.module.css'
+} from '../formHelpers';
+import { Message, Loader } from '../basics';
+import styles from './CreateOfferForm.module.css';
 
 const OfferForm = ({ type, offer }) => {
-  const categories = useSelector((state) => state.categoryList.categories)
-  const skills = useSelector((state) => state.skillsList.skills)
-  const { success, error, loading } = useSelector((state) => state.offerCreate)
+  const categories = useSelector((state) => state.categoryList.categories);
+  const skills = useSelector((state) => state.skillsList.skills);
+  const { success, error, loading } = useSelector((state) => state.offerCreate);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(listCategories())
-    dispatch(listSkills())
+    dispatch(listCategories());
+    dispatch(listSkills());
     return () => {
-      dispatch({ type: CATEGORY_LIST_CLEAR })
-      dispatch({ type: SKILL_LIST_CLEAR })
-      dispatch({ type: OFFER_CREATE_RESET })
-    }
-  }, [])
+      dispatch({ type: CATEGORY_LIST_CLEAR });
+      dispatch({ type: SKILL_LIST_CLEAR });
+      dispatch({ type: OFFER_CREATE_RESET });
+    };
+  }, []);
 
-  const initialValues = type === 'update' ?
-  {
-    position: offer.position,
-    position_level: offer.position_level,
-    location: offer.location !== null ? 
-      {
-        street_address: offer.location.street_address,
-        postal_code: offer.location.postal_code,
-        city: offer.location.city,
-      }
-    : {
-        street_address: '',
-        postal_code: '',
-        city: '',
-      },
-    category: offer.category,
-    salary: offer.salary,
-    contract_type: offer.contract_type,
-    working_mode: offer.working_mode,
-    working_time: offer.working_time,
-    duties: offer.duties,
-    advantages: offer.advantages !== null ? offer.advantages : [],
-    requirements: offer.requirements,
-    expiration_date: parseISO(offer.expiration_date),
-  } : type === 'create' ? 
-  {
-    position: '',
-    position_level: '',
-    location: {
-      street_address: '',
-      postal_code: '',
-      city: '',
-    },
-    category: '',
-    salary: '',
-    contract_type: [],
-    working_mode: [],
-    working_time: [],
-    duties: [],
-    advantages: [],
-    requirements: [],
-    expiration_date: '',
-  } : null
+  const initialValues =
+    type === 'update'
+      ? {
+          position: offer.position,
+          position_level: offer.position_level,
+          location:
+            offer.location !== null
+              ? {
+                  street_address: offer.location.street_address,
+                  postal_code: offer.location.postal_code,
+                  city: offer.location.city,
+                }
+              : {
+                  street_address: '',
+                  postal_code: '',
+                  city: '',
+                },
+          category: offer.category,
+          salary: offer.salary,
+          contract_type: offer.contract_type,
+          working_mode: offer.working_mode,
+          working_time: offer.working_time,
+          duties: offer.duties,
+          advantages: offer.advantages !== null ? offer.advantages : [],
+          requirements: offer.requirements,
+          expiration_date: parseISO(offer.expiration_date),
+        }
+      : type === 'create'
+      ? {
+          position: '',
+          position_level: '',
+          location: {
+            street_address: '',
+            postal_code: '',
+            city: '',
+          },
+          category: '',
+          salary: '',
+          contract_type: [],
+          working_mode: [],
+          working_time: [],
+          duties: [],
+          advantages: [],
+          requirements: [],
+          expiration_date: '',
+        }
+      : null;
 
   return (
     <>
       {loading && <Loader />}
-      {success && type === 'create'(
+      {success && type === 'create' && (
         <Message variant='success'>
           Nowa oferta została dodana i oczekuje na weryfikację. Możesz dodać
           kolejną ofertę pracy.
         </Message>
       )}
-      {success && type === 'update'(
-        <Message variant='success'>
-          Zapisano zmiany
-        </Message>
+      {success && type === 'update' && (
+        <Message variant='success'>Zapisano zmiany</Message>
       )}
       {error && <Message variant='danger'>{error}</Message>}
       <Formik
@@ -102,15 +104,15 @@ const OfferForm = ({ type, offer }) => {
         validationSchema={validateOffer}
         onSubmit={(values, { resetForm }) => {
           if (type === 'update') {
-            values.category = values.category.id
-            dispatch(updateOffer(values, offer.id))
+            values.category = values.category.id;
+            dispatch(updateOffer(values, offer.id));
           } else if (type === 'create') {
-            dispatch(createOffer(values))
+            dispatch(createOffer(values));
           }
           // resetForm()
         }}
       >
-        {({values}) => (
+        {({ values }) => (
           <Form>
             <div className='container'>
               <Row className='mt-4 justify-content-around'>
@@ -185,15 +187,15 @@ const OfferForm = ({ type, offer }) => {
                 <Col md={3}>
                   <TextField label='Miasto' name='location.city' type='text' />
                 </Col>
-                {type === 'create' &&
-                <Col md={3}>
-                  <CategorySelect
-                    categoryLabel='Kategoria'
-                    name='category'
-                    categories={categories}
-                  />
-                </Col>
-                }
+                {type === 'create' && (
+                  <Col md={3}>
+                    <CategorySelect
+                      categoryLabel='Kategoria'
+                      name='category'
+                      categories={categories}
+                    />
+                  </Col>
+                )}
               </Row>
 
               <Row className='mt-4 justify-content-around'>
@@ -253,8 +255,8 @@ const OfferForm = ({ type, offer }) => {
                 <Col md={6}>
                   <FieldArray name='duties'>
                     {({ push, remove, form }) => {
-                      const { values } = form
-                      const { duties } = values
+                      const { values } = form;
+                      const { duties } = values;
                       return (
                         <>
                           <div className='d-flex align-items-center'>
@@ -286,15 +288,15 @@ const OfferForm = ({ type, offer }) => {
                             </div>
                           ))}
                         </>
-                      )
+                      );
                     }}
                   </FieldArray>
                 </Col>
                 <Col md={6}>
                   <FieldArray name='advantages'>
                     {({ push, remove, form }) => {
-                      const { values } = form
-                      const { advantages } = values
+                      const { values } = form;
+                      const { advantages } = values;
                       return (
                         <>
                           <div className='d-flex align-items-center'>
@@ -326,7 +328,7 @@ const OfferForm = ({ type, offer }) => {
                             </div>
                           ))}
                         </>
-                      )
+                      );
                     }}
                   </FieldArray>
                 </Col>
@@ -335,8 +337,8 @@ const OfferForm = ({ type, offer }) => {
                 <Col md={12}>
                   <FieldArray name='requirements'>
                     {({ push, remove, form }) => {
-                      const { values } = form
-                      const { requirements } = values
+                      const { values } = form;
+                      const { requirements } = values;
                       return (
                         <>
                           <div className='d-flex align-items-center'>
@@ -378,7 +380,12 @@ const OfferForm = ({ type, offer }) => {
                                     { label: 'Inny', value: 'Inny' },
                                   ]}
                                   defaultOption='Wybierz rodzaj umiejętności'
-                                  value={type === 'update' && offer.requirements[index] !== undefined ? offer.requirements[index].type : ''}
+                                  value={
+                                    type === 'update' &&
+                                    offer.requirements[index] !== undefined
+                                      ? offer.requirements[index].type
+                                      : ''
+                                  }
                                 />
                               </Col>
                               <Col>
@@ -405,7 +412,12 @@ const OfferForm = ({ type, offer }) => {
                                   name={`requirements[${index}].skill`}
                                   disabled={requirement.name !== ''}
                                   defaultOption='Wybierz umiejętność'
-                                  value={type === 'update' && offer.requirements[index] !== undefined ? offer.requirements[index].skill : ''}
+                                  value={
+                                    type === 'update' &&
+                                    offer.requirements[index] !== undefined
+                                      ? offer.requirements[index].skill
+                                      : ''
+                                  }
                                   options={
                                     skills
                                       ? skills
@@ -433,7 +445,7 @@ const OfferForm = ({ type, offer }) => {
                             </div>
                           ))}
                         </>
-                      )
+                      );
                     }}
                   </FieldArray>
                 </Col>
@@ -448,7 +460,7 @@ const OfferForm = ({ type, offer }) => {
         )}
       </Formik>
     </>
-  )
-}
+  );
+};
 
-export default OfferForm
+export default OfferForm;

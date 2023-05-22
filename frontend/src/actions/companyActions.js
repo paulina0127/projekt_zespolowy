@@ -34,12 +34,10 @@ export const listCompanies = (filters) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
+    const errorKey = Object.keys(error?.response?.data || {})[0];
     dispatch({
       type: COMPANY_LIST_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
+      payload: errorKey ? error.response.data[errorKey] : error.message,
     });
   }
 };
@@ -55,12 +53,10 @@ export const listCompanyDetails = (id) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
+    const errorKey = Object.keys(error?.response?.data || {})[0];
     dispatch({
       type: COMPANY_DETAILS_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
+      payload: errorKey ? error.response.data[errorKey] : error.message,
     });
   }
 };

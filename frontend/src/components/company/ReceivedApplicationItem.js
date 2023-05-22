@@ -7,6 +7,7 @@ import styles2 from '../company/OfferForCompany.module.css';
 
 const ReceivedApplicationItem = ({
   application,
+  index,
   handleShowModal,
   handleShowEditModal,
   handleShowCandidateModal,

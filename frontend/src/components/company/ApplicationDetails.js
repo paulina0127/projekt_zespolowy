@@ -42,29 +42,29 @@ const ApplicationDetails = () => {
     (state) => state.applicationChanges
   );
 
-  const handleShowModal = (index, type) => {
-    setAppStatusIndex(index);
-    setStatusType(type);
-  };
+  // const handleShowModal = (index, type) => {
+  //   setAppStatusIndex(index);
+  //   setStatusType(type);
+  // };
 
-  const handleCloseModal = () => setAppStatusIndex(null);
+  // const handleCloseModal = () => setAppStatusIndex(null);
 
-  const handleShowEditModal = (index) => setAddNotes(index);
-  const handleCloseEditModal = () => setAddNotes(null);
+  // const handleShowEditModal = (index) => setAddNotes(index);
+  // const handleCloseEditModal = () => setAddNotes(null);
 
-  const handleShowCandidateModal = (index) => setCandidate(index);
-  const handleCloseCandidateModal = () => setCandidate(null);
+  // const handleShowCandidateModal = (index) => setCandidate(index);
+  // const handleCloseCandidateModal = () => setCandidate(null);
 
-  const handleChageStatusApplication = (id, type) => {
-    const value = { status: '' };
-    if (type === 'accept') {
-      value.status = 'Zaakceptowana';
-    } else if (type === 'reject') {
-      value.status = 'Odrzucona';
-    }
-    dispatch(updateApplication(id, value));
-    setAppStatusIndex(null);
-  };
+  // const handleChageStatusApplication = (id, type) => {
+  //   const value = { status: '' };
+  //   if (type === 'accept') {
+  //     value.status = 'Zaakceptowana';
+  //   } else if (type === 'reject') {
+  //     value.status = 'Odrzucona';
+  //   }
+  //   dispatch(updateApplication(id, value));
+  //   setAppStatusIndex(null);
+  // };
 
   useEffect(() => {
     dispatch(listApplicationDetails(application_id));
@@ -91,12 +91,11 @@ const ApplicationDetails = () => {
             <Fragment key={application.id}>
               <ReceivedApplicationItem
                 application={application}
-                handleShowModal={handleShowModal}
-                handleShowEditModal={handleShowEditModal}
-                handleShowCandidateModal={handleShowCandidateModal}
-                display={true}
+                // handleShowModal={handleShowModal}
+                // handleShowEditModal={handleShowEditModal}
+                // handleShowCandidateModal={handleShowCandidateModal}
               />
-              {changeAppStatusIndex === index && (
+              {/* {changeAppStatusIndex === index && (
                 <MyModal
                   showModal={true}
                   title={
@@ -114,7 +113,7 @@ const ApplicationDetails = () => {
                     id={application.id}
                   />
                 </MyModal>
-              )}
+              )} */}
             </Fragment>
             <div className='d-grid' style={{ gridTemplateColumns: '1fr 1fr' }}>
               <div className='d-flex flex-column p-4'>

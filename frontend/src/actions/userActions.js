@@ -54,12 +54,10 @@ export const getCandidateEducation = (id) => async (dispatch) => {
 
     dispatch(getCandidateFiles(id));
   } catch (error) {
+    const errorKey = Object.keys(error?.response?.data || {})[0];
     dispatch({
       type: USER_EDUCATION_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
+      payload: errorKey ? error.response.data[errorKey] : error.message,
     });
   }
 };
@@ -76,12 +74,10 @@ export const getCandidateExperience = (id) => async (dispatch) => {
 
     dispatch(getCandidateFiles(id));
   } catch (error) {
+    const errorKey = Object.keys(error?.response?.data || {})[0];
     dispatch({
       type: USER_EXPERIENCE_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
+      payload: errorKey ? error.response.data[errorKey] : error.message,
     });
   }
 };
@@ -99,12 +95,10 @@ export const getCandidateSkills = (id) => async (dispatch) => {
     dispatch(getCandidateFiles(id));
     dispatch(listSkills());
   } catch (error) {
+    const errorKey = Object.keys(error?.response?.data || {})[0];
     dispatch({
       type: USER_SKILL_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
+      payload: errorKey ? error.response.data[errorKey] : error.message,
     });
   }
 };
@@ -121,12 +115,10 @@ export const getCandidateCourses = (id) => async (dispatch) => {
 
     dispatch(getCandidateFiles(id));
   } catch (error) {
+    const errorKey = Object.keys(error?.response?.data || {})[0];
     dispatch({
       type: USER_COURSE_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
+      payload: errorKey ? error.response.data[errorKey] : error.message,
     });
   }
 };
@@ -141,12 +133,10 @@ export const getCandidateLinks = (id) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
+    const errorKey = Object.keys(error?.response?.data || {})[0];
     dispatch({
       type: USER_LINK_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
+      payload: errorKey ? error.response.data[errorKey] : error.message,
     });
   }
 };
@@ -161,12 +151,10 @@ export const getCandidateFiles = (id) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
+    const errorKey = Object.keys(error?.response?.data || {})[0];
     dispatch({
       type: USER_FILES_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
+      payload: errorKey ? error.response.data[errorKey] : error.message,
     });
   }
 };
@@ -186,12 +174,10 @@ export const getUserDetails = (id, userType) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
+    const errorKey = Object.keys(error?.response?.data || {})[0];
     dispatch({
       type: USER_DETAILS_PROFILE_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
+      payload: errorKey ? error.response.data[errorKey] : error.message,
     });
   }
 };
@@ -238,12 +224,10 @@ export const createUserProfile = (type, values) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
+    const errorKey = Object.keys(error?.response?.data || {})[0];
     dispatch({
       type: USER_CREATE_PROFILE_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
+      payload: errorKey ? error.response.data[errorKey] : error.message,
     });
   }
 };
@@ -292,12 +276,10 @@ export const updateUserProfile = (id, type, values) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
+    const errorKey = Object.keys(error?.response?.data || {})[0];
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
+      payload: errorKey ? error.response.data[errorKey] : error.message,
     });
   }
 };

@@ -1,60 +1,60 @@
-import { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { listFilteredOffers } from '../../actions/offerActions'
-import { OFFER_FILTERED_LIST_CLEAR } from '../../constants/offerConst'
-import { OFFER_DELETE_RESET } from '../../constants/offerConst'
-import OfferForCompany from './OfferForCompany'
-import { AiOutlineFileAdd } from 'react-icons/ai'
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { listFilteredOffers } from '../../actions/offerActions';
+import { OFFER_FILTERED_LIST_CLEAR } from '../../constants/offerConst';
+import { OFFER_DELETE_RESET } from '../../constants/offerConst';
+import OfferForCompany from './OfferForCompany';
+import { AiOutlineFileAdd } from 'react-icons/ai';
 import { BiArrowBack } from 'react-icons/bi';
-import UserPanelLayout from '../../hocs/UserPanelLayout'
-import { Loader, Message, Pagination } from '../basics'
-import ReceivedApplication from './ReceivedApplication'
-import OfferForm from './OfferForm'
+import UserPanelLayout from '../../hocs/UserPanelLayout';
+import { Loader, Message, Pagination } from '../basics';
+import ReceivedApplication from './ReceivedApplication';
+import OfferForm from './OfferForm';
 
-import styles from '../../screens/MainPanelScreen.module.css'
-import styles2 from './OfferForCompany.module.css'
+import styles from '../../screens/MainPanelScreen.module.css';
+import styles2 from './OfferForCompany.module.css';
 
 const CompanyOffers = () => {
-  const [page, setPage] = useState(1)
-  const [showApplications, setShowApplications] = useState(false)
-  const [selectedOffer, setSelectedOffer] = useState(null)
-  const showApplicationsHandler = id => setShowApplications(id)
-  const editOfferHandler = offer => setSelectedOffer(offer)
+  const [page, setPage] = useState(1);
+  const [showApplications, setShowApplications] = useState(false);
+  const [selectedOffer, setSelectedOffer] = useState(null);
+  const showApplicationsHandler = (id) => setShowApplications(id);
+  const editOfferHandler = (offer) => setSelectedOffer(offer);
 
-  const company_id = useSelector((state) => state.auth.user?.profile?.id)
+  const company_id = useSelector((state) => state.auth.user?.profile?.id);
 
-  const offerList = useSelector((state) => state.offerList)
-  const { offers, loading, length, error } = offerList
+  const offerList = useSelector((state) => state.offerList);
+  const { offers, loading, length, error } = offerList;
 
-  const offerDelete = useSelector((state) => state.offerDelete)
+  const offerDelete = useSelector((state) => state.offerDelete);
   const { successDeleteOffer, errorDeleteOffer, loadingDeleteOffer } =
-    offerDelete
+    offerDelete;
 
-  const pageSize = 15
-  const handleClickBack = () => setPage(page - 1)
-  const handleClickForward = () => setPage(page + 1)
+  const pageSize = 5;
+  const handleClickBack = () => setPage(page - 1);
+  const handleClickForward = () => setPage(page + 1);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const params = {
     all: true,
     company: company_id,
     page: page,
-  }
+  };
 
   useEffect(() => {
     return () => {
-      dispatch({ type: OFFER_DELETE_RESET })
-    }
-  }, [])
+      dispatch({ type: OFFER_DELETE_RESET });
+    };
+  }, []);
 
   useEffect(() => {
-    dispatch(listFilteredOffers(params))
+    dispatch(listFilteredOffers(params));
     return () => {
-      dispatch({ type: OFFER_FILTERED_LIST_CLEAR })
-    }
-  }, [dispatch, successDeleteOffer, page])
+      dispatch({ type: OFFER_FILTERED_LIST_CLEAR });
+    };
+  }, [dispatch, successDeleteOffer, page]);
 
   return (
     <>
@@ -74,10 +74,10 @@ const CompanyOffers = () => {
             </button>
             <h2 className={styles['panel-h2']}>Edycja oferty pracy:</h2>
             <div className='shadow p-3 bg-white rounded-5 m-2'>
-              <OfferForm offer={selectedOffer} type='update'/>
+              <OfferForm offer={selectedOffer} type='update' />
             </div>
           </div>
-        </UserPanelLayout>  
+        </UserPanelLayout>
       ) : (
         <UserPanelLayout>
           <div className='container justify-content-center px-4 py-5 my-3'>
@@ -133,7 +133,7 @@ const CompanyOffers = () => {
         </UserPanelLayout>
       )}
     </>
-  )
-}
+  );
+};
 
-export default CompanyOffers
+export default CompanyOffers;

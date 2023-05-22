@@ -14,7 +14,7 @@ const CandidateApplications = () => {
   );
 
   const [page, setPage] = useState(1);
-  const pageSize = 15;
+  const pageSize = 5;
 
   const handleClickBack = () => {
     setPage(page - 1);

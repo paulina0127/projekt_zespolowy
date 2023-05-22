@@ -22,7 +22,6 @@ const OffersScreen = () => {
   useEffect(() => {
     const filters = new URLSearchParams(window.location.search);
     filters.set('page', page);
-    console.log(filters);
     dispatch(listFilteredOffers(Object.fromEntries(filters.entries())));
   }, [page]);
 

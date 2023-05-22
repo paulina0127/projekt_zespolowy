@@ -47,12 +47,10 @@ export const listApplications = (filters) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
+    const errorKey = Object.keys(error?.response?.data || {})[0];
     dispatch({
       type: APPLICATION_LIST_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
+      payload: errorKey ? error.response.data[errorKey] : error.message,
     });
   }
 };
@@ -69,12 +67,10 @@ export const listApplicationDetails = (id) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
+    const errorKey = Object.keys(error?.response?.data || {})[0];
     dispatch({
       type: APPLICATION_DETAILS_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
+      payload: errorKey ? error.response.data[errorKey] : error.message,
     });
   }
 };
@@ -89,19 +85,16 @@ export const updateApplication = (id, values) => async (dispatch) => {
       mark: values.mark,
       notes: values.notes,
     });
-    console.log(body);
     await axios.patch(`/applications/${id}`, body, config);
 
     dispatch({
       type: APPLICATION_SUCCESS,
     });
   } catch (error) {
+    const errorKey = Object.keys(error?.response?.data || {})[0];
     dispatch({
       type: APPLICATION_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
+      payload: errorKey ? error.response.data[errorKey] : error.message,
     });
   }
 };
