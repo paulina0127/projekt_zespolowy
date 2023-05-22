@@ -69,7 +69,7 @@ const CandidateApplications = () => {
                 </Col>
               </Row>
             </div>
-            {applications.map((application, index) => (
+            {applications.map(application => (
               <ApplicationItem application={application} key={application.id} />
             ))}
             <div className={`d-flex mt-5 justify-content-center mx-5`}>
