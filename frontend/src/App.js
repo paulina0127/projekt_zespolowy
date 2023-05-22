@@ -100,10 +100,6 @@ const App = () => {
             path='/user-panel/moje-aplikacje'
             element={<CandidateApplications />}
           />
-          <Route
-            path='/user-panel/moje-aplikacje/:id'
-            element={<ApplicationDetails />}
-          />
         </Routes>
       </Layout>
     </BrowserRouter>

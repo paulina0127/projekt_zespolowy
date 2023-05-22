@@ -56,15 +56,17 @@ const CandidateApplications = () => {
                   <h4 className={styles['profile-h4']}>Stanowisko</h4>
                 </Col>
                 <Col lg={1}>
-                  <h4 className={styles['profile-h4']}>Wysłano</h4>
+                  <h4 className={styles['profile-h4']}>Status</h4>
                 </Col>
                 <Col lg={2}>
                   <h4 className={styles['profile-h4']}>Typ aplikowania</h4>
                 </Col>
-                <Col lg={2}>
-                  <h4 className={styles['profile-h4']}>Status</h4>
+                <Col lg={1}>
+                  <h4 className={styles['profile-h4']}>Wysłano</h4>
                 </Col>
-                <Col></Col>
+                <Col lg={2}>
+                  <h4 className={styles['profile-h4']}>Załączniki</h4>
+                </Col>
               </Row>
             </div>
             {applications.map((application, index) => (

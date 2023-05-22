@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Col, Row } from 'react-bootstrap';
-import { FaCheck, FaTimes, FaHourglassStart } from 'react-icons/fa';
 import styles from '../company/CompanyProfileForm.module.css';
-import { HiSearch } from 'react-icons/hi';
 
 const ApplicationItem = ({ application }) => {
   return (
@@ -32,29 +30,22 @@ const ApplicationItem = ({ application }) => {
           </Link>
         </Col>
         <Col lg={1}>
+          <h6 className={styles['profile-h4']}>{application.status }</h6>
+        </Col>
+        <Col lg={2}>
+          <h6 className={styles['profile-h4']}>{application.type}</h6>
+        </Col>
+        <Col lg={1}>
           <h6 className={styles['profile-h4']}>
             {application.created_date.slice(0, 10)}
           </h6>
         </Col>
         <Col lg={2}>
-          <h6 className={styles['profile-h4']}>{application.type}</h6>
-        </Col>
-        <Col lg={2}>
-          <h6 className={styles['profile-h4']}>{application.status + ' '}</h6>
-        </Col>
-        <Col>
-          <Link
-            to={`/user-panel/moje-aplikacje/${application.id}`}
-            target='_blank'
-          >
-            <button
-              type='button'
-              title='Szczegóły'
-              className={`btn btn-secondary rounded-circle mx-1 ${styles.circleBtn}`}
-            >
-              <HiSearch />
-            </button>
-          </Link>
+          {application.attachments ? application.attachments.map(att => (
+            <Link to={att.file.path} key={att.id}>
+              <h6 className={styles['profile-h4']}>{att.file.name}</h6>
+            </Link>
+          )) : ''}
         </Col>
       </Row>
     </div>
