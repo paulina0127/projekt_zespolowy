@@ -58,7 +58,6 @@ const CandidateExperience = () => {
   return (
     <UserPanelLayout>
       <div className='container mt-3'>
-        {loading && <Loader />}
         {error && <Message variant='danger'>{error}</Message>}
         <CandidateTable
           title='Moje doświadczenie'
@@ -117,6 +116,7 @@ const CandidateExperience = () => {
               </tr>
             ))}
         </CandidateTable>
+        {loading && <Loader />}
       </div>
       {showAddModal && (
         <MyModal showModal={showAddModal} title='Nowe doświadczenie'>

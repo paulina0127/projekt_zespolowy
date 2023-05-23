@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
 import { MdEdit, MdDelete } from 'react-icons/md';
 import { getCandidateLinks } from '../../actions/userActions';
 import { deleteCandidateComponent } from '../../actions/candidateActions';
@@ -49,7 +50,6 @@ const CandidateLinks = () => {
   return (
     <UserPanelLayout>
       <div className='container mt-3'>
-        {loading && <Loader />}
         {error && <Message variant='danger'>{error}</Message>}
         <CandidateTable
           title='Moje linki'
@@ -61,7 +61,11 @@ const CandidateLinks = () => {
             linkList.results.map((link, index) => (
               <tr key={link.id}>
                 <td>{link.type}</td>
-                <td>{link.url}</td>
+                <td>
+                  <Link to={link.url} target='_blank'>
+                    {link.url}
+                  </Link>
+                </td>
                 <td>
                   <span onClick={() => handleShowEditModal(index)}>
                     <MdEdit color='#00BE75' />
@@ -96,6 +100,7 @@ const CandidateLinks = () => {
               </tr>
             ))}
         </CandidateTable>
+        {loading && <Loader />}
       </div>
       {showAddModal && (
         <MyModal showModal={showAddModal} title='Nowy link'>

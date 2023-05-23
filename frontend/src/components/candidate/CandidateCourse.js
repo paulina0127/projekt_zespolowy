@@ -57,7 +57,6 @@ const CandidateCourse = () => {
   return (
     <UserPanelLayout>
       <div className='container mt-3'>
-        {loading && <Loader />}
         {error && <Message variant='danger'>{error}</Message>}
         <CandidateTable
           title='Moje kursy'
@@ -106,6 +105,7 @@ const CandidateCourse = () => {
               </tr>
             ))}
         </CandidateTable>
+        {loading && <Loader />}
       </div>
       {showAddModal && (
         <MyModal showModal={showAddModal} title='Nowy kurs'>

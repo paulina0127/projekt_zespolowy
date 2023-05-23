@@ -49,7 +49,6 @@ const CandidateSkill = () => {
   return (
     <UserPanelLayout>
       <div className='container mt-3'>
-        {loading && <Loader />}
         {error && <Message variant='danger'>{error}</Message>}
         <CandidateTable
           title='Moje umiejętności'
@@ -97,6 +96,7 @@ const CandidateSkill = () => {
               </tr>
             ))}
         </CandidateTable>
+        {loading && <Loader />}
       </div>
       {showAddModal && (
         <MyModal showModal={showAddModal} title='Nowa umiejętność'>

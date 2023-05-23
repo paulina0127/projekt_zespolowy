@@ -121,6 +121,26 @@ const ExperienceForm = ({ type, experience, handleCloseModal }) => {
             />
           </Row>
 
+          <Row>
+            <Col>
+              <TextField
+                label='Ulica'
+                name='location.street_address'
+                type='text'
+              />
+            </Col>
+            <Col>
+              <TextField
+                label='Kod pocztowy'
+                name='location.postal_code'
+                type='text'
+              />
+            </Col>
+            <Col>
+              <TextField label='Miasto' name='location.city' type='text' />
+            </Col>
+          </Row>
+
           <FieldArray name='duties'>
             {({ push, remove, form }) => {
               const { values } = form;
@@ -156,28 +176,6 @@ const ExperienceForm = ({ type, experience, handleCloseModal }) => {
               );
             }}
           </FieldArray>
-          <Row>
-            <p className='text-secondary mb-2 mt-4'>
-              Wypełnij wszystkie pola poniżej, aby lokalizacja została dodana:
-            </p>
-            <Col>
-              <TextField
-                label='Ulica'
-                name='location.street_address'
-                type='text'
-              />
-            </Col>
-            <Col>
-              <TextField
-                label='Kod pocztowy'
-                name='location.postal_code'
-                type='text'
-              />
-            </Col>
-            <Col>
-              <TextField label='Miasto' name='location.city' type='text' />
-            </Col>
-          </Row>
           <hr className='text-secondary' />
           <div className='d-flex justify-content-center'>
             <button
