@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import CandidateProfileCreate from './CandidateProfileCreate';
 import CandidateProfileUpdate from './CandidateProfileUpdate';
-import CandidateProfileDelete from './CandidateProfileDelete';
+import { DeleteProfile } from '../accountSettings'
 import UserPanelLayout from '../../hocs/UserPanelLayout';
 
 const CandidateProfile = () => {
@@ -14,7 +14,7 @@ const CandidateProfile = () => {
       ) : (
         <>
           <CandidateProfileUpdate userProfile={user?.profile?.id} />
-          <CandidateProfileDelete />
+          <DeleteProfile userProfile={user?.profile?.id} />
         </>
       )}
     </UserPanelLayout>

@@ -1,7 +1,6 @@
 import CompanyOffers from './CompanyOffers';
 import CompanyProfile from './CompanyProfile';
 import CompanyProfileCreate from './CompanyProfileCreate';
-import CompanyProfileDelete from './CompanyProfileDelete';
 import ComapnyProfileForm from './CompanyProfileForm';
 import CompanyProfileUpdate from './CompanyProfileUpdate';
 import OfferForm from './OfferForm';
@@ -19,7 +18,6 @@ export {
   CompanyOffers,
   CompanyProfile,
   CompanyProfileCreate,
-  CompanyProfileDelete,
   ComapnyProfileForm,
   CompanyProfileUpdate,
   OfferForm,

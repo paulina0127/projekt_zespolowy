@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 import UserPanelLayout from '../../hocs/UserPanelLayout';
 import CompanyProfileCreate from './CompanyProfileCreate';
-import CompanyProfileDelete from './CompanyProfileDelete';
 import CompanyProfileUpdate from './CompanyProfileUpdate';
+import { DeleteProfile } from '../accountSettings';
 
 const CompanyProfile = () => {
   const auth = useSelector((state) => state.auth);
@@ -14,7 +14,7 @@ const CompanyProfile = () => {
       ) : (
         <>
           <CompanyProfileUpdate userProfile={user?.profile?.id} />
-          <CompanyProfileDelete />
+          <DeleteProfile userProfile={user?.profile?.id} />
         </>
       )}
     </UserPanelLayout>

@@ -22,6 +22,9 @@ import {
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
+  USER_DELETE_PROFILE_FAIL,
+  USER_DELETE_PROFILE_REQUEST,
+  USER_DELETE_PROFILE_SUCCESS,
 } from '../constants/userConst';
 
 const getAuthHeaders = () => {
@@ -223,6 +226,9 @@ export const createUserProfile = (type, values) => async (dispatch) => {
       type: USER_CREATE_PROFILE_SUCCESS,
       payload: data,
     });
+
+    window.location.reload()
+    
   } catch (error) {
     const errorKey = Object.keys(error?.response?.data || {})[0];
     dispatch({
@@ -279,6 +285,35 @@ export const updateUserProfile = (id, type, values) => async (dispatch) => {
     const errorKey = Object.keys(error?.response?.data || {})[0];
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
+      payload: errorKey ? error.response.data[errorKey] : error.message,
+    });
+  }
+};
+
+export const deleteUserProfile = (id, type) => async (dispatch) => {
+  const config = { headers: getAuthHeaders() };
+
+  try {
+    dispatch({
+      type: USER_DELETE_PROFILE_REQUEST,
+    });
+
+    const { data } =
+      type === 'Pracodawca'
+        ? await axios.delete(`/companies/${id}`, config)
+        : await axios.delete(`/candidates/${id}`, config);
+
+    dispatch({
+      type: USER_DELETE_PROFILE_SUCCESS,
+      payload: data,
+    });
+
+    window.location.reload()
+    
+  } catch (error) {
+    const errorKey = Object.keys(error?.response?.data || {})[0];
+    dispatch({
+      type: USER_DELETE_PROFILE_FAIL,
       payload: errorKey ? error.response.data[errorKey] : error.message,
     });
   }

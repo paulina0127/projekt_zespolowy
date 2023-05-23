@@ -7,7 +7,6 @@ import CandidateInfoDelete from './CandidateInfoDelete'
 import CandidateLinks from './CandidateLinks'
 import CandidateProfile from './CandidateProfile'
 import CandidateProfileCreate from './CandidateProfileCreate'
-import CandidateProfileDelete from './CandidateProfileDelete'
 import CandidateProfileForm from './CandidateProfileForm'
 import CandidateProfileUpdate from './CandidateProfileUpdate'
 import CandidateSkill from './CandidateSkill'
@@ -26,7 +25,6 @@ export {
   CandidateLinks,
   CandidateProfile,
   CandidateProfileCreate,
-  CandidateProfileDelete,
   CandidateProfileForm,
   CandidateProfileUpdate,
   CandidateSkill,
