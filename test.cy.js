@@ -4,7 +4,7 @@ describe('template spec', () => {
   //   // Login
   //   cy.visit('http://localhost:3000/', { timeout: 10000 });
   //   cy.get('.NavigationBar_login-btn__CymT2', { timeout: 10000 }).click();
-  //   cy.get('#inputEmail').type('sotabec997@carpetra.com');
+  //   cy.get('#inputEmail').type('ciyada9042@mevori.com');
   //   cy.get('#inputPassword').type('Haslo123');
   //   cy.get('.CompanyProfileForm_yellow-blck-btn__aXWdr').click();
   //   cy.pause();
@@ -170,20 +170,28 @@ describe('template spec', () => {
   it('Aplikacja', () => {
     // Login
     cy.visit('http://localhost:3000/');
-    cy.get('.NavigationBar_login-btn__CymT2', { timeout: 10000 }).click();
-    cy.get('#inputEmail').type('sotabec997@carpetra.com');
+    cy.get('.NavigationBar_login-btn__ARogx', { timeout: 10000 }).click();
+    cy.get('#inputEmail').type('ciyada9042@mevori.com');
     cy.get('#inputPassword').type('Haslo123');
-    cy.get('.CompanyProfileForm_yellow-blck-btn__aXWdr', {
+    cy.get('.CompanyProfileForm_yellow-blck-btn__FOu9-', {
       timeout: 10000,
-    }).click();
+    }).click({ force: true });
     cy.pause();
 
     // Search for offer
     cy.get('.mx-auto > [href="/oferty"]', { timeout: 10000 }).click();
     cy.pause();
-
+    cy.get(':nth-child(2) > .form-control').type('Łódź', { force: true })
+    cy.get('.col-lg-2 > .dropdown > .dropdown-toggle').click({ force: true })
+    cy.get('#category-9').click({ force: true })
+    cy.get('.d-flex > .btn').click({ force: true })
+    cy.get(':nth-child(1) > :nth-child(3) > .mx-2').click({ force: true })
+    cy.get(':nth-child(2) > :nth-child(4) > .mx-2').click({ force: true })
+    cy.get(':nth-child(3) > :nth-child(4) > .mx-2').click({ force: true })
+    cy.get('.Offer_yellow-lg-btn__zu4Fy').click({ force: true })
+    cy.pause()
     // Choose offer
-    cy.get('[class="btn mx-2"]', { timeout: 10000 })
+    cy.get('a > .btn', { timeout: 10000 })
       .first()
       .click({ force: true });
     cy.contains('Konserwator powierzchni płaskich').should('be.visible');
