@@ -20,6 +20,7 @@ import { OfferPoint } from '../components/offers';
 import { OFFER_DETAILS_CLEAR } from '../constants/offerConst';
 import { NewApplication } from '../components/candidate';
 import styles from './OfferDetailsScreen.module.css';
+import placeholder from '../images/placeholder.png';
 
 const OfferDetailsScreen = () => {
   const [showModal, setShowModal] = useState(false);
@@ -71,7 +72,9 @@ const OfferDetailsScreen = () => {
                 <div className='d-md-flex align-items-center'>
                   <Link to={`/pracodawca/${offer.company.id}`}>
                     <img
-                      src={offer.company.image}
+                      src={
+                        offer.company.image ? offer.company.image : placeholder
+                      }
                       alt='Company pic'
                       className={styles.brandImg}
                     />
@@ -88,7 +91,11 @@ const OfferDetailsScreen = () => {
                   <button
                     className={styles['apply-btn']}
                     onClick={handleApplyClick}
-                    disabled={user?.type === 'Pracodawca' || user === null || user?.profile === null}
+                    disabled={
+                      user?.type === 'Pracodawca' ||
+                      user === null ||
+                      user?.profile === null
+                    }
                   >
                     Aplikuj
                   </button>

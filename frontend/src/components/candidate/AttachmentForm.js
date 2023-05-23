@@ -12,7 +12,7 @@ const AttachmentForm = ({ type, file, handleCloseModal, profile }) => {
       ? {
           name: '',
           type: '',
-          path: '',
+          path: null,
         }
       : type === 'update'
       ? {
@@ -67,6 +67,7 @@ const AttachmentForm = ({ type, file, handleCloseModal, profile }) => {
             </button>
             <button
               type='submit'
+              form='form'
               className='btn btn-warning rounded-pill fw-bold shadow-sm px-5'
             >
               {type === 'create' ? 'Dodaj' : 'Zapisz'}

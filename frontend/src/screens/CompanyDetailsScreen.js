@@ -1,31 +1,32 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
-import { IoLocationOutline } from 'react-icons/io5'
-import { MdOutlineLocalPhone, MdOutlineAlternateEmail } from 'react-icons/md'
-import { TbWorldWww } from 'react-icons/tb'
-import { OfferPoint } from '../components/offers'
-import { COMPANY_DETAILS_CLEAR } from '../constants/companyConst'
-import { listCompanyDetails } from '../actions/companyActions'
-import styles from './OfferDetailsScreen.module.css'
-import { Loader, Message } from '../components/basics'
-import { Offer } from '../components/offers'
-import { listFilteredOffers } from '../actions/offerActions'
-import { OFFER_FILTERED_LIST_CLEAR } from '../constants/offerConst'
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { IoLocationOutline } from 'react-icons/io5';
+import { MdOutlineLocalPhone, MdOutlineAlternateEmail } from 'react-icons/md';
+import { TbWorldWww } from 'react-icons/tb';
+import { OfferPoint } from '../components/offers';
+import { COMPANY_DETAILS_CLEAR } from '../constants/companyConst';
+import { listCompanyDetails } from '../actions/companyActions';
+import styles from './OfferDetailsScreen.module.css';
+import { Loader, Message } from '../components/basics';
+import { Offer } from '../components/offers';
+import { listFilteredOffers } from '../actions/offerActions';
+import { OFFER_FILTERED_LIST_CLEAR } from '../constants/offerConst';
+import placeholder from '../images/placeholder.png';
 
 const CompanyDetailsScreen = () => {
-  const company_id = useParams().id
-  const dispatch = useDispatch()
+  const company_id = useParams().id;
+  const dispatch = useDispatch();
 
-  const companyDetails = useSelector((state) => state.companyDetails)
-  const { errorCompany, loadingCompany, company } = companyDetails
+  const companyDetails = useSelector((state) => state.companyDetails);
+  const { errorCompany, loadingCompany, company } = companyDetails;
 
-  const offerList = useSelector((state) => state.offerList)
-  const { offers, loading, length, error } = offerList
+  const offerList = useSelector((state) => state.offerList);
+  const { offers, loading, length, error } = offerList;
 
   const params = {
     company: company_id,
-  }
+  };
 
   const location =
     company && company.location
@@ -34,22 +35,22 @@ const CompanyDetailsScreen = () => {
         company.location.postal_code +
         ' ' +
         company.location.city
-      : ''
+      : '';
 
   useEffect(() => {
-    dispatch(listCompanyDetails(company_id))
+    dispatch(listCompanyDetails(company_id));
 
     return () => {
-      dispatch({ type: COMPANY_DETAILS_CLEAR })
-    }
-  }, [dispatch, company_id])
+      dispatch({ type: COMPANY_DETAILS_CLEAR });
+    };
+  }, [dispatch, company_id]);
 
   useEffect(() => {
-    dispatch(listFilteredOffers(params))
+    dispatch(listFilteredOffers(params));
     return () => {
-      dispatch({ type: OFFER_FILTERED_LIST_CLEAR })
-    }
-  }, [])
+      dispatch({ type: OFFER_FILTERED_LIST_CLEAR });
+    };
+  }, []);
 
   return (
     <div style={{ minHeight: 'calc(100vh - 200px - 65px)' }}>
@@ -63,7 +64,7 @@ const CompanyDetailsScreen = () => {
             <div className='d-md-flex align-items-center pb-2 border-bottom'>
               <Link>
                 <img
-                  src={company.image}
+                  src={company.image ? company.image : placeholder}
                   alt='Company logo'
                   className={styles.brandImg}
                 />
@@ -114,9 +115,7 @@ const CompanyDetailsScreen = () => {
           </>
         )}
         <>
-          {loading ? (
-            null
-          ) : error ? (
+          {loading ? null : error ? (
             <Message variant='danger'>{error}</Message>
           ) : length === 0 ? null : (
             <>
@@ -131,7 +130,7 @@ const CompanyDetailsScreen = () => {
         </>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CompanyDetailsScreen
+export default CompanyDetailsScreen;

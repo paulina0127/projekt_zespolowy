@@ -196,26 +196,26 @@ export const validateExperience = object({
   company: string()
     .required('Pole nazwa firmy jest obowiązkowe')
     .max(255, 'Nazwa firmy może mieć maksymalnie 255 znaków.'),
-    location: object({
-      street_address: string()
-        .required('Pole ulica jest wymagane.')
-        .matches(
-          /^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9\s\-\/]+$/,
-          'Pole ulica może składać się tylko z liter, cyfr, spacji, myślnika i ukośnika.'
-        )
-        .max(255, 'Pole ulica może mieć maksymalnie 255 znaków.'),
-      postal_code: string()
-        .matches(/^\d{2}-\d{3}$/, 'Kod pocztowy powinien być w formacie XX-XXX.')
-        .required('Kod pocztowy jest wymagany')
-        .max(6, 'Kod pocztowy powinien być w formacie XX-XXX.'),
-      city: string()
-        .matches(
-          /^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]*$/,
-          'Miejscowość powinna składać się tylko z liter.'
-        )
-        .required('Miejscowość jest wymagana')
-        .max(255, 'Pole miejcowość może mieć maksymalnie 255 znaków.'),
-    }),
+  location: object({
+    street_address: string()
+      .required('Pole ulica jest wymagane.')
+      .matches(
+        /^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9\s\-\/]+$/,
+        'Pole ulica może składać się tylko z liter, cyfr, spacji, myślnika i ukośnika.'
+      )
+      .max(255, 'Pole ulica może mieć maksymalnie 255 znaków.'),
+    postal_code: string()
+      .matches(/^\d{2}-\d{3}$/, 'Kod pocztowy powinien być w formacie XX-XXX.')
+      .required('Kod pocztowy jest wymagany')
+      .max(6, 'Kod pocztowy powinien być w formacie XX-XXX.'),
+    city: string()
+      .matches(
+        /^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]*$/,
+        'Miejscowość powinna składać się tylko z liter.'
+      )
+      .required('Miejscowość jest wymagana')
+      .max(255, 'Pole miejcowość może mieć maksymalnie 255 znaków.'),
+  }),
   start_date: date()
     .max(
       subDays(new Date(), 1),
@@ -223,6 +223,7 @@ export const validateExperience = object({
     )
     .required('Data rozpoczęcia jest wymagana'),
   end_date: date()
+    .nullable()
     .max(
       subDays(new Date(), 1),
       'Data rozpoczęcia nie może być późniejsza wczorajszy dzień'
@@ -254,6 +255,7 @@ export const validateEducation = object({
     )
     .required('Data rozpoczęcia jest wymagana'),
   end_date: date()
+    .nullable()
     .max(
       subDays(new Date(), 1),
       'Data rozpoczęcia nie może być późniejsza wczorajszy dzień'
@@ -273,8 +275,7 @@ export const validateEducation = object({
 
 export const validateSkill = object({
   type: string().required('Pole rodzaj jest obowiązkowe'),
-  name: string()
-    .max(255, 'Nazwa może mieć maksymalnie 255 znaków.'),
+  name: string().max(255, 'Nazwa może mieć maksymalnie 255 znaków.'),
   level: string().max(
     255,
     'Poziom umiejętności może mieć maksymalnie 255 znaków.'

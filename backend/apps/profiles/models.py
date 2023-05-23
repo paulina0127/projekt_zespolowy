@@ -40,12 +40,6 @@ class Company(models.Model):
     def __str__(self) -> str:
         return self.name
 
-    def save(self, *args, **kwargs):
-        # Set image value to default if its null
-        if not self.image:
-            self.image = "/placeholder.png"
-        super().save(*args, **kwargs)
-
     def delete(self, *args, **kwargs):
         # Delete related location when company is deleted
         if self.location:
@@ -85,12 +79,6 @@ class Candidate(models.Model):
 
     def __str__(self) -> str:
         return self.first_name + " " + self.last_name
-
-    def save(self, *args, **kwargs):
-        # Set image value to default if its null
-        if not self.image:
-            self.image = "/placeholder.png"
-        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         # Delete related location when candidate is deleted

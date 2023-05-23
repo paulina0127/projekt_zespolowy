@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { NewApplication } from '../candidate';
 import styles from './Offer.module.css';
+import placeholder from '../../images/placeholder.png'
 
 const Offer = ({ offer }) => {
   const [showModal, setShowModal] = useState(false);
@@ -23,7 +24,7 @@ const Offer = ({ offer }) => {
         <div className='d-md-flex align-items-center'>
           <Link to={`/pracodawca/${offer.company.id}`}>
             <img
-              src={offer.company.image}
+              src={offer.company.image ? offer.company.image : placeholder}
               alt='Company pic'
               className={styles['img-c']}
             />

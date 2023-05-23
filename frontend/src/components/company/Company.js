@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import placeholder from '../../images/placeholder.png';
+
 const Company = ({ company }) => {
   return (
     <div className='container shadow p-3 bg-white rounded-4 m-3'>
@@ -12,7 +14,7 @@ const Company = ({ company }) => {
         <div className='col' style={{ height: '200px', width: '200px' }}>
           <img
             className='rounded-4'
-            src={company.image}
+            src={company.image ? company.image : placeholder}
             alt='Company logo'
             style={{ height: '100%', width: '100%', objectFit: 'contain' }}
           />{' '}

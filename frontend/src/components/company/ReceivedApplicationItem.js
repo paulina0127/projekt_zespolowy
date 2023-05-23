@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom'
-import { Col, Row } from 'react-bootstrap'
-import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai'
-import styles from '../company/CompanyProfileForm.module.css'
-import styles2 from '../company/OfferForCompany.module.css'
+import { Link } from 'react-router-dom';
+import { Col, Row } from 'react-bootstrap';
+import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai';
+import styles from '../company/CompanyProfileForm.module.css';
+import styles2 from '../company/OfferForCompany.module.css';
+import placeholder from '../../images/placeholder.png';
 
 const ReceivedApplicationItem = ({
   application,
@@ -10,7 +11,6 @@ const ReceivedApplicationItem = ({
   old,
   display,
 }) => {
-
   return (
     <div
       className={`shadow bg-white rounded-pill mx-5 my-3 px-5 ${styles2['container-app']}`}
@@ -26,7 +26,11 @@ const ReceivedApplicationItem = ({
           }}
         >
           <img
-            src={application.candidate.image}
+            src={
+              application.candidate.image
+                ? application.candidate.image
+                : placeholder
+            }
             alt='profile logo'
             className={styles['img-candidate']}
           />
@@ -82,33 +86,35 @@ const ReceivedApplicationItem = ({
             <Col lg={2}>
               <h6 className={styles['profile-h4']}>{application.status}</h6>
             </Col>
-            {application.status !== 'Złożona' ? <Col lg={3} /> : (
-            <Col lg={3}>
-              <ul className={styles2['offer-btn']}>
-                <button
-                  type='button'
-                  title='Akceptuj aplikację'
-                  className={`btn btn-success rounded-circle mx-1 mt-3 ${styles2.circleBtn}`}
-                  onClick={() => handleShowModal('accept')}
-                >
-                  <AiOutlineCheck />
-                </button>
-                <button
-                  type='button'
-                  title='Odrzuć aplikację'
-                  className={`btn btn-danger rounded-circle mx-1 mt-3 ${styles2.circleBtn}`}
-                  onClick={() => handleShowModal('reject')}
-                >
-                  <AiOutlineClose />
-                </button>
-              </ul>
-            </Col>
+            {application.status !== 'Złożona' ? (
+              <Col lg={3} />
+            ) : (
+              <Col lg={3}>
+                <ul className={styles2['offer-btn']}>
+                  <button
+                    type='button'
+                    title='Akceptuj aplikację'
+                    className={`btn btn-success rounded-circle mx-1 mt-3 ${styles2.circleBtn}`}
+                    onClick={() => handleShowModal('accept')}
+                  >
+                    <AiOutlineCheck />
+                  </button>
+                  <button
+                    type='button'
+                    title='Odrzuć aplikację'
+                    className={`btn btn-danger rounded-circle mx-1 mt-3 ${styles2.circleBtn}`}
+                    onClick={() => handleShowModal('reject')}
+                  >
+                    <AiOutlineClose />
+                  </button>
+                </ul>
+              </Col>
             )}
           </>
         )}
       </Row>
     </div>
-  )
-}
+  );
+};
 
-export default ReceivedApplicationItem
+export default ReceivedApplicationItem;
