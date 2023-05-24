@@ -1,0 +1,66 @@
+.table-wrapper {
+  background: #fff;
+  width: 90%;
+  padding: 20px 25px;
+  margin: 30px 0;
+  border-radius: 25px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.table-wrapper tr:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(224, 223, 219, 1) 15%,
+    rgba(251, 217, 144, 1) 54%,
+    rgba(240, 240, 247, 1) 100%
+  );
+}
+
+.table-title {
+  padding-bottom: 15px;
+  background: linear-gradient(
+    350deg,
+    rgba(17, 17, 22, 1) 29%,
+    rgba(227, 162, 26, 1) 45%,
+    rgba(2, 0, 36, 1) 73%
+  );
+  color: #fff;
+  padding: 16px 30px;
+  margin: -20px -25px 10px;
+  border-radius: 25px 25px 0 0;
+}
+
+.table-title h2 {
+  margin: 5px 0 0;
+  font-size: 28px;
+}
+
+.table_add_button {
+  float: right;
+}
+
+.doc-btn {
+  height: 3rem;
+  width: 3rem;
+  float: right;
+  background-color: var(--yellow);
+  border-radius: 1rem;
+  border: none;
+  transition: var(--transition);
+}
+
+.doc-btn:hover {
+  background-color: var(--dark-yellow);
+}
+
+.doc-btn svg {
+  height: 2rem;
+  width: 2rem;
+  color: #242424;
+}
+
+td svg {
+  font-size: 24px;
+  margin: 0 5px;
+  cursor: pointer;
+}

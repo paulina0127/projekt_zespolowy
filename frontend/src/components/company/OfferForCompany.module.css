@@ -1,0 +1,106 @@
+.container-app {
+  width: 80%;
+}
+
+.offer-btn {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 20px;
+  align-items: center;
+  justify-content: center;
+  padding-inline-start: 0;
+}
+
+@media (max-width: 767px) {
+  .offer-btn {
+    padding-top: 20px;
+    padding-left: 0;
+    border-top: 1px solid #939c9b;
+  }
+}
+.applyBtn {
+  background-color: var(--yellow);
+  width: 150px;
+  margin-bottom: 0;
+  padding: 0.7rem;
+  border-radius: 1.5rem;
+  color: #fff;
+  font-weight: 700;
+  margin: 5px 10px 5px 0;
+}
+
+.applyBtn:hover {
+  background-color: var(--dark-yellow);
+  color: #fff;
+}
+
+.circleBtn {
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  line-height: 0;
+}
+
+.circleBtn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.addOfferBtn {
+  width: 70px;
+  height: 70px;
+  padding: 0;
+  line-height: 0;
+  margin-left: 85%;
+}
+
+.addOfferBtn svg {
+  width: 40px;
+  height: 40px;
+}
+
+.offer-btn button:last-child {
+  margin-right: 0;
+}
+
+.offer-h2 {
+  font-weight: 700;
+  color: black;
+  font-size: 2em;
+  text-align: left;
+  margin: 4% 6rem 2% 6rem;
+}
+
+.card {
+  border: 3px solid var(--yellow);
+  padding: 20px;
+  background-color: #fff;
+  display: flex;
+  column-gap: 20px;
+  box-shadow: 1px 1px 16px -6px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 1px 1px 16px -6px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 1px 1px 16px -6px rgba(0, 0, 0, 0.5);
+}
+.card img {
+  max-width: 150px;
+}
+
+.card svg {
+  height: 25px;
+  width: 25px; 
+}
+
+.card p {
+  font-size: 20px;
+}
+
+.img-placeholder {
+  height: 150px;
+  width: 150px;
+  overflow: hidden;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 1px 1px 16px -6px rgba(0, 0, 0, 0.75);
+}
+
+

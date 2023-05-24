@@ -1,0 +1,158 @@
+.job-card {
+  display: flex;
+  padding: 30px;
+  background-color: white;
+  width: 80%;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 2rem;
+  box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.2);
+  margin: 1.5rem auto;
+}
+@media (max-width: 767px) {
+  .job-card {
+    display: block;
+    padding: 20px;
+    margin-bottom: 50px;
+  }
+}
+.job-card:hover {
+  box-shadow: 0 0 15px 2x rgba(0, 0, 0, 0.5);
+}
+.job-card p {
+  font-size: 17px;
+  color: var(--yellow);
+  font-weight: 500;
+  line-height: 1.4;
+}
+@media (max-width: 767px) {
+  .job-card__info {
+    padding-bottom: 20px;
+  }
+}
+
+.job-card__info .img-c {
+  height: 100px;
+  width: 100px;
+  margin-right: 15px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+@media (max-width: 767px) {
+  .job-card__info .img-c {
+    height: 60px;
+    width: 60px;
+    margin: -50px 0 10px 0;
+  }
+}
+
+.job-card__info p {
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+.job-card__info h6 {
+  color: #323838;
+  font-size: 20px;
+  font-weight: 700;
+}
+.job-card__info ul {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.job-card__info ul li {
+  font-size: 15px;
+  color: #939c9b;
+  padding: 0 10px;
+  position: relative;
+}
+.job-card__info ul li:before {
+  content: '';
+  height: 4px;
+  width: 4px;
+  position: absolute;
+  top: 50%;
+  background-color: #939c9b;
+  border-radius: 50%;
+  left: -2px;
+  transform: translateY(-50%);
+}
+.job-card__info ul li:first-child {
+  padding-left: 0;
+}
+.job-card__info ul li:first-child:before {
+  display: none;
+}
+.job-card__info ul li:last-child {
+  padding-right: 0;
+}
+
+.offer-btn {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 20px;
+}
+
+@media (max-width: 767px) {
+  .offer-btn {
+    padding-top: 20px;
+    padding-left: 0;
+    border-top: 1px solid #939c9b;
+  }
+}
+
+.offer-btn button {
+  border: 1px solid var(--yellow);
+  width: 150px;
+  margin-bottom: 0;
+  padding: 0.7rem;
+  border-radius: 1.5rem;
+  color: black;
+  font-weight: 700;
+  background-color: #fff;
+  margin: 5px 10px 5px 0;
+  transition: var(--transition);
+}
+.offer-btn button:hover {
+  background-color: #f7f6f1;
+  color: #000;
+  border: 1px solid var(--yellow);
+}
+
+.offer-btn-yellow {
+  background: var(--yellow) !important;
+  color: #fff !important;
+}
+
+.offer-btn-yellow:hover {
+  background: var(--dark-yellow) !important;
+  color: #fff !important;
+}
+
+.offer-btn-yellow:disabled {
+  background: gray !important;
+  border-color: gray;
+  cursor: not-allowed;
+  display: none;
+}
+
+.offer-btn button:last-child {
+  margin-right: 0;
+}
+
+/* Przycisk do "Wyszukaj" */
+.yellow-lg-btn {
+  background-color: var(--yellow);
+  border: none;
+  border-radius: 50rem;
+  line-height: 1.5;
+  color: #fff;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  padding: 0.375rem 7rem 0.375rem 7rem;
+}
+
+.yellow-lg-btn:hover {
+  background-color: var(--dark-yellow);
+}

@@ -8,6 +8,7 @@ local_settings.py
 *.DS_Store
 **/__pycache__
 **/.DS_Store
+.flake8
 
 ### react ###
 .DS_*
@@ -17,6 +18,7 @@ logs
 **/*.back.*
 
 node_modules
+build
 bower_components
 
 # Visual Studio Code # 

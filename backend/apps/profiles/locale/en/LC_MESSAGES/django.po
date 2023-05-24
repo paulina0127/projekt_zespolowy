@@ -1,0 +1,346 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-25 12:48+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\apps\profiles\apps.py:8
+msgid "Profile użytkowników"
+msgstr "Profiles"
+
+#  MODEL FIELDS
+#: .\apps\profiles\models.py:8
+msgid "NIP"
+msgstr "NIP"
+
+#: .\apps\profiles\models.py:10 .\apps\profiles\models.py:121
+msgid "Nazwa firmy"
+msgstr "Company name"
+
+#: .\apps\profiles\models.py:12 .\apps\profiles\models.py:58
+msgid "Numer telefonu"
+msgstr "Phone number"
+
+#: .\apps\profiles\models.py:14 .\apps\profiles\models.py:60
+#: .\apps\profiles\models.py:123 .\apps\profiles\utils\filters.py:8
+msgid "Lokalizacja"
+msgstr "Location"
+
+#: .\apps\profiles\models.py:20
+msgid "Strona internetowa"
+msgstr "Website"
+
+#: .\apps\profiles\models.py:22 .\apps\profiles\models.py:265
+msgid "Opis"
+msgstr "Description"
+
+#: .\apps\profiles\models.py:24 .\apps\profiles\models.py:67
+msgid "Zdjęcie"
+msgstr "Image"
+
+#: .\apps\profiles\models.py:28 .\apps\profiles\models.py:71
+msgid "Użytkownik"
+msgstr "User"
+
+#: .\apps\profiles\models.py:34
+msgid "Automatyczna weryfikacja"
+msgstr "Auto verify"
+
+#: .\apps\profiles\models.py:38
+msgid "Pracodawca"
+msgstr "Company"
+
+#: .\apps\profiles\models.py:39
+msgid "Pracodawcy"
+msgstr "Companies"
+
+#: .\apps\profiles\models.py:54
+msgid "PESEL"
+msgstr "PESEL"
+
+#: .\apps\profiles\models.py:56
+msgid "Imię"
+msgstr "First name"
+
+#: .\apps\profiles\models.py:57
+msgid "Nazwisko"
+msgstr "Last name"
+
+#: .\apps\profiles\models.py:78 .\apps\profiles\models.py:104
+#: .\apps\profiles\models.py:138 .\apps\profiles\models.py:179
+#: .\apps\profiles\models.py:219 .\apps\profiles\models.py:269
+#: .\apps\profiles\models.py:302
+msgid "Kandydat"
+msgstr "Candidate"
+
+#: .\apps\profiles\models.py:79
+msgid "Kandydaci"
+msgstr "Candidates"
+
+#: .\apps\profiles\models.py:93 .\apps\profiles\models.py:214
+#: .\apps\profiles\models.py:264
+msgid "Nazwa"
+msgstr "Name"
+
+#: .\apps\profiles\models.py:94
+msgid "Dodano"
+msgstr "Added at"
+
+#: .\apps\profiles\models.py:96 .\apps\profiles\models.py:209
+#: .\apps\profiles\models.py:298
+msgid "Rodzaj"
+msgstr "Type"
+
+#: .\apps\profiles\models.py:99 .\apps\profiles\models.py:111
+msgid "Plik"
+msgstr "File"
+
+#: .\apps\profiles\models.py:112
+msgid "Pliki"
+msgstr "Files"
+
+#: .\apps\profiles\models.py:120
+msgid "Stanowisko"
+msgstr "Position"
+
+#: .\apps\profiles\models.py:130 .\apps\profiles\models.py:174
+#: .\apps\profiles\models.py:266
+msgid "Data rozpoczęcia"
+msgstr "Start date"
+
+#: .\apps\profiles\models.py:132 .\apps\profiles\models.py:176
+#: .\apps\profiles\models.py:267
+msgid "Data zakończenia"
+msgstr "End date"
+
+#: .\apps\profiles\models.py:135
+msgid "Obowiązki"
+msgstr "Duties"
+
+#: .\apps\profiles\models.py:144 .\apps\profiles\utils\choices.py:15
+msgid "Referencje"
+msgstr "References"
+
+#: .\apps\profiles\models.py:151 .\apps\profiles\models.py:192
+msgid "Aktualne"
+msgstr "Current"
+
+#: .\apps\profiles\models.py:154 .\apps\profiles\models.py:155
+msgid "Doświadczenie"
+msgstr "Experience"
+
+#: .\apps\profiles\models.py:167
+msgid "Uczelnia"
+msgstr "Institute"
+
+#: .\apps\profiles\models.py:169
+msgid "Poziom wykształcenia"
+msgstr "Education level"
+
+#: .\apps\profiles\models.py:173
+msgid "Kierunek"
+msgstr "Major"
+
+#: .\apps\profiles\models.py:185 .\apps\profiles\utils\choices.py:16
+msgid "Dyplom"
+msgstr "Diploma"
+
+#: .\apps\profiles\models.py:195 .\apps\profiles\models.py:196
+msgid "Wykształcenie"
+msgstr "Education"
+
+#: .\apps\profiles\models.py:216
+msgid "Poziom"
+msgstr "Level"
+
+#: .\apps\profiles\models.py:225 .\apps\profiles\models.py:242
+msgid "Umiejętność"
+msgstr "Skill"
+
+#: .\apps\profiles\models.py:233 .\apps\profiles\models.py:275
+#: .\apps\profiles\utils\choices.py:14
+msgid "Certyfikat"
+msgstr "Certificate"
+
+#: .\apps\profiles\models.py:243
+msgid "Umiejętności"
+msgstr "Skills"
+
+#: .\apps\profiles\models.py:284
+msgid "Kurs"
+msgstr "Course"
+
+#: .\apps\profiles\models.py:285
+msgid "Kursy"
+msgstr "Courses"
+
+#: .\apps\profiles\models.py:300
+msgid "Adres URL"
+msgstr "URL Address"
+
+#: .\apps\profiles\models.py:309
+msgid "Link"
+msgstr "Link"
+
+#: .\apps\profiles\models.py:310
+msgid "Linki"
+msgstr "Links"
+
+#  TEXT CHOICES
+#: .\apps\profiles\utils\choices.py:6
+msgid "Język"
+msgstr "Language"
+
+#: .\apps\profiles\utils\choices.py:7
+msgid "Umiejętność miękka"
+msgstr "Soft skill"
+
+#: .\apps\profiles\utils\choices.py:8
+msgid "Umiejętność twarda"
+msgstr "Hard skill"
+
+#: .\apps\profiles\utils\choices.py:9 .\apps\profiles\utils\choices.py:18
+#: .\apps\profiles\utils\choices.py:42
+msgid "Inny"
+msgstr "Other"
+
+#: .\apps\profiles\utils\choices.py:13
+msgid "CV"
+msgstr "CV"
+
+#: .\apps\profiles\utils\choices.py:17
+msgid "List motywacyjny"
+msgstr "Cover letter"
+
+#: .\apps\profiles\utils\choices.py:22
+msgid "Podstawowe"
+msgstr "Primary"
+
+#: .\apps\profiles\utils\choices.py:23
+msgid "Zawodowe"
+msgstr "Middle"
+
+#: .\apps\profiles\utils\choices.py:24
+msgid "Średnie"
+msgstr "Secondary"
+
+#: .\apps\profiles\utils\choices.py:25
+msgid "Licencjat"
+msgstr "Bachelor"
+
+#: .\apps\profiles\utils\choices.py:26
+msgid "Inżynier"
+msgstr "Engineer"
+
+#: .\apps\profiles\utils\choices.py:27
+msgid "Magister"
+msgstr "Master"
+
+#: .\apps\profiles\utils\choices.py:28
+msgid "Magister inżynier"
+msgstr "Master engineer"
+
+#: .\apps\profiles\utils\choices.py:29
+msgid "Doktor"
+msgstr "Doctor"
+
+#: .\apps\profiles\utils\choices.py:30
+msgid "Doktor habilitowany"
+msgstr "Post-doctoral degree"
+
+#: .\apps\profiles\utils\choices.py:31
+msgid "Profesor"
+msgstr "Professor"
+
+#: .\apps\profiles\utils\choices.py:32
+msgid "Studia podyplomowe"
+msgstr "Post-graduate studies"
+
+#: .\apps\profiles\utils\choices.py:33
+msgid "Lekarz medycyny"
+msgstr "Medicine physician"
+
+#: .\apps\profiles\utils\choices.py:37
+msgid "Portfolio"
+msgstr "Portfolio"
+
+#: .\apps\profiles\utils\choices.py:38
+msgid "Strona osobista"
+msgstr "Personal website"
+
+#: .\apps\profiles\utils\choices.py:39
+msgid "Strona firmowa"
+msgstr "Company website"
+
+#: .\apps\profiles\utils\choices.py:40
+msgid "Projekt"
+msgstr "Project"
+
+#: .\apps\profiles\utils\choices.py:41
+msgid "Profil społecznościowy"
+msgstr "Social media profile"
+
+#  VALIDATION ERRORS
+#: .\apps\profiles\utils\validators.py:12
+msgid "Data rozpoczęcia nie może być w przyszłości."
+msgstr "Start date can't be in the future."
+
+#: .\apps\profiles\utils\validators.py:14
+msgid "Data rozpoczęcia nie może być po dacie zakończenia."
+msgstr "Start date can't be after end date."
+
+#: .\apps\profiles\utils\validators.py:19
+msgid "Data zakończenia nie może być w przyszłości."
+msgstr "End date can't be in the future."
+
+#: .\apps\profiles\utils\validators.py:22
+msgid "Data zakończenia nie może być przed datą rozpoczęcia."
+msgstr "End date can't be before start date."
+
+#: .\apps\profiles\utils\validators.py:29
+msgid "NIP powinien składać się z 10 cyfr."
+msgstr "NIP should consist of 10 digits."
+
+#: .\apps\profiles\utils\validators.py:35
+msgid "PESEL powinien składać się z 11 cyfr."
+msgstr "PESEL should consist of 11 digits."
+
+#: .\apps\profiles\utils\validators.py:43
+msgid "Niepoprawne rozszerzenie pliku."
+msgstr "Wrong file extension."
+
+#: .\apps\profiles\utils\validators.py:52
+msgid "Wybrana umiejętność już istnieje."
+msgstr "Skill already exists."
+
+#: .\apps\profiles\utils\validators.py:58
+msgid "Wybierz umiejętność z listy lub wpisz nazwę umiejętności."
+msgstr "Choose skill from the list or enter skill name."
+
+#: .\apps\profiles\views.py:35
+msgid "Profil pracodawcy już istnieje."
+msgstr "Company profile already exists."
+
+#: .\apps\profiles\views.py:83
+msgid "Profil kandydata już istnieje."
+msgstr "Candidate profile already exists."
+
+#: .\apps\profiles\views.py:127 .\apps\profiles\views.py:169
+#: .\apps\profiles\views.py:212 .\apps\profiles\views.py:254
+#: .\apps\profiles\views.py:297 .\apps\profiles\views.py:339
+msgid "Do wykonania tej akcji potrzebny jest profil kandydata."
+msgstr "Candidate profile is needed to perform this action."

@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Imprima&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* GLOBAL STYLES */
+:root {
+  --letter-spacing: 0.25rem;
+  --background-color: rgb(240, 238, 230);
+  --yellow: rgb(207, 139, 11);
+  --user: rgb(39, 25, 49);
+  --font: Imprima, sans-serif;
+  --font-heading: Inter, sans-serif;
+  --dark-yellow: rgb(173, 115, 7);
+  --transition: all 0.3s linear;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Imprima, sans-serif;
+  line-height: 1;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a:visited {
+  text-decoration: none;
+  color: var(--yellow);
+}
+
+a:link {
+  text-decoration: none;
+  color: var(--yellow);
+}
+
+a,
+button {
+  transition: var(--transition) !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-heading);
+}
+
+/* ----------- PAGINATION ----------- */
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  align-self: end;
+}
+
+.paginationBtn {
+  padding: 4px;
+  border: 0;
+  border-radius: 25%;
+  background: black;
+  color: var(--yellow);
+}
+
+.paginationBtn:disabled {
+  background: #cfd5db;
+}

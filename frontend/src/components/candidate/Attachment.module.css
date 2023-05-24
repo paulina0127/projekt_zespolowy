@@ -1,0 +1,38 @@
+.doc-btn {
+  height: 5rem;
+  width: 5rem;
+  background-color: var(--yellow);
+  border-radius: 2rem;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2);
+  border: none;
+}
+
+.doc-h2 {
+  font-weight: 700;
+  color: black;
+  font-size: 2em;
+  text-align: left;
+  margin-left: 6rem;
+  margin-bottom: 2%;
+}
+
+.doc-p {
+  font-size: 15px;
+  color: #939c9b;
+  padding: 0 10px;
+}
+
+.offer-btn {
+  border: 1px solid var(--yellow);
+  width: 150px;
+  padding: 0.7rem;
+  border-radius: 1.5rem;
+  color: black;
+  font-weight: 700;
+  background-color: var(--yellow);
+  transition: all ease 0.2s;
+  margin-left: -80px;
+}
+.offer-btn:hover {
+  color: white;
+}

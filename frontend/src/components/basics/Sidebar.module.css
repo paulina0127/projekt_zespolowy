@@ -1,0 +1,37 @@
+.sidebar {
+  background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(12,12,28,1) 55%, rgba(255,173,0,1) 100%);
+}
+
+.candidateLinks {
+  cursor: pointer;
+}
+
+.active {
+  background: var(--yellow);
+}
+
+.user-img {
+  height: 100px;
+  width: 100px;
+  margin: 20px auto;
+  object-fit: cover;
+}
+
+.hoverEffect:hover {
+  background: var(--yellow);
+  transition: all 1s;
+}
+
+.logout-btn {
+  background-color: var(--yellow);
+  border: none;
+  border-radius: 50rem;
+  line-height: 1.5;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  padding: 0.4rem 1rem 0.4rem 1rem;
+  color: white;
+}
+
+.logout-btn:hover {
+  background-color: var(--dark-yellow);
+}

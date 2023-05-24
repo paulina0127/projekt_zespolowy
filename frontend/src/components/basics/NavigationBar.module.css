@@ -1,0 +1,86 @@
+.nav {
+  background-color: rgba(0, 0, 0, 0.9);
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+  height: 65px;
+}
+
+.link {
+  color: var(--yellow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-right: 20px;
+  font-weight: 700;
+  font-size: 18px;
+  transition: transform 0.6s ease;
+}
+
+.link:hover {
+  color: #ffffff;
+  transform: scale(1.2);
+}
+
+.dropdown-item {
+  padding: 5px 20px;
+  font-weight: 600;
+}
+
+.dropdown-toggle {
+  letter-spacing: 0.03em;
+  transition: transform 0.6s ease;
+}
+
+.dropdown-toggle:hover {
+  transform: scale(1.1);
+}
+
+.dropdown-toggle ::after {
+  display: none;
+}
+
+.login-btn {
+  background-color: var(--yellow);
+  border-color: var(--yellow);
+  border-width: 1px;
+  border-radius: 50rem;
+  line-height: 1.5;
+  font-size: 17px;
+  padding: 0.375rem 0.75rem 0.375rem 0.75rem;
+  color: #fff;
+}
+
+.login-btn:hover {
+  color: #ffffff;
+  background-color: var(--dark-yellow);
+  border-color: var(--dark-yellow);
+}
+
+.login-btn:active {
+  background-color: var(--dark-yellow) !important;
+  border-color: var(--dark-yellow) !important;
+}
+
+.register-btn {
+  background-color: transparent;
+  border-radius: 50rem;
+  line-height: 1.5;
+  font-size: 17px;
+  padding: 0.375rem 0.75rem 0.375rem 0.75rem;
+  color: #fff;
+  border-color: var(--yellow);
+  border-width: 1px;
+}
+
+.register-btn:hover {
+  color: #f7f6f1;
+  background-color: transparent;
+  border-color: var(--dark-yellow);
+}
+
+.register-btn:active {
+  color: #ffffff;
+  background-color: black !important;
+  border-color: var(--yellow) !important;
+}

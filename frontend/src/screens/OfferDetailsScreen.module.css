@@ -1,0 +1,69 @@
+.brandImg {
+  height: 88px;
+  width: 88px;
+  margin-right: 15px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.salary {
+  display: flex;
+  align-items: center;
+  white-space: initial;
+  color: #ff8800;
+  margin-left: auto;
+  padding: 1.5rem;
+  background-color: #ffc10746;
+  border-radius: 10px;
+  margin-right: 0.5rem;
+}
+
+.salary svg {
+  font-size: 40px;
+  margin-right: 1rem;
+  margin-top: 0;
+}
+
+.smallBtn {
+  background-color: var(--yellow);
+  border: none;
+  font-weight: 700;
+  color: black;
+  padding: 8px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 1rem;
+}
+
+.apply-btn {
+  background-color: var(--yellow);
+  border: none;
+  border-radius: 50rem;
+  line-height: 1.5;
+  letter-spacing: 0.1rem;
+  font-size: 18px;
+  font-weight: 700;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  padding: 8px 24px;
+  transition: transform 0.4s ease;
+  color: #fff;
+  margin: 0 48px;
+}
+
+.apply-btn:hover {
+  background-color: var(--dark-yellow);
+  color: #ffffff;
+  transform: scale(1.2);
+}
+
+.apply-btn:disabled {
+  display: none;
+}
+
+.apply-btn svg {
+  width: 4rem;
+  height: 4rem;
+  color: rgb(53, 53, 53);
+}
